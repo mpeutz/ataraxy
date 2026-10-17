@@ -15,7 +15,6 @@ import com.ataraxy.app.R
 import com.ataraxy.app.data.preferences.UserPrefsRepository
 import com.ataraxy.app.data.repository.QuoteRepository
 import com.ataraxy.app.domain.model.NotificationStyle
-import com.ataraxy.app.wear.WearSyncManager
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.flow.firstOrNull
@@ -25,8 +24,7 @@ class DailyQuoteWorker @AssistedInject constructor(
     @Assisted private val context: Context,
     @Assisted params: WorkerParameters,
     private val quoteRepository: QuoteRepository,
-    private val userPrefsRepository: UserPrefsRepository,
-    private val wearSyncManager: WearSyncManager
+    private val userPrefsRepository: UserPrefsRepository
 ) : CoroutineWorker(context, params) {
 
     companion object {
@@ -97,9 +95,6 @@ class DailyQuoteWorker @AssistedInject constructor(
 
         val manager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         manager.notify(NOTIFICATION_ID, notification)
-
-        // Sync today's quote to paired Wear OS app (errors caught internally)
-        wearSyncManager.syncDailyQuote(quote)
 
         return Result.success()
     }

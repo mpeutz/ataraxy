@@ -25,4 +25,3 @@ dependencyResolutionManagement {
 rootProject.name = "Ataraxy"
 include(":app")
 include(":core:domain")
-include(":wear")
