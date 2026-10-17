@@ -34,7 +34,7 @@ interface QuoteDao {
     suspend fun count(): Int
 
     @Query("SELECT COUNT(*) FROM quotes WHERE dayOfYear IS NOT NULL")
-    suspend fun countDailyQuotes(): Int
+    fun observeDailyQuoteCount(): Flow<Int>
 
     @Query("SELECT * FROM quotes WHERE emotionTag = :tag ORDER BY RANDOM() LIMIT 1")
     suspend fun getRandomQuoteByEmotion(tag: String): QuoteEntity?

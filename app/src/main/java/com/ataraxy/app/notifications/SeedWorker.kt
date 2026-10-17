@@ -20,7 +20,7 @@ class SeedWorker @AssistedInject constructor(
 
     override suspend fun doWork(): Result {
         return try {
-            seeder.seedIfEmpty()
+            seeder.seed()
             Result.success()
         } catch (e: Exception) {
             Result.retry()

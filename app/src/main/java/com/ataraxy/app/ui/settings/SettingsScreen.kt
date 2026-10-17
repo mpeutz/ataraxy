@@ -1,9 +1,5 @@
 package com.ataraxy.app.ui.settings
 
-import android.content.ContentValues
-import android.os.Build
-import android.os.Environment
-import android.provider.MediaStore
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -17,7 +13,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -40,7 +35,6 @@ fun SettingsScreen(
     viewModel: SettingsViewModel = hiltViewModel()
 ) {
     val prefs by viewModel.prefs.collectAsStateWithLifecycle()
-    val context = LocalContext.current
 
     var showClearConfirm by remember { mutableStateOf(false) }
     var showDeactivateConfirm by remember { mutableStateOf(false) }
@@ -49,6 +43,17 @@ fun SettingsScreen(
 
     // Which time picker is open: "daily", "morning", "evening", or null
     var timePickerTarget by remember { mutableStateOf<String?>(null) }
+
+    LaunchedEffect(Unit) {
+        viewModel.exportResults.collect { result ->
+            snackbarHostState.showSnackbar(
+                result.fold(
+                    onSuccess = { "Journal exported to Downloads" },
+                    onFailure = { "Export failed: ${it.message}" }
+                )
+            )
+        }
+    }
 
     LaunchedEffect(snackbarMessage) {
         snackbarMessage?.let {
@@ -178,27 +183,7 @@ fun SettingsScreen(
             SettingsRow(
                 title = "Export Personal Reflections",
                 value = "Save to Downloads",
-                onClick = {
-                    viewModel.exportJournal { lines ->
-                        try {
-                            val content = lines.joinToString("\n")
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                                val values = ContentValues().apply {
-                                    put(MediaStore.Downloads.DISPLAY_NAME, "ataraxy_journal.txt")
-                                    put(MediaStore.Downloads.MIME_TYPE, "text/plain")
-                                    put(MediaStore.Downloads.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS)
-                                }
-                                val uri = context.contentResolver.insert(
-                                    MediaStore.Downloads.EXTERNAL_CONTENT_URI, values
-                                )
-                                uri?.let { context.contentResolver.openOutputStream(it)?.use { s -> s.write(content.toByteArray()) } }
-                            }
-                            snackbarMessage = "Journal exported to Downloads"
-                        } catch (e: Exception) {
-                            snackbarMessage = "Export failed: ${e.message}"
-                        }
-                    }
-                }
+                onClick = { viewModel.exportJournal() }
             )
 
             // Clear journal

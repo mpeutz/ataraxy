@@ -2,6 +2,7 @@ package com.ataraxy.app.ui.settings
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ataraxy.app.data.export.JournalExporter
 import com.ataraxy.app.data.preferences.UserPrefsRepository
 import com.ataraxy.app.data.repository.ControlItemRepository
 import com.ataraxy.app.data.repository.JournalRepository
@@ -12,7 +13,10 @@ import com.ataraxy.app.domain.model.NotificationStyle
 import com.ataraxy.app.domain.model.UserPrefs
 import com.ataraxy.app.notifications.NotificationScheduler
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -25,8 +29,12 @@ class SettingsViewModel @Inject constructor(
     private val journalRepository: JournalRepository,
     private val notificationScheduler: NotificationScheduler,
     private val controlItemRepository: ControlItemRepository,
-    private val sosRepository: SosRepository
+    private val sosRepository: SosRepository,
+    private val journalExporter: JournalExporter
 ) : ViewModel() {
+
+    private val _exportResults = Channel<Result<Unit>>(Channel.BUFFERED)
+    val exportResults: Flow<Result<Unit>> = _exportResults.receiveAsFlow()
 
     val prefs: StateFlow<UserPrefs> = userPrefsRepository.userPrefs
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), UserPrefs())
@@ -102,20 +110,7 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
-    fun exportJournal(onExport: (List<String>) -> Unit) {
-        viewModelScope.launch {
-            journalRepository.getAllEntries().collect { entries ->
-                val lines = entries.map { entry ->
-                    buildString {
-                        appendLine("Date: ${entry.createdAt}")
-                        if (entry.promptText.isNotBlank()) appendLine("Prompt: ${entry.promptText}")
-                        appendLine()
-                        appendLine(entry.content)
-                        appendLine("---")
-                    }
-                }
-                onExport(lines)
-            }
-        }
+    fun exportJournal() {
+        viewModelScope.launch { _exportResults.send(journalExporter.exportToDownloads()) }
     }
 }

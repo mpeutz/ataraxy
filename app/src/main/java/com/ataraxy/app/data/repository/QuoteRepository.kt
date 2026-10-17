@@ -8,15 +8,18 @@ import com.ataraxy.app.data.local.entity.QuoteEntity
 import com.ataraxy.app.domain.model.Quote
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
-import kotlinx.coroutines.flow.emitAll
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flatMapLatest
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import java.time.LocalDate
 import javax.inject.Inject
 import javax.inject.Singleton
+
+/** Maps a day of the year onto the 1-based rotation of [totalDailyQuotes] daily quotes. */
+internal fun dailyQuoteSlot(dayOfYear: Int, totalDailyQuotes: Int): Int =
+    ((dayOfYear - 1) % totalDailyQuotes) + 1
 
 @Singleton
 class QuoteRepository @Inject constructor(
@@ -24,20 +27,16 @@ class QuoteRepository @Inject constructor(
     private val authorDao: AuthorDao,
     private val bookmarkDao: BookmarkDao
 ) {
-    fun getDailyQuote(): Flow<Quote?> = flow {
-        val totalDailyQuotes = quoteDao.countDailyQuotes()
-        val dayOfYear = if (totalDailyQuotes > 0) {
-            ((LocalDate.now().dayOfYear - 1) % totalDailyQuotes) + 1
-        } else {
-            LocalDate.now().dayOfYear
-        }
-        emitAll(quoteDao.getQuoteForDay(dayOfYear).flatMapLatest { entity ->
-            if (entity == null) flowOf(null)
-            else authorDao.getAuthorById(entity.authorId).map { author ->
-                entity.toDomain(author?.name ?: entity.authorId)
+    fun getDailyQuote(today: LocalDate = LocalDate.now()): Flow<Quote?> =
+        quoteDao.observeDailyQuoteCount().distinctUntilChanged().flatMapLatest { total ->
+            if (total == 0) flowOf(null)
+            else quoteDao.getQuoteForDay(dailyQuoteSlot(today.dayOfYear, total)).flatMapLatest { entity ->
+                if (entity == null) flowOf(null)
+                else authorDao.getAuthorById(entity.authorId).map { author ->
+                    entity.toDomain(author?.name ?: entity.authorId)
+                }
             }
-        })
-    }
+        }
 
     fun getAllQuotes(): Flow<List<Quote>> =
         combine(quoteDao.getAllQuotes(), authorDao.getAllAuthors()) { quotes, authors ->
