@@ -28,8 +28,6 @@ jobs:
       - uses: gradle/actions/setup-gradle@v6
 
       # Debug only: release signing reads KEYSTORE_* from local.properties, which CI doesn't have.
-      # :wear:lintDebug is skipped until the missing com.google.android.wearable.standalone
-      # meta-data error is fixed.
       - name: Build, test, and lint
         run: ./gradlew assembleDebug testDebugUnitTest :app:lintDebug
 
