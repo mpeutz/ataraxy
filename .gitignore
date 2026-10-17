@@ -31,3 +31,6 @@ Thumbs.db
 marketing/
 plan/
 tools/
+
+# Local progress dashboard
+.progress/

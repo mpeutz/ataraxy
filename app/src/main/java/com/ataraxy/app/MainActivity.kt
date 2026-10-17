@@ -6,8 +6,11 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.rememberUpdatedState
 import com.ataraxy.app.data.preferences.UserPrefsRepository
 import com.ataraxy.app.notifications.NotificationScheduler
 import com.ataraxy.app.notifications.SeedWorker
@@ -17,6 +20,7 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 import androidx.compose.runtime.Composable
 import com.ataraxy.app.domain.model.AppTheme
@@ -55,24 +59,32 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+/**
+ * Once onboarding is done: asks for notification permission (API 33+) and makes sure reminders are
+ * scheduled. Keyed on onboarding only, so later preference changes never re-prompt or reschedule.
+ */
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 private fun NotificationPermissionEffect(scheduler: NotificationScheduler, prefs: UserPrefs?) {
+    val currentPrefs by rememberUpdatedState(prefs)
+    val onboardingComplete = prefs?.onboardingComplete == true
+
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        val scope = rememberCoroutineScope()
         val permState = rememberPermissionState(android.Manifest.permission.POST_NOTIFICATIONS) { granted ->
-            if (granted) prefs?.let { scheduler.scheduleAll(it) } ?: scheduler.scheduleDefault()
+            val latest = currentPrefs
+            if (granted && latest != null) scope.launch { scheduler.ensureScheduled(latest) }
         }
-        androidx.compose.runtime.LaunchedEffect(prefs) {
-            if (prefs == null) return@LaunchedEffect
-            if (!permState.status.isGranted) {
-                permState.launchPermissionRequest()
-            } else {
-                scheduler.scheduleAll(prefs)
-            }
+        LaunchedEffect(onboardingComplete) {
+            val latest = currentPrefs
+            if (!onboardingComplete || latest == null) return@LaunchedEffect
+            if (permState.status.isGranted) scheduler.ensureScheduled(latest)
+            else permState.launchPermissionRequest()
         }
     } else {
-        androidx.compose.runtime.LaunchedEffect(prefs) {
-            if (prefs != null) scheduler.scheduleAll(prefs)
+        LaunchedEffect(onboardingComplete) {
+            val latest = currentPrefs
+            if (onboardingComplete && latest != null) scheduler.ensureScheduled(latest)
         }
     }
 }
