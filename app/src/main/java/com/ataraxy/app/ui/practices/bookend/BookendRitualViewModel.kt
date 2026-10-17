@@ -1,5 +1,6 @@
 package com.ataraxy.app.ui.practices.bookend
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ataraxy.app.data.preferences.UserPrefsRepository
@@ -30,6 +31,7 @@ data class BookendUiState(
 
 @HiltViewModel
 class BookendRitualViewModel @Inject constructor(
+    private val savedStateHandle: SavedStateHandle,
     private val journalRepository: JournalRepository,
     private val userPrefsRepository: UserPrefsRepository
 ) : ViewModel() {
@@ -43,6 +45,8 @@ class BookendRitualViewModel @Inject constructor(
             "What did I do poorly?",
             "What will I do differently tomorrow?"
         )
+        private const val SESSION_KEY = "session"
+        private const val ANSWERS_KEY = "answers"
     }
 
     private val _uiState = MutableStateFlow(BookendUiState())
@@ -56,14 +60,25 @@ class BookendRitualViewModel @Inject constructor(
             else -> RitualSession.NEUTRAL
         }
 
+        val restoredSession = savedStateHandle.get<String>(SESSION_KEY)?.let(RitualSession::valueOf)
+        val restoredAnswers = savedStateHandle.get<HashMap<String, String>>(ANSWERS_KEY).orEmpty()
+        _uiState.update { it.copy(session = restoredSession ?: detectedSession, answers = restoredAnswers) }
+
+        // Mirrors the in-progress ritual into saved state so it survives process death.
         viewModelScope.launch {
-            val prefs = userPrefsRepository.userPrefs
-            prefs.collect { p ->
+            _uiState.collect { state ->
+                savedStateHandle[SESSION_KEY] = state.session.name
+                savedStateHandle[ANSWERS_KEY] = HashMap(state.answers)
+            }
+        }
+
+        // Keeps streaks and completion current without touching the session the user picked.
+        viewModelScope.launch {
+            userPrefsRepository.userPrefs.collect { p ->
                 val hasCompletedMorning = journalRepository.hasCompletedRitualToday("MORNING")
                 val hasCompletedEvening = journalRepository.hasCompletedRitualToday("EVENING")
                 _uiState.update {
                     it.copy(
-                        session = detectedSession,
                         morningStreak = p.morningRitualStreak,
                         eveningStreak = p.eveningRitualStreak,
                         hasCompletedMorningToday = hasCompletedMorning,
@@ -71,7 +86,6 @@ class BookendRitualViewModel @Inject constructor(
                         isLoading = false
                     )
                 }
-                return@collect
             }
         }
     }

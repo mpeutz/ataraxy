@@ -11,6 +11,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ChevronRight
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontStyle
@@ -36,13 +37,13 @@ fun SettingsScreen(
 ) {
     val prefs by viewModel.prefs.collectAsStateWithLifecycle()
 
-    var showClearConfirm by remember { mutableStateOf(false) }
-    var showDeactivateConfirm by remember { mutableStateOf(false) }
+    var showClearConfirm by rememberSaveable { mutableStateOf(false) }
+    var showDeactivateConfirm by rememberSaveable { mutableStateOf(false) }
     var snackbarMessage by remember { mutableStateOf<String?>(null) }
     val snackbarHostState = remember { SnackbarHostState() }
 
     // Which time picker is open: "daily", "morning", "evening", or null
-    var timePickerTarget by remember { mutableStateOf<String?>(null) }
+    var timePickerTarget by rememberSaveable { mutableStateOf<String?>(null) }
 
     LaunchedEffect(Unit) {
         viewModel.exportResults.collect { result ->
@@ -102,7 +103,7 @@ fun SettingsScreen(
             // Theme toggle
             SettingsRow(
                 title = "Theme",
-                value = prefs.theme.name,
+                value = prefs.theme.displayName(),
                 onClick = {}
             ) {
                 ThemeToggle(
@@ -405,14 +406,20 @@ private fun SettingsRow(
     Divider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f), thickness = 0.5.dp)
 }
 
+private fun AppTheme.displayName(): String = when (this) {
+    AppTheme.SYSTEM -> "Follow system"
+    AppTheme.LIGHT -> "Light"
+    AppTheme.DARK -> "Dark"
+}
+
 @Composable
-private fun ThemeToggle(current: AppTheme, onSelect: (AppTheme) -> Unit) {
+internal fun ThemeToggle(current: AppTheme, onSelect: (AppTheme) -> Unit) {
     Row(
         modifier = Modifier
             .background(MaterialTheme.colorScheme.surfaceVariant, RoundedCornerShape(50.dp))
             .padding(2.dp)
     ) {
-        listOf(AppTheme.LIGHT to "LIGHT", AppTheme.DARK to "DARK").forEach { (theme, label) ->
+        listOf(AppTheme.SYSTEM to "SYSTEM", AppTheme.LIGHT to "LIGHT", AppTheme.DARK to "DARK").forEach { (theme, label) ->
             val selected = current == theme
             Box(
                 modifier = Modifier

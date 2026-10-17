@@ -135,6 +135,10 @@ private val BaseAtaraxyTypography = Typography(
 fun ataraxyTypography(contentTextSize: ContentTextSize): Typography {
     val scale = contentTextSize.scaleFactor
     return BaseAtaraxyTypography.copy(
+        // Quotes render in the display styles, so they must follow the content size too.
+        displayLarge = BaseAtaraxyTypography.displayLarge.scaled(scale),
+        displayMedium = BaseAtaraxyTypography.displayMedium.scaled(scale),
+        displaySmall = BaseAtaraxyTypography.displaySmall.scaled(scale),
         titleLarge = BaseAtaraxyTypography.titleLarge.scaled(scale),
         titleMedium = BaseAtaraxyTypography.titleMedium.scaled(scale),
         titleSmall = BaseAtaraxyTypography.titleSmall.scaled(scale),

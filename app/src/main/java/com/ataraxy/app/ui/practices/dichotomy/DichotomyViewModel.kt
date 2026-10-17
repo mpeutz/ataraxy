@@ -1,5 +1,6 @@
 package com.ataraxy.app.ui.practices.dichotomy
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ataraxy.app.data.repository.ControlItemRepository
@@ -14,6 +15,10 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 import javax.inject.Inject
+
+private const val INPUT_KEY = "inputText"
+private const val ACTION_ITEM_KEY = "actionStepItemId"
+private const val ACTION_TEXT_KEY = "actionStepText"
 
 data class DichotomyUiState(
     val inputText: String = "",
@@ -31,14 +36,29 @@ data class DichotomyUiState(
 
 @HiltViewModel
 class DichotomyViewModel @Inject constructor(
+    private val savedStateHandle: SavedStateHandle,
     private val controlItemRepository: ControlItemRepository,
     private val quoteRepository: QuoteRepository
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(DichotomyUiState())
+    private val _uiState = MutableStateFlow(
+        DichotomyUiState(
+            inputText = savedStateHandle[INPUT_KEY] ?: "",
+            actionStepPromptItemId = savedStateHandle[ACTION_ITEM_KEY],
+            actionStepText = savedStateHandle[ACTION_TEXT_KEY] ?: ""
+        )
+    )
     val uiState: StateFlow<DichotomyUiState> = _uiState
 
     init {
+        // Mirrors unsaved text into saved state so it survives process death.
+        viewModelScope.launch {
+            _uiState.collect { state ->
+                savedStateHandle[INPUT_KEY] = state.inputText
+                savedStateHandle[ACTION_ITEM_KEY] = state.actionStepPromptItemId
+                savedStateHandle[ACTION_TEXT_KEY] = state.actionStepText
+            }
+        }
         viewModelScope.launch {
             controlItemRepository.getActiveItems().collect { items ->
                 _uiState.update { it.copy(pendingItems = items) }

@@ -27,35 +27,19 @@ import com.ataraxy.app.ui.theme.Jost
 
 @Composable
 fun PracticeScreen(
-    quoteId: String?,
-    entryId: Long? = null,
     onBack: (() -> Unit)? = null,
     onNavigateToInsight: ((String) -> Unit)? = null,
     viewModel: PracticeViewModel = hiltViewModel()
 ) {
-    LaunchedEffect(quoteId) { viewModel.setQuoteId(quoteId) }
-    LaunchedEffect(entryId) { viewModel.setEntryId(entryId) }
-
     val quote by viewModel.quote.collectAsStateWithLifecycle()
-    val editingContent by viewModel.editingContent.collectAsStateWithLifecycle()
     val saveSuccess by viewModel.saveSuccess.collectAsStateWithLifecycle()
 
-    var inputText by remember { mutableStateOf("") }
-
-    LaunchedEffect(editingContent) {
-        if (editingContent != null && inputText.isEmpty()) {
-            inputText = editingContent!!
-        }
-    }
+    val inputText by viewModel.draft.collectAsStateWithLifecycle()
 
     LaunchedEffect(saveSuccess) {
         if (saveSuccess) {
             viewModel.clearSaveSuccess()
-            if (entryId != null) {
-                onBack?.invoke()
-            } else {
-                inputText = ""
-            }
+            if (viewModel.isEditing) onBack?.invoke()
         }
     }
 
@@ -135,7 +119,7 @@ fun PracticeScreen(
                     Spacer(Modifier.height(20.dp))
                     BasicTextField(
                         value = inputText,
-                        onValueChange = { inputText = it },
+                        onValueChange = viewModel::updateDraft,
                         modifier = Modifier
                             .fillMaxWidth()
                             .heightIn(min = 100.dp),
@@ -164,7 +148,7 @@ fun PracticeScreen(
                     Divider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
                     Spacer(Modifier.height(16.dp))
                     Button(
-                        onClick = { if (inputText.isNotBlank()) viewModel.saveEntry(inputText) },
+                        onClick = viewModel::saveEntry,
                         enabled = inputText.isNotBlank(),
                         modifier = Modifier.align(Alignment.End),
                         colors = ButtonDefaults.buttonColors(
