@@ -1,0 +1,36 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+    <!-- Hourglass outer frame -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="@color/vector_icon_color"
+        android:strokeWidth="1.8"
+        android:pathData="M12,8 L36,8 L36,10 L26,24 L36,38 L36,40 L12,40 L12,38 L22,24 L12,10 Z" />
+    <!-- Top cap -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="@color/vector_icon_color"
+        android:strokeWidth="1.8"
+        android:pathData="M12,8 L36,8" />
+    <!-- Bottom cap -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="@color/vector_icon_color"
+        android:strokeWidth="1.8"
+        android:pathData="M12,40 L36,40" />
+    <!-- Sand in lower chamber -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="@color/vector_icon_color"
+        android:strokeWidth="1.4"
+        android:pathData="M18,34 Q24,31 30,34 L30,38 L18,38 Z" />
+    <!-- Sand trickle -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="@color/vector_icon_color"
+        android:strokeWidth="1.2"
+        android:pathData="M24,24 L24,30" />
+</vector>

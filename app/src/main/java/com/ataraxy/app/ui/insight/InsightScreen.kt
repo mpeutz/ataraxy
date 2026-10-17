@@ -1,0 +1,466 @@
+package com.ataraxy.app.ui.insight
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.ArrowBack
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.ataraxy.app.data.seed.InsightData
+import com.ataraxy.app.domain.model.InsightSection
+import com.ataraxy.app.domain.model.InsightTable
+import com.ataraxy.app.domain.model.Quote
+import com.ataraxy.app.ui.theme.CormorantGaramond
+import com.ataraxy.app.ui.theme.Jost
+
+@Composable
+fun InsightScreen(
+    quoteId: String,
+    onBack: () -> Unit,
+    onNavigateToAuthor: (String) -> Unit,
+    viewModel: InsightViewModel = hiltViewModel()
+) {
+    LaunchedEffect(quoteId) {
+        viewModel.setQuoteId(quoteId)
+    }
+
+    val quote by viewModel.quote.collectAsStateWithLifecycle()
+    val insight = InsightData.insights[quoteId]
+
+    LazyColumn(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)
+    ) {
+        // Top bar — matches VirtueDetailScreen pattern
+        item {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 12.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                IconButton(onClick = onBack) {
+                    Icon(
+                        Icons.Outlined.ArrowBack,
+                        contentDescription = "Back",
+                        tint = MaterialTheme.colorScheme.onBackground
+                    )
+                }
+                Spacer(Modifier.weight(1f))
+                Text(
+                    text = "INSIGHT",
+                    style = MaterialTheme.typography.labelMedium.copy(
+                        fontFamily = Jost,
+                        letterSpacing = 3.sp
+                    ),
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                )
+                Spacer(Modifier.weight(1f))
+                // Balance the IconButton on the left
+                Spacer(Modifier.size(48.dp))
+            }
+            Divider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
+        }
+
+        // Quote header — shows which quote this insight is for
+        if (quote != null) {
+            item {
+                QuoteHeader(
+                    quote = quote!!,
+                    onAuthorClick = { onNavigateToAuthor(quote!!.authorId) }
+                )
+                Divider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
+            }
+        }
+
+        if (insight == null) {
+            item {
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(48.dp),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = "No insight available for this quote.",
+                        style = MaterialTheme.typography.bodyMedium.copy(fontFamily = Jost),
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        textAlign = TextAlign.Center
+                    )
+                }
+            }
+            return@LazyColumn
+        }
+
+        // Intro
+        item {
+            Spacer(Modifier.height(28.dp))
+            Text(
+                text = insight.intro,
+                style = MaterialTheme.typography.bodyLarge.copy(
+                    fontFamily = Jost,
+                    lineHeight = 26.sp
+                ),
+                color = MaterialTheme.colorScheme.onBackground,
+                modifier = Modifier.padding(horizontal = 24.dp)
+            )
+            Spacer(Modifier.height(32.dp))
+        }
+
+        // Breakdown header
+        item {
+            Text(
+                text = "A BREAKDOWN OF THE LAYERS",
+                style = MaterialTheme.typography.labelMedium.copy(
+                    fontFamily = Jost,
+                    letterSpacing = 3.sp
+                ),
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier.padding(horizontal = 24.dp)
+            )
+            Spacer(Modifier.height(24.dp))
+        }
+
+        // Insight sections
+        items(insight.sections) { section ->
+            InsightSectionBlock(section = section)
+            Spacer(Modifier.height(28.dp))
+        }
+
+        // Comparison table
+        insight.comparisonTable?.let { table ->
+            item {
+                Spacer(Modifier.height(4.dp))
+                InsightTableBlock(table = table)
+                Spacer(Modifier.height(32.dp))
+            }
+        }
+
+        // Modern Application
+        insight.modernApplication?.let { text ->
+            item {
+                Text(
+                    text = "MODERN APPLICATION",
+                    style = MaterialTheme.typography.labelMedium.copy(
+                        fontFamily = Jost,
+                        letterSpacing = 3.sp
+                    ),
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.padding(horizontal = 24.dp)
+                )
+                Spacer(Modifier.height(12.dp))
+                Text(
+                    text = text,
+                    style = MaterialTheme.typography.bodyLarge.copy(
+                        fontFamily = Jost,
+                        lineHeight = 26.sp
+                    ),
+                    color = MaterialTheme.colorScheme.onBackground,
+                    modifier = Modifier.padding(horizontal = 24.dp)
+                )
+                Spacer(Modifier.height(32.dp))
+            }
+        }
+
+        // Closing blockquote
+        insight.closing?.let { text ->
+            item {
+                ClosingBlock(text = text)
+                Spacer(Modifier.height(32.dp))
+            }
+        }
+
+        // Reflection prompt
+        insight.reflectionPrompt?.let { prompt ->
+            item {
+                Text(
+                    text = prompt,
+                    style = MaterialTheme.typography.bodyMedium.copy(
+                        fontFamily = Jost,
+                        fontStyle = FontStyle.Italic,
+                        lineHeight = 24.sp
+                    ),
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier.padding(horizontal = 24.dp)
+                )
+                Spacer(Modifier.height(36.dp))
+            }
+        }
+
+        // About this author link
+        if (quote != null) {
+            item {
+                Divider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
+                Spacer(Modifier.height(8.dp))
+                Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+                    TextButton(onClick = { onNavigateToAuthor(quote!!.authorId) }) {
+                        Text(
+                            text = "About this author",
+                            style = MaterialTheme.typography.bodySmall.copy(
+                                fontFamily = CormorantGaramond,
+                                fontStyle = FontStyle.Italic,
+                                fontSize = 15.sp
+                            ),
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+                }
+                Spacer(Modifier.height(32.dp))
+            }
+        }
+    }
+}
+
+@Composable
+private fun QuoteHeader(quote: Quote, onAuthorClick: () -> Unit) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 24.dp, vertical = 28.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            text = "\u201C${quote.text}\u201D",
+            style = MaterialTheme.typography.displaySmall.copy(
+                fontFamily = CormorantGaramond,
+                fontStyle = FontStyle.Italic,
+                lineHeight = 38.sp
+            ),
+            color = MaterialTheme.colorScheme.onBackground,
+            textAlign = TextAlign.Center
+        )
+        Spacer(Modifier.height(12.dp))
+        Text(
+            text = "— ${quote.authorName.uppercase()}  ·  ${quote.source.uppercase()}",
+            style = MaterialTheme.typography.labelSmall.copy(
+                fontFamily = Jost,
+                letterSpacing = 2.sp
+            ),
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.clickable { onAuthorClick() }
+        )
+    }
+}
+
+@Composable
+private fun InsightSectionBlock(section: InsightSection) {
+    Column(modifier = Modifier.padding(horizontal = 24.dp)) {
+        Text(
+            text = "${section.number}. ${section.title}",
+            style = MaterialTheme.typography.headlineSmall.copy(
+                fontFamily = CormorantGaramond
+            ),
+            color = MaterialTheme.colorScheme.onBackground
+        )
+        Spacer(Modifier.height(12.dp))
+
+        // Blockquote with left accent bar
+        Row(modifier = Modifier.fillMaxWidth()) {
+            Box(
+                modifier = Modifier
+                    .width(3.dp)
+                    .height(IntrinsicSize.Max)
+                    .background(
+                        MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.4f),
+                        RoundedCornerShape(2.dp)
+                    )
+            )
+            Spacer(Modifier.width(12.dp))
+            Text(
+                text = "\u201C${section.blockquote}\u201D",
+                style = MaterialTheme.typography.bodyLarge.copy(
+                    fontFamily = CormorantGaramond,
+                    fontStyle = FontStyle.Italic,
+                    lineHeight = 26.sp
+                ),
+                color = MaterialTheme.colorScheme.onBackground
+            )
+        }
+        Spacer(Modifier.height(12.dp))
+
+        Text(
+            text = section.body,
+            style = MaterialTheme.typography.bodyMedium.copy(
+                fontFamily = Jost,
+                lineHeight = 24.sp
+            ),
+            color = MaterialTheme.colorScheme.onBackground
+        )
+
+        if (section.bullets.isNotEmpty()) {
+            Spacer(Modifier.height(12.dp))
+            section.bullets.forEach { bullet ->
+                Row(
+                    modifier = Modifier.padding(vertical = 8.dp),
+                    verticalAlignment = Alignment.Top
+                ) {
+                    Text(
+                        text = "·",
+                        style = MaterialTheme.typography.bodyMedium.copy(fontFamily = Jost),
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.padding(top = 1.dp, end = 12.dp)
+                    )
+                    Column(modifier = Modifier.weight(1f)) {
+                        Text(
+                            text = bullet.label,
+                            style = MaterialTheme.typography.bodyMedium.copy(
+                                fontFamily = Jost,
+                                fontWeight = FontWeight.Medium
+                            ),
+                            color = MaterialTheme.colorScheme.onBackground
+                        )
+                        Spacer(Modifier.height(4.dp))
+                        Text(
+                            text = bullet.text,
+                            style = MaterialTheme.typography.bodyMedium.copy(
+                                fontFamily = Jost,
+                                lineHeight = 22.sp
+                            ),
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun InsightTableBlock(table: InsightTable) {
+    Column(
+        modifier = Modifier
+            .padding(horizontal = 24.dp)
+            .fillMaxWidth()
+            .border(
+                width = 0.5.dp,
+                color = MaterialTheme.colorScheme.outlineVariant,
+                shape = RoundedCornerShape(6.dp)
+            )
+    ) {
+        // Header row
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(
+                    MaterialTheme.colorScheme.surfaceVariant,
+                    RoundedCornerShape(topStart = 6.dp, topEnd = 6.dp)
+                )
+        ) {
+            Text(
+                text = table.leftHeader,
+                style = MaterialTheme.typography.labelSmall.copy(
+                    fontFamily = Jost,
+                    letterSpacing = 1.sp,
+                    fontWeight = FontWeight.Medium
+                ),
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(horizontal = 14.dp, vertical = 10.dp)
+            )
+            Divider(
+                modifier = Modifier
+                    .width(0.5.dp)
+                    .fillMaxHeight(),
+                color = MaterialTheme.colorScheme.outlineVariant
+            )
+            Text(
+                text = table.rightHeader,
+                style = MaterialTheme.typography.labelSmall.copy(
+                    fontFamily = Jost,
+                    letterSpacing = 1.sp,
+                    fontWeight = FontWeight.Medium
+                ),
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(horizontal = 14.dp, vertical = 10.dp)
+            )
+        }
+        Divider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
+
+        table.rows.forEachIndexed { index, (left, right) ->
+            Row(modifier = Modifier.fillMaxWidth()) {
+                Text(
+                    text = left,
+                    style = MaterialTheme.typography.bodySmall.copy(
+                        fontFamily = Jost,
+                        lineHeight = 20.sp
+                    ),
+                    color = MaterialTheme.colorScheme.onBackground,
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(horizontal = 14.dp, vertical = 10.dp)
+                )
+                Divider(
+                    modifier = Modifier
+                        .width(0.5.dp)
+                        .fillMaxHeight(),
+                    color = MaterialTheme.colorScheme.outlineVariant
+                )
+                Text(
+                    text = right,
+                    style = MaterialTheme.typography.bodySmall.copy(
+                        fontFamily = Jost,
+                        lineHeight = 20.sp
+                    ),
+                    color = MaterialTheme.colorScheme.onBackground,
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(horizontal = 14.dp, vertical = 10.dp)
+                )
+            }
+            if (index < table.rows.lastIndex) {
+                Divider(
+                    color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f),
+                    thickness = 0.5.dp
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun ClosingBlock(text: String) {
+    Row(
+        modifier = Modifier
+            .padding(horizontal = 24.dp)
+            .fillMaxWidth()
+    ) {
+        Box(
+            modifier = Modifier
+                .width(3.dp)
+                .height(IntrinsicSize.Max)
+                .background(
+                    MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f),
+                    RoundedCornerShape(2.dp)
+                )
+        )
+        Spacer(Modifier.width(16.dp))
+        Text(
+            text = text,
+            style = MaterialTheme.typography.bodyLarge.copy(
+                fontFamily = CormorantGaramond,
+                fontStyle = FontStyle.Italic,
+                lineHeight = 28.sp
+            ),
+            color = MaterialTheme.colorScheme.onBackground
+        )
+    }
+}

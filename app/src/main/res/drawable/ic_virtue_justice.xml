@@ -1,0 +1,57 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp"
+    android:height="48dp"
+    android:viewportWidth="48"
+    android:viewportHeight="48">
+    <!-- Scales beam -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="@color/vector_icon_color"
+        android:strokeWidth="1.8"
+        android:pathData="M12,20 L36,20" />
+    <!-- Center post -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="@color/vector_icon_color"
+        android:strokeWidth="1.8"
+        android:pathData="M24,20 L24,40" />
+    <!-- Base -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="@color/vector_icon_color"
+        android:strokeWidth="1.8"
+        android:pathData="M17,40 L31,40" />
+    <!-- Left pan string -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="@color/vector_icon_color"
+        android:strokeWidth="1.5"
+        android:pathData="M12,20 L9,30 M12,20 L15,30" />
+    <!-- Left pan -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="@color/vector_icon_color"
+        android:strokeWidth="1.8"
+        android:pathData="M8,30 Q12,33 16,30" />
+    <!-- Right pan string -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="@color/vector_icon_color"
+        android:strokeWidth="1.5"
+        android:pathData="M36,20 L33,30 M36,20 L39,30" />
+    <!-- Right pan -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="@color/vector_icon_color"
+        android:strokeWidth="1.8"
+        android:pathData="M32,30 Q36,33 40,30" />
+    <!-- Top finial -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="@color/vector_icon_color"
+        android:strokeWidth="1.5"
+        android:pathData="M24,20 L24,8" />
+    <path
+        android:fillColor="@color/vector_icon_color"
+        android:pathData="M24,8 A1.5,1.5 0 1,0 24.01,8" />
+</vector>
