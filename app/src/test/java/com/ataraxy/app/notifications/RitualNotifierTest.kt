@@ -77,6 +77,7 @@ class RitualNotifierTest {
         val notification = shadowOf(manager).getNotification(RitualType.MORNING.notificationId)
         val intent = shadowOf(notification.contentIntent).savedIntent
         assertEquals("ataraxy://bookend", intent.dataString)
+        assertEquals(Intent.ACTION_VIEW, intent.action)
         assertTrue(intent.flags and Intent.FLAG_ACTIVITY_SINGLE_TOP != 0)
         assertEquals(0, intent.flags and Intent.FLAG_ACTIVITY_CLEAR_TASK)
     }
