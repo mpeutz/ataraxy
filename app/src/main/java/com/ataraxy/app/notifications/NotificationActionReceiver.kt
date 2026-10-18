@@ -50,12 +50,12 @@ class NotificationActionReceiver : BroadcastReceiver() {
             }
 
             ACTION_SNOOZE_MORNING -> {
-                SnoozeRitualWorker.enqueue(context, "morning", 30)
+                SnoozeRitualWorker.enqueue(context, RitualType.MORNING)
                 dismiss()
             }
 
             ACTION_SNOOZE_EVENING -> {
-                SnoozeRitualWorker.enqueue(context, "evening", 60)
+                SnoozeRitualWorker.enqueue(context, RitualType.EVENING)
                 dismiss()
             }
         }

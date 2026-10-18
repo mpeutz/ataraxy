@@ -10,7 +10,6 @@ import androidx.core.app.NotificationCompat
 import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
-import com.ataraxy.app.MainActivity
 import com.ataraxy.app.R
 import com.ataraxy.app.data.preferences.UserPrefsRepository
 import com.ataraxy.app.data.repository.QuoteRepository
@@ -51,10 +50,7 @@ class DailyQuoteWorker @AssistedInject constructor(
             }
         }
 
-        val intent = Intent(context, MainActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            data = Uri.parse("ataraxy://practice/${quote.id}")
-        }
+        val intent = openAppIntent(context, Uri.parse("ataraxy://practice/${quote.id}"))
         val pendingIntent = PendingIntent.getActivity(
             context, 0, intent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
@@ -74,10 +70,7 @@ class DailyQuoteWorker @AssistedInject constructor(
         // Reflect action — opens the practice screen for this quote
         val reflectIntent = PendingIntent.getActivity(
             context, NOTIFICATION_ID + 2,
-            Intent(context, MainActivity::class.java).apply {
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                data = Uri.parse("ataraxy://practice/${quote.id}")
-            },
+            openAppIntent(context, Uri.parse("ataraxy://practice/${quote.id}")),
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 

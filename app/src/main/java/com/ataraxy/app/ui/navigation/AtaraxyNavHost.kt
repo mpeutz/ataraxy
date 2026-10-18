@@ -1,5 +1,9 @@
 package com.ataraxy.app.ui.navigation
 
+import android.content.Intent
+import android.net.Uri
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.LocalActivity
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -10,10 +14,16 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
+import androidx.core.util.Consumer
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavBackStackEntry
+import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -57,6 +67,8 @@ fun AtaraxyNavHost() {
 
     val startDestination = if (onboardingComplete == true) Screen.Home.route else Screen.Onboarding.route
 
+    NewIntentDeepLinks(navController, enabled = onboardingComplete == true)
+
     Scaffold(
         bottomBar = {
             if (showBottomBar) {
@@ -75,170 +87,214 @@ fun AtaraxyNavHost() {
             popEnterTransition = { fadeIn(tween(300)) },
             popExitTransition = { fadeOut(tween(300)) }
         ) {
-            composable(Screen.Home.route) {
-                HomeScreen(
-                    onNavigateToPractice = { quoteId ->
-                        navController.navigate(Screen.Practice.BASE + if (quoteId != null) "?quoteId=$quoteId" else "")
-                    },
-                    onNavigateToAuthor = { authorId -> navController.navigate("author/$authorId") }
-                )
-            }
-
-            composable(
-                route = Screen.Practice.ROUTE,
-                arguments = listOf(
-                    navArgument("quoteId") {
-                        type = NavType.StringType
-                        nullable = true
-                        defaultValue = null
-                    }
-                ),
-                deepLinks = listOf(
-                    navDeepLink { uriPattern = "ataraxy://practice/{quoteId}" }
-                )
-            ) {
-                PracticeScreen(
-                    onBack = { navController.popBackStack() },
-                    onNavigateToInsight = { quoteId -> navController.navigate("insight/$quoteId") }
-                )
-            }
-
-            // Also allow plain "practice" without quoteId
-            composable(Screen.Practice.BASE) {
-                PracticeScreen(
-                    onBack = { navController.popBackStack() },
-                    onNavigateToInsight = { quoteId -> navController.navigate("insight/$quoteId") }
-                )
-            }
-
-            composable(Screen.Archive.route) {
-                ArchiveScreen(
-                    onNavigateToPractice = { quoteId ->
-                        navController.navigate("${Screen.Practice.BASE}?quoteId=$quoteId")
-                    },
-                    onNavigateToVirtueDetail = { virtueId ->
-                        navController.navigate("virtue/$virtueId")
-                    },
-                    onNavigateToInsight = { quoteId ->
-                        navController.navigate("insight/$quoteId")
-                    },
-                    onNavigateToAuthor = { authorId -> navController.navigate("author/$authorId") }
-                )
-            }
-
-            composable(
-                route = Screen.Insight.ROUTE,
-                arguments = listOf(navArgument("quoteId") { type = NavType.StringType })
-            ) { backStackEntry ->
-                InsightScreen(
-                    quoteId = backStackEntry.arguments?.getString("quoteId") ?: "",
-                    onBack = { navController.popBackStack() },
-                    onNavigateToAuthor = { authorId -> navController.navigate("author/$authorId") }
-                )
-            }
-
-            composable(
-                route = Screen.VirtueDetail.ROUTE,
-                arguments = listOf(navArgument("virtueId") { type = NavType.StringType })
-            ) { backStackEntry ->
-                VirtueDetailScreen(
-                    virtueId = backStackEntry.arguments?.getString("virtueId") ?: "",
-                    onNavigateToPractice = { quoteId ->
-                        navController.navigate("${Screen.Practice.BASE}?quoteId=$quoteId")
-                    },
-                    onBack = { navController.popBackStack() }
-                )
-            }
-
-            composable(Screen.Settings.route) {
-                SettingsScreen(
-                    onNavigateToAbout = { navController.navigate(Screen.About.route) }
-                )
-            }
-
-            composable(Screen.About.route) {
-                AboutScreen(onBack = { navController.popBackStack() })
-            }
-
-            composable(Screen.Onboarding.route) {
-                OnboardingScreen(
-                    onComplete = {
-                        navViewModel.completeOnboarding()
-                        navController.navigate(Screen.Home.route) {
-                            popUpTo(Screen.Onboarding.route) { inclusive = true }
-                        }
-                    }
-                )
-            }
-
-            composable(Screen.Practices.route) {
-                PracticesHubScreen(
-                    onNavigateToBookend = { navController.navigate(Screen.BookendRitual.route) },
-                    onNavigateToDichotomy = { navController.navigate(Screen.DichotomyOfControl.route) },
-                    onNavigateToSos = { navController.navigate(Screen.SosQuotes.route) },
-                    onNavigateToMementoMori = { navController.navigate(Screen.MementoMori.route) },
-                    onNavigateToJournal = { navController.navigate(Screen.JournalHistory.route) }
-                )
-            }
-
-            composable(Screen.JournalHistory.route) {
-                JournalHistoryScreen(
-                    onBack = { navController.popBackStack() },
-                    onEditEntry = { entry ->
-                        navController.navigate("practice/edit/${entry.id}")
-                    }
-                )
-            }
-
-            composable(
-                route = Screen.PracticeEdit.ROUTE,
-                arguments = listOf(navArgument("entryId") { type = NavType.LongType })
-            ) {
-                PracticeScreen(
-                    onBack = { navController.popBackStack() },
-                    onNavigateToInsight = { quoteId -> navController.navigate("insight/$quoteId") }
-                )
-            }
-
-            composable(
-                Screen.BookendRitual.route,
-                deepLinks = listOf(navDeepLink { uriPattern = "ataraxy://bookend" })
-            ) {
-                BookendRitualScreen(onBack = { navController.popBackStack() })
-            }
-
-            composable(Screen.DichotomyOfControl.route) {
-                DichotomyScreen(onBack = { navController.popBackStack() })
-            }
-
-            composable(Screen.SosQuotes.route) {
-                SosScreen(
-                    onBack = { navController.popBackStack() },
-                    onNavigateToInsight = { quoteId -> navController.navigate("insight/$quoteId") }
-                )
-            }
-
-            composable(Screen.MementoMori.route) {
-                MementoMoriScreen(
-                    onBack = { navController.popBackStack() },
-                    onNavigateToInsight = { navController.navigate(Screen.MementoMoriInsight.route) }
-                )
-            }
-
-            composable(Screen.MementoMoriInsight.route) {
-                MementoMoriInsightScreen(onBack = { navController.popBackStack() })
-            }
-
-            composable(
-                route = Screen.AuthorDetail.ROUTE,
-                arguments = listOf(navArgument("authorId") { type = NavType.StringType })
-            ) { backStackEntry ->
-                val authorId = backStackEntry.arguments?.getString("authorId") ?: return@composable
-                AuthorDetailScreen(
-                    authorId = authorId,
-                    onBack = { navController.popBackStack() }
-                )
-            }
+            ataraxyGraph(navController, onOnboardingComplete = navViewModel::completeOnboarding)
         }
+    }
+}
+
+/**
+ * Opens deep links that arrive while the app is running (e.g. a notification tap) on top of the
+ * current screens, so in-progress work stays on the back stack. Ignored until onboarding is done.
+ */
+@Composable
+private fun NewIntentDeepLinks(navController: NavHostController, enabled: Boolean) {
+    val activity = LocalActivity.current as? ComponentActivity ?: return
+    val currentEnabled by rememberUpdatedState(enabled)
+    DisposableEffect(activity, navController) {
+        val listener = Consumer<Intent> { intent ->
+            val uri = intent.data ?: return@Consumer
+            if (!currentEnabled || !navController.graph.hasDeepLink(uri)) return@Consumer
+            if (!isShowing(navController.currentBackStackEntry, uri)) navController.navigate(uri)
+        }
+        activity.addOnNewIntentListener(listener)
+        onDispose { activity.removeOnNewIntentListener(listener) }
+    }
+}
+
+/**
+ * Whether [entry] already displays [uri], so opening the link again would only duplicate it.
+ * A link to the same screen with different arguments (another quote) is not a match.
+ */
+internal fun isShowing(entry: NavBackStackEntry?, uri: Uri): Boolean {
+    if (entry == null || !entry.destination.hasDeepLink(uri)) return false
+    val args = entry.arguments ?: return uri.pathSegments.isEmpty()
+    val argValues = args.keySet().mapNotNull { args.getString(it) }.toSet()
+    return uri.pathSegments.all { it in argValues }
+}
+
+/** Every destination in the app. Kept separate from [AtaraxyNavHost] so the graph can be tested. */
+internal fun NavGraphBuilder.ataraxyGraph(
+    navController: NavHostController,
+    onOnboardingComplete: () -> Unit
+) {
+    composable(
+        route = Screen.Home.route,
+        deepLinks = listOf(navDeepLink { uriPattern = "ataraxy://home" })
+    ) {
+        HomeScreen(
+            onNavigateToPractice = { quoteId ->
+                navController.navigate(Screen.Practice.BASE + if (quoteId != null) "?quoteId=$quoteId" else "")
+            },
+            onNavigateToAuthor = { authorId -> navController.navigate("author/$authorId") }
+        )
+    }
+
+    composable(
+        route = Screen.Practice.ROUTE,
+        arguments = listOf(
+            navArgument("quoteId") {
+                type = NavType.StringType
+                nullable = true
+                defaultValue = null
+            }
+        ),
+        deepLinks = listOf(
+            navDeepLink { uriPattern = "ataraxy://practice/{quoteId}" }
+        )
+    ) {
+        PracticeScreen(
+            onBack = { navController.popBackStack() },
+            onNavigateToInsight = { quoteId -> navController.navigate("insight/$quoteId") }
+        )
+    }
+
+    // Also allow plain "practice" without quoteId
+    composable(
+        route = Screen.Practice.BASE,
+        deepLinks = listOf(navDeepLink { uriPattern = "ataraxy://practice" })
+    ) {
+        PracticeScreen(
+            onBack = { navController.popBackStack() },
+            onNavigateToInsight = { quoteId -> navController.navigate("insight/$quoteId") }
+        )
+    }
+
+    composable(Screen.Archive.route) {
+        ArchiveScreen(
+            onNavigateToPractice = { quoteId ->
+                navController.navigate("${Screen.Practice.BASE}?quoteId=$quoteId")
+            },
+            onNavigateToVirtueDetail = { virtueId ->
+                navController.navigate("virtue/$virtueId")
+            },
+            onNavigateToInsight = { quoteId ->
+                navController.navigate("insight/$quoteId")
+            },
+            onNavigateToAuthor = { authorId -> navController.navigate("author/$authorId") }
+        )
+    }
+
+    composable(
+        route = Screen.Insight.ROUTE,
+        arguments = listOf(navArgument("quoteId") { type = NavType.StringType })
+    ) { backStackEntry ->
+        InsightScreen(
+            quoteId = backStackEntry.arguments?.getString("quoteId") ?: "",
+            onBack = { navController.popBackStack() },
+            onNavigateToAuthor = { authorId -> navController.navigate("author/$authorId") }
+        )
+    }
+
+    composable(
+        route = Screen.VirtueDetail.ROUTE,
+        arguments = listOf(navArgument("virtueId") { type = NavType.StringType })
+    ) { backStackEntry ->
+        VirtueDetailScreen(
+            virtueId = backStackEntry.arguments?.getString("virtueId") ?: "",
+            onNavigateToPractice = { quoteId ->
+                navController.navigate("${Screen.Practice.BASE}?quoteId=$quoteId")
+            },
+            onBack = { navController.popBackStack() }
+        )
+    }
+
+    composable(Screen.Settings.route) {
+        SettingsScreen(
+            onNavigateToAbout = { navController.navigate(Screen.About.route) }
+        )
+    }
+
+    composable(Screen.About.route) {
+        AboutScreen(onBack = { navController.popBackStack() })
+    }
+
+    composable(Screen.Onboarding.route) {
+        OnboardingScreen(
+            onComplete = {
+                onOnboardingComplete()
+                navController.navigate(Screen.Home.route) {
+                    popUpTo(Screen.Onboarding.route) { inclusive = true }
+                }
+            }
+        )
+    }
+
+    composable(Screen.Practices.route) {
+        PracticesHubScreen(
+            onNavigateToBookend = { navController.navigate(Screen.BookendRitual.route) },
+            onNavigateToDichotomy = { navController.navigate(Screen.DichotomyOfControl.route) },
+            onNavigateToSos = { navController.navigate(Screen.SosQuotes.route) },
+            onNavigateToMementoMori = { navController.navigate(Screen.MementoMori.route) },
+            onNavigateToJournal = { navController.navigate(Screen.JournalHistory.route) }
+        )
+    }
+
+    composable(Screen.JournalHistory.route) {
+        JournalHistoryScreen(
+            onBack = { navController.popBackStack() },
+            onEditEntry = { entry ->
+                navController.navigate("practice/edit/${entry.id}")
+            }
+        )
+    }
+
+    composable(
+        route = Screen.PracticeEdit.ROUTE,
+        arguments = listOf(navArgument("entryId") { type = NavType.LongType })
+    ) {
+        PracticeScreen(
+            onBack = { navController.popBackStack() },
+            onNavigateToInsight = { quoteId -> navController.navigate("insight/$quoteId") }
+        )
+    }
+
+    composable(
+        Screen.BookendRitual.route,
+        deepLinks = listOf(navDeepLink { uriPattern = "ataraxy://bookend" })
+    ) {
+        BookendRitualScreen(onBack = { navController.popBackStack() })
+    }
+
+    composable(Screen.DichotomyOfControl.route) {
+        DichotomyScreen(onBack = { navController.popBackStack() })
+    }
+
+    composable(Screen.SosQuotes.route) {
+        SosScreen(
+            onBack = { navController.popBackStack() },
+            onNavigateToInsight = { quoteId -> navController.navigate("insight/$quoteId") }
+        )
+    }
+
+    composable(Screen.MementoMori.route) {
+        MementoMoriScreen(
+            onBack = { navController.popBackStack() },
+            onNavigateToInsight = { navController.navigate(Screen.MementoMoriInsight.route) }
+        )
+    }
+
+    composable(Screen.MementoMoriInsight.route) {
+        MementoMoriInsightScreen(onBack = { navController.popBackStack() })
+    }
+
+    composable(
+        route = Screen.AuthorDetail.ROUTE,
+        arguments = listOf(navArgument("authorId") { type = NavType.StringType })
+    ) { backStackEntry ->
+        val authorId = backStackEntry.arguments?.getString("authorId") ?: return@composable
+        AuthorDetailScreen(
+            authorId = authorId,
+            onBack = { navController.popBackStack() }
+        )
     }
 }
