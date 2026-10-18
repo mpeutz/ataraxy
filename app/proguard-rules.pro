@@ -37,6 +37,6 @@
 -keepattributes *Annotation*, InnerClasses, Signature, Exceptions
 
 # ─── Domain Models ────────────────────────────────────────────────────────────
-# Preserving domain models used in Wearable Data Layer sync to avoid issues
-# with field names if they are ever used as keys in a DataMap (though currently strings are used).
+# Originally kept for Wear Data Layer sync, which has been removed. Nothing reflects on these
+# classes now; drop this rule once a release build has been verified without it.
 -keep class com.ataraxy.app.domain.model.** { *; }

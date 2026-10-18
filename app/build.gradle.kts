@@ -83,10 +83,6 @@ dependencies {
     // Shared domain models
     implementation(project(":core:domain"))
 
-    // Wearable Data Layer
-    implementation(libs.play.services.wearable)
-    implementation(libs.kotlinx.coroutines.play.services)
-
     // Core
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
