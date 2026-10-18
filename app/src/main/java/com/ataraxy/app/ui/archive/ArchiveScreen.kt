@@ -20,7 +20,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ataraxy.app.data.seed.InsightData
 import com.ataraxy.app.domain.model.Quote
@@ -76,7 +76,7 @@ fun ArchiveScreen(
                 )
                 Spacer(Modifier.height(20.dp))
             }
-            Divider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
+            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
         }
 
         // Search bar
@@ -99,7 +99,7 @@ fun ArchiveScreen(
                     placeholder = "Search quotes…"
                 )
             }
-            Divider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
+            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
         }
 
         // Author filter tabs
@@ -142,7 +142,7 @@ fun ArchiveScreen(
                 onInsightClick = { onNavigateToInsight(quote.id) },
                 onAuthorClick = { onNavigateToAuthor(quote.authorId) }
             )
-            Divider(
+            HorizontalDivider(
                 color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.4f),
                 thickness = 0.5.dp,
                 modifier = Modifier.padding(horizontal = 24.dp)
@@ -152,7 +152,7 @@ fun ArchiveScreen(
         // Four Virtues section
         item {
             Spacer(Modifier.height(32.dp))
-            Divider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
+            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
             Spacer(Modifier.height(24.dp))
             Text(
                 text = "THE FOUR VIRTUES",
@@ -347,7 +347,7 @@ private fun VirtueCard(virtue: Virtue, onClick: () -> Unit) {
             modifier = Modifier.size(20.dp)
         )
     }
-    Divider(
+    HorizontalDivider(
         color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.4f),
         thickness = 0.5.dp,
         modifier = Modifier.padding(horizontal = 24.dp)

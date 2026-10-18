@@ -27,9 +27,9 @@ jobs:
 
       - uses: gradle/actions/setup-gradle@v6
 
-      # Debug only: release signing reads KEYSTORE_* from local.properties, which CI doesn't have.
+      # assembleRelease runs R8 against the keep rules; without a keystore it produces an unsigned APK.
       - name: Build, test, and lint
-        run: ./gradlew assembleDebug testDebugUnitTest :app:lintDebug
+        run: ./gradlew assembleDebug testDebugUnitTest :app:lintDebug assembleRelease
 
       - name: Upload test results and lint reports
         if: failure()

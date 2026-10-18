@@ -1,6 +1,5 @@
 package com.ataraxy.app.ui.components
 
-import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -8,17 +7,17 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.LinkAnnotation
 import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.TextLinkStyles
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.text.withLink
 import com.ataraxy.app.data.glossary.StoicGlossary
 import com.ataraxy.app.ui.theme.GlossaryTint
 import com.ataraxy.app.ui.theme.Jost
-
-private const val GLOSSARY_TAG = "GLOSSARY"
 
 /**
  * Renders quote text with Stoic glossary terms highlighted in [GlossaryTint].
@@ -36,9 +35,9 @@ fun AnnotatedQuoteText(
 ) {
     var selectedKey by remember { mutableStateOf<String?>(null) }
 
-    val annotated = remember(text) { buildGlossaryAnnotatedString(text) }
+    val annotated = remember(text) { buildGlossaryAnnotatedString(text) { selectedKey = it } }
 
-    ClickableText(
+    Text(
         text = annotated,
         style = style.copy(
             color = color,
@@ -46,13 +45,7 @@ fun AnnotatedQuoteText(
         ),
         modifier = modifier,
         maxLines = maxLines,
-        overflow = overflow,
-        onClick = { offset ->
-            annotated
-                .getStringAnnotations(GLOSSARY_TAG, offset, offset)
-                .firstOrNull()
-                ?.let { selectedKey = it.item }
-        }
+        overflow = overflow
     )
 
     selectedKey?.let { key ->
@@ -97,7 +90,7 @@ private fun GlossaryDefinitionDialog(
     )
 }
 
-private fun buildGlossaryAnnotatedString(text: String) = buildAnnotatedString {
+private fun buildGlossaryAnnotatedString(text: String, onTermClick: (String) -> Unit) = buildAnnotatedString {
     data class Hit(val start: Int, val end: Int, val key: String)
 
     val lower = text.lowercase()
@@ -132,11 +125,12 @@ private fun buildGlossaryAnnotatedString(text: String) = buildAnnotatedString {
     var pos = 0
     for (hit in chosen) {
         if (hit.start > pos) append(text.substring(pos, hit.start))
-        pushStringAnnotation(GLOSSARY_TAG, hit.key)
-        withStyle(SpanStyle(color = GlossaryTint)) {
-            append(text.substring(hit.start, hit.end))
-        }
-        pop()
+        val link = LinkAnnotation.Clickable(
+            tag = hit.key,
+            styles = TextLinkStyles(style = SpanStyle(color = GlossaryTint)),
+            linkInteractionListener = { onTermClick(hit.key) }
+        )
+        withLink(link) { append(text.substring(hit.start, hit.end)) }
         pos = hit.end
     }
     if (pos < text.length) append(text.substring(pos))

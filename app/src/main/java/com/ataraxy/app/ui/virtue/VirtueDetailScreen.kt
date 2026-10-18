@@ -7,7 +7,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.ArrowBack
+import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
@@ -20,7 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ataraxy.app.domain.model.Quote
 import com.ataraxy.app.domain.model.SubConcept
@@ -58,13 +58,13 @@ fun VirtueDetailScreen(
             ) {
                 IconButton(onClick = onBack) {
                     Icon(
-                        Icons.Outlined.ArrowBack,
+                        Icons.AutoMirrored.Outlined.ArrowBack,
                         "Back",
                         tint = MaterialTheme.colorScheme.onBackground
                     )
                 }
             }
-            Divider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
+            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
         }
 
         if (virtue != null) {
@@ -74,7 +74,7 @@ fun VirtueDetailScreen(
 
             item {
                 Spacer(Modifier.height(32.dp))
-                Divider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
+                HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
                 Spacer(Modifier.height(20.dp))
                 Text(
                     text = "THE PRINCIPLES",
@@ -95,7 +95,7 @@ fun VirtueDetailScreen(
             if (relatedQuotes.isNotEmpty()) {
                 item {
                     Spacer(Modifier.height(12.dp))
-                    Divider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
+                    HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
                     Spacer(Modifier.height(20.dp))
                     Text(
                         text = "RELATED REFLECTIONS",
@@ -229,7 +229,7 @@ private fun RelatedQuoteCard(quote: Quote, onClick: () -> Unit) {
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
     }
-    Divider(
+    HorizontalDivider(
         color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.4f),
         thickness = 0.5.dp,
         modifier = Modifier.padding(horizontal = 24.dp)

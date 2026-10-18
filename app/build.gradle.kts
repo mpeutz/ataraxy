@@ -2,27 +2,32 @@ import java.util.Properties
 
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.hilt.android)
     alias(libs.plugins.ksp)
 }
 
+val localProps = Properties().apply {
+    rootProject.file("local.properties").takeIf { it.exists() }?.inputStream()?.use { load(it) }
+}
+val hasReleaseKeystore = localProps.getProperty("KEYSTORE_PATH") != null
+
 android {
     namespace = "com.ataraxy.app"
-    compileSdk = 35
+    compileSdk = 37
 
-    val localProps = Properties().apply {
-        val f = rootProject.file("local.properties")
-        if (f.exists()) load(f.inputStream())
-    }
+    // Release builds are signed only when an upload keystore is configured; otherwise
+    // (CI, fresh checkouts) assembleRelease produces an unsigned APK instead of failing.
+    val releaseKeystore = localProps.getProperty("KEYSTORE_PATH")?.let { file(it) }
 
     signingConfigs {
-        create("release") {
-            storeFile = localProps.getProperty("KEYSTORE_PATH")?.let { file(it) }
-            storePassword = localProps.getProperty("KEYSTORE_PASSWORD")
-            keyAlias = localProps.getProperty("KEY_ALIAS")
-            keyPassword = localProps.getProperty("KEY_PASSWORD")
+        if (releaseKeystore != null) {
+            create("release") {
+                storeFile = releaseKeystore
+                storePassword = localProps.getProperty("KEYSTORE_PASSWORD")
+                keyAlias = localProps.getProperty("KEY_ALIAS")
+                keyPassword = localProps.getProperty("KEY_PASSWORD")
+            }
         }
     }
 
@@ -47,7 +52,7 @@ android {
         release {
             isMinifyEnabled = true
             isShrinkResources = true
-            signingConfig = signingConfigs.getByName("release")
+            if (releaseKeystore != null) signingConfig = signingConfigs.getByName("release")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -58,10 +63,6 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
-    }
-
-    kotlinOptions {
-        jvmTarget = "17"
     }
 
     buildFeatures {
@@ -95,7 +96,6 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.androidx.material.icons.extended)
-    implementation(libs.androidx.ui.text.google.fonts)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
@@ -109,7 +109,7 @@ dependencies {
     // Hilt
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
-    implementation(libs.hilt.navigation.compose)
+    implementation(libs.hilt.lifecycle.viewmodel.compose)
     implementation(libs.hilt.work)
     ksp(libs.hilt.compiler)
 
@@ -124,9 +124,6 @@ dependencies {
     // DataStore
     implementation(libs.androidx.datastore.preferences)
 
-    // Permissions
-    implementation(libs.accompanist.permissions)
-
     // Testing
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)
@@ -140,4 +137,14 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
+}
+
+// A Play upload must be signed: refuse to build an unsigned bundle outside CI.
+val isCi = providers.environmentVariable("CI").isPresent
+tasks.matching { it.name == "bundleRelease" }.configureEach {
+    doFirst {
+        if (!hasReleaseKeystore && !isCi) {
+            throw GradleException("bundleRelease needs KEYSTORE_PATH and the signing keys in local.properties.")
+        }
+    }
 }

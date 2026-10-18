@@ -5,8 +5,8 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import androidx.core.app.NotificationCompat
+import androidx.core.net.toUri
 import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
@@ -50,7 +50,7 @@ class DailyQuoteWorker @AssistedInject constructor(
             }
         }
 
-        val intent = openAppIntent(context, Uri.parse("ataraxy://practice/${quote.id}"))
+        val intent = openAppIntent(context, "ataraxy://practice/${quote.id}".toUri())
         val pendingIntent = PendingIntent.getActivity(
             context, 0, intent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
@@ -70,7 +70,7 @@ class DailyQuoteWorker @AssistedInject constructor(
         // Reflect action — opens the practice screen for this quote
         val reflectIntent = PendingIntent.getActivity(
             context, NOTIFICATION_ID + 2,
-            openAppIntent(context, Uri.parse("ataraxy://practice/${quote.id}")),
+            openAppIntent(context, "ataraxy://practice/${quote.id}".toUri()),
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 

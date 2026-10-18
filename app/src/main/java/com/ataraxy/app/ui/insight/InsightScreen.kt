@@ -8,7 +8,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.ArrowBack
+import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -18,7 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ataraxy.app.data.seed.InsightData
 import com.ataraxy.app.domain.model.InsightSection
@@ -56,7 +56,7 @@ fun InsightScreen(
             ) {
                 IconButton(onClick = onBack) {
                     Icon(
-                        Icons.Outlined.ArrowBack,
+                        Icons.AutoMirrored.Outlined.ArrowBack,
                         contentDescription = "Back",
                         tint = MaterialTheme.colorScheme.onBackground
                     )
@@ -74,7 +74,7 @@ fun InsightScreen(
                 // Balance the IconButton on the left
                 Spacer(Modifier.size(48.dp))
             }
-            Divider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
+            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
         }
 
         // Quote header — shows which quote this insight is for
@@ -84,7 +84,7 @@ fun InsightScreen(
                     quote = quote!!,
                     onAuthorClick = { onNavigateToAuthor(quote!!.authorId) }
                 )
-                Divider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
+                HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
             }
         }
 
@@ -205,7 +205,7 @@ fun InsightScreen(
         // About this author link
         if (quote != null) {
             item {
-                Divider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
+                HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
                 Spacer(Modifier.height(8.dp))
                 Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
                     TextButton(onClick = { onNavigateToAuthor(quote!!.authorId) }) {
@@ -374,7 +374,7 @@ private fun InsightTableBlock(table: InsightTable) {
                     .weight(1f)
                     .padding(horizontal = 14.dp, vertical = 10.dp)
             )
-            Divider(
+            HorizontalDivider(
                 modifier = Modifier
                     .width(0.5.dp)
                     .fillMaxHeight(),
@@ -393,7 +393,7 @@ private fun InsightTableBlock(table: InsightTable) {
                     .padding(horizontal = 14.dp, vertical = 10.dp)
             )
         }
-        Divider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
+        HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
 
         table.rows.forEachIndexed { index, (left, right) ->
             Row(modifier = Modifier.fillMaxWidth()) {
@@ -408,7 +408,7 @@ private fun InsightTableBlock(table: InsightTable) {
                         .weight(1f)
                         .padding(horizontal = 14.dp, vertical = 10.dp)
                 )
-                Divider(
+                HorizontalDivider(
                     modifier = Modifier
                         .width(0.5.dp)
                         .fillMaxHeight(),
@@ -427,7 +427,7 @@ private fun InsightTableBlock(table: InsightTable) {
                 )
             }
             if (index < table.rows.lastIndex) {
-                Divider(
+                HorizontalDivider(
                     color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f),
                     thickness = 0.5.dp
                 )
