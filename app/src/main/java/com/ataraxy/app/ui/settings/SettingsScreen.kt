@@ -18,7 +18,7 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ataraxy.app.domain.model.AppTheme
 import com.ataraxy.app.domain.model.ContentTextSize
@@ -88,14 +88,14 @@ fun SettingsScreen(
                 )
             }
 
-            Divider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
+            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
 
             // Preview quote card
             Spacer(Modifier.height(20.dp))
             PreviewCard()
             Spacer(Modifier.height(20.dp))
 
-            Divider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
+            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
 
             // System Preferences
             SectionHeader("SYSTEM PREFERENCES")
@@ -141,7 +141,7 @@ fun SettingsScreen(
                 }
             )
 
-            Divider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
+            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
             SectionHeader("NOTIFICATIONS")
 
             // Daily Quote
@@ -177,7 +177,7 @@ fun SettingsScreen(
                 onTimeClick = { timePickerTarget = "evening" }
             )
 
-            Divider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
+            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
             SectionHeader("ACCOUNT & SOUL")
 
             // Export
@@ -202,7 +202,7 @@ fun SettingsScreen(
                 isDestructive = true
             )
 
-            Divider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
+            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
             SectionHeader("APP INFORMATION")
 
             // About
@@ -351,7 +351,7 @@ private fun NotificationGroup(
         }
     }
 
-    Divider(
+    HorizontalDivider(
         color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f),
         thickness = 0.5.dp
     )
@@ -403,7 +403,7 @@ private fun SettingsRow(
             modifier = Modifier.size(20.dp)
         )
     }
-    Divider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f), thickness = 0.5.dp)
+    HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f), thickness = 0.5.dp)
 }
 
 private fun AppTheme.displayName(): String = when (this) {

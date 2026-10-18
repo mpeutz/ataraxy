@@ -6,6 +6,7 @@ import com.ataraxy.app.data.local.dao.QuoteDao
 import com.ataraxy.app.data.local.entity.BookmarkEntity
 import com.ataraxy.app.data.local.entity.QuoteEntity
 import com.ataraxy.app.domain.model.Quote
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
@@ -21,6 +22,7 @@ import javax.inject.Singleton
 internal fun dailyQuoteSlot(dayOfYear: Int, totalDailyQuotes: Int): Int =
     ((dayOfYear - 1) % totalDailyQuotes) + 1
 
+@OptIn(ExperimentalCoroutinesApi::class)
 @Singleton
 class QuoteRepository @Inject constructor(
     private val quoteDao: QuoteDao,

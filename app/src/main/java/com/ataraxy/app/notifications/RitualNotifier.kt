@@ -6,8 +6,8 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import androidx.core.app.NotificationCompat
+import androidx.core.net.toUri
 import com.ataraxy.app.R
 import com.ataraxy.app.data.preferences.UserPrefsRepository
 import com.ataraxy.app.data.repository.JournalRepository
@@ -42,7 +42,7 @@ class RitualNotifier @Inject constructor(
     private fun buildNotification(type: RitualType): Notification {
         val beginIntent = PendingIntent.getActivity(
             context, type.notificationId,
-            openAppIntent(context, Uri.parse("ataraxy://bookend")),
+            openAppIntent(context, "ataraxy://bookend".toUri()),
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
         val snoozeIntent = PendingIntent.getBroadcast(

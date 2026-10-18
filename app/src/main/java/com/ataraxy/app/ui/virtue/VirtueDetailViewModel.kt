@@ -7,9 +7,11 @@ import com.ataraxy.app.data.repository.VirtueRepository
 import com.ataraxy.app.domain.model.Quote
 import com.ataraxy.app.domain.model.Virtue
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
+@OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
 class VirtueDetailViewModel @Inject constructor(
     private val virtueRepository: VirtueRepository,

@@ -1,24 +1,27 @@
 package com.ataraxy.app
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.ui.platform.LocalContext
+import androidx.core.content.ContextCompat
 import com.ataraxy.app.data.preferences.UserPrefsRepository
 import com.ataraxy.app.notifications.NotificationScheduler
 import com.ataraxy.app.notifications.SeedWorker
 import com.ataraxy.app.ui.theme.AtaraxyTheme
 import com.ataraxy.app.ui.navigation.AtaraxyNavHost
-import com.google.accompanist.permissions.ExperimentalPermissionsApi
-import com.google.accompanist.permissions.isGranted
-import com.google.accompanist.permissions.rememberPermissionState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -63,23 +66,24 @@ class MainActivity : ComponentActivity() {
  * Once onboarding is done: asks for notification permission (API 33+) and makes sure reminders are
  * scheduled. Keyed on onboarding only, so later preference changes never re-prompt or reschedule.
  */
-@OptIn(ExperimentalPermissionsApi::class)
 @Composable
 private fun NotificationPermissionEffect(scheduler: NotificationScheduler, prefs: UserPrefs?) {
     val currentPrefs by rememberUpdatedState(prefs)
     val onboardingComplete = prefs?.onboardingComplete == true
 
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+        val context = LocalContext.current
         val scope = rememberCoroutineScope()
-        val permState = rememberPermissionState(android.Manifest.permission.POST_NOTIFICATIONS) { granted ->
+        val launcher = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
             val latest = currentPrefs
             if (granted && latest != null) scope.launch { scheduler.ensureScheduled(latest) }
         }
         LaunchedEffect(onboardingComplete) {
             val latest = currentPrefs
             if (!onboardingComplete || latest == null) return@LaunchedEffect
-            if (permState.status.isGranted) scheduler.ensureScheduled(latest)
-            else permState.launchPermissionRequest()
+            val permission = Manifest.permission.POST_NOTIFICATIONS
+            val granted = ContextCompat.checkSelfPermission(context, permission) == PackageManager.PERMISSION_GRANTED
+            if (granted) scheduler.ensureScheduled(latest) else launcher.launch(permission)
         }
     } else {
         LaunchedEffect(onboardingComplete) {

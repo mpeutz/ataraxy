@@ -10,7 +10,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.ArrowBack
+import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.Check
 import androidx.compose.material.icons.outlined.ExpandLess
 import androidx.compose.material.icons.outlined.ExpandMore
@@ -28,7 +28,7 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ataraxy.app.R
-import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ataraxy.app.domain.model.ControlBucket
 import com.ataraxy.app.domain.model.ControlItem
@@ -60,7 +60,7 @@ fun DichotomyScreen(
             ) {
                 IconButton(onClick = onBack) {
                     Icon(
-                        imageVector = Icons.Outlined.ArrowBack,
+                        imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
                         contentDescription = stringResource(R.string.back),
                         tint = MaterialTheme.colorScheme.onBackground
                     )
@@ -87,7 +87,7 @@ fun DichotomyScreen(
                 }
             }
 
-            Divider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
+            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
 
             LazyColumn(modifier = Modifier.fillMaxSize()) {
 
@@ -125,7 +125,7 @@ fun DichotomyScreen(
                                         innerTextField()
                                     }
                                     Spacer(Modifier.height(8.dp))
-                                    Divider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 1.dp)
+                                    HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 1.dp)
                                 }
                             }
                         )
@@ -152,7 +152,7 @@ fun DichotomyScreen(
 
                 // Stats strip
                 item {
-                    Divider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
+                    HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -163,7 +163,7 @@ fun DichotomyScreen(
                         StatChip(value = "${state.completedItems.size}", label = stringResource(R.string.completed_count))
                         StatChip(value = "${state.releasedCount}", label = stringResource(R.string.released_count))
                     }
-                    Divider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
+                    HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
                 }
 
                 // Action step prompt card
@@ -285,7 +285,7 @@ fun DichotomyScreen(
                 if (state.completedItems.isNotEmpty()) {
                     item {
                         Spacer(Modifier.height(24.dp))
-                        Divider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
+                        HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
                         Spacer(Modifier.height(4.dp))
                         Row(
                             modifier = Modifier
@@ -327,7 +327,7 @@ fun DichotomyScreen(
                 if (state.releasedItems.isNotEmpty()) {
                     item {
                         Spacer(Modifier.height(if (state.completedItems.isEmpty()) 24.dp else 8.dp))
-                        Divider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
+                        HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
                         Spacer(Modifier.height(4.dp))
                         Row(
                             modifier = Modifier
@@ -727,7 +727,7 @@ private fun CompletedItemRow(
                 color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.4f)
             )
         }
-        Divider(
+        HorizontalDivider(
             color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.3f),
             thickness = 0.5.dp,
             modifier = Modifier.padding(top = 10.dp)
@@ -799,7 +799,7 @@ private fun ReleasedItemRow(
                 }
             }
         }
-        Divider(
+        HorizontalDivider(
             color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.3f),
             thickness = 0.5.dp,
             modifier = Modifier.padding(top = 10.dp)
@@ -898,7 +898,7 @@ private fun ActionStepCard(
                             innerTextField()
                         }
                         Spacer(Modifier.height(8.dp))
-                        Divider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 1.dp)
+                        HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 1.dp)
                     }
                 }
             )

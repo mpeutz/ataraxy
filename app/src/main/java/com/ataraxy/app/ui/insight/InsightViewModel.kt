@@ -5,9 +5,11 @@ import androidx.lifecycle.viewModelScope
 import com.ataraxy.app.data.repository.QuoteRepository
 import com.ataraxy.app.domain.model.Quote
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
+@OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
 class InsightViewModel @Inject constructor(
     private val quoteRepository: QuoteRepository
