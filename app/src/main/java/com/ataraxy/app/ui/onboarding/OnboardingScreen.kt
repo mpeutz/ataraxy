@@ -107,7 +107,7 @@ private fun OnboardingPage1() {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "ATARAXY",
+            text = stringResource(R.string.onboarding_wordmark),
             style = MaterialTheme.typography.labelLarge.copy(fontFamily = Jost, letterSpacing = 6.sp),
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
@@ -148,11 +148,11 @@ private fun OnboardingPage2() {
         )
         Spacer(Modifier.height(24.dp))
         listOf(
-            "Wisdom" to "Phronesis",
-            "Courage" to "Andreia",
-            "Justice" to "Dikaiosyne",
-            "Moderation" to "Sophrosyne"
-        ).forEach { (name, latin) ->
+            R.string.onboarding_virtue_wisdom to R.string.onboarding_virtue_wisdom_greek,
+            R.string.onboarding_virtue_courage to R.string.onboarding_virtue_courage_greek,
+            R.string.onboarding_virtue_justice to R.string.onboarding_virtue_justice_greek,
+            R.string.onboarding_virtue_moderation to R.string.onboarding_virtue_moderation_greek
+        ).forEach { (nameRes, latinRes) ->
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -160,13 +160,13 @@ private fun OnboardingPage2() {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = name,
+                    text = stringResource(nameRes),
                     style = MaterialTheme.typography.headlineSmall.copy(fontFamily = CormorantGaramond),
                     color = MaterialTheme.colorScheme.onBackground,
                     modifier = Modifier.weight(1f)
                 )
                 Text(
-                    text = latin,
+                    text = stringResource(latinRes),
                     style = MaterialTheme.typography.bodySmall.copy(
                         fontFamily = Jost,
                         fontStyle = FontStyle.Italic

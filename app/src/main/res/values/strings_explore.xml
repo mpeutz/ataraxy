@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Home -->
+    <string name="home_wordmark" translatable="false">ATARAXY</string>
+    <string name="home_share">Share</string>
+    <string name="home_share_text">\"%1$s\"\n— %2$s\n\n#Ataraxy #Stoic</string>
+
+    <!-- Archive -->
+    <string name="archive_title_eyebrow">THE WISDOM</string>
+    <string name="archive_title">of Stone</string>
+    <string name="archive_tagline">Two thousand years of Stoic thought, distilled.</string>
+    <string name="archive_search">Search</string>
+    <string name="archive_search_placeholder">Search quotes…</string>
+    <string name="archive_tab_all">ALL</string>
+    <string name="archive_tab_saved">SAVED</string>
+    <string name="archive_insight_link">INSIGHT</string>
+
+    <!-- Insight -->
+    <string name="insight_title">INSIGHT</string>
+    <string name="insight_empty">No insight available for this quote.</string>
+    <string name="insight_breakdown_header">A BREAKDOWN OF THE LAYERS</string>
+    <string name="insight_modern_application">MODERN APPLICATION</string>
+    <string name="insight_about_author">About this author</string>
+
+    <!-- Author detail -->
+    <string name="author_title">THE PHILOSOPHER</string>
+    <string name="author_empty">Author information not available.</string>
+    <string name="author_biography">BIOGRAPHY</string>
+    <string name="author_works">THEIR WORKS</string>
+
+    <!-- Virtue detail -->
+    <string name="virtue_current_exploration">CURRENT EXPLORATION</string>
+    <string name="virtue_principles">THE PRINCIPLES</string>
+    <string name="virtue_related_reflections">RELATED REFLECTIONS</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_wordmark" translatable="false">ATARAXY</string>
+    <string name="onboarding_virtue_wisdom">Wisdom</string>
+    <string name="onboarding_virtue_wisdom_greek">Phronesis</string>
+    <string name="onboarding_virtue_courage">Courage</string>
+    <string name="onboarding_virtue_courage_greek">Andreia</string>
+    <string name="onboarding_virtue_justice">Justice</string>
+    <string name="onboarding_virtue_justice_greek">Dikaiosyne</string>
+    <string name="onboarding_virtue_moderation">Moderation</string>
+    <string name="onboarding_virtue_moderation_greek">Sophrosyne</string>
+</resources>

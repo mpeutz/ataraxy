@@ -8,21 +8,23 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import com.ataraxy.app.R
+import com.ataraxy.app.ui.components.AtaraxyDivider
+import com.ataraxy.app.ui.components.AtaraxyTopBar
 import com.ataraxy.app.ui.theme.CormorantGaramond
 import com.ataraxy.app.ui.theme.Jost
 
@@ -40,51 +42,30 @@ fun BookendRitualScreen(
             .imePadding()
             .verticalScroll(rememberScrollState())
     ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 8.dp, vertical = 12.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            IconButton(onClick = onBack) {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
-                    contentDescription = "Back",
-                    tint = MaterialTheme.colorScheme.onBackground
-                )
-            }
-            val sessionLabel = when (state.session) {
-                RitualSession.MORNING -> "MORNING RITUAL"
-                RitualSession.EVENING -> "EVENING RITUAL"
-                RitualSession.NEUTRAL -> "DAILY RITUAL"
-            }
-            Text(
-                text = sessionLabel,
-                style = MaterialTheme.typography.labelLarge.copy(
-                    fontFamily = Jost,
-                    fontWeight = FontWeight.Medium,
-                    letterSpacing = 4.sp,
-                    fontSize = 14.sp
-                ),
-                color = MaterialTheme.colorScheme.onBackground,
-                modifier = Modifier.weight(1f)
-            )
-            // Show "Change" only while actively in a session (not on selector, completion, or already-done screens)
-            if (!state.isSaved && !state.isLoading && state.session != RitualSession.NEUTRAL) {
-                TextButton(onClick = viewModel::resetSession) {
-                    Text(
-                        text = "CHANGE",
-                        style = MaterialTheme.typography.labelSmall.copy(
-                            fontFamily = Jost,
-                            letterSpacing = 1.5.sp
-                        ),
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
-                    )
+        val titleRes = when (state.session) {
+            RitualSession.MORNING -> R.string.bookend_title_morning
+            RitualSession.EVENING -> R.string.bookend_title_evening
+            RitualSession.NEUTRAL -> R.string.bookend_title_daily
+        }
+        AtaraxyTopBar(
+            title = stringResource(titleRes),
+            onBack = onBack,
+            actions = {
+                // Show "Change" only while actively in a session (not on selector, completion, or already-done screens)
+                if (!state.isSaved && !state.isLoading && state.session != RitualSession.NEUTRAL) {
+                    TextButton(onClick = viewModel::resetSession) {
+                        Text(
+                            text = stringResource(R.string.bookend_change),
+                            style = MaterialTheme.typography.labelSmall.copy(
+                                fontFamily = Jost,
+                                letterSpacing = 1.5.sp
+                            ),
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                    }
                 }
             }
-        }
-
-        HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
+        )
 
         Image(
             painter = painterResource(R.drawable.img_bowls),
@@ -95,16 +76,22 @@ fun BookendRitualScreen(
             contentScale = ContentScale.Crop
         )
 
-        HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
+        AtaraxyDivider()
 
         if (!state.isLoading) {
             when {
                 state.isSaved -> CompletionContent(session = state.session, onBack = onBack)
                 state.session == RitualSession.NEUTRAL -> SessionSelector(onSelectSession = viewModel::setSession)
                 state.session == RitualSession.MORNING && state.hasCompletedMorningToday ->
-                    AlreadyCompletedContent(label = "morning", onBack = onBack)
+                    AlreadyCompletedContent(
+                        message = stringResource(R.string.bookend_already_completed_morning),
+                        onBack = onBack
+                    )
                 state.session == RitualSession.EVENING && state.hasCompletedEveningToday ->
-                    AlreadyCompletedContent(label = "evening", onBack = onBack)
+                    AlreadyCompletedContent(
+                        message = stringResource(R.string.bookend_already_completed_evening),
+                        onBack = onBack
+                    )
                 else -> RitualContent(
                     state = state,
                     onUpdateAnswer = viewModel::updateAnswer,
@@ -121,7 +108,7 @@ fun BookendRitualScreen(
 private fun SessionSelector(onSelectSession: (RitualSession) -> Unit) {
     Spacer(Modifier.height(32.dp))
     Text(
-        text = "Which ritual would you like to complete?",
+        text = stringResource(R.string.bookend_select_prompt),
         style = MaterialTheme.typography.bodyMedium.copy(
             fontFamily = CormorantGaramond,
             fontStyle = FontStyle.Italic,
@@ -137,11 +124,14 @@ private fun SessionSelector(onSelectSession: (RitualSession) -> Unit) {
             .padding(horizontal = 24.dp),
         horizontalArrangement = Arrangement.spacedBy(12.dp)
     ) {
-        listOf(RitualSession.MORNING to "Morning", RitualSession.EVENING to "Evening").forEach { (session, label) ->
+        listOf(
+            RitualSession.MORNING to R.string.bookend_session_morning,
+            RitualSession.EVENING to R.string.bookend_session_evening
+        ).forEach { (session, labelRes) ->
             Card(
                 modifier = Modifier
                     .weight(1f)
-                    .clickable { onSelectSession(session) },
+                    .clickable(role = Role.Button) { onSelectSession(session) },
                 shape = RoundedCornerShape(8.dp),
                 colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant),
                 elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
@@ -153,7 +143,7 @@ private fun SessionSelector(onSelectSession: (RitualSession) -> Unit) {
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = label.uppercase(),
+                        text = stringResource(labelRes),
                         style = MaterialTheme.typography.labelLarge.copy(
                             fontFamily = Jost,
                             letterSpacing = 3.sp
@@ -178,7 +168,9 @@ private fun RitualContent(
         BookendRitualViewModel.EVENING_PROMPTS
 
     val streak = if (state.session == RitualSession.MORNING) state.morningStreak else state.eveningStreak
-    val ritualLabel = if (state.session == RitualSession.MORNING) "PRAEMEDITATIO MALORUM" else "EVENING REVIEW"
+    val ritualLabel = stringResource(
+        if (state.session == RitualSession.MORNING) R.string.bookend_label_morning else R.string.bookend_label_evening
+    )
 
     Spacer(Modifier.height(32.dp))
 
@@ -204,7 +196,7 @@ private fun RitualContent(
                     .padding(horizontal = 8.dp, vertical = 4.dp)
             ) {
                 Text(
-                    text = "Day $streak",
+                    text = stringResource(R.string.day_streak, streak),
                     style = MaterialTheme.typography.labelSmall.copy(fontFamily = Jost),
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -242,7 +234,7 @@ private fun RitualContent(
         contentPadding = PaddingValues(horizontal = 32.dp, vertical = 14.dp)
     ) {
         Text(
-            text = "COMPLETE RITUAL",
+            text = stringResource(R.string.bookend_complete_ritual),
             style = MaterialTheme.typography.labelLarge.copy(
                 fontFamily = Jost,
                 letterSpacing = 2.sp,
@@ -284,7 +276,7 @@ private fun PromptField(
                     Box {
                         if (value.isEmpty()) {
                             Text(
-                                text = "Write freely\u2026",
+                                text = stringResource(R.string.bookend_input_placeholder),
                                 style = MaterialTheme.typography.bodyLarge.copy(
                                     fontFamily = Jost,
                                     fontSize = 16.sp
@@ -304,10 +296,9 @@ private fun PromptField(
 
 @Composable
 private fun CompletionContent(session: RitualSession, onBack: () -> Unit) {
-    val quote = if (session == RitualSession.MORNING)
-        "He who rises with the sun sets the course of his day with intention."
-    else
-        "The evening review is complete. Sleep with a calm mind."
+    val quote = stringResource(
+        if (session == RitualSession.MORNING) R.string.bookend_completion_morning else R.string.bookend_completion_evening
+    )
 
     Spacer(Modifier.height(48.dp))
     Column(
@@ -337,7 +328,7 @@ private fun CompletionContent(session: RitualSession, onBack: () -> Unit) {
             contentPadding = PaddingValues(horizontal = 32.dp, vertical = 14.dp)
         ) {
             Text(
-                text = "DONE",
+                text = stringResource(R.string.bookend_done),
                 style = MaterialTheme.typography.labelLarge.copy(
                     fontFamily = Jost,
                     letterSpacing = 2.sp,
@@ -349,7 +340,7 @@ private fun CompletionContent(session: RitualSession, onBack: () -> Unit) {
 }
 
 @Composable
-private fun AlreadyCompletedContent(label: String, onBack: () -> Unit) {
+private fun AlreadyCompletedContent(message: String, onBack: () -> Unit) {
     Spacer(Modifier.height(48.dp))
     Column(
         modifier = Modifier
@@ -358,7 +349,7 @@ private fun AlreadyCompletedContent(label: String, onBack: () -> Unit) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "You have already completed today\u2019s $label ritual.",
+            text = message,
             style = MaterialTheme.typography.bodyLarge.copy(
                 fontFamily = CormorantGaramond,
                 fontStyle = FontStyle.Italic,
@@ -369,7 +360,7 @@ private fun AlreadyCompletedContent(label: String, onBack: () -> Unit) {
         Spacer(Modifier.height(24.dp))
         TextButton(onClick = onBack) {
             Text(
-                text = "BACK",
+                text = stringResource(R.string.bookend_back),
                 style = MaterialTheme.typography.labelLarge.copy(
                     fontFamily = Jost,
                     letterSpacing = 2.sp

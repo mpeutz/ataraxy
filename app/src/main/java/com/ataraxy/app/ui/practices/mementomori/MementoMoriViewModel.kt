@@ -5,15 +5,22 @@ import androidx.lifecycle.viewModelScope
 import com.ataraxy.app.data.preferences.UserPrefsRepository
 import com.ataraxy.app.data.repository.QuoteRepository
 import com.ataraxy.app.domain.model.Quote
-import kotlinx.coroutines.flow.first
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.temporal.ChronoUnit
 import javax.inject.Inject
+
+sealed interface BirthYearError {
+    data object NotANumber : BirthYearError
+    data class OutOfRange(val min: Int, val max: Int) : BirthYearError
+}
+
+private const val MIN_BIRTH_YEAR = 1900
 
 data class MementoMoriUiState(
     val birthYear: Int? = null,
@@ -23,7 +30,7 @@ data class MementoMoriUiState(
     val reflectionQuote: Quote? = null,
     val showBirthYearPicker: Boolean = false,
     val birthYearInput: String = "",
-    val birthYearError: String? = null,
+    val birthYearError: BirthYearError? = null,
     val isLoading: Boolean = true
 )
 
@@ -63,9 +70,9 @@ class MementoMoriViewModel @Inject constructor(
         val year = input.toIntOrNull()
         val currentYear = LocalDate.now().year
         when {
-            year == null -> _uiState.update { it.copy(birthYearError = "Please enter a valid year.") }
-            year < 1900 || year > currentYear - 1 -> _uiState.update {
-                it.copy(birthYearError = "Please enter a year between 1900 and ${currentYear - 1}.")
+            year == null -> _uiState.update { it.copy(birthYearError = BirthYearError.NotANumber) }
+            year < MIN_BIRTH_YEAR || year > currentYear - 1 -> _uiState.update {
+                it.copy(birthYearError = BirthYearError.OutOfRange(MIN_BIRTH_YEAR, currentYear - 1))
             }
             else -> viewModelScope.launch {
                 userPrefsRepository.setBirthYear(year)

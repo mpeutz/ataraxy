@@ -9,7 +9,6 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.material3.*
@@ -17,16 +16,20 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.res.pluralStringResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.ataraxy.app.R
 import com.ataraxy.app.domain.model.JournalEntry
 import com.ataraxy.app.domain.model.Quote
+import com.ataraxy.app.ui.components.AtaraxyDivider
+import com.ataraxy.app.ui.components.AtaraxyTopBar
 import com.ataraxy.app.ui.theme.CormorantGaramond
 import com.ataraxy.app.ui.theme.Jost
 import java.time.format.DateTimeFormatter
@@ -46,40 +49,11 @@ fun JournalHistoryScreen(
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
     ) {
-        // Top bar
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 8.dp, vertical = 12.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            IconButton(onClick = onBack) {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
-                    contentDescription = "Back",
-                    tint = MaterialTheme.colorScheme.onBackground
-                )
-            }
-            Column {
-                Text(
-                    text = "JOURNAL",
-                    style = MaterialTheme.typography.labelLarge.copy(
-                        fontFamily = Jost,
-                        fontWeight = FontWeight.Medium,
-                        letterSpacing = 4.sp,
-                        fontSize = 14.sp
-                    ),
-                    color = MaterialTheme.colorScheme.onBackground
-                )
-                Text(
-                    text = "${state.entries.size} ${if (state.entries.size == 1) "entry" else "entries"}",
-                    style = MaterialTheme.typography.labelSmall.copy(fontFamily = Jost),
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-            }
-        }
-
-        HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
+        AtaraxyTopBar(
+            title = stringResource(R.string.journal_title),
+            onBack = onBack,
+            subtitle = pluralStringResource(R.plurals.journal_entry_count, state.entries.size, state.entries.size)
+        )
 
         // Search field
         Row(
@@ -98,7 +72,7 @@ fun JournalHistoryScreen(
             Box(modifier = Modifier.weight(1f)) {
                 if (state.searchQuery.isEmpty()) {
                     Text(
-                        text = "Search entries…",
+                        text = stringResource(R.string.journal_search_placeholder),
                         style = MaterialTheme.typography.bodyMedium.copy(fontFamily = Jost),
                         color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
                     )
@@ -117,7 +91,7 @@ fun JournalHistoryScreen(
             }
         }
 
-        HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
+        AtaraxyDivider()
 
         // Filter chips
         LazyRow(
@@ -130,7 +104,7 @@ fun JournalHistoryScreen(
                     onClick = { viewModel.setFilter(filter) },
                     label = {
                         Text(
-                            text = filter.label,
+                            text = stringResource(filter.labelRes),
                             style = MaterialTheme.typography.labelSmall.copy(
                                 fontFamily = Jost,
                                 letterSpacing = 1.5.sp
@@ -156,7 +130,7 @@ fun JournalHistoryScreen(
             }
         }
 
-        HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
+        AtaraxyDivider()
 
         if (state.entries.isEmpty()) {
             EmptyState(filter = state.filter, hasSearch = state.searchQuery.isNotBlank())
@@ -188,28 +162,28 @@ fun JournalHistoryScreen(
     }
 }
 
-private val JournalFilter.label: String get() = when (this) {
-    JournalFilter.ALL -> "ALL"
-    JournalFilter.REFLECTIONS -> "REFLECTIONS"
-    JournalFilter.MORNING -> "MORNING"
-    JournalFilter.EVENING -> "EVENING"
+private val JournalFilter.labelRes: Int get() = when (this) {
+    JournalFilter.ALL -> R.string.journal_filter_all
+    JournalFilter.REFLECTIONS -> R.string.journal_filter_reflections
+    JournalFilter.MORNING -> R.string.journal_filter_morning
+    JournalFilter.EVENING -> R.string.journal_filter_evening
 }
 
 @Composable
 private fun EmptyState(filter: JournalFilter, hasSearch: Boolean) {
-    val message = when {
-        hasSearch -> "No entries match your search."
-        filter == JournalFilter.ALL -> "No journal entries yet.\nBegin a practice to write your first reflection."
-        filter == JournalFilter.REFLECTIONS -> "No reflections yet.\nWrite one from the Practice tab."
-        filter == JournalFilter.MORNING -> "No morning rituals recorded.\nComplete a morning bookend to begin."
-        else -> "No evening rituals recorded.\nComplete an evening bookend to begin."
+    val messageRes = when {
+        hasSearch -> R.string.journal_empty_search
+        filter == JournalFilter.ALL -> R.string.journal_empty_all
+        filter == JournalFilter.REFLECTIONS -> R.string.journal_empty_reflections
+        filter == JournalFilter.MORNING -> R.string.journal_empty_morning
+        else -> R.string.journal_empty_evening
     }
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
         Text(
-            text = message,
+            text = stringResource(messageRes),
             style = MaterialTheme.typography.bodyMedium.copy(
                 fontFamily = CormorantGaramond,
                 fontStyle = FontStyle.Italic,
@@ -266,7 +240,7 @@ private fun JournalEntryRow(
                 Text(
                     text = type,
                     style = MaterialTheme.typography.labelSmall.copy(
-                        fontFamily = Jost, letterSpacing = 1.sp, fontSize = 9.sp
+                        fontFamily = Jost, letterSpacing = 1.sp, fontSize = 10.sp
                     ),
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier
@@ -277,7 +251,7 @@ private fun JournalEntryRow(
                 Text(
                     text = virtue.uppercase(),
                     style = MaterialTheme.typography.labelSmall.copy(
-                        fontFamily = Jost, letterSpacing = 1.sp, fontSize = 9.sp
+                        fontFamily = Jost, letterSpacing = 1.sp, fontSize = 10.sp
                     ),
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier
@@ -350,7 +324,7 @@ private fun JournalEntryRow(
                     contentPadding = PaddingValues(horizontal = 0.dp, vertical = 4.dp)
                 ) {
                     Text(
-                        text = "EDIT",
+                        text = stringResource(R.string.journal_edit),
                         style = MaterialTheme.typography.labelSmall.copy(
                             fontFamily = Jost,
                             letterSpacing = 1.5.sp
@@ -358,13 +332,10 @@ private fun JournalEntryRow(
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
-                IconButton(
-                    onClick = onDelete,
-                    modifier = Modifier.size(32.dp)
-                ) {
+                IconButton(onClick = onDelete) {
                     Icon(
                         imageVector = Icons.Outlined.Delete,
-                        contentDescription = "Delete entry",
+                        contentDescription = stringResource(R.string.journal_delete_entry),
                         tint = MaterialTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier.size(18.dp)
                     )

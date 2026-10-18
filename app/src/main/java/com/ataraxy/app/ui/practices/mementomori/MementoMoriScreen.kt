@@ -8,11 +8,9 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material3.*
-import androidx.compose.runtime.*
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -24,7 +22,6 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
-import com.ataraxy.app.R
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
@@ -32,6 +29,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.ataraxy.app.R
+import com.ataraxy.app.ui.components.AtaraxyDivider
+import com.ataraxy.app.ui.components.AtaraxyTopBar
+import com.ataraxy.app.ui.components.StatChip
 import com.ataraxy.app.ui.theme.CormorantGaramond
 import com.ataraxy.app.ui.theme.Jost
 
@@ -52,46 +53,21 @@ fun MementoMoriScreen(
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
     ) {
-        // Top bar
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 8.dp, vertical = 12.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            IconButton(onClick = onBack) {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
-                    contentDescription = stringResource(R.string.back),
-                    tint = MaterialTheme.colorScheme.onBackground
-                )
-            }
-            Column {
-                Text(
-                    text = stringResource(R.string.memento_mori_title),
-                    style = MaterialTheme.typography.labelLarge.copy(
-                        fontFamily = Jost,
-                        fontWeight = FontWeight.Medium,
-                        letterSpacing = 4.sp,
-                        fontSize = 14.sp
-                    ),
-                    color = MaterialTheme.colorScheme.onBackground
-                )
-                Text(
-                    text = stringResource(R.string.memento_mori_subtitle),
-                    style = MaterialTheme.typography.labelSmall.copy(fontFamily = Jost),
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-            }
-        }
-
-        HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
+        AtaraxyTopBar(
+            title = stringResource(R.string.memento_mori_title),
+            onBack = onBack,
+            subtitle = stringResource(R.string.memento_mori_subtitle)
+        )
 
         if (!state.isLoading) {
             if (state.birthYear == null || state.showBirthYearPicker) {
                 BirthYearSetup(
                     input = state.birthYearInput,
-                    error = state.birthYearError,
+                    error = when (val error = state.birthYearError) {
+                        null -> null
+                        BirthYearError.NotANumber -> stringResource(R.string.memento_error_not_a_year)
+                        is BirthYearError.OutOfRange -> stringResource(R.string.memento_error_year_range, error.min, error.max)
+                    },
                     onInputChange = viewModel::updateBirthYearInput,
                     onConfirm = viewModel::confirmBirthYear,
                     showCancel = state.showBirthYearPicker && state.birthYear != null,
@@ -315,7 +291,7 @@ private fun WeeksGrid(
             StatChip(value = "$percentage%", label = stringResource(R.string.of_life))
         }
 
-        HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
+        AtaraxyDivider()
 
         // Grid — Canvas-based single draw call for all 3952 cells
         val filledColor = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.85f)
@@ -364,7 +340,7 @@ private fun WeeksGrid(
             }
         }
 
-        HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
+        AtaraxyDivider()
 
         TextButton(
             onClick = onChangeBirthYear,
@@ -394,25 +370,3 @@ private fun WeeksGrid(
     }
 }
 
-@Composable
-private fun StatChip(value: String, label: String) {
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(
-            text = value,
-            style = MaterialTheme.typography.bodyLarge.copy(
-                fontFamily = CormorantGaramond,
-                fontWeight = FontWeight.Medium,
-                fontSize = 20.sp
-            ),
-            color = MaterialTheme.colorScheme.onBackground
-        )
-        Text(
-            text = label.uppercase(),
-            style = MaterialTheme.typography.labelSmall.copy(
-                fontFamily = Jost,
-                letterSpacing = 2.sp
-            ),
-            color = MaterialTheme.colorScheme.onSurfaceVariant
-        )
-    }
-}

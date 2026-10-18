@@ -3,21 +3,18 @@ package com.ataraxy.app.ui.settings
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ataraxy.app.R
-import com.ataraxy.app.ui.theme.CormorantGaramond
+import com.ataraxy.app.ui.components.AtaraxyTopBar
 import com.ataraxy.app.ui.theme.Jost
 
 @Composable
@@ -27,33 +24,7 @@ fun AboutScreen(onBack: () -> Unit) {
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
     ) {
-        // Top bar
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 12.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            IconButton(onClick = onBack) {
-                Icon(
-                    Icons.AutoMirrored.Outlined.ArrowBack,
-                    contentDescription = stringResource(R.string.back),
-                    tint = MaterialTheme.colorScheme.onBackground
-                )
-            }
-            Spacer(Modifier.weight(1f))
-            Text(
-                text = stringResource(R.string.about),
-                style = MaterialTheme.typography.labelMedium.copy(
-                    fontFamily = Jost,
-                    letterSpacing = 3.sp
-                ),
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
-            Spacer(Modifier.weight(1f))
-            Spacer(Modifier.size(48.dp))
-        }
-        HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
+        AtaraxyTopBar(title = stringResource(R.string.about), onBack = onBack)
 
         // Scrollable content
         Column(
@@ -79,27 +50,13 @@ fun AboutScreen(onBack: () -> Unit) {
             // Quotes attribution
             AboutSection(
                 title = stringResource(R.string.quote_sources_title),
-                content = listOf(
-                    "Marcus Aurelius - Meditations",
-                    "Epictetus - Enchiridion & Discourses",
-                    "Seneca - Letters from a Stoic & Essays",
-                    "Zeno of Citium - Stoic Fragments",
-                    "Cleanthes - Stoic Philosophy"
-                )
+                content = stringArrayResource(R.array.settings_quote_sources).toList()
             )
 
             // Image attributions
             AboutSection(
                 title = stringResource(R.string.image_attributions_title),
-                content = listOf(
-                    "Kari Shea (Unsplash) - Onboarding imagery",
-                    "Ray Wyman Jr. (Unsplash) - Virtue visuals",
-                    "Michael Vinel (Unsplash) - Practice imagery",
-                    "John Salzarulo (Unsplash) - Background elements",
-                    "Robin Schreiner (Unsplash) - Reflection visuals",
-                    "Zhen Yao (Unsplash) - Mindfulness imagery",
-                    "Magic Bowls (Unsplash) - Meditation visuals"
-                )
+                content = stringArrayResource(R.array.settings_image_attributions).toList()
             )
 
             // Philosophy statement

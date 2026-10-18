@@ -15,11 +15,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ataraxy.app.R
+import com.ataraxy.app.ui.components.AtaraxyDivider
 import com.ataraxy.app.ui.theme.CormorantGaramond
 import com.ataraxy.app.ui.theme.Jost
 import java.time.LocalDate
@@ -51,7 +53,7 @@ fun PracticesHubScreen(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = "PRACTICES",
+                text = stringResource(R.string.practices_title),
                 style = MaterialTheme.typography.labelLarge.copy(
                     fontFamily = Jost,
                     fontWeight = FontWeight.Medium,
@@ -67,7 +69,7 @@ fun PracticesHubScreen(
             )
         }
 
-        HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
+        AtaraxyDivider()
 
         Image(
             painter = painterResource(R.drawable.img_arches),
@@ -78,12 +80,12 @@ fun PracticesHubScreen(
             contentScale = ContentScale.Crop
         )
 
-        HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
+        AtaraxyDivider()
 
         Spacer(Modifier.height(28.dp))
 
         Text(
-            text = "YOUR STOIC TOOLS",
+            text = stringResource(R.string.practices_tools_header),
             style = MaterialTheme.typography.labelMedium.copy(
                 fontFamily = Jost,
                 letterSpacing = 3.sp
@@ -99,39 +101,39 @@ fun PracticesHubScreen(
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
             PracticeCard(
-                eyebrow = "DAILY PRACTICE",
-                title = "Morning & Evening Ritual",
-                description = "Praemeditatio Malorum at dawn. Seneca's review at dusk.",
+                eyebrow = stringResource(R.string.practices_bookend_eyebrow),
+                title = stringResource(R.string.practices_bookend_title),
+                description = stringResource(R.string.practices_bookend_description),
                 onClick = onNavigateToBookend
             )
             PracticeCard(
-                eyebrow = "CLARITY",
-                title = "Dichotomy of Control",
-                description = "Sort your worries. Release what is not yours to carry.",
+                eyebrow = stringResource(R.string.practices_dichotomy_eyebrow),
+                title = stringResource(R.string.practices_dichotomy_title),
+                description = stringResource(R.string.practices_dichotomy_description),
                 onClick = onNavigateToDichotomy
             )
             PracticeCard(
-                eyebrow = "IN CRISIS",
-                title = "Find Your Footing",
-                description = "Stoic wisdom for anger, anxiety, grief, and fear.",
+                eyebrow = stringResource(R.string.practices_sos_eyebrow),
+                title = stringResource(R.string.practices_sos_title),
+                description = stringResource(R.string.practices_sos_description),
                 onClick = onNavigateToSos
             )
             PracticeCard(
-                eyebrow = "PERSPECTIVE",
-                title = "Memento Mori",
-                description = "Your life in weeks. Remember it is finite. Act accordingly.",
+                eyebrow = stringResource(R.string.practices_memento_eyebrow),
+                title = stringResource(R.string.practices_memento_title),
+                description = stringResource(R.string.practices_memento_description),
                 onClick = onNavigateToMementoMori
             )
         }
 
         Spacer(Modifier.height(32.dp))
 
-        HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
+        AtaraxyDivider()
 
         Spacer(Modifier.height(28.dp))
 
         Text(
-            text = "YOUR JOURNAL",
+            text = stringResource(R.string.practices_journal_header),
             style = MaterialTheme.typography.labelMedium.copy(
                 fontFamily = Jost,
                 letterSpacing = 3.sp
@@ -143,9 +145,9 @@ fun PracticesHubScreen(
         Spacer(Modifier.height(12.dp))
 
         PracticeCard(
-            eyebrow = "HISTORY",
-            title = "All Entries",
-            description = "Browse reflections, morning premeditations, and evening reviews.",
+            eyebrow = stringResource(R.string.practices_journal_eyebrow),
+            title = stringResource(R.string.practices_journal_title),
+            description = stringResource(R.string.practices_journal_description),
             onClick = onNavigateToJournal,
             modifier = Modifier.padding(horizontal = 24.dp)
         )
