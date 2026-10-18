@@ -2,7 +2,6 @@ package com.ataraxy.app.ui.practices.mementomori
 
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -33,6 +32,8 @@ import com.ataraxy.app.R
 import com.ataraxy.app.ui.components.AtaraxyDivider
 import com.ataraxy.app.ui.components.AtaraxyTopBar
 import com.ataraxy.app.ui.components.StatChip
+import com.ataraxy.app.ui.components.orrery.orreryBackground
+import com.ataraxy.app.ui.components.orrery.rememberOrreryPattern
 import com.ataraxy.app.ui.theme.CormorantGaramond
 import com.ataraxy.app.ui.theme.Jost
 
@@ -51,7 +52,7 @@ fun MementoMoriScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
+            .orreryBackground(rememberOrreryPattern("memento"))
     ) {
         AtaraxyTopBar(
             title = stringResource(R.string.memento_mori_title),

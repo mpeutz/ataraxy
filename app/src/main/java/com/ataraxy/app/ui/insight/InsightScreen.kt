@@ -27,6 +27,8 @@ import com.ataraxy.app.domain.model.InsightTable
 import com.ataraxy.app.domain.model.Quote
 import com.ataraxy.app.ui.components.AtaraxyDivider
 import com.ataraxy.app.ui.components.AtaraxyTopBar
+import com.ataraxy.app.ui.components.orrery.orreryBackground
+import com.ataraxy.app.ui.components.orrery.rememberOrreryPattern
 import com.ataraxy.app.ui.theme.CormorantGaramond
 import com.ataraxy.app.ui.theme.Jost
 
@@ -47,7 +49,7 @@ fun InsightScreen(
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
+            .orreryBackground(rememberOrreryPattern("insight", centerY = 0.25f))
     ) {
         item {
             AtaraxyTopBar(title = stringResource(R.string.insight_title), onBack = onBack)

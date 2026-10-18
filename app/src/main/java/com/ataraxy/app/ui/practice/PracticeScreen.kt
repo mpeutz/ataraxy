@@ -26,6 +26,8 @@ import com.ataraxy.app.domain.model.Quote
 import com.ataraxy.app.ui.components.AnnotatedQuoteText
 import com.ataraxy.app.ui.components.AtaraxyDivider
 import com.ataraxy.app.ui.components.AtaraxyTopBar
+import com.ataraxy.app.ui.components.orrery.orreryBackground
+import com.ataraxy.app.ui.components.orrery.rememberOrreryPattern
 import com.ataraxy.app.ui.theme.CormorantGaramond
 import com.ataraxy.app.ui.theme.Jost
 
@@ -53,7 +55,7 @@ fun PracticeScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
+            .orreryBackground(rememberOrreryPattern("practice", centerY = 0.3f))
     ) {
         AtaraxyTopBar(title = stringResource(R.string.practice_title), onBack = onBack)
 
