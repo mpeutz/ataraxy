@@ -281,7 +281,7 @@ private fun QuoteCard(
         }
         Spacer(Modifier.height(4.dp))
         Text(
-            text = "— ${quote.authorName}",
+            text = stringResource(R.string.quote_attribution, quote.authorName),
             style = MaterialTheme.typography.labelSmall.copy(fontFamily = Jost),
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier
@@ -381,7 +381,7 @@ private fun FeaturedQuoteBlock(quote: Quote) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "\u201C${quote.text}\u201D",
+            text = stringResource(R.string.quote_in_marks, quote.text),
             style = MaterialTheme.typography.displaySmall.copy(
                 fontFamily = CormorantGaramond,
                 fontStyle = FontStyle.Italic
@@ -391,7 +391,7 @@ private fun FeaturedQuoteBlock(quote: Quote) {
         )
         Spacer(Modifier.height(12.dp))
         Text(
-            text = "— ${quote.authorName.uppercase()}",
+            text = stringResource(R.string.quote_attribution, quote.authorName.uppercase()),
             style = MaterialTheme.typography.labelSmall.copy(fontFamily = Jost, letterSpacing = 2.sp),
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )

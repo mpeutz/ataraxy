@@ -308,7 +308,7 @@ private fun CompletionContent(session: RitualSession, onBack: () -> Unit) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "\u201C$quote\u201D",
+            text = stringResource(R.string.quote_in_marks, quote),
             style = MaterialTheme.typography.displaySmall.copy(
                 fontFamily = CormorantGaramond,
                 fontStyle = FontStyle.Italic,

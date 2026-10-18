@@ -4,6 +4,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowForward
 import androidx.compose.material3.*
@@ -99,13 +101,7 @@ fun OnboardingScreen(onComplete: () -> Unit) {
 
 @Composable
 private fun OnboardingPage1() {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(horizontal = 40.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
+    OnboardingPage {
         Text(
             text = stringResource(R.string.onboarding_wordmark),
             style = MaterialTheme.typography.labelLarge.copy(fontFamily = Jost, letterSpacing = 6.sp),
@@ -134,13 +130,7 @@ private fun OnboardingPage1() {
 
 @Composable
 private fun OnboardingPage2() {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(horizontal = 40.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
+    OnboardingPage {
         Text(
             text = stringResource(R.string.the_four_virtues),
             style = MaterialTheme.typography.labelLarge.copy(fontFamily = Jost, letterSpacing = 4.sp),
@@ -181,13 +171,7 @@ private fun OnboardingPage2() {
 
 @Composable
 private fun OnboardingPage3() {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(horizontal = 40.dp),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
+    OnboardingPage {
         Text(
             text = stringResource(R.string.your_morning),
             style = MaterialTheme.typography.labelLarge.copy(fontFamily = Jost, letterSpacing = 4.sp),
@@ -210,6 +194,23 @@ private fun OnboardingPage3() {
             style = MaterialTheme.typography.bodyMedium.copy(fontFamily = Jost),
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center
+        )
+    }
+}
+
+/** Centers a page's content vertically, scrolling instead of clipping when it is taller than the screen. */
+@Composable
+private fun OnboardingPage(content: @Composable ColumnScope.() -> Unit) {
+    BoxWithConstraints(Modifier.fillMaxSize()) {
+        Column(
+            modifier = Modifier
+                .verticalScroll(rememberScrollState())
+                .heightIn(min = maxHeight)
+                .fillMaxWidth()
+                .padding(horizontal = 40.dp, vertical = 24.dp),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            content = content
         )
     }
 }

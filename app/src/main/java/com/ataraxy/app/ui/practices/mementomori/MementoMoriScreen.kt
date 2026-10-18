@@ -113,7 +113,7 @@ fun MementoMoriScreen(
                 Spacer(Modifier.height(24.dp))
                 if (quote != null) {
                     Text(
-                        text = "\u201C${quote.text}\u201D",
+                        text = stringResource(R.string.quote_in_marks, quote.text),
                         style = MaterialTheme.typography.displaySmall.copy(
                             fontFamily = CormorantGaramond,
                             fontStyle = FontStyle.Italic,
@@ -125,7 +125,7 @@ fun MementoMoriScreen(
                     )
                     Spacer(Modifier.height(12.dp))
                     Text(
-                        text = "\u2014 ${quote.authorName.uppercase()}",
+                        text = stringResource(R.string.quote_attribution, quote.authorName.uppercase()),
                         style = MaterialTheme.typography.labelSmall.copy(
                             fontFamily = Jost,
                             letterSpacing = 2.sp
@@ -206,7 +206,7 @@ private fun BirthYearSetup(
         )
         Spacer(Modifier.height(12.dp))
         Text(
-            text = "\u2014 " + stringResource(R.string.marcus_aurelius_name),
+            text = stringResource(R.string.quote_attribution, stringResource(R.string.marcus_aurelius_name)),
             style = MaterialTheme.typography.labelSmall.copy(
                 fontFamily = Jost,
                 letterSpacing = 2.sp

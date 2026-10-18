@@ -1,18 +1,15 @@
 package com.ataraxy.app.data.preferences
 
-import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
-import androidx.datastore.preferences.preferencesDataStore
 import com.ataraxy.app.domain.model.AppTheme
 import com.ataraxy.app.domain.model.ContentTextSize
 import com.ataraxy.app.domain.model.NotificationStyle
 import com.ataraxy.app.domain.model.UserPrefs
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
@@ -20,11 +17,9 @@ import java.time.LocalTime
 import javax.inject.Inject
 import javax.inject.Singleton
 
-private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "user_prefs")
-
 @Singleton
 class UserPrefsRepository @Inject constructor(
-    @ApplicationContext private val context: Context
+    private val dataStore: DataStore<Preferences>
 ) {
     private object Keys {
         val NOTIFICATION_HOUR = intPreferencesKey("notification_hour")
@@ -49,7 +44,7 @@ class UserPrefsRepository @Inject constructor(
         val EVENING_RITUAL_MINUTE = intPreferencesKey("evening_ritual_minute")
     }
 
-    val userPrefs: Flow<UserPrefs> = context.dataStore.data.map { prefs ->
+    val userPrefs: Flow<UserPrefs> = dataStore.data.map { prefs ->
         val birthYearRaw = prefs[Keys.BIRTH_YEAR] ?: -1
         UserPrefs(
             notificationTime = LocalTime.of(
@@ -88,32 +83,32 @@ class UserPrefsRepository @Inject constructor(
     }.catch { emit(UserPrefs()) }
 
     suspend fun setNotificationTime(time: LocalTime) {
-        context.dataStore.edit { prefs ->
+        dataStore.edit { prefs ->
             prefs[Keys.NOTIFICATION_HOUR] = time.hour
             prefs[Keys.NOTIFICATION_MINUTE] = time.minute
         }
     }
 
     suspend fun setTheme(theme: AppTheme) {
-        context.dataStore.edit { prefs ->
+        dataStore.edit { prefs ->
             prefs[Keys.THEME] = theme.name
         }
     }
 
     suspend fun setContentTextSize(size: ContentTextSize) {
-        context.dataStore.edit { prefs ->
+        dataStore.edit { prefs ->
             prefs[Keys.CONTENT_TEXT_SIZE] = size.name
         }
     }
 
     suspend fun setNotificationStyle(style: NotificationStyle) {
-        context.dataStore.edit { prefs ->
+        dataStore.edit { prefs ->
             prefs[Keys.NOTIFICATION_STYLE] = style.name
         }
     }
 
     suspend fun updateStreak(today: String) {
-        context.dataStore.edit { prefs ->
+        dataStore.edit { prefs ->
             val last = prefs[Keys.LAST_OPENED_DATE] ?: ""
             val streak = prefs[Keys.STREAK_COUNT] ?: 0
 
@@ -138,25 +133,25 @@ class UserPrefsRepository @Inject constructor(
     }
 
     suspend fun setNotificationsEnabled(enabled: Boolean) {
-        context.dataStore.edit { prefs ->
+        dataStore.edit { prefs ->
             prefs[Keys.NOTIFICATIONS_ENABLED] = enabled
         }
     }
 
     suspend fun setOnboardingComplete(complete: Boolean) {
-        context.dataStore.edit { prefs ->
+        dataStore.edit { prefs ->
             prefs[Keys.ONBOARDING_COMPLETE] = complete
         }
     }
 
     suspend fun setBirthYear(year: Int) {
-        context.dataStore.edit { prefs ->
+        dataStore.edit { prefs ->
             prefs[Keys.BIRTH_YEAR] = year
         }
     }
 
     suspend fun updateMorningRitualStreak(today: String) {
-        context.dataStore.edit { prefs ->
+        dataStore.edit { prefs ->
             val last = prefs[Keys.LAST_MORNING_RITUAL_DATE] ?: ""
             val streak = prefs[Keys.MORNING_RITUAL_STREAK] ?: 0
             val newStreak = when {
@@ -177,7 +172,7 @@ class UserPrefsRepository @Inject constructor(
     }
 
     suspend fun updateEveningRitualStreak(today: String) {
-        context.dataStore.edit { prefs ->
+        dataStore.edit { prefs ->
             val last = prefs[Keys.LAST_EVENING_RITUAL_DATE] ?: ""
             val streak = prefs[Keys.EVENING_RITUAL_STREAK] ?: 0
             val newStreak = when {
@@ -198,28 +193,28 @@ class UserPrefsRepository @Inject constructor(
     }
 
     suspend fun setMorningRitualEnabled(enabled: Boolean) {
-        context.dataStore.edit { prefs -> prefs[Keys.MORNING_RITUAL_ENABLED] = enabled }
+        dataStore.edit { prefs -> prefs[Keys.MORNING_RITUAL_ENABLED] = enabled }
     }
 
     suspend fun setMorningRitualTime(time: LocalTime) {
-        context.dataStore.edit { prefs ->
+        dataStore.edit { prefs ->
             prefs[Keys.MORNING_RITUAL_HOUR] = time.hour
             prefs[Keys.MORNING_RITUAL_MINUTE] = time.minute
         }
     }
 
     suspend fun setEveningRitualEnabled(enabled: Boolean) {
-        context.dataStore.edit { prefs -> prefs[Keys.EVENING_RITUAL_ENABLED] = enabled }
+        dataStore.edit { prefs -> prefs[Keys.EVENING_RITUAL_ENABLED] = enabled }
     }
 
     suspend fun setEveningRitualTime(time: LocalTime) {
-        context.dataStore.edit { prefs ->
+        dataStore.edit { prefs ->
             prefs[Keys.EVENING_RITUAL_HOUR] = time.hour
             prefs[Keys.EVENING_RITUAL_MINUTE] = time.minute
         }
     }
 
     suspend fun clearAll() {
-        context.dataStore.edit { it.clear() }
+        dataStore.edit { it.clear() }
     }
 }

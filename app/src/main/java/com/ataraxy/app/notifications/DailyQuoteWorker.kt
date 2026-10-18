@@ -5,6 +5,7 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import androidx.annotation.StringRes
 import androidx.core.app.NotificationCompat
 import androidx.core.net.toUri
 import androidx.hilt.work.HiltWorker
@@ -17,6 +18,15 @@ import com.ataraxy.app.domain.model.NotificationStyle
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import kotlinx.coroutines.flow.firstOrNull
+import java.time.LocalTime
+
+/** Titles the daily quote for the part of the day it is scheduled in. */
+@StringRes
+internal fun contemplationTitle(time: LocalTime): Int = when (time.hour) {
+    in 5..11 -> R.string.notification_title_morning
+    in 12..16 -> R.string.notification_title_afternoon
+    else -> R.string.notification_title_evening
+}
 
 @HiltWorker
 class DailyQuoteWorker @AssistedInject constructor(
@@ -76,7 +86,7 @@ class DailyQuoteWorker @AssistedInject constructor(
 
         val notification = NotificationCompat.Builder(context, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_notification)
-            .setContentTitle(context.getString(R.string.notification_title_morning))
+            .setContentTitle(context.getString(contemplationTitle(prefs.notificationTime)))
             .setContentText(contentText)
             .setStyle(NotificationCompat.BigTextStyle().bigText(contentText))
             .setContentIntent(pendingIntent)

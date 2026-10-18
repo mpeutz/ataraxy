@@ -36,6 +36,9 @@ fun PracticeScreen(
     viewModel: PracticeViewModel = hiltViewModel()
 ) {
     val quote by viewModel.quote.collectAsStateWithLifecycle()
+    val promptText = stringResource(
+        if (quote != null) R.string.practice_prompt_with_quote else R.string.practice_prompt_default
+    )
     val saveSuccess by viewModel.saveSuccess.collectAsStateWithLifecycle()
 
     val inputText by viewModel.draft.collectAsStateWithLifecycle()
@@ -82,9 +85,7 @@ fun PracticeScreen(
                     )
                     Spacer(Modifier.height(8.dp))
                     Text(
-                        text = stringResource(
-                            if (quote != null) R.string.practice_prompt_with_quote else R.string.practice_prompt_default
-                        ),
+                        text = promptText,
                         style = MaterialTheme.typography.displaySmall.copy(
                             fontFamily = CormorantGaramond,
                             fontStyle = FontStyle.Italic
@@ -123,7 +124,7 @@ fun PracticeScreen(
                     AtaraxyDivider()
                     Spacer(Modifier.height(16.dp))
                     Button(
-                        onClick = viewModel::saveEntry,
+                        onClick = { viewModel.saveEntry(promptText) },
                         enabled = inputText.isNotBlank(),
                         modifier = Modifier.align(Alignment.End),
                         colors = ButtonDefaults.buttonColors(
@@ -173,7 +174,7 @@ private fun QuoteRecapCard(
             Spacer(Modifier.height(6.dp))
         }
         AnnotatedQuoteText(
-            text = "\u201C${quote.text}\u201D",
+            text = stringResource(R.string.quote_in_marks, quote.text),
             style = MaterialTheme.typography.displaySmall.copy(
                 fontFamily = CormorantGaramond,
                 fontStyle = FontStyle.Italic
@@ -187,7 +188,7 @@ private fun QuoteRecapCard(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = "— ${quote.authorName}",
+                text = stringResource(R.string.quote_attribution, quote.authorName),
                 style = MaterialTheme.typography.labelSmall.copy(fontFamily = Jost),
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )

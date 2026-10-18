@@ -11,6 +11,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -18,7 +19,9 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.core.util.Consumer
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavBackStackEntry
@@ -33,20 +36,22 @@ import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
 import com.ataraxy.app.ui.archive.ArchiveScreen
 import com.ataraxy.app.ui.author.AuthorDetailScreen
-import com.ataraxy.app.ui.insight.InsightScreen
 import com.ataraxy.app.ui.home.HomeScreen
+import com.ataraxy.app.ui.insight.InsightScreen
 import com.ataraxy.app.ui.onboarding.OnboardingScreen
 import com.ataraxy.app.ui.practice.PracticeScreen
 import com.ataraxy.app.ui.practices.bookend.BookendRitualScreen
 import com.ataraxy.app.ui.practices.dichotomy.DichotomyScreen
 import com.ataraxy.app.ui.practices.hub.PracticesHubScreen
 import com.ataraxy.app.ui.practices.journal.JournalHistoryScreen
-import com.ataraxy.app.ui.practices.mementomori.MementoMoriScreen
 import com.ataraxy.app.ui.practices.mementomori.MementoMoriInsightScreen
+import com.ataraxy.app.ui.practices.mementomori.MementoMoriScreen
 import com.ataraxy.app.ui.practices.sos.SosScreen
 import com.ataraxy.app.ui.settings.AboutScreen
 import com.ataraxy.app.ui.settings.SettingsScreen
 import com.ataraxy.app.ui.virtue.VirtueDetailScreen
+
+private val MaxContentWidth = 720.dp
 
 @Composable
 fun AtaraxyNavHost() {
@@ -76,18 +81,26 @@ fun AtaraxyNavHost() {
             }
         }
     ) { innerPadding ->
-        NavHost(
-            navController = navController,
-            startDestination = startDestination,
+        // On tablets and in landscape, keep screens at a readable width instead of stretching.
+        Box(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding),
-            enterTransition = { fadeIn(tween(300)) },
-            exitTransition = { fadeOut(tween(300)) },
-            popEnterTransition = { fadeIn(tween(300)) },
-            popExitTransition = { fadeOut(tween(300)) }
+            contentAlignment = Alignment.TopCenter
         ) {
-            ataraxyGraph(navController, onOnboardingComplete = navViewModel::completeOnboarding)
+            NavHost(
+                navController = navController,
+                startDestination = startDestination,
+                modifier = Modifier
+                    .widthIn(max = MaxContentWidth)
+                    .fillMaxSize(),
+                enterTransition = { fadeIn(tween(300)) },
+                exitTransition = { fadeOut(tween(300)) },
+                popEnterTransition = { fadeIn(tween(300)) },
+                popExitTransition = { fadeOut(tween(300)) }
+            ) {
+                ataraxyGraph(navController, onOnboardingComplete = navViewModel::completeOnboarding)
+            }
         }
     }
 }

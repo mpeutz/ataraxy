@@ -63,7 +63,7 @@ class PracticeViewModelTest {
         awaitMain { viewModel.draft.value == "original" }
 
         viewModel.updateDraft("revised")
-        viewModel.saveEntry()
+        viewModel.saveEntry(promptText = "ignored when editing")
         awaitMain { viewModel.saveSuccess.value }
 
         val saved = runBlocking { db.journalDao().getAllEntries().first() }
@@ -82,11 +82,12 @@ class PracticeViewModelTest {
         val viewModel = viewModel(SavedStateHandle())
         viewModel.updateDraft("A new reflection")
 
-        viewModel.saveEntry()
+        viewModel.saveEntry(promptText = "What weighs on your mind today?")
         awaitMain { viewModel.saveSuccess.value }
 
         val saved = runBlocking { db.journalDao().getAllEntries().first() }
         assertEquals(listOf("A new reflection"), saved.map { it.content })
+        assertEquals(listOf("What weighs on your mind today?"), saved.map { it.promptText })
         assertEquals("", viewModel.draft.value)
     }
 

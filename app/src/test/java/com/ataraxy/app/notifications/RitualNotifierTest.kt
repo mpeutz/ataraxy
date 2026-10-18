@@ -20,6 +20,7 @@ import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.Shadows.shadowOf
 import java.time.LocalDateTime
+import com.ataraxy.app.testing.testUserPrefs
 
 @RunWith(RobolectricTestRunner::class)
 class RitualNotifierTest {
@@ -35,8 +36,7 @@ class RitualNotifierTest {
     fun setUp() {
         context = ApplicationProvider.getApplicationContext()
         db = inMemoryDatabase()
-        prefs = UserPrefsRepository(context)
-        runBlocking { prefs.clearAll() }
+        prefs = testUserPrefs()
         notifier = RitualNotifier(context, prefs, JournalRepository(db.journalDao()))
     }
 

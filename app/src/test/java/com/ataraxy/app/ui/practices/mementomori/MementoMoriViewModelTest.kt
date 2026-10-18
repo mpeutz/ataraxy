@@ -1,6 +1,5 @@
 package com.ataraxy.app.ui.practices.mementomori
 
-import androidx.test.core.app.ApplicationProvider
 import com.ataraxy.app.data.local.AtaraxyDatabase
 import com.ataraxy.app.data.local.inMemoryDatabase
 import com.ataraxy.app.data.preferences.UserPrefsRepository
@@ -16,6 +15,7 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
+import com.ataraxy.app.testing.testUserPrefs
 
 @RunWith(RobolectricTestRunner::class)
 class MementoMoriViewModelTest {
@@ -27,8 +27,7 @@ class MementoMoriViewModelTest {
     @Before
     fun setUp() {
         db = inMemoryDatabase()
-        prefs = UserPrefsRepository(ApplicationProvider.getApplicationContext())
-        runBlocking { prefs.clearAll() }
+        prefs = testUserPrefs()
         viewModel = MementoMoriViewModel(prefs, QuoteRepository(db.quoteDao(), db.authorDao(), db.bookmarkDao()))
         awaitMain { !viewModel.uiState.value.isLoading }
     }

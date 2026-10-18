@@ -188,7 +188,7 @@ private fun QuoteCard(
 
         // Quote text
         AnnotatedQuoteText(
-            text = "\u201C${quote.text}\u201D",
+            text = stringResource(R.string.quote_in_marks, quote.text),
             style = MaterialTheme.typography.displayMedium.copy(
                 fontFamily = CormorantGaramond,
                 fontStyle = FontStyle.Italic,
@@ -203,7 +203,7 @@ private fun QuoteCard(
 
         // Attribution
         Text(
-            text = "— ${quote.authorName.uppercase()}",
+            text = stringResource(R.string.quote_attribution, quote.authorName.uppercase()),
             style = MaterialTheme.typography.labelMedium.copy(
                 fontFamily = Jost,
                 letterSpacing = 2.sp
