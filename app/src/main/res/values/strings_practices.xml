@@ -55,6 +55,10 @@
     <string name="sos_another_quote">ANOTHER QUOTE</string>
     <string name="sos_explore_insight">Explore this insight</string>
     <string name="sos_footer">These quotes are drawn from the Stoics\nwho faced these same struggles.</string>
+    <string name="sos_emotion_angry">ANGRY</string>
+    <string name="sos_emotion_anxious">ANXIOUS</string>
+    <string name="sos_emotion_grieving">GRIEVING</string>
+    <string name="sos_emotion_afraid">AFRAID</string>
     <string name="sos_emotion_overwhelmed">OVERWHELMED</string>
     <string name="sos_emotion_procrastinating">PROCRASTINATING</string>
     <string name="sos_emotion_stuck">STUCK</string>
@@ -75,6 +79,10 @@
     <string name="sos_emotion_jealous_envious">JEALOUS / ENVIOUS</string>
     <string name="sos_emotion_unmotivated">UNMOTIVATED</string>
     <string name="sos_emotion_hopeless">HOPELESS</string>
+    <string name="sos_latin_angry" translatable="false">Ira</string>
+    <string name="sos_latin_anxious" translatable="false">Sollicitudo</string>
+    <string name="sos_latin_grieving" translatable="false">Luctus</string>
+    <string name="sos_latin_afraid" translatable="false">Metus</string>
     <string name="sos_latin_overwhelmed" translatable="false">Pressura</string>
     <string name="sos_latin_procrastinating" translatable="false">Dilatio</string>
     <string name="sos_latin_stuck" translatable="false">Haesitatio</string>

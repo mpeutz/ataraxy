@@ -22,11 +22,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -39,13 +41,17 @@ import com.ataraxy.app.ui.components.orrery.rememberOrreryPattern
 import com.ataraxy.app.ui.theme.CormorantGaramond
 import com.ataraxy.app.ui.theme.Jost
 
-private data class EmotionOption(
+internal data class EmotionOption(
     val emotion: SosEmotion,
     @StringRes val label: Int,
     @StringRes val latin: Int
 )
 
-private val emotions = listOf(
+internal val sosEmotionOptions = listOf(
+    EmotionOption(SosEmotion.ANGRY, R.string.sos_emotion_angry, R.string.sos_latin_angry),
+    EmotionOption(SosEmotion.ANXIOUS, R.string.sos_emotion_anxious, R.string.sos_latin_anxious),
+    EmotionOption(SosEmotion.GRIEVING, R.string.sos_emotion_grieving, R.string.sos_latin_grieving),
+    EmotionOption(SosEmotion.AFRAID, R.string.sos_emotion_afraid, R.string.sos_latin_afraid),
     EmotionOption(SosEmotion.OVERWHELMED, R.string.sos_emotion_overwhelmed, R.string.sos_latin_overwhelmed),
     EmotionOption(SosEmotion.PROCRASTINATING, R.string.sos_emotion_procrastinating, R.string.sos_latin_procrastinating),
     EmotionOption(SosEmotion.STUCK, R.string.sos_emotion_stuck, R.string.sos_latin_stuck),
@@ -77,7 +83,7 @@ fun SosScreen(
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val selectedOption = state.selectedEmotion?.let { emotion ->
-        emotions.firstOrNull { it.emotion == emotion }
+        sosEmotionOptions.firstOrNull { it.emotion == emotion }
     }
     val scrollState = rememberScrollState()
     val quoteBringIntoViewRequester = remember { BringIntoViewRequester() }
@@ -116,7 +122,7 @@ fun SosScreen(
             modifier = Modifier.padding(horizontal = 24.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            emotions.chunked(2).forEach { row ->
+            sosEmotionOptions.chunked(2).forEach { row ->
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.spacedBy(12.dp)
@@ -186,11 +192,7 @@ fun SosScreen(
                     }
                     Text(
                         text = stringResource(R.string.quote_in_marks, quote.text),
-                        style = MaterialTheme.typography.displayMedium.copy(
-                            fontFamily = CormorantGaramond,
-                            fontStyle = FontStyle.Italic,
-                            lineHeight = 44.sp
-                        ),
+                        style = sosQuoteStyle(quote.text),
                         color = MaterialTheme.colorScheme.onBackground,
                         textAlign = TextAlign.Center,
                         modifier = Modifier.fillMaxWidth()
@@ -290,6 +292,21 @@ fun SosScreen(
 
         Spacer(Modifier.height(32.dp))
     }
+}
+
+private const val LONG_QUOTE_CHARS = 160
+
+/** Quote text sized off the theme so the user's text-size setting still applies; long quotes step down. */
+@Composable
+private fun sosQuoteStyle(text: String): TextStyle {
+    val base = MaterialTheme.typography.displaySmall
+    val fontSize = if (text.length > LONG_QUOTE_CHARS) base.fontSize * 0.85f else base.fontSize
+    return base.copy(
+        fontFamily = CormorantGaramond,
+        fontStyle = FontStyle.Italic,
+        fontSize = fontSize,
+        lineHeight = 1.3.em
+    )
 }
 
 @Composable

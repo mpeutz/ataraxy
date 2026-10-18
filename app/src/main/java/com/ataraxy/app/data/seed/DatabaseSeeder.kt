@@ -10,8 +10,9 @@ class DatabaseSeeder @Inject constructor(
     private val db: AtaraxyDatabase
 ) {
     /**
-     * Inserts all seed data in one transaction. Every insert ignores existing rows, so running this
-     * on each launch repairs an interrupted seed and backfills rows added in later releases.
+     * Inserts all seed data in one transaction, so running this on each launch repairs an
+     * interrupted seed and backfills rows added in later releases. Quotes are upserted so
+     * corrected wording reaches existing installs; other rows ignore existing entries.
      */
     suspend fun seed() {
         db.withTransaction {

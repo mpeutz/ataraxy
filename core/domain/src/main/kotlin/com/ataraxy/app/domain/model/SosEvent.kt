@@ -22,7 +22,11 @@ enum class SosEmotion {
     REGRETFUL,
     JEALOUS_ENVIOUS,
     UNMOTIVATED,
-    HOPELESS
+    HOPELESS,
+    ANXIOUS,
+    ANGRY,
+    GRIEVING,
+    AFRAID
 }
 
 data class SosEvent(

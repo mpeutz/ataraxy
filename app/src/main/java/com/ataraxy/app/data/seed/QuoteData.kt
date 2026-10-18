@@ -215,83 +215,233 @@ object QuoteData {
 
         // ── EMERGENCY (SOS) QUOTES — feeling-tagged, no dayOfYear ─────────────
         // OVERWHELMED
-        QuoteEntity("q300", "Confine yourself to the present.", "marcus_aurelius", "Meditations", "WISDOM", null, "OVERWHELMED"),
-        QuoteEntity("q301", "The greatest remedy for anger is delay.", "seneca", "On Anger", "MODERATION", null, "OVERWHELMED"),
+        QuoteEntity("q300", "Do not disturb yourself by thinking of the whole of your life. Let not your thoughts at once embrace all the various troubles which you may expect to befall you.", "marcus_aurelius", "Meditations", "WISDOM", null, "OVERWHELMED"),
+        QuoteEntity("q301", "Wipe out the imagination. Stop the pulling of the strings. Confine yourself to the present.", "marcus_aurelius", "Meditations", "MODERATION", null, "OVERWHELMED"),
+        QuoteEntity("q340", "Be not hurried away by the rapidity of the appearance, but say, Appearances, wait for me a little; let me see who you are, and what you are about; let me put you to the test.", "epictetus", "Discourses", "MODERATION", null, "OVERWHELMED"),
+        QuoteEntity("q341", "You must leave alone some things entirely, and postpone others for the present.", "epictetus", "Enchiridion", "MODERATION", null, "OVERWHELMED"),
+        QuoteEntity("q342", "The burden should be suited to your strength, nor should you tackle more than you can adequately handle. Absorb not all that you wish, but all that you can hold.", "seneca", "Letters to Lucilius", "MODERATION", null, "OVERWHELMED"),
+        QuoteEntity("q343", "Do not of your own accord make your troubles heavier to bear and burden yourself with complaining.", "seneca", "Letters to Lucilius", "WISDOM", null, "OVERWHELMED"),
+        QuoteEntity("q344", "I force my mind to concentrate, and keep it from straying to things outside itself; all outdoors may be bedlam, provided that there is no disturbance within.", "seneca", "Letters to Lucilius", "MODERATION", null, "OVERWHELMED"),
 
         // PROCRASTINATING
-        QuoteEntity("q302", "How long are you going to wait before you demand the best for yourself?", "epictetus", "Discourses", "COURAGE", null, "PROCRASTINATING"),
-        QuoteEntity("q303", "Let us postpone nothing.", "seneca", "Letters to Lucilius", "COURAGE", null, "PROCRASTINATING"),
+        QuoteEntity("q302", "No longer talk at all about the kind of man that a good man ought to be, but be such.", "marcus_aurelius", "Meditations", "COURAGE", null, "PROCRASTINATING"),
+        QuoteEntity("q303", "Let us postpone nothing. Let us balance life's account every day.", "seneca", "Letters to Lucilius", "COURAGE", null, "PROCRASTINATING"),
+        QuoteEntity("q345", "Come to your own aid, if you care at all for yourself, while it is in your power.", "marcus_aurelius", "Meditations", "COURAGE", null, "PROCRASTINATING"),
+        QuoteEntity("q346", "Remember how long you have been putting off these things, and how often you have received an opportunity from the gods, and yet do not use it.", "marcus_aurelius", "Meditations", "COURAGE", null, "PROCRASTINATING"),
+        QuoteEntity("q347", "Remember that now is the contest, now are the Olympic games, and they cannot be deferred.", "epictetus", "Enchiridion", "COURAGE", null, "PROCRASTINATING"),
+        QuoteEntity("q348", "If it is good to use attention tomorrow, how much better is it to do so today?", "epictetus", "Discourses", "COURAGE", null, "PROCRASTINATING"),
+        QuoteEntity("q349", "How long will you then still defer thinking yourself worthy of the best things?", "epictetus", "Enchiridion", "WISDOM", null, "PROCRASTINATING"),
+        QuoteEntity("q350", "The fool, with all his other faults, has this also: he is always getting ready to live.", "seneca", "Letters to Lucilius", "WISDOM", null, "PROCRASTINATING"),
 
         // STUCK
-        QuoteEntity("q304", "If you are distressed by anything external, the pain is not due to the thing itself, but to your estimate of it.", "marcus_aurelius", "Meditations", "WISDOM", null, "STUCK"),
-        QuoteEntity("q305", "First say to yourself what you would be; and then do what you have to do.", "epictetus", "Discourses", "COURAGE", null, "STUCK"),
+        QuoteEntity("q304", "The mind converts and changes every hindrance to its activity into an aid; and so that which is a hindrance is made a furtherance to an act; and that which is an obstacle on the road helps us on this road.", "marcus_aurelius", "Meditations", "WISDOM", null, "STUCK"),
+        QuoteEntity("q305", "By acquiescing in the hindrance and by being content to transfer your efforts to that which is allowed, another opportunity of action is immediately put before you in place of that which was hindered.", "marcus_aurelius", "Meditations", "WISDOM", null, "STUCK"),
+        QuoteEntity("q351", "Be not ashamed to be helped; for it is your business to do your duty like a soldier in the assault on a town. How then, if being lame you cannot mount up on the battlements alone, but with the help of another it is possible?", "marcus_aurelius", "Meditations", "COURAGE", null, "STUCK"),
+        QuoteEntity("q352", "Remember this general truth, that it is we who squeeze ourselves, who put ourselves in straits; that is, our opinions squeeze us and put us in straits.", "epictetus", "Discourses", "WISDOM", null, "STUCK"),
+        QuoteEntity("q353", "What aid, then, can we find against habit? The contrary habit.", "epictetus", "Discourses", "MODERATION", null, "STUCK"),
+        QuoteEntity("q354", "This is what happens when you hurry through a maze; the faster you go, the worse you are entangled.", "seneca", "Letters to Lucilius", "WISDOM", null, "STUCK"),
+        QuoteEntity("q355", "There is nothing that will not surrender to persistent treatment, to concentrated and careful attention; however much the timber may be bent, you can make it straight again.", "seneca", "Letters to Lucilius", "COURAGE", null, "STUCK"),
+        QuoteEntity("q356", "You must persevere, must develop new strength by continuous study, until that which is only a good inclination becomes a good settled purpose.", "seneca", "Letters to Lucilius", "COURAGE", null, "STUCK"),
 
         // HELPLESS
-        QuoteEntity("q306", "You have power over your mind, not outside events. Realize this, and you will find strength.", "marcus_aurelius", "Meditations", "WISDOM", null, "HELPLESS"),
-        QuoteEntity("q307", "No man is free who is not master of himself.", "epictetus", "Discourses", "MODERATION", null, "HELPLESS"),
+        QuoteEntity("q306", "If you are pained by any external thing, it is not this thing that disturbs you, but your own judgment about it. And it is in your power to wipe out this judgment now.", "marcus_aurelius", "Meditations", "WISDOM", null, "HELPLESS"),
+        QuoteEntity("q307", "No man will hinder you from living according to the reason of your own nature: nothing will happen to you contrary to the reason of the universal nature.", "marcus_aurelius", "Meditations", "WISDOM", null, "HELPLESS"),
+        QuoteEntity("q357", "Disease is an impediment to the body, but not to the will, unless the will itself chooses. Lameness is an impediment to the leg, but not to the will.", "epictetus", "Enchiridion", "COURAGE", null, "HELPLESS"),
+        QuoteEntity("q358", "On the occasion of every event that befalls you, remember to turn to yourself and inquire what power you have for turning it to use.", "epictetus", "Enchiridion", "COURAGE", null, "HELPLESS"),
+        QuoteEntity("q359", "We cannot change this order of things; but what we can do is to acquire stout hearts, worthy of good men, thereby courageously enduring chance and placing ourselves in harmony with Nature.", "seneca", "Letters to Lucilius", "COURAGE", null, "HELPLESS"),
+        QuoteEntity("q360", "The beginning is in our own power; fortune decides the issue, but I do not allow her to pass sentence upon myself.", "seneca", "Letters to Lucilius", "WISDOM", null, "HELPLESS"),
+        QuoteEntity("q361", "That which you cannot reform, it is best to endure.", "seneca", "Letters to Lucilius", "COURAGE", null, "HELPLESS"),
 
         // INSECURE
-        QuoteEntity("q308", "Waste no more time arguing what a good man should be. Be one.", "marcus_aurelius", "Meditations", "JUSTICE", null, "INSECURE"),
-        QuoteEntity("q309", "Begin at once to live, and count each separate day as a separate life.", "seneca", "Letters to Lucilius", "WISDOM", null, "INSECURE"),
+        QuoteEntity("q308", "I have often wondered how it is that every man loves himself more than all the rest of men, but yet sets less value on his own opinion of himself than on the opinion of others.", "marcus_aurelius", "Meditations", "WISDOM", null, "INSECURE"),
+        QuoteEntity("q362", "Everything which is in any way beautiful is beautiful in itself, and terminates in itself, not having praise as part of itself. Neither worse then nor better is a thing made by being praised.", "marcus_aurelius", "Meditations", "WISDOM", null, "INSECURE"),
+        QuoteEntity("q363", "Be cheerful also, and seek not external help nor the tranquility which others give. A man then must stand erect, not be kept erect by others.", "marcus_aurelius", "Meditations", "COURAGE", null, "INSECURE"),
+        QuoteEntity("q364", "How will you be nobody nowhere, when you ought to be somebody in those things only which are in your power, in which indeed it is permitted to you to be a man of the greatest worth?", "epictetus", "Enchiridion", "WISDOM", null, "INSECURE"),
+        QuoteEntity("q365", "For another man then to have an opinion about you, of what kind is it? It is a thing independent of the will. Then is it nothing to you? It is nothing.", "epictetus", "Discourses", "WISDOM", null, "INSECURE"),
+        QuoteEntity("q366", "However, what you think of yourself is much more to the point than what others think of you.", "seneca", "Letters to Lucilius", "WISDOM", null, "INSECURE"),
+        QuoteEntity("q367", "What have you to do with the others? You have outstripped yourself.", "seneca", "Letters to Lucilius", "WISDOM", null, "INSECURE"),
+        QuoteEntity("q368", "Our lack of confidence is not the result of difficulty; the difficulty comes from our lack of confidence.", "seneca", "Letters to Lucilius", "COURAGE", null, "INSECURE"),
 
         // ASHAMED
-        QuoteEntity("q310", "The soul becomes dyed with the color of its thoughts.", "marcus_aurelius", "Meditations", "WISDOM", null, "ASHAMED"),
-        QuoteEntity("q311", "Every new beginning comes from some other beginning's end.", "seneca", "Letters to Lucilius", "COURAGE", null, "ASHAMED"),
+        QuoteEntity("q310", "Look within. Within is the fountain of good, and it will ever bubble up, if you will ever dig.", "marcus_aurelius", "Meditations", "WISDOM", null, "ASHAMED"),
+        QuoteEntity("q311", "Show those qualities then which are altogether in your power, sincerity, gravity, endurance of labor, aversion to pleasure, contentment with your portion and with few things, benevolence, frankness.", "marcus_aurelius", "Meditations", "COURAGE", null, "ASHAMED"),
+        QuoteEntity("q369", "Is that shameful to you which is not your own act, that of which you are not the cause, that which has come to you by accident, as a headache, as a fever?", "epictetus", "Discourses", "WISDOM", null, "ASHAMED"),
+        QuoteEntity("q370", "Be willing at length to be approved by yourself, be willing to appear beautiful to God.", "epictetus", "Discourses", "WISDOM", null, "ASHAMED"),
+        QuoteEntity("q371", "The soul alone renders us noble, and it may rise superior to Fortune out of any earlier condition, no matter what that condition has been.", "seneca", "Letters to Lucilius", "WISDOM", null, "ASHAMED"),
+        QuoteEntity("q372", "There is no man to whom a good mind comes before an evil one. It is the evil mind that gets first hold on all of us. Learning virtue means unlearning vice.", "seneca", "Letters to Lucilius", "WISDOM", null, "ASHAMED"),
+        QuoteEntity("q373", "I am, however, discussing with you troubles which concern us both, and sharing the remedy with you, just as if we were lying ill in the same hospital.", "seneca", "Letters to Lucilius", "JUSTICE", null, "ASHAMED"),
 
         // GUILTY
-        QuoteEntity("q312", "When you make a mistake, correct yourself quickly and move on.", "marcus_aurelius", "Meditations", "WISDOM", null, "GUILTY"),
-        QuoteEntity("q313", "A fault confessed is half redressed.", "seneca", "Moral Letters", "JUSTICE", null, "GUILTY"),
+        QuoteEntity("q312", "Be not disgusted, nor discouraged, nor dissatisfied, if you do not succeed in doing everything according to right principles, but when you have failed, return back again, and be content if the greater part of what you do is consistent with man's nature.", "marcus_aurelius", "Meditations", "MODERATION", null, "GUILTY"),
+        QuoteEntity("q313", "Only attend to yourself, and resolve to be a good man in every act which you do.", "marcus_aurelius", "Meditations", "JUSTICE", null, "GUILTY"),
+        QuoteEntity("q374", "When you have assumed these names, good, modest, true, rational, a man of equanimity, and magnanimous, take care that you do not change these names; and if you should lose them, quickly return to them.", "marcus_aurelius", "Meditations", "JUSTICE", null, "GUILTY"),
+        QuoteEntity("q375", "Is it possible to be free from faults? It is not possible; but this is possible, to direct your efforts incessantly to being faultless. For we must be content if by never remitting this attention we shall escape at least a few errors.", "epictetus", "Discourses", "MODERATION", null, "GUILTY"),
+        QuoteEntity("q376", "It is the act of an ill-instructed man to blame others for his own bad condition; it is the act of one who has begun to be instructed, to lay the blame on himself; and of one whose instruction is completed, neither to blame another, nor himself.", "epictetus", "Enchiridion", "WISDOM", null, "GUILTY"),
+        QuoteEntity("q377", "You can celebrate a festival daily, today because you have behaved well in one act, and tomorrow because you have behaved well in another.", "epictetus", "Discourses", "COURAGE", null, "GUILTY"),
+        QuoteEntity("q378", "The knowledge of sin is the beginning of salvation.", "seneca", "Letters to Lucilius", "WISDOM", null, "GUILTY"),
+        QuoteEntity("q379", "Hence it is that the larger part of goodness is the will to become good.", "seneca", "Letters to Lucilius", "JUSTICE", null, "GUILTY"),
 
         // LONELY
-        QuoteEntity("q314", "Nowhere can man find a quieter or more untroubled retreat than in his own soul.", "marcus_aurelius", "Meditations", "MODERATION", null, "LONELY"),
-        QuoteEntity("q315", "Associate with people who are likely to improve you.", "seneca", "Letters to Lucilius", "JUSTICE", null, "LONELY"),
+        QuoteEntity("q314", "Sooner, then, will one find anything earthy which comes in contact with no earthy thing, than a man altogether separated from other men.", "marcus_aurelius", "Meditations", "JUSTICE", null, "LONELY"),
+        QuoteEntity("q315", "How close is the kinship between a man and the whole human race, for it is a community, not of a little blood or seed, but of intelligence.", "marcus_aurelius", "Meditations", "JUSTICE", null, "LONELY"),
+        QuoteEntity("q380", "We see by one light, and breathe one air, all of us that have the faculty of vision and all that have life.", "marcus_aurelius", "Meditations", "JUSTICE", null, "LONELY"),
+        QuoteEntity("q381", "You ought when you are alone to call this condition by the name of tranquility and freedom.", "epictetus", "Discourses", "WISDOM", null, "LONELY"),
+        QuoteEntity("q382", "A man ought to be prepared in a manner for this also (being alone), to be able to be sufficient for himself and to be his own companion.", "epictetus", "Discourses", "COURAGE", null, "LONELY"),
+        QuoteEntity("q383", "\"What progress, you ask, have I made? I have begun to be a friend to myself.\" That was indeed a great benefit; such a person can never be alone.", "seneca", "Letters to Lucilius", "WISDOM", null, "LONELY"),
+        QuoteEntity("q384", "A friend should be retained in the spirit; such a friend can never be absent. He can see every day whomsoever he desires to see.", "seneca", "Letters to Lucilius", "JUSTICE", null, "LONELY"),
+        QuoteEntity("q385", "I can show you a philter, compounded without drugs, herbs, or any witch's incantation: \"If you would be loved, love.\"", "seneca", "Letters to Lucilius", "JUSTICE", null, "LONELY"),
 
         // REJECTED
-        QuoteEntity("q316", "Choose not to be harmed and you will not feel harmed.", "marcus_aurelius", "Meditations", "WISDOM", null, "REJECTED"),
-        QuoteEntity("q317", "He who is brave is free.", "seneca", "Letters to Lucilius", "COURAGE", null, "REJECTED"),
+        QuoteEntity("q316", "Suppose any man shall despise me. Let him look to that himself. But I will look to this, that I be not discovered doing or saying anything deserving of contempt.", "marcus_aurelius", "Meditations", "COURAGE", null, "REJECTED"),
+        QuoteEntity("q317", "Adapt yourself to the things with which your lot has been cast: and the men among whom you have received your portion, love them, but do it truly.", "marcus_aurelius", "Meditations", "JUSTICE", null, "REJECTED"),
+        QuoteEntity("q386", "Has any man been preferred before you at a banquet, or in being saluted, or in being invited to a consultation? If these things are good, you ought to rejoice that he has obtained them; but if bad, be not grieved because you have not obtained them.", "epictetus", "Enchiridion", "JUSTICE", null, "REJECTED"),
+        QuoteEntity("q387", "Would you have me to be despised? By whom? By those who know you? And how shall those who know you despise a man who is gentle and modest? Perhaps you mean by those who do not know you? What is that to you?", "epictetus", "Discourses", "WISDOM", null, "REJECTED"),
+        QuoteEntity("q388", "I am content with few, content with one, content with none at all.", "seneca", "Letters to Lucilius", "MODERATION", null, "REJECTED"),
+        QuoteEntity("q389", "He who begins to be your friend because it pays will also cease because it pays.", "seneca", "Letters to Lucilius", "WISDOM", null, "REJECTED"),
+        QuoteEntity("q390", "A noble mind is free to all men; according to this test, we may all gain distinction. Philosophy neither rejects nor selects anyone; its light shines for all.", "seneca", "Letters to Lucilius", "WISDOM", null, "REJECTED"),
 
         // DISCOURAGED
-        QuoteEntity("q318", "You could leave life right now. Let that determine what you do and say and think.", "marcus_aurelius", "Meditations", "COURAGE", null, "DISCOURAGED"),
-        QuoteEntity("q319", "Difficulties strengthen the mind, as labor does the body.", "seneca", "Letters to Lucilius", "COURAGE", null, "DISCOURAGED"),
+        QuoteEntity("q318", "If a thing is difficult to be accomplished by yourself, do not think that it is impossible for man: but if anything is possible for man and conformable to his nature, think that this can be attained by yourself too.", "marcus_aurelius", "Meditations", "COURAGE", null, "DISCOURAGED"),
+        QuoteEntity("q319", "Practice yourself even in the things which you despair of accomplishing. For even the left hand, which is ineffectual for all other things for want of practice, holds the bridle more vigorously than the right hand.", "marcus_aurelius", "Meditations", "COURAGE", null, "DISCOURAGED"),
+        QuoteEntity("q391", "As soon as you have recovered and restored yourself, and employ the same zeal, you may renew the combat again; and if again you renounce it, you may again renew it; and if you once gain the victory, you are like him who has never renounced the combat.", "epictetus", "Discourses", "COURAGE", null, "DISCOURAGED"),
+        QuoteEntity("q392", "Nothing great, said Epictetus, is produced suddenly, since not even the grape or the fig is.", "epictetus", "Discourses", "MODERATION", null, "DISCOURAGED"),
+        QuoteEntity("q393", "What then, since I am naturally dull, shall I, for this reason, take no pains? I hope not.", "epictetus", "Discourses", "COURAGE", null, "DISCOURAGED"),
+        QuoteEntity("q394", "The child who is trying to stand and is becoming used to carry his own weight, on beginning to test his strength, falls and rises again and again with tears until through painful effort he has trained himself to the demands of nature.", "seneca", "Letters to Lucilius", "COURAGE", null, "DISCOURAGED"),
+        QuoteEntity("q395", "Even after a poor crop one should sow again; for often losses due to continued barrenness of an unproductive soil have been made good by one year's fertility.", "seneca", "Letters to Lucilius", "COURAGE", null, "DISCOURAGED"),
+        QuoteEntity("q396", "Fortune has often in the past got the upper hand of you, and yet you have not surrendered, but have leaped up and stood your ground still more eagerly.", "seneca", "Letters to Lucilius", "COURAGE", null, "DISCOURAGED"),
 
         // RESENTFUL
-        QuoteEntity("q320", "The best revenge is to be unlike him who performed the injustice.", "marcus_aurelius", "Meditations", "JUSTICE", null, "RESENTFUL"),
-        QuoteEntity("q321", "He who angers you conquers you.", "epictetus", "Enchiridion", "WISDOM", null, "RESENTFUL"),
+        QuoteEntity("q320", "The best way of avenging yourself is not to become like the wrong-doer.", "marcus_aurelius", "Meditations", "JUSTICE", null, "RESENTFUL"),
+        QuoteEntity("q321", "It is your duty to leave another man's wrongful act there where it is.", "marcus_aurelius", "Meditations", "MODERATION", null, "RESENTFUL"),
+        QuoteEntity("q397", "When a man has done you any wrong, immediately consider with what opinion about good or evil he has done wrong. For when you have seen this, you will pity him, and will neither wonder nor be angry.", "marcus_aurelius", "Meditations", "JUSTICE", null, "RESENTFUL"),
+        QuoteEntity("q398", "Everything has two handles, the one by which it may be borne, the other by which it may not.", "epictetus", "Enchiridion", "JUSTICE", null, "RESENTFUL"),
+        QuoteEntity("q399", "What then, since that man has hurt himself by doing an unjust act to me, shall I not hurt myself by doing some unjust act to him?", "epictetus", "Discourses", "JUSTICE", null, "RESENTFUL"),
+        QuoteEntity("q400", "Another will not damage you, unless you choose: but you will be damaged then when you shall think that you are damaged.", "epictetus", "Enchiridion", "WISDOM", null, "RESENTFUL"),
+        QuoteEntity("q401", "What is more wretched than a man who forgets his benefits and clings to his injuries?", "seneca", "Letters to Lucilius", "JUSTICE", null, "RESENTFUL"),
+        QuoteEntity("q402", "Evil herself drinks the largest portion of her own poison.", "seneca", "Letters to Lucilius", "WISDOM", null, "RESENTFUL"),
 
-        // TREATED_UNFAIRLY
-        QuoteEntity("q322", "When you are offended at any man's fault, turn to yourself and study your own failings.", "epictetus", "Discourses", "WISDOM", null, "TREATED_UNFAIRLY"),
-        QuoteEntity("q323", "What injures the hive injures the bee.", "marcus_aurelius", "Meditations", "JUSTICE", null, "TREATED_UNFAIRLY"),
+        // TREATED UNFAIRLY
+        QuoteEntity("q322", "Take away your opinion, and then there is taken away the complaint, \"I have been harmed.\" Take away the complaint, \"I have been harmed,\" and the harm is taken away.", "marcus_aurelius", "Meditations", "WISDOM", null, "TREATED_UNFAIRLY"),
+        QuoteEntity("q323", "Whatever any one does or says, I must be good; just as if the gold, or the emerald, or the purple, were always saying this. Whatever any one does or says, I must be emerald and keep my color.", "marcus_aurelius", "Meditations", "JUSTICE", null, "TREATED_UNFAIRLY"),
+        QuoteEntity("q403", "It is royal to do good and to be abused.", "marcus_aurelius", "Meditations", "COURAGE", null, "TREATED_UNFAIRLY"),
+        QuoteEntity("q404", "When any person treats you ill or speaks ill of you, remember that he does this or says this because he thinks that it is his duty. It is not possible then for him to follow that which seems right to you, but that which seems right to himself.", "epictetus", "Enchiridion", "JUSTICE", null, "TREATED_UNFAIRLY"),
+        QuoteEntity("q405", "If a man has reported to you that a certain person speaks ill of you, do not make any defense to what has been told you; but reply, The man did not know the rest of my faults, for he would not have mentioned these only.", "epictetus", "Enchiridion", "MODERATION", null, "TREATED_UNFAIRLY"),
+        QuoteEntity("q406", "I have done my part; but whether you also have done yours, you must look to that.", "epictetus", "Discourses", "JUSTICE", null, "TREATED_UNFAIRLY"),
+        QuoteEntity("q407", "Allow any man who so desires to insult you and work you wrong; but if only virtue dwells with you, you will suffer nothing.", "seneca", "Letters to Lucilius", "COURAGE", null, "TREATED_UNFAIRLY"),
+        QuoteEntity("q408", "It is more wretched to commit than to suffer injury.", "seneca", "Letters to Lucilius", "JUSTICE", null, "TREATED_UNFAIRLY"),
 
-        // BURNED_OUT
-        QuoteEntity("q324", "Do less, but do it better.", "marcus_aurelius", "Meditations", "MODERATION", null, "BURNED_OUT"),
-        QuoteEntity("q325", "To be everywhere is to be nowhere.", "seneca", "Letters to Lucilius", "MODERATION", null, "BURNED_OUT"),
+        // BURNED OUT
+        QuoteEntity("q324", "Constantly then give to yourself this retreat, and renew yourself; and let your principles be brief and fundamental.", "marcus_aurelius", "Meditations", "MODERATION", null, "BURNED_OUT"),
+        QuoteEntity("q325", "The greatest part of what we say and do being unnecessary, if a man takes this away, he will have more leisure and less uneasiness.", "marcus_aurelius", "Meditations", "MODERATION", null, "BURNED_OUT"),
+        QuoteEntity("q409", "Nor let there be in your soul inward contention nor external effusion, nor in life be so busy as to have no leisure.", "marcus_aurelius", "Meditations", "MODERATION", null, "BURNED_OUT"),
+        QuoteEntity("q410", "It is enough if every man fully discharges the work that is his own.", "epictetus", "Enchiridion", "MODERATION", null, "BURNED_OUT"),
+        QuoteEntity("q411", "You must then bear such things as you are able.", "epictetus", "Discourses", "MODERATION", null, "BURNED_OUT"),
+        QuoteEntity("q412", "He who reposes should act and he who acts should take repose. Discuss the problem with Nature; she will tell you that she has created both day and night.", "seneca", "Letters to Lucilius", "MODERATION", null, "BURNED_OUT"),
+        QuoteEntity("q413", "Just as an engraver rests his eyes when they have long been under a strain and are weary, and calls them from their work, and \"feasts\" them, as the saying is; so we at times should slacken our minds and refresh them with some sort of entertainment.", "seneca", "Letters to Lucilius", "MODERATION", null, "BURNED_OUT"),
+        QuoteEntity("q414", "That which toil has accumulated, rest can lighten.", "seneca", "Letters to Lucilius", "MODERATION", null, "BURNED_OUT"),
 
         // NUMB
-        QuoteEntity("q326", "It is not things that disturb us, but our judgments about things.", "epictetus", "Enchiridion", "WISDOM", null, "NUMB"),
-        QuoteEntity("q327", "Return to yourself constantly.", "marcus_aurelius", "Meditations", "MODERATION", null, "NUMB"),
+        QuoteEntity("q326", "To recover your life is in your power. Look at things again as you used to look at them; for in this consists the recovery of your life.", "marcus_aurelius", "Meditations", "WISDOM", null, "NUMB"),
+        QuoteEntity("q327", "Look round at the courses of the stars, as if you were going along with them.", "marcus_aurelius", "Meditations", "WISDOM", null, "NUMB"),
+        QuoteEntity("q415", "What remains, except to enjoy life by joining one good thing to another so as not to leave even the smallest intervals between?", "marcus_aurelius", "Meditations", "WISDOM", null, "NUMB"),
+        QuoteEntity("q416", "Have you anything better or greater to see than the sun, the moon, the stars, the whole earth, the sea?", "epictetus", "Discourses", "WISDOM", null, "NUMB"),
+        QuoteEntity("q417", "Will you not perceive either what you are, or what you were born for, or what this is for which you have received the faculty of sight?", "epictetus", "Discourses", "WISDOM", null, "NUMB"),
+        QuoteEntity("q418", "Above all, my dear Lucilius, make this your business: learn how to feel joy.", "seneca", "Letters to Lucilius", "WISDOM", null, "NUMB"),
+        QuoteEntity("q419", "I do not wish you ever to be deprived of gladness. I would have it born in your house; and it is born there, if only it be inside of you.", "seneca", "Letters to Lucilius", "WISDOM", null, "NUMB"),
 
         // RESTLESS
-        QuoteEntity("q328", "The happiness of your life depends upon the quality of your thoughts.", "marcus_aurelius", "Meditations", "WISDOM", null, "RESTLESS"),
-        QuoteEntity("q329", "True happiness is to enjoy the present without anxious dependence upon the future.", "seneca", "On the Happy Life", "MODERATION", null, "RESTLESS"),
+        QuoteEntity("q328", "Do the things external which fall upon you distract you? Give yourself time to learn something new and good, and cease to be whirled around.", "marcus_aurelius", "Meditations", "MODERATION", null, "RESTLESS"),
+        QuoteEntity("q329", "When you have been compelled by circumstances to be disturbed in a manner, quickly return to yourself, and do not continue out of tune longer than the compulsion lasts; for you will have more mastery over the harmony by continually recurring to it.", "marcus_aurelius", "Meditations", "MODERATION", null, "RESTLESS"),
+        QuoteEntity("q420", "If you be in Rome, do not imagine what the life in Athens is, but think only of the life in Rome.", "epictetus", "Discourses", "MODERATION", null, "RESTLESS"),
+        QuoteEntity("q421", "Wherever I shall go, there it will be well with me; for here also where I am, it was not because of the place that it was well with me, but because of my opinions which I shall carry off with me.", "epictetus", "Discourses", "WISDOM", null, "RESTLESS"),
+        QuoteEntity("q422", "Freedom is acquired not by the full possession of the things which are desired, but by removing the desire.", "epictetus", "Discourses", "MODERATION", null, "RESTLESS"),
+        QuoteEntity("q423", "You need a change of soul rather than a change of climate.", "seneca", "Letters to Lucilius", "WISDOM", null, "RESTLESS"),
+        QuoteEntity("q424", "The primary indication, to my thinking, of a well-ordered mind is a man's ability to remain in one place and linger in his own company.", "seneca", "Letters to Lucilius", "MODERATION", null, "RESTLESS"),
+        QuoteEntity("q425", "The place where one lives, however, can contribute little towards tranquility; it is the mind which must make everything agreeable to itself.", "seneca", "Letters to Lucilius", "WISDOM", null, "RESTLESS"),
 
         // CONFUSED
         QuoteEntity("q330", "If it is not right, do not do it; if it is not true, do not say it.", "marcus_aurelius", "Meditations", "WISDOM", null, "CONFUSED"),
-        QuoteEntity("q331", "First learn the meaning of what you say, and then speak.", "epictetus", "Discourses", "WISDOM", null, "CONFUSED"),
+        QuoteEntity("q331", "If you see clear, go by this way content, without turning back; but if you do not see clear, stop and take the best advisers.", "marcus_aurelius", "Meditations", "WISDOM", null, "CONFUSED"),
+        QuoteEntity("q426", "If any man is able to convince me and show me that I do not think or act right, I will gladly change; for I seek the truth, by which no man was ever injured.", "marcus_aurelius", "Meditations", "WISDOM", null, "CONFUSED"),
+        QuoteEntity("q427", "Always remember what is your own, and what belongs to another; and you will not be disturbed.", "epictetus", "Discourses", "WISDOM", null, "CONFUSED"),
+        QuoteEntity("q428", "Place before yourself what Socrates or Zeno would have done in such circumstances, and you will have no difficulty in making a proper use of the occasion.", "epictetus", "Enchiridion", "WISDOM", null, "CONFUSED"),
+        QuoteEntity("q429", "In every act observe the things which come first, and those which follow it; and so proceed to the act.", "epictetus", "Enchiridion", "WISDOM", null, "CONFUSED"),
+        QuoteEntity("q430", "Our plans miscarry because they have no aim. When a man does not know what harbor he is making for, no wind is the right wind.", "seneca", "Letters to Lucilius", "WISDOM", null, "CONFUSED"),
+        QuoteEntity("q431", "As long as you are ignorant of what you should avoid or seek, or of what is necessary or superfluous, or of what is right or wrong, you will not be traveling, but merely wandering.", "seneca", "Letters to Lucilius", "WISDOM", null, "CONFUSED"),
 
         // REGRETFUL
-        QuoteEntity("q332", "Do not be ashamed of needing help.", "marcus_aurelius", "Meditations", "COURAGE", null, "REGRETFUL"),
-        QuoteEntity("q333", "While we are postponing, life speeds by.", "seneca", "Letters to Lucilius", "WISDOM", null, "REGRETFUL"),
+        QuoteEntity("q309", "Begin at once to live, and count each separate day as a separate life.", "seneca", "Letters to Lucilius", "WISDOM", null, "REGRETFUL"),
+        QuoteEntity("q332", "Take no notice of all the past, and trust the future to providence, and direct the present only conformably to piety and justice.", "marcus_aurelius", "Meditations", "WISDOM", null, "REGRETFUL"),
+        QuoteEntity("q333", "Lay hold of today's task, and you will not need to depend so much upon tomorrow's. While we are postponing, life speeds by.", "seneca", "Letters to Lucilius", "WISDOM", null, "REGRETFUL"),
+        QuoteEntity("q432", "Bear in mind that every man lives only this present time, which is an indivisible point, and that all the rest of his life is either past or it is uncertain.", "marcus_aurelius", "Meditations", "WISDOM", null, "REGRETFUL"),
+        QuoteEntity("q433", "Keep this thought in readiness, when you lose anything external, what you acquire in place of it; and if it be worth more, never say, I have had a loss.", "epictetus", "Discourses", "WISDOM", null, "REGRETFUL"),
+        QuoteEntity("q434", "Let every day, as soon as it comes, be welcome as being the choicest, and let it be made our own possession.", "seneca", "Letters to Lucilius", "WISDOM", null, "REGRETFUL"),
+        QuoteEntity("q435", "As long as you live, keep learning how to live.", "seneca", "Letters to Lucilius", "WISDOM", null, "REGRETFUL"),
 
-        // JEALOUS_ENVIOUS
-        QuoteEntity("q334", "Wealth consists not in having great possessions, but in having few wants.", "epictetus", "Discourses", "MODERATION", null, "JEALOUS_ENVIOUS"),
-        QuoteEntity("q335", "No one can lose either the past or the future; for how can one lose what one does not have?", "marcus_aurelius", "Meditations", "WISDOM", null, "JEALOUS_ENVIOUS"),
+        // JEALOUS ENVIOUS
+        QuoteEntity("q334", "Think not so much of what you have not as of what you have: but of the things which you have select the best, and then reflect how eagerly they would have been sought, if you had them not.", "marcus_aurelius", "Meditations", "MODERATION", null, "JEALOUS_ENVIOUS"),
+        QuoteEntity("q335", "How much trouble he avoids who does not look to see what his neighbor says or does or thinks, but only to what he does himself, that it may be just and pure.", "marcus_aurelius", "Meditations", "MODERATION", null, "JEALOUS_ENVIOUS"),
+        QuoteEntity("q436", "If the nature of the good is in our power, neither envy nor jealousy will have a place in us.", "epictetus", "Enchiridion", "WISDOM", null, "JEALOUS_ENVIOUS"),
+        QuoteEntity("q437", "When you see another rich, see what you possess in place of riches.", "epictetus", "Discourses", "MODERATION", null, "JEALOUS_ENVIOUS"),
+        QuoteEntity("q438", "See if he has the advantage over you in being faithful, in being modest; for you will not find it to be so; but wherein you are superior, there you will find that you have the advantage.", "epictetus", "Discourses", "WISDOM", null, "JEALOUS_ENVIOUS"),
+        QuoteEntity("q439", "You need not be envious of those whom the people call great and fortunate; applause need not disturb your composed attitude and your sanity of mind.", "seneca", "Letters to Lucilius", "MODERATION", null, "JEALOUS_ENVIOUS"),
+        QuoteEntity("q440", "It is not the man who has too little, but the man who craves more, that is poor.", "seneca", "Letters to Lucilius", "MODERATION", null, "JEALOUS_ENVIOUS"),
+        QuoteEntity("q441", "If you live according to nature, you will never be poor; if you live according to opinion, you will never be rich.", "seneca", "Letters to Lucilius", "MODERATION", null, "JEALOUS_ENVIOUS"),
 
         // UNMOTIVATED
-        QuoteEntity("q336", "At dawn, when you have trouble getting out of bed, tell yourself: I have to go to work as a human being.", "marcus_aurelius", "Meditations", "COURAGE", null, "UNMOTIVATED"),
-        QuoteEntity("q337", "He who dreads toil has already lost.", "epictetus", "Discourses", "COURAGE", null, "UNMOTIVATED"),
+        QuoteEntity("q336", "In the morning when you rise unwillingly, let this thought be present: I am rising to the work of a human being.", "marcus_aurelius", "Meditations", "COURAGE", null, "UNMOTIVATED"),
+        QuoteEntity("q337", "Be content if the smallest thing goes on well, and consider such an event to be no small matter.", "marcus_aurelius", "Meditations", "MODERATION", null, "UNMOTIVATED"),
+        QuoteEntity("q442", "Every habit and faculty is maintained and increased by the corresponding actions: the habit of walking by walking, the habit of running by running. If you would be a good reader, read; if a writer, write.", "epictetus", "Discourses", "COURAGE", null, "UNMOTIVATED"),
+        QuoteEntity("q443", "You, though you are not yet a Socrates, ought to live as one who wishes to be a Socrates.", "epictetus", "Enchiridion", "COURAGE", null, "UNMOTIVATED"),
+        QuoteEntity("q444", "Examine a little at last, look around, stir yourself up, that you may know who you are.", "epictetus", "Discourses", "COURAGE", null, "UNMOTIVATED"),
+        QuoteEntity("q445", "We must therefore rouse ourselves to action and busy ourselves with interests that are good, as often as we are in the grasp of an uncontrollable sluggishness.", "seneca", "Letters to Lucilius", "COURAGE", null, "UNMOTIVATED"),
+        QuoteEntity("q446", "The mind must, therefore, be forced to make a beginning; from then on, the medicine is not bitter; for just as soon as it is curing us it begins to give pleasure.", "seneca", "Letters to Lucilius", "COURAGE", null, "UNMOTIVATED"),
 
         // HOPELESS
-        QuoteEntity("q338", "Never let the future disturb you. You will meet it with the same weapons of reason that arm you today.", "marcus_aurelius", "Meditations", "COURAGE", null, "HOPELESS"),
-        QuoteEntity("q339", "Begin at once to live.", "seneca", "Letters to Lucilius", "COURAGE", null, "HOPELESS")
+        QuoteEntity("q338", "Consider that everything is opinion, and opinion is in your power. Take away then, when you choose, your opinion, and like a mariner who has doubled the promontory, you will find calm, everything stable, and a waveless bay.", "marcus_aurelius", "Meditations", "WISDOM", null, "HOPELESS"),
+        QuoteEntity("q339", "Be like the promontory against which the waves continually break, but it stands firm and tames the fury of the water around it.", "marcus_aurelius", "Meditations", "COURAGE", null, "HOPELESS"),
+        QuoteEntity("q447", "Call to recollection both how many things you have passed through, and how many things you have been able to endure.", "marcus_aurelius", "Meditations", "COURAGE", null, "HOPELESS"),
+        QuoteEntity("q448", "No longer then say to me, How will it be? For, however it may be, you will dispose of it well, and the result to you will be a fortunate one.", "epictetus", "Discourses", "COURAGE", null, "HOPELESS"),
+        QuoteEntity("q449", "When set in the very midst of troubles one should say: Perhaps some day the memory of this sorrow will even bring delight.", "seneca", "Letters to Lucilius", "COURAGE", null, "HOPELESS"),
+        QuoteEntity("q450", "Oftentimes a reverse has but made room for more prosperous fortune. Many structures have fallen only to rise to a greater height.", "seneca", "Letters to Lucilius", "COURAGE", null, "HOPELESS"),
+        QuoteEntity("q451", "Even bad fortune is fickle. Perhaps it will come, perhaps not; in the meantime it is not. So look forward to better things.", "seneca", "Letters to Lucilius", "WISDOM", null, "HOPELESS"),
+
+        // ANXIOUS
+        QuoteEntity("q452", "Let not future things disturb you, for you will come to them, if it shall be necessary, having with you the same reason which now you use for present things.", "marcus_aurelius", "Meditations", "COURAGE", null, "ANXIOUS"),
+        QuoteEntity("q453", "Today I have got out of all trouble, or rather I have cast out all trouble, for it was not outside, but within and in my opinions.", "marcus_aurelius", "Meditations", "WISDOM", null, "ANXIOUS"),
+        QuoteEntity("q454", "When I see a man anxious, I say, What does this man want? If he did not want something which is not in his power, how could he be anxious?", "epictetus", "Discourses", "WISDOM", null, "ANXIOUS"),
+        QuoteEntity("q455", "Seek not that the things which happen should happen as you wish; but wish the things which happen to be as they are, and you will have a tranquil flow of life.", "epictetus", "Enchiridion", "MODERATION", null, "ANXIOUS"),
+        QuoteEntity("q456", "What can I do? I can choose the master of the ship, the sailors, the day, the opportunity. Then comes a storm. What more have I to care for? For my part is done.", "epictetus", "Discourses", "WISDOM", null, "ANXIOUS"),
+        QuoteEntity("q457", "There are more things, Lucilius, likely to frighten us than there are to crush us; we suffer more often in imagination than in reality.", "seneca", "Letters to Lucilius", "WISDOM", null, "ANXIOUS"),
+        QuoteEntity("q458", "He suffers more than is necessary, who suffers before it is necessary.", "seneca", "Letters to Lucilius", "WISDOM", null, "ANXIOUS"),
+        QuoteEntity("q459", "It is indeed foolish to be unhappy now because you may be unhappy at some future time.", "seneca", "Letters to Lucilius", "WISDOM", null, "ANXIOUS"),
+
+        // ANGRY
+        QuoteEntity("q460", "Consider how much more pain is brought on us by the anger and vexation caused by such acts than by the acts themselves, at which we are angry and vexed.", "marcus_aurelius", "Meditations", "MODERATION", null, "ANGRY"),
+        QuoteEntity("q461", "Men exist for the sake of one another. Teach them then, or bear with them.", "marcus_aurelius", "Meditations", "JUSTICE", null, "ANGRY"),
+        QuoteEntity("q462", "When you are offended at any man's fault, forthwith turn to yourself and reflect in what like manner you err yourself.", "marcus_aurelius", "Meditations", "JUSTICE", null, "ANGRY"),
+        QuoteEntity("q463", "When then a man irritates you, you must know that it is your own opinion which has irritated you. Therefore especially try not to be carried away by the appearance. For if you once gain time and delay, you will more easily master yourself.", "epictetus", "Enchiridion", "MODERATION", null, "ANGRY"),
+        QuoteEntity("q464", "If then you wish not to be of an angry temper, do not feed the habit: throw nothing on it which will increase it: at first keep quiet, and count the days on which you have not been angry.", "epictetus", "Discourses", "MODERATION", null, "ANGRY"),
+        QuoteEntity("q465", "Why then are we angry? Is it because we value so much the things of which these men rob us? Do not admire your clothes, and then you will not be angry with the thief.", "epictetus", "Discourses", "WISDOM", null, "ANGRY"),
+        QuoteEntity("q466", "So it is with anger, my dear Lucilius; the outcome of a mighty anger is madness, and hence anger should be avoided, not merely that we may escape excess, but that we may have a healthy mind.", "seneca", "Letters to Lucilius", "MODERATION", null, "ANGRY"),
+        QuoteEntity("q467", "Nothing need provoke one's anger if one does not add to one's pile of troubles by getting angry.", "seneca", "Letters to Lucilius", "MODERATION", null, "ANGRY"),
+
+        // GRIEVING
+        QuoteEntity("q468", "That which has died falls not out of the universe.", "marcus_aurelius", "Meditations", "WISDOM", null, "GRIEVING"),
+        QuoteEntity("q469", "The unripe grape, the ripe bunch, the dried grape, are all changes, not into nothing, but into something which exists not yet.", "marcus_aurelius", "Meditations", "WISDOM", null, "GRIEVING"),
+        QuoteEntity("q470", "Everything is fruit to me which your seasons bring, O Nature: from you are all things, in you are all things, to you all things return.", "marcus_aurelius", "Meditations", "WISDOM", null, "GRIEVING"),
+        QuoteEntity("q471", "Let us see to it that the recollection of those whom we have lost becomes a pleasant memory to us.", "seneca", "Letters to Lucilius", "WISDOM", null, "GRIEVING"),
+        QuoteEntity("q472", "To me, the thought of my dead friends is sweet and appealing. For I have had them as if I should one day lose them; I have lost them as if I have them still.", "seneca", "Letters to Lucilius", "WISDOM", null, "GRIEVING"),
+        QuoteEntity("q473", "Believe me, a great part of those we have loved, though chance has removed their persons, still abides with us. The past is ours, and there is nothing more secure for us than that which has been.", "seneca", "Letters to Lucilius", "WISDOM", null, "GRIEVING"),
+
+        // AFRAID
+        QuoteEntity("q474", "Pain is neither intolerable nor everlasting, if you bear in mind that it has its limits, and if you add nothing to it in imagination.", "marcus_aurelius", "Meditations", "COURAGE", null, "AFRAID"),
+        QuoteEntity("q475", "Take me and cast me where you will; for there I shall keep my divine part tranquil, that is, content.", "marcus_aurelius", "Meditations", "COURAGE", null, "AFRAID"),
+        QuoteEntity("q476", "Death is such as generation is, a mystery of nature.", "marcus_aurelius", "Meditations", "WISDOM", null, "AFRAID"),
+        QuoteEntity("q477", "Death or pain is not formidable, but the fear of pain or death.", "epictetus", "Discourses", "COURAGE", null, "AFRAID"),
+        QuoteEntity("q478", "Socrates said to one who was reminding him to prepare for his trial, Do you not think then that I have been preparing for it all my life? By what kind of preparation? I have maintained that which was in my own power.", "epictetus", "Discourses", "COURAGE", null, "AFRAID"),
+        QuoteEntity("q479", "No man can suffer both severely and for a long time; Nature, who loves us most tenderly, has so constituted us as to make pain either endurable or short.", "seneca", "Letters to Lucilius", "COURAGE", null, "AFRAID"),
+        QuoteEntity("q480", "Many a sight that is held a terror in the night-time, is turned to ridicule by day.", "seneca", "Letters to Lucilius", "COURAGE", null, "AFRAID"),
+        QuoteEntity("q481", "Everyone approaches courageously a danger which he has prepared himself to meet long before, and withstands even hardships if he has previously practiced how to meet them.", "seneca", "Letters to Lucilius", "COURAGE", null, "AFRAID")
     )
 }
