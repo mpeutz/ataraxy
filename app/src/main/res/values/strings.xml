@@ -23,6 +23,8 @@
 
     <!-- Notifications -->
     <string name="notification_title_morning">Morning Contemplation</string>
+    <string name="notification_title_afternoon">Afternoon Contemplation</string>
+    <string name="notification_title_evening">Evening Contemplation</string>
     <string name="notification_action_reflect">Reflect</string>
 
     <!-- Memento Mori -->
@@ -117,4 +119,7 @@
     <string name="ritual_begin">Begin</string>
     <string name="ritual_snooze_morning">Remind in 30 min</string>
     <string name="ritual_snooze_evening">Remind in 1 hour</string>
+    <string name="quote_in_marks">“%1$s”</string>
+    <string name="quote_attribution">— %1$s</string>
+    <string name="quote_attribution_with_source">— %1$s  ·  %2$s</string>
 </resources>

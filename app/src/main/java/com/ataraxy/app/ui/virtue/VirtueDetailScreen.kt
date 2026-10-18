@@ -147,7 +147,7 @@ private fun VirtueHeader(virtue: Virtue) {
         )
         Spacer(Modifier.height(16.dp))
         Text(
-            text = "\u201C${virtue.definingQuote}\u201D",
+            text = stringResource(R.string.quote_in_marks, virtue.definingQuote),
             style = MaterialTheme.typography.displaySmall.copy(
                 fontFamily = CormorantGaramond,
                 fontStyle = FontStyle.Italic
@@ -157,7 +157,7 @@ private fun VirtueHeader(virtue: Virtue) {
         )
         Spacer(Modifier.height(8.dp))
         Text(
-            text = "— ${virtue.definingQuoteAuthor.uppercase()}",
+            text = stringResource(R.string.quote_attribution, virtue.definingQuoteAuthor.uppercase()),
             style = MaterialTheme.typography.labelSmall.copy(fontFamily = Jost, letterSpacing = 2.sp),
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
@@ -202,7 +202,7 @@ private fun RelatedQuoteCard(quote: Quote, onClick: () -> Unit) {
             .padding(horizontal = 24.dp, vertical = 12.dp)
     ) {
         AnnotatedQuoteText(
-            text = "\u201C${quote.text}\u201D",
+            text = stringResource(R.string.quote_in_marks, quote.text),
             style = MaterialTheme.typography.displaySmall.copy(
                 fontFamily = CormorantGaramond,
                 fontStyle = FontStyle.Italic
@@ -211,7 +211,7 @@ private fun RelatedQuoteCard(quote: Quote, onClick: () -> Unit) {
         )
         Spacer(Modifier.height(4.dp))
         Text(
-            text = "— ${quote.authorName}",
+            text = stringResource(R.string.quote_attribution, quote.authorName),
             style = MaterialTheme.typography.labelSmall.copy(fontFamily = Jost),
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )

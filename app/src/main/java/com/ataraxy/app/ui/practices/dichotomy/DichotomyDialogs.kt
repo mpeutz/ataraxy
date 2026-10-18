@@ -172,7 +172,7 @@ internal fun ReleaseOverlay(quote: Quote, onDismiss: () -> Unit) {
             )
             Spacer(Modifier.height(40.dp))
             Text(
-                text = stringResource(R.string.dichotomy_quote, quote.text),
+                text = stringResource(R.string.quote_in_marks, quote.text),
                 style = MaterialTheme.typography.displayMedium.copy(
                     fontFamily = CormorantGaramond,
                     fontStyle = FontStyle.Italic,
@@ -183,7 +183,7 @@ internal fun ReleaseOverlay(quote: Quote, onDismiss: () -> Unit) {
             )
             Spacer(Modifier.height(16.dp))
             Text(
-                text = stringResource(R.string.dichotomy_quote_author, quote.authorName.uppercase()),
+                text = stringResource(R.string.quote_attribution, quote.authorName.uppercase()),
                 style = MaterialTheme.typography.labelMedium.copy(
                     fontFamily = Jost,
                     letterSpacing = 2.sp

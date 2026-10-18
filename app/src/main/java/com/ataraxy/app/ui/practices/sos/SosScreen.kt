@@ -184,7 +184,7 @@ fun SosScreen(
                         Spacer(Modifier.height(24.dp))
                     }
                     Text(
-                        text = "\u201C${quote.text}\u201D",
+                        text = stringResource(R.string.quote_in_marks, quote.text),
                         style = MaterialTheme.typography.displayMedium.copy(
                             fontFamily = CormorantGaramond,
                             fontStyle = FontStyle.Italic,
@@ -196,7 +196,7 @@ fun SosScreen(
                     )
                     Spacer(Modifier.height(20.dp))
                     Text(
-                        text = "\u2014 ${quote.authorName.uppercase()}",
+                        text = stringResource(R.string.quote_attribution, quote.authorName.uppercase()),
                         style = MaterialTheme.typography.labelMedium.copy(
                             fontFamily = Jost,
                             letterSpacing = 2.sp

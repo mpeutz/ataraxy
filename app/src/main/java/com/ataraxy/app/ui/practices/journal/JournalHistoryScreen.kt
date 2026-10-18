@@ -295,7 +295,7 @@ private fun JournalEntryRow(
                     )
                     Spacer(Modifier.height(4.dp))
                     Text(
-                        text = "\u201C${linkedQuote.text}\u201D",
+                        text = stringResource(R.string.quote_in_marks, linkedQuote.text),
                         style = MaterialTheme.typography.bodyLarge.copy(
                             fontFamily = CormorantGaramond,
                             fontStyle = FontStyle.Italic,
@@ -305,7 +305,7 @@ private fun JournalEntryRow(
                     )
                     Spacer(Modifier.height(4.dp))
                     Text(
-                        text = "— ${linkedQuote.authorName}",
+                        text = stringResource(R.string.quote_attribution, linkedQuote.authorName),
                         style = MaterialTheme.typography.labelSmall.copy(fontFamily = Jost),
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )

@@ -1,7 +1,6 @@
 package com.ataraxy.app.ui.practices.bookend
 
 import androidx.lifecycle.SavedStateHandle
-import androidx.test.core.app.ApplicationProvider
 import com.ataraxy.app.data.local.AtaraxyDatabase
 import com.ataraxy.app.data.local.inMemoryDatabase
 import com.ataraxy.app.data.preferences.UserPrefsRepository
@@ -17,6 +16,7 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
+import com.ataraxy.app.testing.testUserPrefs
 
 @RunWith(RobolectricTestRunner::class)
 class BookendRitualViewModelTest {
@@ -28,8 +28,7 @@ class BookendRitualViewModelTest {
     @Before
     fun setUp() {
         db = inMemoryDatabase()
-        prefs = UserPrefsRepository(ApplicationProvider.getApplicationContext())
-        runBlocking { prefs.clearAll() }
+        prefs = testUserPrefs()
         viewModel = viewModel(SavedStateHandle())
     }
 

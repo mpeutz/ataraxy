@@ -69,7 +69,8 @@ class PracticeViewModel @Inject constructor(
         savedStateHandle[DRAFT_KEY] = text
     }
 
-    fun saveEntry() {
+    /** Saves the draft. [promptText] is the prompt shown to the user, stored with a new entry. */
+    fun saveEntry(promptText: String) {
         val content = draft.value
         if (content.isBlank()) return
         val existingEntry = editingEntry.value
@@ -78,7 +79,7 @@ class PracticeViewModel @Inject constructor(
             if (existingEntry != null) {
                 journalRepository.upsert(existingEntry.copy(content = content, updatedAt = LocalDateTime.now()))
             } else {
-                journalRepository.upsert(newEntry(content, quote.value))
+                journalRepository.upsert(newEntry(content, promptText, quote.value))
                 updateDraft("")
             }
             _saveSuccess.value = true
@@ -89,13 +90,13 @@ class PracticeViewModel @Inject constructor(
         _saveSuccess.value = false
     }
 
-    private fun newEntry(content: String, q: Quote?): JournalEntry {
+    private fun newEntry(content: String, promptText: String, q: Quote?): JournalEntry {
         val now = LocalDateTime.now()
         return JournalEntry(
             createdAt = now,
             updatedAt = now,
             content = content,
-            promptText = if (q != null) "How can I apply this today?" else "What weighs on your mind today?",
+            promptText = promptText,
             linkedQuoteId = q?.id,
             virtueId = q?.virtueId
         )

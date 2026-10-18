@@ -211,7 +211,7 @@ private fun QuoteHeader(quote: Quote, onAuthorClick: () -> Unit) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "\u201C${quote.text}\u201D",
+            text = stringResource(R.string.quote_in_marks, quote.text),
             style = MaterialTheme.typography.displaySmall.copy(
                 fontFamily = CormorantGaramond,
                 fontStyle = FontStyle.Italic,
@@ -222,7 +222,7 @@ private fun QuoteHeader(quote: Quote, onAuthorClick: () -> Unit) {
         )
         Spacer(Modifier.height(12.dp))
         Text(
-            text = "— ${quote.authorName.uppercase()}  ·  ${quote.source.uppercase()}",
+            text = stringResource(R.string.quote_attribution_with_source, quote.authorName.uppercase(), quote.source.uppercase()),
             style = MaterialTheme.typography.labelSmall.copy(
                 fontFamily = Jost,
                 letterSpacing = 2.sp
@@ -261,7 +261,7 @@ private fun InsightSectionBlock(section: InsightSection) {
             )
             Spacer(Modifier.width(12.dp))
             Text(
-                text = "\u201C${section.blockquote}\u201D",
+                text = stringResource(R.string.quote_in_marks, section.blockquote),
                 style = MaterialTheme.typography.bodyLarge.copy(
                     fontFamily = CormorantGaramond,
                     fontStyle = FontStyle.Italic,
