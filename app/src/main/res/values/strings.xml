@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Ataraxy: Stoic Reflection</string>
     <string name="notification_channel_name">Morning Contemplation</string>
     <string name="notification_channel_description">Daily Stoic quote and reflection reminder</string>
@@ -9,7 +9,8 @@
     <!-- General UI -->
     <string name="back">Back</string>
     <string name="close">CLOSE</string>
-    <string name="cancel">CANCEL</string>
+    <!-- All-caps by design: buttons use the tracked uppercase label style. -->
+    <string name="cancel" tools:ignore="ButtonCase">CANCEL</string>
     <string name="save">SAVE</string>
     <string name="skip">SKIP</string>
     <string name="next">NEXT</string>
@@ -109,4 +110,11 @@
     <string name="philosophy_content">This app is grounded in ancient Stoic philosophy, which teaches that we cannot control external events, but we can control our responses to them. Through reflection, journaling, and practicing Stoic principles, we can develop emotional resilience and mental tranquility.</string>
     <string name="ai_content_title">A NOTE ON CONTENT</string>
     <string name="ai_content_content">Much of the content in this app — including author biographies, quote attributions, sub-concept descriptions, and practice prompts — was researched and drafted with the assistance of AI. While every effort has been made to ensure accuracy and faithfulness to the original sources, we encourage you to consult primary texts for scholarly or serious study.</string>
+    <string name="ritual_morning_title">Morning Ritual</string>
+    <string name="ritual_morning_body">Begin with intention. Your morning practice awaits.</string>
+    <string name="ritual_evening_title">Evening Ritual</string>
+    <string name="ritual_evening_body">Reflect before rest. Your evening practice awaits.</string>
+    <string name="ritual_begin">Begin</string>
+    <string name="ritual_snooze_morning">Remind in 30 min</string>
+    <string name="ritual_snooze_evening">Remind in 1 hour</string>
 </resources>

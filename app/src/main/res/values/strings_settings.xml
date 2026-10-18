@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Bottom navigation -->
+    <string name="nav_home">Home</string>
+    <string name="nav_practice">Practice</string>
+    <string name="nav_practices">Practices</string>
+    <string name="nav_archive">Archive</string>
+    <string name="nav_settings">Settings</string>
+
+    <!-- Settings: header and sections -->
+    <string name="settings_header_label">CONFIGURATION</string>
+    <string name="settings_title">Settings</string>
+    <string name="settings_preview_quote">\"The impediment to action advances action.\"</string>
+    <string name="settings_section_system">SYSTEM PREFERENCES</string>
+    <string name="settings_section_notifications">NOTIFICATIONS</string>
+    <string name="settings_section_account">ACCOUNT &amp; SOUL</string>
+    <string name="settings_section_app_info">APP INFORMATION</string>
+
+    <!-- Settings: theme -->
+    <string name="settings_theme">Theme</string>
+    <string name="settings_theme_follow_system">Follow system</string>
+    <string name="settings_theme_light">Light</string>
+    <string name="settings_theme_dark">Dark</string>
+    <string name="settings_theme_option_system">SYSTEM</string>
+    <string name="settings_theme_option_light">LIGHT</string>
+    <string name="settings_theme_option_dark">DARK</string>
+
+    <!-- Settings: content text size -->
+    <string name="settings_text_size">Content Text Size</string>
+    <string name="settings_text_size_default">Default</string>
+    <string name="settings_text_size_large">Large</string>
+    <string name="settings_text_size_larger">Largest</string>
+    <string name="settings_text_size_option_default">A</string>
+    <string name="settings_text_size_option_large">A+</string>
+    <string name="settings_text_size_option_larger">A++</string>
+
+    <!-- Settings: notification style -->
+    <string name="settings_notification_style">Notification Style</string>
+    <string name="settings_notification_style_minimalist">Minimalist Text</string>
+    <string name="settings_notification_style_direct">Direct Address</string>
+
+    <!-- Settings: notifications -->
+    <string name="settings_daily_quote">Daily Quote</string>
+    <string name="settings_daily_quote_subtitle">A Stoic quote each morning</string>
+    <string name="settings_morning_ritual">Morning Ritual</string>
+    <string name="settings_morning_ritual_subtitle">Reminder to begin your morning practice</string>
+    <string name="settings_evening_ritual">Evening Ritual</string>
+    <string name="settings_evening_ritual_subtitle">Reminder to close your day with reflection</string>
+    <string name="settings_delivery_time">Delivery time</string>
+    <string name="settings_reminder_time">Reminder time</string>
+    <string name="settings_daily_quote_time">Daily Quote Time</string>
+    <string name="settings_morning_ritual_time">Morning Ritual Time</string>
+    <string name="settings_evening_ritual_time">Evening Ritual Time</string>
+
+    <!-- Settings: account -->
+    <string name="settings_export">Export Personal Reflections</string>
+    <string name="settings_export_value">Save to Downloads</string>
+    <string name="settings_export_success">Journal exported to Downloads</string>
+    <string name="settings_export_failed">Export failed: %1$s</string>
+    <string name="settings_clear_journal">Clear Local Sanctuary</string>
+    <string name="settings_clear_journal_value">Delete all journal entries</string>
+    <string name="settings_clear_journal_title">Clear Your Sanctuary?</string>
+    <string name="settings_clear_journal_message">All journal entries will be permanently deleted. This cannot be undone.</string>
+    <string name="settings_clear_journal_confirm">Clear</string>
+    <string name="settings_journal_cleared">Journal cleared</string>
+    <string name="settings_deactivate">Deactivate Ataraxy</string>
+    <string name="settings_deactivate_value">Clear all data</string>
+    <string name="settings_deactivate_title">Deactivate Ataraxy?</string>
+    <string name="settings_deactivate_message">All data, preferences, and journal entries will be deleted. Notifications will be cancelled.</string>
+    <string name="settings_deactivate_confirm">Deactivate</string>
+    <string name="settings_all_data_cleared">All data cleared</string>
+
+    <!-- Settings: app information -->
+    <string name="settings_about">About &amp; Disclaimers</string>
+    <string name="settings_about_value">Sources, attributions, and information</string>
+
+    <!-- Dialog buttons -->
+    <string name="settings_confirm">Confirm</string>
+    <string name="settings_cancel">Cancel</string>
+
+    <!-- About screen lists -->
+    <string-array name="settings_quote_sources">
+        <item>Marcus Aurelius - Meditations</item>
+        <item>Epictetus - Enchiridion &amp; Discourses</item>
+        <item>Seneca - Letters from a Stoic &amp; Essays</item>
+        <item>Zeno of Citium - Stoic Fragments</item>
+        <item>Cleanthes - Stoic Philosophy</item>
+    </string-array>
+    <string-array name="settings_image_attributions">
+        <item>Kari Shea (Unsplash) - Onboarding imagery</item>
+        <item>Ray Wyman Jr. (Unsplash) - Virtue visuals</item>
+        <item>Michael Vinel (Unsplash) - Practice imagery</item>
+        <item>John Salzarulo (Unsplash) - Background elements</item>
+        <item>Robin Schreiner (Unsplash) - Reflection visuals</item>
+        <item>Zhen Yao (Unsplash) - Mindfulness imagery</item>
+        <item>Magic Bowls (Unsplash) - Meditation visuals</item>
+    </string-array>
+</resources>

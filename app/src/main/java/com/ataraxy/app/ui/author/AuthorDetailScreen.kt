@@ -4,19 +4,21 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.ataraxy.app.R
 import com.ataraxy.app.data.seed.AuthorDetailData
 import com.ataraxy.app.domain.model.AuthorWork
+import com.ataraxy.app.ui.components.AtaraxyDivider
+import com.ataraxy.app.ui.components.AtaraxyTopBar
 import com.ataraxy.app.ui.theme.CormorantGaramond
 import com.ataraxy.app.ui.theme.Jost
 
@@ -34,32 +36,7 @@ fun AuthorDetailScreen(
     ) {
         // Top bar
         item {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 12.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                IconButton(onClick = onBack) {
-                    Icon(
-                        Icons.AutoMirrored.Outlined.ArrowBack,
-                        contentDescription = "Back",
-                        tint = MaterialTheme.colorScheme.onBackground
-                    )
-                }
-                Spacer(Modifier.weight(1f))
-                Text(
-                    text = "THE PHILOSOPHER",
-                    style = MaterialTheme.typography.labelMedium.copy(
-                        fontFamily = Jost,
-                        letterSpacing = 3.sp
-                    ),
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-                Spacer(Modifier.weight(1f))
-                Spacer(Modifier.size(48.dp))
-            }
-            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
+            AtaraxyTopBar(title = stringResource(R.string.author_title), onBack = onBack)
         }
 
         if (profile == null) {
@@ -71,7 +48,7 @@ fun AuthorDetailScreen(
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = "Author information not available.",
+                        text = stringResource(R.string.author_empty),
                         style = MaterialTheme.typography.bodyMedium.copy(fontFamily = Jost),
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         textAlign = TextAlign.Center
@@ -109,14 +86,14 @@ fun AuthorDetailScreen(
                     textAlign = TextAlign.Center
                 )
             }
-            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
+            AtaraxyDivider()
         }
 
         // Biography
         item {
             Spacer(Modifier.height(28.dp))
             Text(
-                text = "BIOGRAPHY",
+                text = stringResource(R.string.author_biography),
                 style = MaterialTheme.typography.labelMedium.copy(
                     fontFamily = Jost,
                     letterSpacing = 3.sp
@@ -145,10 +122,10 @@ fun AuthorDetailScreen(
         // Works section
         item {
             Spacer(Modifier.height(12.dp))
-            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
+            AtaraxyDivider()
             Spacer(Modifier.height(28.dp))
             Text(
-                text = "THEIR WORKS",
+                text = stringResource(R.string.author_works),
                 style = MaterialTheme.typography.labelMedium.copy(
                     fontFamily = Jost,
                     letterSpacing = 3.sp

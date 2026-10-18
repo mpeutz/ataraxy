@@ -1,30 +1,32 @@
 package com.ataraxy.app.notifications
 
+import androidx.annotation.StringRes
+import com.ataraxy.app.R
 import com.ataraxy.app.domain.model.UserPrefs
 
 /** The two daily rituals. [name] matches the ritualType stored on journal entries. */
 enum class RitualType(
     val notificationId: Int,
-    val title: String,
-    val body: String,
+    @StringRes val title: Int,
+    @StringRes val body: Int,
     val snoozeMinutes: Long,
-    val snoozeLabel: String,
+    @StringRes val snoozeLabel: Int,
     val snoozeAction: String
 ) {
     MORNING(
         notificationId = 1002,
-        title = "Morning Ritual",
-        body = "Begin with intention. Your morning practice awaits.",
+        title = R.string.ritual_morning_title,
+        body = R.string.ritual_morning_body,
         snoozeMinutes = 30,
-        snoozeLabel = "Remind in 30 min",
+        snoozeLabel = R.string.ritual_snooze_morning,
         snoozeAction = NotificationActionReceiver.ACTION_SNOOZE_MORNING
     ),
     EVENING(
         notificationId = 1003,
-        title = "Evening Ritual",
-        body = "Reflect before rest. Your evening practice awaits.",
+        title = R.string.ritual_evening_title,
+        body = R.string.ritual_evening_body,
         snoozeMinutes = 60,
-        snoozeLabel = "Remind in 1 hour",
+        snoozeLabel = R.string.ritual_snooze_evening,
         snoozeAction = NotificationActionReceiver.ACTION_SNOOZE_EVENING
     );
 

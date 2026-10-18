@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Practice -->
+    <string name="practice_title">PRACTICE</string>
+    <string name="practice_prompt_label">PRACTICE PROMPT</string>
+    <string name="practice_prompt_with_quote">How can I apply this today?</string>
+    <string name="practice_prompt_default">What weighs on your mind today?</string>
+    <string name="practice_input_placeholder">Begin writing…</string>
+    <string name="practice_save_reflection">SAVE REFLECTION</string>
+    <string name="practice_insight_link">INSIGHT</string>
+
+    <!-- Bookend Ritual -->
+    <string name="bookend_title_morning">MORNING RITUAL</string>
+    <string name="bookend_title_evening">EVENING RITUAL</string>
+    <string name="bookend_title_daily">DAILY RITUAL</string>
+    <string name="bookend_change">CHANGE</string>
+    <string name="bookend_select_prompt">Which ritual would you like to complete?</string>
+    <string name="bookend_session_morning">MORNING</string>
+    <string name="bookend_session_evening">EVENING</string>
+    <string name="bookend_label_morning">PRAEMEDITATIO MALORUM</string>
+    <string name="bookend_label_evening">EVENING REVIEW</string>
+    <string name="bookend_complete_ritual">COMPLETE RITUAL</string>
+    <string name="bookend_input_placeholder">Write freely…</string>
+    <string name="bookend_completion_morning">He who rises with the sun sets the course of his day with intention.</string>
+    <string name="bookend_completion_evening">The evening review is complete. Sleep with a calm mind.</string>
+    <string name="bookend_done">DONE</string>
+    <string name="bookend_already_completed_morning">You have already completed today’s morning ritual.</string>
+    <string name="bookend_already_completed_evening">You have already completed today’s evening ritual.</string>
+    <string name="bookend_back">BACK</string>
+
+    <!-- Journal -->
+    <string name="journal_title">JOURNAL</string>
+    <plurals name="journal_entry_count">
+        <item quantity="one">%d entry</item>
+        <item quantity="other">%d entries</item>
+    </plurals>
+    <string name="journal_search_placeholder">Search entries…</string>
+    <string name="journal_filter_all">ALL</string>
+    <string name="journal_filter_reflections">REFLECTIONS</string>
+    <string name="journal_filter_morning">MORNING</string>
+    <string name="journal_filter_evening">EVENING</string>
+    <string name="journal_empty_search">No entries match your search.</string>
+    <string name="journal_empty_all">No journal entries yet.\nBegin a practice to write your first reflection.</string>
+    <string name="journal_empty_reflections">No reflections yet.\nWrite one from the Practice tab.</string>
+    <string name="journal_empty_morning">No morning rituals recorded.\nComplete a morning bookend to begin.</string>
+    <string name="journal_empty_evening">No evening rituals recorded.\nComplete an evening bookend to begin.</string>
+    <string name="journal_edit">EDIT</string>
+    <string name="journal_delete_entry">Delete entry</string>
+
+    <!-- SOS -->
+    <string name="sos_title">FIND YOUR FOOTING</string>
+    <string name="sos_prompt">What are you feeling right now?</string>
+    <string name="sos_selected_feeling">SELECTED FEELING</string>
+    <string name="sos_quote_position">%1$d/%2$d</string>
+    <string name="sos_another_quote">ANOTHER QUOTE</string>
+    <string name="sos_explore_insight">Explore this insight</string>
+    <string name="sos_footer">These quotes are drawn from the Stoics\nwho faced these same struggles.</string>
+    <string name="sos_emotion_overwhelmed">OVERWHELMED</string>
+    <string name="sos_emotion_procrastinating">PROCRASTINATING</string>
+    <string name="sos_emotion_stuck">STUCK</string>
+    <string name="sos_emotion_helpless">HELPLESS</string>
+    <string name="sos_emotion_insecure">INSECURE</string>
+    <string name="sos_emotion_ashamed">ASHAMED</string>
+    <string name="sos_emotion_guilty">GUILTY</string>
+    <string name="sos_emotion_lonely">LONELY</string>
+    <string name="sos_emotion_rejected">REJECTED</string>
+    <string name="sos_emotion_discouraged">DISCOURAGED</string>
+    <string name="sos_emotion_resentful">RESENTFUL</string>
+    <string name="sos_emotion_treated_unfairly">TREATED UNFAIRLY</string>
+    <string name="sos_emotion_burned_out">BURNED OUT</string>
+    <string name="sos_emotion_numb">NUMB</string>
+    <string name="sos_emotion_restless">RESTLESS</string>
+    <string name="sos_emotion_confused">CONFUSED</string>
+    <string name="sos_emotion_regretful">REGRETFUL</string>
+    <string name="sos_emotion_jealous_envious">JEALOUS / ENVIOUS</string>
+    <string name="sos_emotion_unmotivated">UNMOTIVATED</string>
+    <string name="sos_emotion_hopeless">HOPELESS</string>
+    <string name="sos_latin_overwhelmed" translatable="false">Pressura</string>
+    <string name="sos_latin_procrastinating" translatable="false">Dilatio</string>
+    <string name="sos_latin_stuck" translatable="false">Haesitatio</string>
+    <string name="sos_latin_helpless" translatable="false">Impotentia</string>
+    <string name="sos_latin_insecure" translatable="false">Incertitudo</string>
+    <string name="sos_latin_ashamed" translatable="false">Pudor</string>
+    <string name="sos_latin_guilty" translatable="false">Culpa</string>
+    <string name="sos_latin_lonely" translatable="false">Solitudo</string>
+    <string name="sos_latin_rejected" translatable="false">Repulsa</string>
+    <string name="sos_latin_discouraged" translatable="false">Demissus</string>
+    <string name="sos_latin_resentful" translatable="false">Resentimentum</string>
+    <string name="sos_latin_treated_unfairly" translatable="false">Iniuria</string>
+    <string name="sos_latin_burned_out" translatable="false">Exhaustio</string>
+    <string name="sos_latin_numb" translatable="false">Torpor</string>
+    <string name="sos_latin_restless" translatable="false">Inquietudo</string>
+    <string name="sos_latin_confused" translatable="false">Confusio</string>
+    <string name="sos_latin_regretful" translatable="false">Paenitentia</string>
+    <string name="sos_latin_jealous_envious" translatable="false">Invidia</string>
+    <string name="sos_latin_unmotivated" translatable="false">Segnitia</string>
+    <string name="sos_latin_hopeless" translatable="false">Desperatio</string>
+
+    <!-- Practices Hub -->
+    <string name="practices_title">PRACTICES</string>
+    <string name="practices_tools_header">YOUR STOIC TOOLS</string>
+    <string name="practices_bookend_eyebrow">DAILY PRACTICE</string>
+    <string name="practices_bookend_title">Morning &amp; Evening Ritual</string>
+    <string name="practices_bookend_description">Praemeditatio Malorum at dawn. Seneca\'s review at dusk.</string>
+    <string name="practices_dichotomy_eyebrow">CLARITY</string>
+    <string name="practices_dichotomy_title">Dichotomy of Control</string>
+    <string name="practices_dichotomy_description">Sort your worries. Release what is not yours to carry.</string>
+    <string name="practices_sos_eyebrow">IN CRISIS</string>
+    <string name="practices_sos_title">Find Your Footing</string>
+    <string name="practices_sos_description">Stoic wisdom for anger, anxiety, grief, and fear.</string>
+    <string name="practices_memento_eyebrow">PERSPECTIVE</string>
+    <string name="practices_memento_title">Memento Mori</string>
+    <string name="practices_memento_description">Your life in weeks. Remember it is finite. Act accordingly.</string>
+    <string name="practices_journal_header">YOUR JOURNAL</string>
+    <string name="practices_journal_eyebrow">HISTORY</string>
+    <string name="practices_journal_title">All Entries</string>
+    <string name="practices_journal_description">Browse reflections, morning premeditations, and evening reviews.</string>
+    <string name="memento_error_not_a_year">Please enter a valid year.</string>
+    <string name="memento_error_year_range" tools:ignore="PluralsCandidate">Please enter a year between %1$d and %2$d.</string>
+</resources>

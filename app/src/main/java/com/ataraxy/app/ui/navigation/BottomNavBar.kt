@@ -1,5 +1,6 @@
 package com.ataraxy.app.ui.navigation
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
@@ -16,14 +17,17 @@ import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.ataraxy.app.R
 
 data class BottomNavItem(
     val route: String,
-    val icon: androidx.compose.ui.graphics.vector.ImageVector,
-    val contentDescription: String
+    val icon: ImageVector,
+    @StringRes val labelRes: Int
 )
 
 private val practicesRoutes = setOf(
@@ -50,11 +54,11 @@ internal fun tabClickAction(tabRoute: String, currentRoute: String?): TabClick =
 }
 
 private val navItems = listOf(
-    BottomNavItem(Screen.Home.route, Icons.Outlined.Home, "Home"),
-    BottomNavItem(Screen.Practice.BASE, Icons.Outlined.BookmarkBorder, "Practice"),
-    BottomNavItem(Screen.Practices.route, Icons.Outlined.SelfImprovement, "Practices"),
-    BottomNavItem(Screen.Archive.route, Icons.Outlined.Archive, "Archive"),
-    BottomNavItem(Screen.Settings.route, Icons.Outlined.Settings, "Settings"),
+    BottomNavItem(Screen.Home.route, Icons.Outlined.Home, R.string.nav_home),
+    BottomNavItem(Screen.Practice.BASE, Icons.Outlined.BookmarkBorder, R.string.nav_practice),
+    BottomNavItem(Screen.Practices.route, Icons.Outlined.SelfImprovement, R.string.nav_practices),
+    BottomNavItem(Screen.Archive.route, Icons.Outlined.Archive, R.string.nav_archive),
+    BottomNavItem(Screen.Settings.route, Icons.Outlined.Settings, R.string.nav_settings),
 )
 
 @Composable
@@ -85,7 +89,7 @@ fun BottomNavBar(navController: NavController) {
                 icon = {
                     Icon(
                         imageVector = item.icon,
-                        contentDescription = item.contentDescription,
+                        contentDescription = stringResource(item.labelRes),
                         modifier = Modifier.size(26.dp)
                     )
                 },

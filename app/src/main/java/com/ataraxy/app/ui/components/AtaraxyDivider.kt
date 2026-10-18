@@ -1,0 +1,13 @@
+package com.ataraxy.app.ui.components
+
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+
+/** The hairline rule used between sections throughout the app. */
+@Composable
+fun AtaraxyDivider(modifier: Modifier = Modifier) {
+    HorizontalDivider(modifier = modifier, color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
+}

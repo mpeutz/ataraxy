@@ -7,21 +7,25 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.ChevronRight
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.ataraxy.app.R
 import com.ataraxy.app.data.seed.InsightData
 import com.ataraxy.app.domain.model.Quote
 import com.ataraxy.app.ui.components.AnnotatedQuoteText
+import com.ataraxy.app.ui.components.AtaraxyDivider
+import com.ataraxy.app.ui.components.AtaraxyTopBar
 import com.ataraxy.app.ui.theme.CormorantGaramond
 import com.ataraxy.app.ui.theme.Jost
 
@@ -48,38 +52,7 @@ fun PracticeScreen(
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
     ) {
-        // Top bar
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 16.dp, vertical = 12.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            if (onBack != null) {
-                IconButton(onClick = onBack) {
-                    Icon(
-                        Icons.AutoMirrored.Outlined.ArrowBack,
-                        contentDescription = "Back",
-                        tint = MaterialTheme.colorScheme.onBackground
-                    )
-                }
-            } else {
-                Spacer(Modifier.size(48.dp))
-            }
-            Spacer(Modifier.weight(1f))
-            Text(
-                text = "PRACTICE",
-                style = MaterialTheme.typography.labelLarge.copy(
-                    fontFamily = Jost,
-                    letterSpacing = 4.sp
-                ),
-                color = MaterialTheme.colorScheme.onBackground
-            )
-            Spacer(Modifier.weight(1f))
-            Spacer(Modifier.size(48.dp))
-        }
-
-        HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
+        AtaraxyTopBar(title = stringResource(R.string.practice_title), onBack = onBack)
 
         LazyColumn(modifier = Modifier.fillMaxSize()) {
 
@@ -100,7 +73,7 @@ fun PracticeScreen(
                 Spacer(Modifier.height(24.dp))
                 Column(modifier = Modifier.padding(horizontal = 24.dp)) {
                     Text(
-                        text = "PRACTICE PROMPT",
+                        text = stringResource(R.string.practice_prompt_label),
                         style = MaterialTheme.typography.labelMedium.copy(
                             fontFamily = Jost,
                             letterSpacing = 3.sp
@@ -109,7 +82,9 @@ fun PracticeScreen(
                     )
                     Spacer(Modifier.height(8.dp))
                     Text(
-                        text = if (quote != null) "How can I apply this today?" else "What weighs on your mind today?",
+                        text = stringResource(
+                            if (quote != null) R.string.practice_prompt_with_quote else R.string.practice_prompt_default
+                        ),
                         style = MaterialTheme.typography.displaySmall.copy(
                             fontFamily = CormorantGaramond,
                             fontStyle = FontStyle.Italic
@@ -132,7 +107,7 @@ fun PracticeScreen(
                             Box {
                                 if (inputText.isEmpty()) {
                                     Text(
-                                        text = "Begin writing…",
+                                        text = stringResource(R.string.practice_input_placeholder),
                                         style = MaterialTheme.typography.bodyLarge.copy(
                                             fontFamily = CormorantGaramond,
                                             fontStyle = FontStyle.Italic
@@ -145,7 +120,7 @@ fun PracticeScreen(
                         }
                     )
                     Spacer(Modifier.height(8.dp))
-                    HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
+                    AtaraxyDivider()
                     Spacer(Modifier.height(16.dp))
                     Button(
                         onClick = viewModel::saveEntry,
@@ -161,7 +136,7 @@ fun PracticeScreen(
                         contentPadding = PaddingValues(horizontal = 24.dp, vertical = 12.dp)
                     ) {
                         Text(
-                            text = "SAVE REFLECTION",
+                            text = stringResource(R.string.practice_save_reflection),
                             style = MaterialTheme.typography.labelMedium.copy(
                                 fontFamily = Jost,
                                 letterSpacing = 2.sp
@@ -219,12 +194,13 @@ private fun QuoteRecapCard(
             if (hasInsight && onInsightClick != null) {
                 Row(
                     modifier = Modifier
-                        .clickable(onClick = onInsightClick)
+                        .minimumInteractiveComponentSize()
+                        .clickable(role = Role.Button, onClick = onInsightClick)
                         .padding(vertical = 2.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
-                        text = "INSIGHT",
+                        text = stringResource(R.string.practice_insight_link),
                         style = MaterialTheme.typography.labelSmall.copy(
                             fontFamily = Jost,
                             letterSpacing = 2.sp

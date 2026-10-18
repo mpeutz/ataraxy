@@ -10,6 +10,7 @@ import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.slideInVertically
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -26,8 +27,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -35,12 +39,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.compose.foundation.Image
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import com.ataraxy.app.R
 import com.ataraxy.app.domain.model.Quote
 import com.ataraxy.app.ui.components.AnnotatedQuoteText
+import com.ataraxy.app.ui.components.AtaraxyDivider
 import com.ataraxy.app.ui.theme.CormorantGaramond
 import com.ataraxy.app.ui.theme.Jost
 
@@ -79,7 +81,7 @@ fun HomeScreen(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = "ATARAXY",
+                text = stringResource(R.string.home_wordmark),
                 style = MaterialTheme.typography.labelLarge.copy(
                     fontFamily = Jost,
                     fontWeight = FontWeight.Medium,
@@ -95,7 +97,7 @@ fun HomeScreen(
             )
         }
 
-        HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
+        AtaraxyDivider()
 
         Image(
             painter = painterResource(R.drawable.img_zen_sand),
@@ -106,7 +108,7 @@ fun HomeScreen(
             contentScale = ContentScale.Crop
         )
 
-        HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
+        AtaraxyDivider()
 
         Spacer(Modifier.height(24.dp))
 
@@ -131,6 +133,7 @@ fun HomeScreen(
                 visible = visible,
                 enter = fadeIn(tween(400)) + slideInVertically(tween(400)) { it / 4 }
             ) {
+                val shareText = stringResource(R.string.home_share_text, quote!!.text, quote!!.authorName)
                 QuoteCard(
                     quote = quote!!,
                     streak = streak,
@@ -138,7 +141,6 @@ fun HomeScreen(
                     onReflect = { onNavigateToPractice(quote!!.id) },
                     onNavigateToAuthor = { onNavigateToAuthor(quote!!.authorId) },
                     onShare = {
-                        val shareText = "\"${quote!!.text}\"\n— ${quote!!.authorName}\n\n#Ataraxy #Stoic"
                         val intent = Intent(Intent.ACTION_SEND).apply {
                             type = "text/plain"
                             putExtra(Intent.EXTRA_TEXT, shareText)
@@ -209,7 +211,8 @@ private fun QuoteCard(
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier
                 .fillMaxWidth()
-                .clickable { onNavigateToAuthor() },
+                .minimumInteractiveComponentSize()
+                .clickable(role = Role.Button, onClick = onNavigateToAuthor),
             textAlign = TextAlign.Center
         )
 
@@ -274,7 +277,7 @@ private fun QuoteCard(
 
         Spacer(Modifier.height(40.dp))
 
-        HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
+        AtaraxyDivider()
 
         Spacer(Modifier.height(16.dp))
 
@@ -284,11 +287,11 @@ private fun QuoteCard(
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            ActionIcon(Icons.Outlined.Share, "Share", onShare)
+            ActionIcon(Icons.Outlined.Share, stringResource(R.string.home_share), onShare)
             Spacer(Modifier.width(32.dp))
             ActionIcon(
                 if (isBookmarked) Icons.Outlined.Bookmark else Icons.Outlined.BookmarkBorder,
-                "Bookmark",
+                stringResource(R.string.bookmark),
                 onBookmark
             )
         }

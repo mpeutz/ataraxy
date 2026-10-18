@@ -7,12 +7,12 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -20,10 +20,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.ataraxy.app.R
 import com.ataraxy.app.data.seed.InsightData
 import com.ataraxy.app.domain.model.InsightSection
 import com.ataraxy.app.domain.model.InsightTable
 import com.ataraxy.app.domain.model.Quote
+import com.ataraxy.app.ui.components.AtaraxyDivider
+import com.ataraxy.app.ui.components.AtaraxyTopBar
 import com.ataraxy.app.ui.theme.CormorantGaramond
 import com.ataraxy.app.ui.theme.Jost
 
@@ -46,35 +49,8 @@ fun InsightScreen(
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.background)
     ) {
-        // Top bar — matches VirtueDetailScreen pattern
         item {
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 16.dp, vertical = 12.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                IconButton(onClick = onBack) {
-                    Icon(
-                        Icons.AutoMirrored.Outlined.ArrowBack,
-                        contentDescription = "Back",
-                        tint = MaterialTheme.colorScheme.onBackground
-                    )
-                }
-                Spacer(Modifier.weight(1f))
-                Text(
-                    text = "INSIGHT",
-                    style = MaterialTheme.typography.labelMedium.copy(
-                        fontFamily = Jost,
-                        letterSpacing = 3.sp
-                    ),
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
-                )
-                Spacer(Modifier.weight(1f))
-                // Balance the IconButton on the left
-                Spacer(Modifier.size(48.dp))
-            }
-            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
+            AtaraxyTopBar(title = stringResource(R.string.insight_title), onBack = onBack)
         }
 
         // Quote header — shows which quote this insight is for
@@ -84,7 +60,7 @@ fun InsightScreen(
                     quote = quote!!,
                     onAuthorClick = { onNavigateToAuthor(quote!!.authorId) }
                 )
-                HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
+                AtaraxyDivider()
             }
         }
 
@@ -97,7 +73,7 @@ fun InsightScreen(
                     contentAlignment = Alignment.Center
                 ) {
                     Text(
-                        text = "No insight available for this quote.",
+                        text = stringResource(R.string.insight_empty),
                         style = MaterialTheme.typography.bodyMedium.copy(fontFamily = Jost),
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         textAlign = TextAlign.Center
@@ -125,7 +101,7 @@ fun InsightScreen(
         // Breakdown header
         item {
             Text(
-                text = "A BREAKDOWN OF THE LAYERS",
+                text = stringResource(R.string.insight_breakdown_header),
                 style = MaterialTheme.typography.labelMedium.copy(
                     fontFamily = Jost,
                     letterSpacing = 3.sp
@@ -155,7 +131,7 @@ fun InsightScreen(
         insight.modernApplication?.let { text ->
             item {
                 Text(
-                    text = "MODERN APPLICATION",
+                    text = stringResource(R.string.insight_modern_application),
                     style = MaterialTheme.typography.labelMedium.copy(
                         fontFamily = Jost,
                         letterSpacing = 3.sp
@@ -205,12 +181,12 @@ fun InsightScreen(
         // About this author link
         if (quote != null) {
             item {
-                HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
+                AtaraxyDivider()
                 Spacer(Modifier.height(8.dp))
                 Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
                     TextButton(onClick = { onNavigateToAuthor(quote!!.authorId) }) {
                         Text(
-                            text = "About this author",
+                            text = stringResource(R.string.insight_about_author),
                             style = MaterialTheme.typography.bodySmall.copy(
                                 fontFamily = CormorantGaramond,
                                 fontStyle = FontStyle.Italic,
@@ -253,7 +229,9 @@ private fun QuoteHeader(quote: Quote, onAuthorClick: () -> Unit) {
             ),
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center,
-            modifier = Modifier.clickable { onAuthorClick() }
+            modifier = Modifier
+                .minimumInteractiveComponentSize()
+                .clickable(role = Role.Button, onClick = onAuthorClick)
         )
     }
 }
@@ -393,7 +371,7 @@ private fun InsightTableBlock(table: InsightTable) {
                     .padding(horizontal = 14.dp, vertical = 10.dp)
             )
         }
-        HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
+        AtaraxyDivider()
 
         table.rows.forEachIndexed { index, (left, right) ->
             Row(modifier = Modifier.fillMaxWidth()) {

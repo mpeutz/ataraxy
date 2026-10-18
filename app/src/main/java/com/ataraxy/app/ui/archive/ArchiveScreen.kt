@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ChevronRight
@@ -14,6 +15,11 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -22,9 +28,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.ataraxy.app.R
 import com.ataraxy.app.data.seed.InsightData
 import com.ataraxy.app.domain.model.Quote
 import com.ataraxy.app.domain.model.Virtue
+import com.ataraxy.app.ui.components.AtaraxyDivider
 import com.ataraxy.app.ui.theme.CormorantGaramond
 import com.ataraxy.app.ui.theme.Jost
 
@@ -54,14 +62,14 @@ fun ArchiveScreen(
             Column(modifier = Modifier.padding(horizontal = 24.dp)) {
                 Spacer(Modifier.height(20.dp))
                 Text(
-                    text = "THE WISDOM",
+                    text = stringResource(R.string.archive_title_eyebrow),
                     style = MaterialTheme.typography.labelLarge.copy(
                         fontFamily = Jost, letterSpacing = 4.sp
                     ),
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 Text(
-                    text = "of Stone",
+                    text = stringResource(R.string.archive_title),
                     style = MaterialTheme.typography.headlineLarge.copy(
                         fontFamily = CormorantGaramond,
                         fontStyle = FontStyle.Italic
@@ -70,13 +78,13 @@ fun ArchiveScreen(
                 )
                 Spacer(Modifier.height(4.dp))
                 Text(
-                    text = "Two thousand years of Stoic thought, distilled.",
+                    text = stringResource(R.string.archive_tagline),
                     style = MaterialTheme.typography.bodyMedium.copy(fontFamily = Jost),
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 Spacer(Modifier.height(20.dp))
             }
-            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
+            AtaraxyDivider()
         }
 
         // Search bar
@@ -88,30 +96,31 @@ fun ArchiveScreen(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Icon(
-                    Icons.Outlined.Search, "Search",
+                    Icons.Outlined.Search, null,
                     tint = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.size(18.dp)
                 )
                 Spacer(Modifier.width(8.dp))
                 BasicSearchField(
+                    label = stringResource(R.string.archive_search),
                     value = searchQuery,
                     onValueChange = { viewModel.search(it) },
-                    placeholder = "Search quotes…"
+                    placeholder = stringResource(R.string.archive_search_placeholder)
                 )
             }
-            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
+            AtaraxyDivider()
         }
 
         // Author filter tabs
         item {
             LazyRow(
                 modifier = Modifier.fillMaxWidth(),
-                contentPadding = PaddingValues(horizontal = 24.dp, vertical = 12.dp),
+                contentPadding = PaddingValues(horizontal = 24.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 item {
                     AuthorTab(
-                        label = "ALL",
+                        label = stringResource(R.string.archive_tab_all),
                         selected = selectedAuthorId == null && !showBookmarked,
                         onClick = { viewModel.filterByAuthor(null) }
                     )
@@ -125,7 +134,7 @@ fun ArchiveScreen(
                 }
                 item {
                     AuthorTab(
-                        label = "SAVED",
+                        label = stringResource(R.string.archive_tab_saved),
                         selected = showBookmarked,
                         onClick = { viewModel.showBookmarked() }
                     )
@@ -152,10 +161,10 @@ fun ArchiveScreen(
         // Four Virtues section
         item {
             Spacer(Modifier.height(32.dp))
-            HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
+            AtaraxyDivider()
             Spacer(Modifier.height(24.dp))
             Text(
-                text = "THE FOUR VIRTUES",
+                text = stringResource(R.string.the_four_virtues),
                 style = MaterialTheme.typography.labelLarge.copy(
                     fontFamily = Jost, letterSpacing = 4.sp
                 ),
@@ -184,7 +193,7 @@ fun ArchiveScreen(
 }
 
 @Composable
-private fun BasicSearchField(value: String, onValueChange: (String) -> Unit, placeholder: String) {
+private fun BasicSearchField(label: String, value: String, onValueChange: (String) -> Unit, placeholder: String) {
     Box(modifier = Modifier.fillMaxWidth()) {
         if (value.isEmpty()) {
             Text(
@@ -196,7 +205,9 @@ private fun BasicSearchField(value: String, onValueChange: (String) -> Unit, pla
         androidx.compose.foundation.text.BasicTextField(
             value = value,
             onValueChange = onValueChange,
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .semantics { contentDescription = label },
             textStyle = MaterialTheme.typography.bodyMedium.copy(
                 fontFamily = Jost,
                 color = MaterialTheme.colorScheme.onBackground
@@ -209,7 +220,10 @@ private fun BasicSearchField(value: String, onValueChange: (String) -> Unit, pla
 @Composable
 private fun AuthorTab(label: String, selected: Boolean, onClick: () -> Unit) {
     Column(
-        modifier = Modifier.clickable { onClick() },
+        modifier = Modifier
+            .minimumInteractiveComponentSize()
+            .selectable(selected = selected, role = Role.Tab, onClick = onClick),
+        verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
@@ -222,15 +236,14 @@ private fun AuthorTab(label: String, selected: Boolean, onClick: () -> Unit) {
             color = if (selected) MaterialTheme.colorScheme.onBackground
             else MaterialTheme.colorScheme.onSurfaceVariant
         )
-        if (selected) {
-            Spacer(Modifier.height(2.dp))
-            Box(
-                modifier = Modifier
-                    .width(24.dp)
-                    .height(1.dp)
-                    .background(MaterialTheme.colorScheme.onBackground)
-            )
-        }
+        // Always laid out so selected and unselected labels stay aligned
+        Spacer(Modifier.height(2.dp))
+        Box(
+            modifier = Modifier
+                .width(24.dp)
+                .height(1.dp)
+                .background(if (selected) MaterialTheme.colorScheme.onBackground else Color.Transparent)
+        )
     }
 }
 
@@ -271,7 +284,9 @@ private fun QuoteCard(
             text = "— ${quote.authorName}",
             style = MaterialTheme.typography.labelSmall.copy(fontFamily = Jost),
             color = MaterialTheme.colorScheme.onSurfaceVariant,
-            modifier = Modifier.clickable(onClick = onAuthorClick)
+            modifier = Modifier
+                .minimumInteractiveComponentSize()
+                .clickable(role = Role.Button, onClick = onAuthorClick)
         )
         Spacer(Modifier.height(6.dp))
         Text(
@@ -288,12 +303,13 @@ private fun QuoteCard(
             Spacer(Modifier.height(10.dp))
             Row(
                 modifier = Modifier
-                    .clickable(onClick = onInsightClick)
+                    .minimumInteractiveComponentSize()
+                    .clickable(role = Role.Button, onClick = onInsightClick)
                     .padding(vertical = 2.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "INSIGHT",
+                    text = stringResource(R.string.archive_insight_link),
                     style = MaterialTheme.typography.labelSmall.copy(
                         fontFamily = Jost,
                         letterSpacing = 2.sp

@@ -7,6 +7,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.LinkAnnotation
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextLinkStyles
@@ -15,6 +16,7 @@ import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withLink
+import com.ataraxy.app.R
 import com.ataraxy.app.data.glossary.StoicGlossary
 import com.ataraxy.app.ui.theme.GlossaryTint
 import com.ataraxy.app.ui.theme.Jost
@@ -82,7 +84,7 @@ private fun GlossaryDefinitionDialog(
         confirmButton = {
             TextButton(onClick = onDismiss) {
                 Text(
-                    text = "Close",
+                    text = stringResource(R.string.close),
                     style = MaterialTheme.typography.labelMedium.copy(fontFamily = Jost)
                 )
             }

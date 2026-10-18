@@ -55,13 +55,13 @@ class RitualNotifier @Inject constructor(
         )
         return NotificationCompat.Builder(context, CHANNEL_ID)
             .setSmallIcon(R.drawable.ic_notification)
-            .setContentTitle(type.title)
-            .setContentText(type.body)
+            .setContentTitle(context.getString(type.title))
+            .setContentText(context.getString(type.body))
             .setContentIntent(beginIntent)
             .setAutoCancel(true)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-            .addAction(0, "Begin", beginIntent)
-            .addAction(0, type.snoozeLabel, snoozeIntent)
+            .addAction(0, context.getString(R.string.ritual_begin), beginIntent)
+            .addAction(0, context.getString(type.snoozeLabel), snoozeIntent)
             .build()
     }
 

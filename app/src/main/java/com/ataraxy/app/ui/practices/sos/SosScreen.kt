@@ -1,25 +1,28 @@
 package com.ataraxy.app.ui.practices.sos
 
+import androidx.annotation.StringRes
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import androidx.compose.animation.core.tween
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.relocation.BringIntoViewRequester
 import androidx.compose.foundation.relocation.bringIntoViewRequester
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.material.icons.outlined.Refresh
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -28,37 +31,40 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.ataraxy.app.R
 import com.ataraxy.app.domain.model.SosEmotion
+import com.ataraxy.app.ui.components.AtaraxyDivider
+import com.ataraxy.app.ui.components.AtaraxyTopBar
 import com.ataraxy.app.ui.theme.CormorantGaramond
 import com.ataraxy.app.ui.theme.Jost
 
 private data class EmotionOption(
     val emotion: SosEmotion,
-    val label: String,
-    val latin: String
+    @StringRes val label: Int,
+    @StringRes val latin: Int
 )
 
 private val emotions = listOf(
-    EmotionOption(SosEmotion.OVERWHELMED, "OVERWHELMED", "Pressura"),
-    EmotionOption(SosEmotion.PROCRASTINATING, "PROCRASTINATING", "Dilatio"),
-    EmotionOption(SosEmotion.STUCK, "STUCK", "Haesitatio"),
-    EmotionOption(SosEmotion.HELPLESS, "HELPLESS", "Impotentia"),
-    EmotionOption(SosEmotion.INSECURE, "INSECURE", "Incertitudo"),
-    EmotionOption(SosEmotion.ASHAMED, "ASHAMED", "Pudor"),
-    EmotionOption(SosEmotion.GUILTY, "GUILTY", "Culpa"),
-    EmotionOption(SosEmotion.LONELY, "LONELY", "Solitudo"),
-    EmotionOption(SosEmotion.REJECTED, "REJECTED", "Repulsa"),
-    EmotionOption(SosEmotion.DISCOURAGED, "DISCOURAGED", "Demissus"),
-    EmotionOption(SosEmotion.RESENTFUL, "RESENTFUL", "Resentimentum"),
-    EmotionOption(SosEmotion.TREATED_UNFAIRLY, "TREATED UNFAIRLY", "Iniuria"),
-    EmotionOption(SosEmotion.BURNED_OUT, "BURNED OUT", "Exhaustio"),
-    EmotionOption(SosEmotion.NUMB, "NUMB", "Torpor"),
-    EmotionOption(SosEmotion.RESTLESS, "RESTLESS", "Inquietudo"),
-    EmotionOption(SosEmotion.CONFUSED, "CONFUSED", "Confusio"),
-    EmotionOption(SosEmotion.REGRETFUL, "REGRETFUL", "Paenitentia"),
-    EmotionOption(SosEmotion.JEALOUS_ENVIOUS, "JEALOUS / ENVIOUS", "Invidia"),
-    EmotionOption(SosEmotion.UNMOTIVATED, "UNMOTIVATED", "Segnitia"),
-    EmotionOption(SosEmotion.HOPELESS, "HOPELESS", "Desperatio")
+    EmotionOption(SosEmotion.OVERWHELMED, R.string.sos_emotion_overwhelmed, R.string.sos_latin_overwhelmed),
+    EmotionOption(SosEmotion.PROCRASTINATING, R.string.sos_emotion_procrastinating, R.string.sos_latin_procrastinating),
+    EmotionOption(SosEmotion.STUCK, R.string.sos_emotion_stuck, R.string.sos_latin_stuck),
+    EmotionOption(SosEmotion.HELPLESS, R.string.sos_emotion_helpless, R.string.sos_latin_helpless),
+    EmotionOption(SosEmotion.INSECURE, R.string.sos_emotion_insecure, R.string.sos_latin_insecure),
+    EmotionOption(SosEmotion.ASHAMED, R.string.sos_emotion_ashamed, R.string.sos_latin_ashamed),
+    EmotionOption(SosEmotion.GUILTY, R.string.sos_emotion_guilty, R.string.sos_latin_guilty),
+    EmotionOption(SosEmotion.LONELY, R.string.sos_emotion_lonely, R.string.sos_latin_lonely),
+    EmotionOption(SosEmotion.REJECTED, R.string.sos_emotion_rejected, R.string.sos_latin_rejected),
+    EmotionOption(SosEmotion.DISCOURAGED, R.string.sos_emotion_discouraged, R.string.sos_latin_discouraged),
+    EmotionOption(SosEmotion.RESENTFUL, R.string.sos_emotion_resentful, R.string.sos_latin_resentful),
+    EmotionOption(SosEmotion.TREATED_UNFAIRLY, R.string.sos_emotion_treated_unfairly, R.string.sos_latin_treated_unfairly),
+    EmotionOption(SosEmotion.BURNED_OUT, R.string.sos_emotion_burned_out, R.string.sos_latin_burned_out),
+    EmotionOption(SosEmotion.NUMB, R.string.sos_emotion_numb, R.string.sos_latin_numb),
+    EmotionOption(SosEmotion.RESTLESS, R.string.sos_emotion_restless, R.string.sos_latin_restless),
+    EmotionOption(SosEmotion.CONFUSED, R.string.sos_emotion_confused, R.string.sos_latin_confused),
+    EmotionOption(SosEmotion.REGRETFUL, R.string.sos_emotion_regretful, R.string.sos_latin_regretful),
+    EmotionOption(SosEmotion.JEALOUS_ENVIOUS, R.string.sos_emotion_jealous_envious, R.string.sos_latin_jealous_envious),
+    EmotionOption(SosEmotion.UNMOTIVATED, R.string.sos_emotion_unmotivated, R.string.sos_latin_unmotivated),
+    EmotionOption(SosEmotion.HOPELESS, R.string.sos_emotion_hopeless, R.string.sos_latin_hopeless)
 )
 
 @Composable
@@ -87,37 +93,12 @@ fun SosScreen(
             .background(MaterialTheme.colorScheme.background)
             .verticalScroll(scrollState)
     ) {
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = 8.dp, vertical = 12.dp),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            IconButton(onClick = onBack) {
-                Icon(
-                    imageVector = Icons.AutoMirrored.Outlined.ArrowBack,
-                    contentDescription = "Back",
-                    tint = MaterialTheme.colorScheme.onBackground
-                )
-            }
-            Text(
-                text = "FIND YOUR FOOTING",
-                style = MaterialTheme.typography.labelLarge.copy(
-                    fontFamily = Jost,
-                    fontWeight = FontWeight.Medium,
-                    letterSpacing = 4.sp,
-                    fontSize = 14.sp
-                ),
-                color = MaterialTheme.colorScheme.onBackground
-            )
-        }
-
-        HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
+        AtaraxyTopBar(title = stringResource(R.string.sos_title), onBack = onBack)
 
         Spacer(Modifier.height(32.dp))
 
         Text(
-            text = "What are you feeling right now?",
+            text = stringResource(R.string.sos_prompt),
             style = MaterialTheme.typography.bodyLarge.copy(
                 fontFamily = CormorantGaramond,
                 fontStyle = FontStyle.Italic,
@@ -164,11 +145,11 @@ fun SosScreen(
                         .bringIntoViewRequester(quoteBringIntoViewRequester)
                         .padding(horizontal = 24.dp, vertical = 32.dp)
                 ) {
-                    HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant, thickness = 0.5.dp)
+                    AtaraxyDivider()
                     Spacer(Modifier.height(32.dp))
                     selectedOption?.let { option ->
                         Text(
-                            text = "SELECTED FEELING",
+                            text = stringResource(R.string.sos_selected_feeling),
                             style = MaterialTheme.typography.labelSmall.copy(
                                 fontFamily = Jost,
                                 letterSpacing = 2.sp
@@ -179,7 +160,7 @@ fun SosScreen(
                         )
                         Spacer(Modifier.height(10.dp))
                         Text(
-                            text = option.label,
+                            text = stringResource(option.label),
                             style = MaterialTheme.typography.titleMedium.copy(
                                 fontFamily = Jost,
                                 fontWeight = FontWeight.Medium,
@@ -190,7 +171,7 @@ fun SosScreen(
                             textAlign = TextAlign.Center
                         )
                         Text(
-                            text = option.latin,
+                            text = stringResource(option.latin),
                             style = MaterialTheme.typography.bodyMedium.copy(
                                 fontFamily = CormorantGaramond,
                                 fontStyle = FontStyle.Italic,
@@ -236,7 +217,7 @@ fun SosScreen(
                     if (state.quoteTotal > 0 && state.quotePosition > 0) {
                         Spacer(Modifier.height(6.dp))
                         Text(
-                            text = "${state.quotePosition}/${state.quoteTotal}",
+                            text = stringResource(R.string.sos_quote_position, state.quotePosition, state.quoteTotal),
                             style = MaterialTheme.typography.labelSmall.copy(
                                 fontFamily = Jost,
                                 letterSpacing = 1.sp
@@ -262,7 +243,7 @@ fun SosScreen(
                         )
                         Spacer(Modifier.width(8.dp))
                         Text(
-                            text = "ANOTHER QUOTE",
+                            text = stringResource(R.string.sos_another_quote),
                             style = MaterialTheme.typography.labelMedium.copy(
                                 fontFamily = Jost,
                                 letterSpacing = 2.sp
@@ -276,7 +257,7 @@ fun SosScreen(
                         modifier = Modifier.align(Alignment.CenterHorizontally)
                     ) {
                         Text(
-                            text = "Explore this insight",
+                            text = stringResource(R.string.sos_explore_insight),
                             style = MaterialTheme.typography.bodySmall.copy(
                                 fontFamily = CormorantGaramond,
                                 fontStyle = FontStyle.Italic,
@@ -292,7 +273,7 @@ fun SosScreen(
         if (state.currentQuote == null) {
             Spacer(Modifier.height(48.dp))
             Text(
-                text = "These quotes are drawn from the Stoics\nwho faced these same struggles.",
+                text = stringResource(R.string.sos_footer),
                 style = MaterialTheme.typography.bodySmall.copy(
                     fontFamily = CormorantGaramond,
                     fontStyle = FontStyle.Italic,
@@ -333,7 +314,7 @@ private fun EmotionCard(
         MaterialTheme.colorScheme.onSurfaceVariant
 
     Card(
-        modifier = modifier.clickable(onClick = onClick),
+        modifier = modifier.selectable(selected = isSelected, role = Role.RadioButton, onClick = onClick),
         shape = RoundedCornerShape(8.dp),
         colors = CardDefaults.cardColors(containerColor = containerColor),
         elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
@@ -346,9 +327,10 @@ private fun EmotionCard(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            val isLongLabel = option.label.length > 12
+            val label = stringResource(option.label)
+            val isLongLabel = label.length > 12
             Text(
-                text = option.label,
+                text = label,
                 style = MaterialTheme.typography.labelLarge.copy(
                     fontFamily = Jost,
                     fontSize = if (isLongLabel) 12.sp else 13.sp,
@@ -362,7 +344,7 @@ private fun EmotionCard(
             )
             Spacer(Modifier.height(4.dp))
             Text(
-                text = option.latin,
+                text = stringResource(option.latin),
                 style = MaterialTheme.typography.bodySmall.copy(
                     fontFamily = CormorantGaramond,
                     fontStyle = FontStyle.Italic,
