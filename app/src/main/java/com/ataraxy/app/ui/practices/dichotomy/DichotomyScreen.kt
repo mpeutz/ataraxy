@@ -17,6 +17,7 @@ import androidx.compose.material.icons.outlined.ExpandMore
 import androidx.compose.material.icons.outlined.MoreVert
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -41,8 +42,8 @@ fun DichotomyScreen(
     viewModel: DichotomyViewModel = hiltViewModel()
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
-    var editingItem by remember { mutableStateOf<ControlItem?>(null) }
-    var editText by remember { mutableStateOf("") }
+    var editingItemId by rememberSaveable { mutableStateOf<Long?>(null) }
+    var editText by rememberSaveable { mutableStateOf("") }
 
     Box(
         modifier = Modifier
@@ -201,7 +202,7 @@ fun DichotomyScreen(
                             onSortInControl = { viewModel.sortItem(item.id, ControlBucket.IN_CONTROL) },
                             onSortNotInControl = { viewModel.sortItem(item.id, ControlBucket.NOT_IN_CONTROL) },
                             onEdit = {
-                                editingItem = item
+                                editingItemId = item.id
                                 editText = item.text
                             },
                             onDelete = { viewModel.deleteItem(item.id) }
@@ -232,7 +233,7 @@ fun DichotomyScreen(
                             item = item,
                             onMarkDone = { viewModel.markDone(item.id) },
                             onEdit = {
-                                editingItem = item
+                                editingItemId = item.id
                                 editText = item.text
                             },
                             onDelete = { viewModel.deleteItem(item.id) },
@@ -314,7 +315,7 @@ fun DichotomyScreen(
                                 onRestore = { viewModel.restoreToInControl(item.id) },
                                 onDelete = { viewModel.deleteItem(item.id) },
                                 onEdit = {
-                                    editingItem = item
+                                    editingItemId = item.id
                                     editText = item.text
                                 }
                             )
@@ -357,7 +358,7 @@ fun DichotomyScreen(
                                 onRestoreToInControl = { viewModel.restoreToInControl(item.id) },
                                 onDelete = { viewModel.deleteItem(item.id) },
                                 onEdit = {
-                                    editingItem = item
+                                    editingItemId = item.id
                                     editText = item.text
                                 }
                             )
@@ -369,14 +370,15 @@ fun DichotomyScreen(
             }
         }
 
-        if (editingItem != null) {
+        val editingId = editingItemId
+        if (editingId != null) {
             EditItemDialog(
                 text = editText,
                 onTextChange = { editText = it },
-                onDismiss = { editingItem = null },
+                onDismiss = { editingItemId = null },
                 onSave = {
-                    viewModel.updateItemText(editingItem!!.id, editText)
-                    editingItem = null
+                    viewModel.updateItemText(editingId, editText)
+                    editingItemId = null
                 }
             )
         }

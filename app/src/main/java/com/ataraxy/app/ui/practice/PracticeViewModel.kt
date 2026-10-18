@@ -1,5 +1,6 @@
 package com.ataraxy.app.ui.practice
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ataraxy.app.data.repository.JournalRepository
@@ -7,85 +8,96 @@ import com.ataraxy.app.data.repository.QuoteRepository
 import com.ataraxy.app.domain.model.JournalEntry
 import com.ataraxy.app.domain.model.Quote
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 import javax.inject.Inject
 
+private const val DRAFT_KEY = "draft"
+
+@OptIn(ExperimentalCoroutinesApi::class)
 @HiltViewModel
 class PracticeViewModel @Inject constructor(
+    private val savedStateHandle: SavedStateHandle,
     private val quoteRepository: QuoteRepository,
     private val journalRepository: JournalRepository
 ) : ViewModel() {
 
-    private val _quote = MutableStateFlow<Quote?>(null)
-    val quote: StateFlow<Quote?> = _quote.asStateFlow()
+    private val quoteId: String? = savedStateHandle["quoteId"]
+    private val entryId: Long? = savedStateHandle.get<Long>("entryId")?.takeIf { it > 0 }
+    private val draftRestored = savedStateHandle.contains(DRAFT_KEY)
 
-    private val _editingEntry = MutableStateFlow<JournalEntry?>(null)
+    val isEditing: Boolean = entryId != null
 
-    val editingContent: StateFlow<String?> = _editingEntry
-        .map { it?.content }
-        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
+    /** Unsaved text, kept in saved state so it survives rotation and process death. */
+    val draft: StateFlow<String> = savedStateHandle.getStateFlow(DRAFT_KEY, "")
+
+    private val editingEntry: StateFlow<JournalEntry?> =
+        (entryId?.let { journalRepository.getEntryById(it) } ?: flowOf(null))
+            .stateIn(viewModelScope, SharingStarted.Eagerly, null)
+
+    val quote: StateFlow<Quote?> =
+        (quoteId?.let { flowOf(it) } ?: editingEntry.map { it?.linkedQuoteId })
+            .distinctUntilChanged()
+            .flatMapLatest { id -> id?.let { quoteRepository.getQuoteById(it) } ?: flowOf(null) }
+            .stateIn(viewModelScope, SharingStarted.Eagerly, null)
 
     private val _saveSuccess = MutableStateFlow(false)
     val saveSuccess: StateFlow<Boolean> = _saveSuccess.asStateFlow()
 
-    fun setQuoteId(quoteId: String?) {
-        if (quoteId != null) {
+    init {
+        if (isEditing && !draftRestored) {
             viewModelScope.launch {
-                quoteRepository.getQuoteById(quoteId).collect { q ->
-                    _quote.value = q
-                }
+                val entry = editingEntry.filterNotNull().first()
+                if (draft.value.isEmpty()) updateDraft(entry.content)
             }
         }
     }
 
-    fun setEntryId(entryId: Long?) {
-        if (entryId != null && entryId > 0) {
-            viewModelScope.launch {
-                journalRepository.getEntryById(entryId).collect { entry ->
-                    _editingEntry.value = entry
-                    if (entry?.linkedQuoteId != null) {
-                        setQuoteId(entry.linkedQuoteId)
-                    }
-                }
-            }
-        }
+    fun updateDraft(text: String) {
+        savedStateHandle[DRAFT_KEY] = text
     }
 
-    fun saveEntry(content: String) {
-        val existingEntry = _editingEntry.value
-        if (existingEntry != null) {
-            viewModelScope.launch {
+    fun saveEntry() {
+        val content = draft.value
+        if (content.isBlank()) return
+        val existingEntry = editingEntry.value
+        if (isEditing && existingEntry == null) return
+        viewModelScope.launch {
+            if (existingEntry != null) {
                 journalRepository.upsert(existingEntry.copy(content = content, updatedAt = LocalDateTime.now()))
-                _saveSuccess.value = true
+            } else {
+                journalRepository.upsert(newEntry(content, quote.value))
+                updateDraft("")
             }
-        } else {
-            val q = _quote.value
-            val now = LocalDateTime.now()
-            val prompt = if (q != null) "How can I apply this today?" else "What weighs on your mind today?"
-            viewModelScope.launch {
-                journalRepository.upsert(
-                    JournalEntry(
-                        createdAt = now,
-                        updatedAt = now,
-                        content = content,
-                        promptText = prompt,
-                        linkedQuoteId = q?.id,
-                        virtueId = q?.virtueId
-                    )
-                )
-                _saveSuccess.value = true
-            }
+            _saveSuccess.value = true
         }
     }
 
     fun clearSaveSuccess() {
         _saveSuccess.value = false
+    }
+
+    private fun newEntry(content: String, q: Quote?): JournalEntry {
+        val now = LocalDateTime.now()
+        return JournalEntry(
+            createdAt = now,
+            updatedAt = now,
+            content = content,
+            promptText = if (q != null) "How can I apply this today?" else "What weighs on your mind today?",
+            linkedQuoteId = q?.id,
+            virtueId = q?.virtueId
+        )
     }
 }

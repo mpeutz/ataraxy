@@ -41,18 +41,15 @@ class MementoMoriViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            userPrefsRepository.userPrefs.collect { prefs ->
-                val birthYear = prefs.birthYear
-                val weeksLived = if (birthYear != null) computeWeeksLived(birthYear) else 0
-                _uiState.update {
-                    it.copy(
-                        birthYear = birthYear,
-                        weeksLived = weeksLived,
-                        birthYearInput = birthYear?.toString() ?: "",
-                        isLoading = false
-                    )
-                }
-                return@collect
+            val birthYear = userPrefsRepository.userPrefs.first().birthYear
+            val weeksLived = if (birthYear != null) computeWeeksLived(birthYear) else 0
+            _uiState.update {
+                it.copy(
+                    birthYear = birthYear,
+                    weeksLived = weeksLived,
+                    birthYearInput = it.birthYearInput.ifEmpty { birthYear?.toString() ?: "" },
+                    isLoading = false
+                )
             }
         }
     }

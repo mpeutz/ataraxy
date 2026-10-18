@@ -96,9 +96,8 @@ fun AtaraxyNavHost() {
                 deepLinks = listOf(
                     navDeepLink { uriPattern = "ataraxy://practice/{quoteId}" }
                 )
-            ) { backStackEntry ->
+            ) {
                 PracticeScreen(
-                    quoteId = backStackEntry.arguments?.getString("quoteId"),
                     onBack = { navController.popBackStack() },
                     onNavigateToInsight = { quoteId -> navController.navigate("insight/$quoteId") }
                 )
@@ -107,7 +106,6 @@ fun AtaraxyNavHost() {
             // Also allow plain "practice" without quoteId
             composable(Screen.Practice.BASE) {
                 PracticeScreen(
-                    quoteId = null,
                     onBack = { navController.popBackStack() },
                     onNavigateToInsight = { quoteId -> navController.navigate("insight/$quoteId") }
                 )
@@ -195,10 +193,8 @@ fun AtaraxyNavHost() {
             composable(
                 route = Screen.PracticeEdit.ROUTE,
                 arguments = listOf(navArgument("entryId") { type = NavType.LongType })
-            ) { backStackEntry ->
+            ) {
                 PracticeScreen(
-                    quoteId = null,
-                    entryId = backStackEntry.arguments?.getLong("entryId"),
                     onBack = { navController.popBackStack() },
                     onNavigateToInsight = { quoteId -> navController.navigate("insight/$quoteId") }
                 )
