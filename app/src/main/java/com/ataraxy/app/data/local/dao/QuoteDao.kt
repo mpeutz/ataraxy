@@ -1,9 +1,8 @@
 package com.ataraxy.app.data.local.dao
 
 import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Upsert
 import com.ataraxy.app.data.local.entity.QuoteEntity
 import kotlinx.coroutines.flow.Flow
 
@@ -27,7 +26,7 @@ interface QuoteDao {
     @Query("SELECT * FROM quotes WHERE id = :id")
     fun getQuoteById(id: String): Flow<QuoteEntity?>
 
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Upsert
     suspend fun insertQuotes(quotes: List<QuoteEntity>)
 
     @Query("SELECT COUNT(*) FROM quotes")

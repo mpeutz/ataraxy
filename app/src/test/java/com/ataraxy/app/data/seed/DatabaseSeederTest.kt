@@ -49,4 +49,15 @@ class DatabaseSeederTest {
         assertEquals(AuthorData.authors.size, db.authorDao().count())
         assertEquals(VirtueData.virtues.size, db.virtueDao().count())
     }
+
+    @Test
+    fun seed_replacesOutdatedQuoteText() = runBlocking {
+        val current = QuoteData.quotes.first()
+        db.authorDao().insertAuthors(AuthorData.authors)
+        db.quoteDao().insertQuotes(listOf(current.copy(text = "An earlier wording.")))
+
+        seeder.seed()
+
+        assertEquals(current.text, db.quoteDao().getQuoteById(current.id).first()?.text)
+    }
 }
