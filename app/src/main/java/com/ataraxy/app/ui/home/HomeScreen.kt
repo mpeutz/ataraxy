@@ -43,6 +43,8 @@ import com.ataraxy.app.R
 import com.ataraxy.app.domain.model.Quote
 import com.ataraxy.app.ui.components.AnnotatedQuoteText
 import com.ataraxy.app.ui.components.AtaraxyDivider
+import com.ataraxy.app.ui.components.orrery.orreryBackground
+import com.ataraxy.app.ui.components.orrery.rememberOrreryPattern
 import com.ataraxy.app.ui.theme.CormorantGaramond
 import com.ataraxy.app.ui.theme.Jost
 
@@ -69,7 +71,7 @@ fun HomeScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
+            .orreryBackground(rememberOrreryPattern("home"))
             .verticalScroll(rememberScrollState())
     ) {
         // Top bar

@@ -34,3 +34,6 @@ tools/
 
 # Local progress dashboard
 .progress/
+
+# Brainstorming mockups (local only)
+.superpowers/

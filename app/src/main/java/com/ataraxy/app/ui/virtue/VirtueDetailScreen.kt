@@ -1,6 +1,5 @@
 package com.ataraxy.app.ui.virtue
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -27,6 +26,8 @@ import com.ataraxy.app.domain.model.Virtue
 import com.ataraxy.app.ui.components.AnnotatedQuoteText
 import com.ataraxy.app.ui.components.AtaraxyDivider
 import com.ataraxy.app.ui.components.AtaraxyTopBar
+import com.ataraxy.app.ui.components.orrery.orreryBackground
+import com.ataraxy.app.ui.components.orrery.rememberOrreryPattern
 import com.ataraxy.app.ui.theme.CormorantGaramond
 import com.ataraxy.app.ui.theme.Jost
 
@@ -47,7 +48,7 @@ fun VirtueDetailScreen(
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.background)
+            .orreryBackground(rememberOrreryPattern("virtue"))
     ) {
         // Top bar
         item {
