@@ -35,6 +35,20 @@ private val practicesRoutes = setOf(
     Screen.JournalHistory.route
 )
 
+internal enum class TabClick { Navigate, ReturnToRoot, Ignore }
+
+internal fun isTabSelected(tabRoute: String, currentRoute: String?): Boolean =
+    currentRoute == tabRoute ||
+        (tabRoute == Screen.Practice.BASE && currentRoute?.startsWith("${Screen.Practice.BASE}?") == true) ||
+        (tabRoute == Screen.Practices.route && currentRoute in practicesRoutes)
+
+/** Tapping the highlighted tab from one of its sub-screens returns to that tab's root. */
+internal fun tabClickAction(tabRoute: String, currentRoute: String?): TabClick = when {
+    !isTabSelected(tabRoute, currentRoute) -> TabClick.Navigate
+    currentRoute != tabRoute -> TabClick.ReturnToRoot
+    else -> TabClick.Ignore
+}
+
 private val navItems = listOf(
     BottomNavItem(Screen.Home.route, Icons.Outlined.Home, "Home"),
     BottomNavItem(Screen.Practice.BASE, Icons.Outlined.BookmarkBorder, "Practice"),
@@ -54,19 +68,18 @@ fun BottomNavBar(navController: NavController) {
         tonalElevation = 0.dp
     ) {
         navItems.forEach { item ->
-            val selected = currentRoute == item.route ||
-                (item.route == Screen.Practice.BASE && currentRoute?.startsWith("${Screen.Practice.BASE}?") == true) ||
-                (item.route == Screen.Practices.route && currentRoute in practicesRoutes)
+            val selected = isTabSelected(item.route, currentRoute)
 
             NavigationBarItem(
                 selected = selected,
                 onClick = {
-                    if (!selected) {
-                        navController.navigate(item.route) {
-                            popUpTo(Screen.Home.route) { saveState = true }
-                            launchSingleTop = true
-                            restoreState = true
-                        }
+                    when (tabClickAction(item.route, currentRoute)) {
+                        TabClick.Navigate -> navController.navigateToTab(item.route)
+                        TabClick.ReturnToRoot ->
+                            if (!navController.popBackStack(item.route, inclusive = false)) {
+                                navController.navigateToTab(item.route)
+                            }
+                        TabClick.Ignore -> Unit
                     }
                 },
                 icon = {
@@ -83,5 +96,13 @@ fun BottomNavBar(navController: NavController) {
                 )
             )
         }
+    }
+}
+
+private fun NavController.navigateToTab(route: String) {
+    navigate(route) {
+        popUpTo(Screen.Home.route) { saveState = true }
+        launchSingleTop = true
+        restoreState = true
     }
 }

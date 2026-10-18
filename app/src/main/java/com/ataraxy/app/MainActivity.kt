@@ -37,6 +37,12 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
+        // Notification launches always carry NEW_TASK. Without CLEAR_TASK, Navigation would finish
+        // and relaunch this freshly created activity to rebuild the task, so mark it as a clean start.
+        if (savedInstanceState == null && intent?.data != null) {
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        }
+
         // Kick off one-time DB seeding
         SeedWorker.enqueue(this)
 
@@ -50,12 +56,6 @@ class MainActivity : ComponentActivity() {
                 AtaraxyNavHost()
             }
         }
-    }
-
-    // Forward new intents (e.g. notification deep links while app is running)
-    override fun onNewIntent(intent: Intent) {
-        super.onNewIntent(intent)
-        setIntent(intent)
     }
 }
 
