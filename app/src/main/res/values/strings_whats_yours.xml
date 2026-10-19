@@ -25,7 +25,7 @@
     <string name="whats_yours_not_yours_hint">Outcomes, other people, timing, the past.</string>
     <string name="whats_yours_add_line_hint">Add a line…</string>
     <string name="whats_yours_add_line">Add line</string>
-    <string name="whats_yours_remove_line">Remove line</string>
+    <string name="whats_yours_remove_line">Remove “%1$s”</string>
     <string name="whats_yours_can_do_question">WHAT CAN YOU STILL DO?</string>
     <string name="whats_yours_can_do_hint">Even something small: a call, a visit, a kind word to yourself.</string>
     <string name="whats_yours_set_down_question">WHAT WILL YOU SET DOWN?</string>

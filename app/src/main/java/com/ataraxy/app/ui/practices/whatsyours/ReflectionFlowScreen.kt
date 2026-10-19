@@ -161,7 +161,7 @@ private fun ActStep(state: ReflectionFlowUiState, viewModel: ReflectionFlowViewM
 }
 
 @Composable
-private fun LineList(
+internal fun LineList(
     question: String,
     hint: String,
     lines: List<String>,
@@ -185,7 +185,7 @@ private fun LineList(
             IconButton(onClick = { onRemove(index) }) {
                 Icon(
                     imageVector = Icons.Outlined.Close,
-                    contentDescription = stringResource(R.string.whats_yours_remove_line),
+                    contentDescription = stringResource(R.string.whats_yours_remove_line, line),
                     tint = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.size(18.dp)
                 )

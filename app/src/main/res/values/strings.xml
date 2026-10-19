@@ -39,18 +39,17 @@
     <string name="marcus_aurelius_quote">“Think of yourself as dead. You have lived your life. Now take what’s left and live it properly.”</string>
     <string name="marcus_aurelius_name">MARCUS AURELIUS</string>
 
-    <!-- Dichotomy of Control -->
     <string name="memento_mori_insight_link">Read Memento Mori Insight</string>
     <string name="memento_mori_insight_title">MEMENTO MORI INSIGHT</string>
     <string name="memento_mori_insight_subtitle">How remembrance sharpens your life.</string>
     <string name="memento_mori_insight_intro">Memento mori is not pessimism. It is clarity. When we remember time is finite, trivial worries lose power and the essential becomes visible: character, attention, and action in the present day.</string>
     <string name="memento_mori_quotes_header">STOIC VOICES</string>
-    <string name="memento_mori_quote_1">“You could leave life right now. Let that determine what you do and say and think.”</string>
+    <string name="memento_mori_quote_1">“Since it is possible that you may depart from life this very moment, regulate every act and thought accordingly.”</string>
     <string name="memento_mori_quote_author_1">— MARCUS AURELIUS</string>
-    <string name="memento_mori_quote_2">“It is not that we have a short time to live, but that we waste much of it.”</string>
+    <string name="memento_mori_quote_2">“It is not that we have a short space of time, but that we waste much of it.”</string>
     <string name="memento_mori_quote_author_2">— SENECA</string>
-    <string name="memento_mori_quote_3">“No man has power over the future. The present alone is ours.”</string>
-    <string name="memento_mori_quote_author_3">— EPICTETUS (STOIC TRADITION)</string>
+    <string name="memento_mori_quote_3">“Let death and exile and every other thing which appears dreadful be daily before your eyes, but most of all death, and you will never think of anything mean nor will you desire anything extravagantly.”</string>
+    <string name="memento_mori_quote_author_3">— EPICTETUS</string>
     <string name="memento_mori_insight_how_to_use_header">PUTTING IT INTO PRACTICE</string>
     <string name="memento_mori_insight_how_to_use_body">Use the weeks grid as a daily orientation tool: not to create fear, but to increase intention. Each filled week is evidence that life is moving. Ask one concrete question each morning: What matters enough to deserve this day?</string>
     <string name="memento_mori_insight_reflection_prompt">“If this week were all you had, what would be the most Stoic use of it?”</string>
