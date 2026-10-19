@@ -26,6 +26,7 @@ import com.ataraxy.app.domain.model.InsightSection
 import com.ataraxy.app.domain.model.InsightTable
 import com.ataraxy.app.domain.model.Quote
 import com.ataraxy.app.ui.components.AtaraxyDivider
+import com.ataraxy.app.ui.components.quoteTextStyle
 import com.ataraxy.app.ui.components.AtaraxyTopBar
 import com.ataraxy.app.ui.components.orrery.orreryBackground
 import com.ataraxy.app.ui.components.orrery.rememberOrreryPattern
@@ -214,11 +215,7 @@ private fun QuoteHeader(quote: Quote, onAuthorClick: () -> Unit) {
     ) {
         Text(
             text = stringResource(R.string.quote_in_marks, quote.text),
-            style = MaterialTheme.typography.displaySmall.copy(
-                fontFamily = CormorantGaramond,
-                fontStyle = FontStyle.Italic,
-                lineHeight = 38.sp
-            ),
+            style = quoteTextStyle(quote.text),
             color = MaterialTheme.colorScheme.onBackground,
             textAlign = TextAlign.Center
         )
