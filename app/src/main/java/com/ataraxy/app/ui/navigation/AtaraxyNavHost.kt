@@ -41,12 +41,14 @@ import com.ataraxy.app.ui.insight.InsightScreen
 import com.ataraxy.app.ui.onboarding.OnboardingScreen
 import com.ataraxy.app.ui.practice.PracticeScreen
 import com.ataraxy.app.ui.practices.bookend.BookendRitualScreen
-import com.ataraxy.app.ui.practices.dichotomy.DichotomyScreen
 import com.ataraxy.app.ui.practices.hub.PracticesHubScreen
 import com.ataraxy.app.ui.practices.journal.JournalHistoryScreen
 import com.ataraxy.app.ui.practices.mementomori.MementoMoriInsightScreen
 import com.ataraxy.app.ui.practices.mementomori.MementoMoriScreen
 import com.ataraxy.app.ui.practices.sos.SosScreen
+import com.ataraxy.app.ui.practices.whatsyours.ReflectionDetailScreen
+import com.ataraxy.app.ui.practices.whatsyours.ReflectionFlowScreen
+import com.ataraxy.app.ui.practices.whatsyours.WhatsYoursScreen
 import com.ataraxy.app.ui.settings.AboutScreen
 import com.ataraxy.app.ui.settings.SettingsScreen
 import com.ataraxy.app.ui.virtue.VirtueDetailScreen
@@ -245,7 +247,7 @@ internal fun NavGraphBuilder.ataraxyGraph(
     composable(Screen.Practices.route) {
         PracticesHubScreen(
             onNavigateToBookend = { navController.navigate(Screen.BookendRitual.route) },
-            onNavigateToDichotomy = { navController.navigate(Screen.DichotomyOfControl.route) },
+            onNavigateToWhatsYours = { navController.navigate(Screen.WhatsYours.route) },
             onNavigateToSos = { navController.navigate(Screen.SosQuotes.route) },
             onNavigateToMementoMori = { navController.navigate(Screen.MementoMori.route) },
             onNavigateToJournal = { navController.navigate(Screen.JournalHistory.route) }
@@ -278,8 +280,37 @@ internal fun NavGraphBuilder.ataraxyGraph(
         BookendRitualScreen(onBack = { navController.popBackStack() })
     }
 
-    composable(Screen.DichotomyOfControl.route) {
-        DichotomyScreen(onBack = { navController.popBackStack() })
+    composable(Screen.WhatsYours.route) {
+        WhatsYoursScreen(
+            onBack = { navController.popBackStack() },
+            onBegin = { id -> navController.navigate(Screen.ReflectionFlow(id).route) },
+            onOpenReflection = { reflection ->
+                val target = if (reflection.completedAt == null) Screen.ReflectionFlow(reflection.id)
+                else Screen.ReflectionDetail(reflection.id)
+                navController.navigate(target.route)
+            }
+        )
+    }
+
+    composable(
+        route = Screen.ReflectionFlow.ROUTE,
+        arguments = listOf(navArgument("reflectionId") { type = NavType.LongType })
+    ) {
+        ReflectionFlowScreen(
+            onClose = { navController.popBackStack() },
+            onFinished = { id ->
+                navController.navigate(Screen.ReflectionDetail(id).route) {
+                    popUpTo(Screen.ReflectionFlow.ROUTE) { inclusive = true }
+                }
+            }
+        )
+    }
+
+    composable(
+        route = Screen.ReflectionDetail.ROUTE,
+        arguments = listOf(navArgument("reflectionId") { type = NavType.LongType })
+    ) {
+        ReflectionDetailScreen(onBack = { navController.popBackStack() })
     }
 
     composable(Screen.SosQuotes.route) {

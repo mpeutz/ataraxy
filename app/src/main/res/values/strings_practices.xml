@@ -110,9 +110,9 @@
     <string name="practices_bookend_eyebrow">DAILY PRACTICE</string>
     <string name="practices_bookend_title">Morning &amp; Evening Ritual</string>
     <string name="practices_bookend_description">Praemeditatio Malorum at dawn. Seneca\'s review at dusk.</string>
-    <string name="practices_dichotomy_eyebrow">CLARITY</string>
-    <string name="practices_dichotomy_title">Dichotomy of Control</string>
-    <string name="practices_dichotomy_description">Sort your worries. Release what is not yours to carry.</string>
+    <string name="practices_whats_yours_eyebrow">CLARITY</string>
+    <string name="practices_whats_yours_title">What\'s Yours</string>
+    <string name="practices_whats_yours_description">Separate what is yours from what is not.</string>
     <string name="practices_sos_eyebrow">IN CRISIS</string>
     <string name="practices_sos_title">Find Your Footing</string>
     <string name="practices_sos_description">Stoic wisdom for anger, anxiety, grief, and fear.</string>

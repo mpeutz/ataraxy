@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="dichotomy_collapse">Collapse</string>
-    <string name="dichotomy_expand">Expand</string>
-    <string name="dichotomy_action_step">→ %1$s</string>
-</resources>

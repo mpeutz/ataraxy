@@ -21,7 +21,17 @@ sealed class Screen(val route: String) {
     data object Onboarding : Screen("onboarding")
     data object Practices : Screen("practices")
     data object BookendRitual : Screen("bookend_ritual")
-    data object DichotomyOfControl : Screen("dichotomy_of_control")
+    data object WhatsYours : Screen("whats_yours")
+    data class ReflectionFlow(val reflectionId: Long) : Screen("whats_yours/reflect/$reflectionId") {
+        companion object {
+            const val ROUTE = "whats_yours/reflect/{reflectionId}"
+        }
+    }
+    data class ReflectionDetail(val reflectionId: Long) : Screen("whats_yours/$reflectionId") {
+        companion object {
+            const val ROUTE = "whats_yours/{reflectionId}"
+        }
+    }
     data object SosQuotes : Screen("sos_quotes")
     data object MementoMori : Screen("memento_mori")
     data object MementoMoriInsight : Screen("memento_mori_insight")

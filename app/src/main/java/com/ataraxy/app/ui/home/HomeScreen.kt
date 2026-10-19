@@ -32,7 +32,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -42,10 +41,10 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ataraxy.app.R
 import com.ataraxy.app.domain.model.Quote
 import com.ataraxy.app.ui.components.AnnotatedQuoteText
+import com.ataraxy.app.ui.components.quoteTextStyle
 import com.ataraxy.app.ui.components.AtaraxyDivider
 import com.ataraxy.app.ui.components.orrery.orreryBackground
 import com.ataraxy.app.ui.components.orrery.rememberOrreryPattern
-import com.ataraxy.app.ui.theme.CormorantGaramond
 import com.ataraxy.app.ui.theme.Jost
 
 @Composable
@@ -191,11 +190,7 @@ private fun QuoteCard(
         // Quote text
         AnnotatedQuoteText(
             text = stringResource(R.string.quote_in_marks, quote.text),
-            style = MaterialTheme.typography.displayMedium.copy(
-                fontFamily = CormorantGaramond,
-                fontStyle = FontStyle.Italic,
-                lineHeight = 44.sp
-            ),
+            style = quoteTextStyle(quote.text),
             color = MaterialTheme.colorScheme.onBackground,
             textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxWidth()
