@@ -18,8 +18,7 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.ataraxy.app.ui.theme.Jost
+import com.ataraxy.app.ui.theme.AtaraxyText
 
 /**
  * A pill-shaped single-choice control. Each segment is a 48dp-tall radio button, so it meets touch
@@ -58,7 +57,7 @@ fun <T> SegmentedToggle(
                             RoundedCornerShape(50.dp)
                         )
                         .padding(horizontal = 12.dp, vertical = 6.dp),
-                    style = MaterialTheme.typography.labelSmall.copy(fontFamily = Jost, letterSpacing = 1.sp),
+                    style = AtaraxyText.meta,
                     color = if (isSelected) MaterialTheme.colorScheme.background else MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }

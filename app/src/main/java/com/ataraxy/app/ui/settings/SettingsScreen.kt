@@ -13,7 +13,6 @@ import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ataraxy.app.R
@@ -22,8 +21,7 @@ import com.ataraxy.app.domain.model.ContentTextSize
 import com.ataraxy.app.domain.model.NotificationStyle
 import com.ataraxy.app.ui.components.AtaraxyDivider
 import com.ataraxy.app.ui.components.SegmentedToggle
-import com.ataraxy.app.ui.theme.CormorantGaramond
-import com.ataraxy.app.ui.theme.Jost
+import com.ataraxy.app.ui.theme.AtaraxyText
 
 private enum class TimePickerTarget { DAILY, MORNING, EVENING }
 
@@ -74,15 +72,12 @@ fun SettingsScreen(
             Column(modifier = Modifier.padding(horizontal = 24.dp, vertical = 20.dp)) {
                 Text(
                     text = stringResource(R.string.settings_header_label),
-                    style = MaterialTheme.typography.labelLarge.copy(fontFamily = Jost, letterSpacing = 4.sp),
+                    style = AtaraxyText.eyebrow,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 Text(
                     text = stringResource(R.string.settings_title),
-                    style = MaterialTheme.typography.headlineSmall.copy(
-                        fontFamily = CormorantGaramond,
-                        fontStyle = FontStyle.Italic
-                    ),
+                    style = AtaraxyText.display.copy(fontStyle = FontStyle.Italic),
                     color = MaterialTheme.colorScheme.onBackground
                 )
             }

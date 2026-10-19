@@ -1,7 +1,6 @@
 package com.ataraxy.app.ui.components
 
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.*
@@ -19,7 +18,7 @@ import androidx.compose.ui.text.withLink
 import com.ataraxy.app.R
 import com.ataraxy.app.data.glossary.StoicGlossary
 import com.ataraxy.app.ui.theme.GlossaryTint
-import com.ataraxy.app.ui.theme.Jost
+import com.ataraxy.app.ui.theme.AtaraxyText
 
 /**
  * Renders quote text with Stoic glossary terms highlighted in [GlossaryTint].
@@ -72,20 +71,20 @@ private fun GlossaryDefinitionDialog(
         title = {
             Text(
                 text = displayName,
-                style = MaterialTheme.typography.titleMedium.copy(fontFamily = Jost)
+                style = AtaraxyText.heading
             )
         },
         text = {
             Text(
                 text = definition,
-                style = MaterialTheme.typography.bodyMedium.copy(fontFamily = Jost)
+                style = AtaraxyText.secondary
             )
         },
         confirmButton = {
             TextButton(onClick = onDismiss) {
                 Text(
                     text = stringResource(R.string.close),
-                    style = MaterialTheme.typography.labelMedium.copy(fontFamily = Jost)
+                    style = AtaraxyText.button
                 )
             }
         }

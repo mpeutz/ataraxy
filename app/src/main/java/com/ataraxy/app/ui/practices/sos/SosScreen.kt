@@ -23,22 +23,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ataraxy.app.R
 import com.ataraxy.app.domain.model.SosEmotion
 import com.ataraxy.app.ui.components.AtaraxyDivider
-import com.ataraxy.app.ui.components.quoteTextStyle
+import com.ataraxy.app.ui.theme.AtaraxyText
 import com.ataraxy.app.ui.components.AtaraxyTopBar
 import com.ataraxy.app.ui.components.orrery.orreryBackground
 import com.ataraxy.app.ui.components.orrery.rememberOrreryPattern
-import com.ataraxy.app.ui.theme.CormorantGaramond
-import com.ataraxy.app.ui.theme.Jost
 
 internal data class EmotionOption(
     val emotion: SosEmotion,
@@ -105,11 +101,7 @@ fun SosScreen(
 
         Text(
             text = stringResource(R.string.sos_prompt),
-            style = MaterialTheme.typography.bodyLarge.copy(
-                fontFamily = CormorantGaramond,
-                fontStyle = FontStyle.Italic,
-                fontSize = 22.sp
-            ),
+            style = AtaraxyText.prompt,
             color = MaterialTheme.colorScheme.onBackground,
             modifier = Modifier.padding(horizontal = 24.dp)
         )
@@ -156,10 +148,7 @@ fun SosScreen(
                     selectedOption?.let { option ->
                         Text(
                             text = stringResource(R.string.sos_selected_feeling),
-                            style = MaterialTheme.typography.labelSmall.copy(
-                                fontFamily = Jost,
-                                letterSpacing = 2.sp
-                            ),
+                            style = AtaraxyText.eyebrow,
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                             modifier = Modifier.fillMaxWidth(),
                             textAlign = TextAlign.Center
@@ -167,22 +156,14 @@ fun SosScreen(
                         Spacer(Modifier.height(10.dp))
                         Text(
                             text = stringResource(option.label),
-                            style = MaterialTheme.typography.titleMedium.copy(
-                                fontFamily = Jost,
-                                fontWeight = FontWeight.Medium,
-                                letterSpacing = 2.sp
-                            ),
+                            style = AtaraxyText.screenTitle,
                             color = MaterialTheme.colorScheme.onBackground,
                             modifier = Modifier.fillMaxWidth(),
                             textAlign = TextAlign.Center
                         )
                         Text(
                             text = stringResource(option.latin),
-                            style = MaterialTheme.typography.bodyMedium.copy(
-                                fontFamily = CormorantGaramond,
-                                fontStyle = FontStyle.Italic,
-                                fontSize = 16.sp
-                            ),
+                            style = AtaraxyText.reading.copy(fontStyle = FontStyle.Italic),
                             color = MaterialTheme.colorScheme.onSurfaceVariant,
                             modifier = Modifier.fillMaxWidth(),
                             textAlign = TextAlign.Center
@@ -191,7 +172,7 @@ fun SosScreen(
                     }
                     Text(
                         text = stringResource(R.string.quote_in_marks, quote.text),
-                        style = quoteTextStyle(quote.text),
+                        style = AtaraxyText.quote(quote.text),
                         color = MaterialTheme.colorScheme.onBackground,
                         textAlign = TextAlign.Center,
                         modifier = Modifier.fillMaxWidth()
@@ -199,10 +180,7 @@ fun SosScreen(
                     Spacer(Modifier.height(20.dp))
                     Text(
                         text = stringResource(R.string.quote_attribution, quote.authorName.uppercase()),
-                        style = MaterialTheme.typography.labelMedium.copy(
-                            fontFamily = Jost,
-                            letterSpacing = 2.sp
-                        ),
+                        style = AtaraxyText.attribution,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier.fillMaxWidth(),
                         textAlign = TextAlign.Center
@@ -210,7 +188,7 @@ fun SosScreen(
                     if (quote.source.isNotBlank()) {
                         Text(
                             text = quote.source.uppercase(),
-                            style = MaterialTheme.typography.labelSmall.copy(fontFamily = Jost),
+                            style = AtaraxyText.meta,
                             color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f),
                             modifier = Modifier.fillMaxWidth(),
                             textAlign = TextAlign.Center
@@ -220,10 +198,7 @@ fun SosScreen(
                         Spacer(Modifier.height(6.dp))
                         Text(
                             text = stringResource(R.string.sos_quote_position, state.quotePosition, state.quoteTotal),
-                            style = MaterialTheme.typography.labelSmall.copy(
-                                fontFamily = Jost,
-                                letterSpacing = 1.sp
-                            ),
+                            style = AtaraxyText.meta,
                             color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.75f),
                             modifier = Modifier.fillMaxWidth(),
                             textAlign = TextAlign.Center
@@ -246,10 +221,7 @@ fun SosScreen(
                         Spacer(Modifier.width(8.dp))
                         Text(
                             text = stringResource(R.string.sos_another_quote),
-                            style = MaterialTheme.typography.labelMedium.copy(
-                                fontFamily = Jost,
-                                letterSpacing = 2.sp
-                            ),
+                            style = AtaraxyText.button,
                             color = MaterialTheme.colorScheme.onBackground
                         )
                     }
@@ -260,11 +232,7 @@ fun SosScreen(
                     ) {
                         Text(
                             text = stringResource(R.string.sos_explore_insight),
-                            style = MaterialTheme.typography.bodySmall.copy(
-                                fontFamily = CormorantGaramond,
-                                fontStyle = FontStyle.Italic,
-                                fontSize = 15.sp
-                            ),
+                            style = AtaraxyText.reading.copy(fontStyle = FontStyle.Italic),
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     }
@@ -276,11 +244,7 @@ fun SosScreen(
             Spacer(Modifier.height(48.dp))
             Text(
                 text = stringResource(R.string.sos_footer),
-                style = MaterialTheme.typography.bodySmall.copy(
-                    fontFamily = CormorantGaramond,
-                    fontStyle = FontStyle.Italic,
-                    fontSize = 15.sp
-                ),
+                style = AtaraxyText.reading.copy(fontStyle = FontStyle.Italic),
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -324,21 +288,14 @@ private fun EmotionCard(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(92.dp)
+                .heightIn(min = 92.dp)
                 .padding(vertical = 12.dp, horizontal = 16.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            val label = stringResource(option.label)
-            val isLongLabel = label.length > 12
             Text(
-                text = label,
-                style = MaterialTheme.typography.labelLarge.copy(
-                    fontFamily = Jost,
-                    fontSize = if (isLongLabel) 12.sp else 13.sp,
-                    letterSpacing = if (isLongLabel) 1.5.sp else 2.sp,
-                    fontWeight = FontWeight.Medium
-                ),
+                text = stringResource(option.label),
+                style = AtaraxyText.attribution,
                 color = textColor,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
@@ -347,11 +304,7 @@ private fun EmotionCard(
             Spacer(Modifier.height(4.dp))
             Text(
                 text = stringResource(option.latin),
-                style = MaterialTheme.typography.bodySmall.copy(
-                    fontFamily = CormorantGaramond,
-                    fontStyle = FontStyle.Italic,
-                    fontSize = 14.sp
-                ),
+                style = AtaraxyText.reading.copy(fontStyle = FontStyle.Italic),
                 color = subtitleColor
             )
         }

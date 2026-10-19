@@ -15,16 +15,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.ataraxy.app.R
 import com.ataraxy.app.domain.model.ContentTextSize
 import com.ataraxy.app.ui.components.SegmentedToggle
-import com.ataraxy.app.ui.theme.CormorantGaramond
+import com.ataraxy.app.ui.theme.AtaraxyText
 import com.ataraxy.app.ui.theme.DestructiveRed
-import com.ataraxy.app.ui.theme.Jost
 import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 
@@ -52,15 +49,12 @@ internal fun NotificationGroup(
         Column(modifier = Modifier.weight(1f)) {
             Text(
                 text = title,
-                style = MaterialTheme.typography.bodyMedium.copy(
-                    fontFamily = Jost,
-                    fontWeight = FontWeight.Medium
-                ),
+                style = AtaraxyText.body.copy(fontWeight = FontWeight.Medium),
                 color = MaterialTheme.colorScheme.onBackground.copy(alpha = contentAlpha)
             )
             Text(
                 text = subtitle,
-                style = MaterialTheme.typography.bodySmall.copy(fontFamily = Jost),
+                style = AtaraxyText.secondary,
                 color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = contentAlpha)
             )
         }
@@ -88,16 +82,13 @@ internal fun NotificationGroup(
         ) {
             Text(
                 text = timeLabel,
-                style = MaterialTheme.typography.bodySmall.copy(fontFamily = Jost),
+                style = AtaraxyText.secondary,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
                     text = time.format(timeFormatter),
-                    style = MaterialTheme.typography.bodySmall.copy(
-                        fontFamily = Jost,
-                        fontWeight = FontWeight.Medium
-                    ),
+                    style = AtaraxyText.secondary.copy(fontWeight = FontWeight.Medium),
                     color = MaterialTheme.colorScheme.onBackground
                 )
                 Spacer(Modifier.width(4.dp))
@@ -118,7 +109,7 @@ internal fun NotificationGroup(
 internal fun SectionHeader(text: String) {
     Text(
         text = text,
-        style = MaterialTheme.typography.labelMedium.copy(fontFamily = Jost, letterSpacing = 3.sp),
+        style = AtaraxyText.eyebrow,
         color = MaterialTheme.colorScheme.onSurfaceVariant,
         modifier = Modifier.padding(horizontal = 24.dp, vertical = 16.dp)
     )
@@ -145,12 +136,12 @@ internal fun SettingsRow(
         Column(modifier = Modifier.weight(1f)) {
             Text(
                 text = title,
-                style = MaterialTheme.typography.bodyMedium.copy(fontFamily = Jost, fontWeight = FontWeight.Medium),
+                style = AtaraxyText.body.copy(fontWeight = FontWeight.Medium),
                 color = if (isDestructive) DestructiveRed else MaterialTheme.colorScheme.onBackground
             )
             Text(
                 text = value,
-                style = MaterialTheme.typography.bodySmall.copy(fontFamily = Jost),
+                style = AtaraxyText.secondary,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }
@@ -180,18 +171,16 @@ internal fun PreviewCard() {
             .background(MaterialTheme.colorScheme.surfaceVariant, RoundedCornerShape(8.dp))
             .padding(16.dp)
     ) {
+        val quote = stringResource(R.string.settings_preview_quote)
         Text(
-            text = stringResource(R.string.settings_preview_quote),
-            style = MaterialTheme.typography.displaySmall.copy(
-                fontFamily = CormorantGaramond,
-                fontStyle = FontStyle.Italic
-            ),
+            text = quote,
+            style = AtaraxyText.quote(quote),
             color = MaterialTheme.colorScheme.onBackground
         )
         Spacer(Modifier.height(8.dp))
         Text(
             text = stringResource(R.string.memento_mori_quote_author_1),
-            style = MaterialTheme.typography.labelSmall.copy(fontFamily = Jost, letterSpacing = 2.sp),
+            style = AtaraxyText.attribution,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
     }
@@ -213,7 +202,7 @@ internal fun TimePickerModal(
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text(title, style = MaterialTheme.typography.titleMedium.copy(fontFamily = Jost)) },
+        title = { Text(title, style = AtaraxyText.heading) },
         text = {
             TimePicker(state = timePickerState)
         },
@@ -223,7 +212,7 @@ internal fun TimePickerModal(
             }) {
                 Text(
                     stringResource(R.string.settings_confirm),
-                    style = MaterialTheme.typography.labelMedium.copy(fontFamily = Jost)
+                    style = AtaraxyText.button
                 )
             }
         },
@@ -231,7 +220,7 @@ internal fun TimePickerModal(
             TextButton(onClick = onDismiss) {
                 Text(
                     stringResource(R.string.settings_cancel),
-                    style = MaterialTheme.typography.labelMedium.copy(fontFamily = Jost)
+                    style = AtaraxyText.button
                 )
             }
         }
@@ -249,13 +238,13 @@ internal fun ConfirmDialog(
 ) {
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text(title, style = MaterialTheme.typography.titleMedium.copy(fontFamily = Jost)) },
-        text = { Text(message, style = MaterialTheme.typography.bodyMedium.copy(fontFamily = Jost)) },
+        title = { Text(title, style = AtaraxyText.heading) },
+        text = { Text(message, style = AtaraxyText.secondary) },
         confirmButton = {
             TextButton(onClick = onConfirm) {
                 Text(
                     confirmLabel,
-                    style = MaterialTheme.typography.labelMedium.copy(fontFamily = Jost),
+                    style = AtaraxyText.button,
                     color = if (isDestructive) DestructiveRed else MaterialTheme.colorScheme.onBackground
                 )
             }
@@ -264,7 +253,7 @@ internal fun ConfirmDialog(
             TextButton(onClick = onDismiss) {
                 Text(
                     stringResource(R.string.settings_cancel),
-                    style = MaterialTheme.typography.labelMedium.copy(fontFamily = Jost)
+                    style = AtaraxyText.button
                 )
             }
         }

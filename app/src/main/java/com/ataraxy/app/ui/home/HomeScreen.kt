@@ -32,20 +32,17 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ataraxy.app.R
 import com.ataraxy.app.domain.model.Quote
 import com.ataraxy.app.ui.components.AnnotatedQuoteText
-import com.ataraxy.app.ui.components.quoteTextStyle
+import com.ataraxy.app.ui.theme.AtaraxyText
 import com.ataraxy.app.ui.components.AtaraxyDivider
 import com.ataraxy.app.ui.components.orrery.orreryBackground
 import com.ataraxy.app.ui.components.orrery.rememberOrreryPattern
-import com.ataraxy.app.ui.theme.Jost
 
 @Composable
 fun HomeScreen(
@@ -83,17 +80,12 @@ fun HomeScreen(
         ) {
             Text(
                 text = stringResource(R.string.home_wordmark),
-                style = MaterialTheme.typography.labelLarge.copy(
-                    fontFamily = Jost,
-                    fontWeight = FontWeight.Medium,
-                    letterSpacing = 4.sp,
-                    fontSize = 14.sp
-                ),
+                style = AtaraxyText.screenTitle,
                 color = MaterialTheme.colorScheme.onBackground
             )
             Text(
                 text = viewModel.todayDate,
-                style = MaterialTheme.typography.labelSmall.copy(fontFamily = Jost),
+                style = AtaraxyText.meta,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }
@@ -116,10 +108,7 @@ fun HomeScreen(
         // Section label
         Text(
             text = stringResource(R.string.morning_contemplation),
-            style = MaterialTheme.typography.labelMedium.copy(
-                fontFamily = Jost,
-                letterSpacing = 3.sp
-            ),
+            style = AtaraxyText.eyebrow,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.padding(horizontal = 24.dp)
         )
@@ -180,7 +169,7 @@ private fun QuoteCard(
             ) {
                 Text(
                     text = stringResource(R.string.day_streak, streak),
-                    style = MaterialTheme.typography.labelSmall.copy(fontFamily = Jost),
+                    style = AtaraxyText.meta,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
@@ -190,7 +179,7 @@ private fun QuoteCard(
         // Quote text
         AnnotatedQuoteText(
             text = stringResource(R.string.quote_in_marks, quote.text),
-            style = quoteTextStyle(quote.text),
+            style = AtaraxyText.quote(quote.text),
             color = MaterialTheme.colorScheme.onBackground,
             textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxWidth()
@@ -201,10 +190,7 @@ private fun QuoteCard(
         // Attribution
         Text(
             text = stringResource(R.string.quote_attribution, quote.authorName.uppercase()),
-            style = MaterialTheme.typography.labelMedium.copy(
-                fontFamily = Jost,
-                letterSpacing = 2.sp
-            ),
+            style = AtaraxyText.attribution,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier
                 .fillMaxWidth()
@@ -216,7 +202,7 @@ private fun QuoteCard(
         if (quote.source.isNotBlank()) {
             Text(
                 text = quote.source.uppercase(),
-                style = MaterialTheme.typography.labelSmall.copy(fontFamily = Jost),
+                style = AtaraxyText.meta,
                 color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f),
                 modifier = Modifier.fillMaxWidth(),
                 textAlign = TextAlign.Center
@@ -228,11 +214,7 @@ private fun QuoteCard(
         Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
             Text(
                 text = quote.virtueId.uppercase(),
-                style = MaterialTheme.typography.labelSmall.copy(
-                    fontFamily = Jost,
-                    letterSpacing = 2.sp,
-                    fontSize = 10.sp
-                ),
+                style = AtaraxyText.meta,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier
                     .background(
@@ -258,11 +240,7 @@ private fun QuoteCard(
         ) {
             Text(
                 text = stringResource(R.string.reflect),
-                style = MaterialTheme.typography.labelLarge.copy(
-                    fontFamily = Jost,
-                    letterSpacing = 2.sp,
-                    fontWeight = FontWeight.Medium
-                )
+                style = AtaraxyText.button
             )
             Spacer(Modifier.width(8.dp))
             Icon(

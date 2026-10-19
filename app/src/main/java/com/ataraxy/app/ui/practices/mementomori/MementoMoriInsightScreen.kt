@@ -18,14 +18,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.ataraxy.app.R
 import com.ataraxy.app.ui.components.AtaraxyTopBar
-import com.ataraxy.app.ui.theme.CormorantGaramond
-import com.ataraxy.app.ui.theme.Jost
+import com.ataraxy.app.ui.theme.AtaraxyText
+import com.ataraxy.app.ui.theme.QuoteSize
 
 @Composable
 fun MementoMoriInsightScreen(onBack: () -> Unit) {
@@ -49,19 +47,13 @@ fun MementoMoriInsightScreen(onBack: () -> Unit) {
         ) {
             Text(
                 text = stringResource(R.string.memento_mori_insight_intro),
-                style = MaterialTheme.typography.bodyLarge.copy(
-                    fontFamily = Jost,
-                    lineHeight = 26.sp
-                ),
+                style = AtaraxyText.body,
                 color = MaterialTheme.colorScheme.onBackground
             )
 
             Text(
                 text = stringResource(R.string.memento_mori_quotes_header),
-                style = MaterialTheme.typography.labelMedium.copy(
-                    fontFamily = Jost,
-                    letterSpacing = 3.sp
-                ),
+                style = AtaraxyText.eyebrow,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
 
@@ -82,19 +74,13 @@ fun MementoMoriInsightScreen(onBack: () -> Unit) {
 
             Text(
                 text = stringResource(R.string.memento_mori_insight_how_to_use_header),
-                style = MaterialTheme.typography.labelMedium.copy(
-                    fontFamily = Jost,
-                    letterSpacing = 3.sp
-                ),
+                style = AtaraxyText.eyebrow,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
 
             Text(
                 text = stringResource(R.string.memento_mori_insight_how_to_use_body),
-                style = MaterialTheme.typography.bodyMedium.copy(
-                    fontFamily = Jost,
-                    lineHeight = 24.sp
-                ),
+                style = AtaraxyText.body,
                 color = MaterialTheme.colorScheme.onBackground
             )
 
@@ -106,12 +92,7 @@ fun MementoMoriInsightScreen(onBack: () -> Unit) {
             ) {
                 Text(
                     text = stringResource(R.string.memento_mori_insight_reflection_prompt),
-                    style = MaterialTheme.typography.bodyMedium.copy(
-                        fontFamily = CormorantGaramond,
-                        fontStyle = FontStyle.Italic,
-                        fontSize = 18.sp,
-                        lineHeight = 26.sp
-                    ),
+                    style = AtaraxyText.prompt,
                     color = MaterialTheme.colorScheme.onBackground,
                     textAlign = TextAlign.Center,
                     modifier = Modifier
@@ -139,21 +120,13 @@ private fun InsightQuoteCard(
         Column(modifier = Modifier.padding(horizontal = 16.dp, vertical = 14.dp)) {
             Text(
                 text = quote,
-                style = MaterialTheme.typography.bodyLarge.copy(
-                    fontFamily = CormorantGaramond,
-                    fontStyle = FontStyle.Italic,
-                    fontSize = 20.sp,
-                    lineHeight = 30.sp
-                ),
+                style = AtaraxyText.quote(quote, QuoteSize.CARD),
                 color = MaterialTheme.colorScheme.onBackground
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
                 text = author,
-                style = MaterialTheme.typography.labelSmall.copy(
-                    fontFamily = Jost,
-                    letterSpacing = 2.sp
-                ),
+                style = AtaraxyText.attribution,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }

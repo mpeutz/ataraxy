@@ -10,12 +10,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.ataraxy.app.R
 import com.ataraxy.app.ui.components.AtaraxyTopBar
-import com.ataraxy.app.ui.theme.Jost
+import com.ataraxy.app.ui.theme.AtaraxyText
 
 @Composable
 fun AboutScreen(onBack: () -> Unit) {
@@ -84,20 +82,13 @@ private fun AboutSection(
     Column {
         Text(
             text = title,
-            style = MaterialTheme.typography.labelMedium.copy(
-                fontFamily = Jost,
-                letterSpacing = 3.sp,
-                fontWeight = FontWeight.Medium
-            ),
+            style = AtaraxyText.eyebrow,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.padding(bottom = 12.dp)
         )
         Text(
             text = content,
-            style = MaterialTheme.typography.bodyMedium.copy(
-                fontFamily = Jost,
-                lineHeight = 24.sp
-            ),
+            style = AtaraxyText.body,
             color = MaterialTheme.colorScheme.onBackground
         )
         Spacer(Modifier.height(28.dp))
@@ -112,11 +103,7 @@ private fun AboutSection(
     Column {
         Text(
             text = title,
-            style = MaterialTheme.typography.labelMedium.copy(
-                fontFamily = Jost,
-                letterSpacing = 3.sp,
-                fontWeight = FontWeight.Medium
-            ),
+            style = AtaraxyText.eyebrow,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.padding(bottom = 12.dp)
         )
@@ -130,16 +117,13 @@ private fun AboutSection(
                 ) {
                     Text(
                         text = "·",
-                        style = MaterialTheme.typography.bodyMedium.copy(fontFamily = Jost),
+                        style = AtaraxyText.body,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier.padding(end = 12.dp, top = 2.dp)
                     )
                     Text(
                         text = item,
-                        style = MaterialTheme.typography.bodyMedium.copy(
-                            fontFamily = Jost,
-                            lineHeight = 22.sp
-                        ),
+                        style = AtaraxyText.body,
                         color = MaterialTheme.colorScheme.onBackground
                     )
                 }

@@ -47,5 +47,5 @@
     <string name="whats_yours_delete_action">Delete reflection</string>
     <string name="whats_yours_delete_title">Delete this reflection?</string>
     <string name="whats_yours_delete_body">Its notes will be deleted too. This can\'t be undone.</string>
-    <string name="whats_yours_delete_confirm">Delete</string>
+    <string name="whats_yours_delete_confirm">DELETE</string>
 </resources>

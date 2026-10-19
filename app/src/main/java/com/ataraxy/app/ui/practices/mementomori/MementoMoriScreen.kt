@@ -21,11 +21,9 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ataraxy.app.R
@@ -34,8 +32,8 @@ import com.ataraxy.app.ui.components.AtaraxyTopBar
 import com.ataraxy.app.ui.components.StatChip
 import com.ataraxy.app.ui.components.orrery.orreryBackground
 import com.ataraxy.app.ui.components.orrery.rememberOrreryPattern
-import com.ataraxy.app.ui.theme.CormorantGaramond
-import com.ataraxy.app.ui.theme.Jost
+import com.ataraxy.app.ui.theme.AtaraxyText
+import com.ataraxy.app.ui.theme.QuoteSize
 
 // Warm amber accent matching the existing GlossaryTint color
 private val MementoAccent = Color(0xFFA07850)
@@ -105,32 +103,21 @@ fun MementoMoriScreen(
             ) {
                 Text(
                     text = stringResource(R.string.year_label, yearNum),
-                    style = MaterialTheme.typography.labelMedium.copy(
-                        fontFamily = Jost,
-                        letterSpacing = 3.sp
-                    ),
+                    style = AtaraxyText.eyebrow,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 Spacer(Modifier.height(24.dp))
                 if (quote != null) {
                     Text(
                         text = stringResource(R.string.quote_in_marks, quote.text),
-                        style = MaterialTheme.typography.displaySmall.copy(
-                            fontFamily = CormorantGaramond,
-                            fontStyle = FontStyle.Italic,
-                            lineHeight = 34.sp,
-                            fontSize = 22.sp
-                        ),
+                        style = AtaraxyText.quote(quote.text, QuoteSize.CARD),
                         color = MaterialTheme.colorScheme.onBackground,
                         textAlign = TextAlign.Center
                     )
                     Spacer(Modifier.height(12.dp))
                     Text(
                         text = stringResource(R.string.quote_attribution, quote.authorName.uppercase()),
-                        style = MaterialTheme.typography.labelSmall.copy(
-                            fontFamily = Jost,
-                            letterSpacing = 2.sp
-                        ),
+                        style = AtaraxyText.attribution,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         textAlign = TextAlign.Center,
                         modifier = Modifier.fillMaxWidth()
@@ -139,11 +126,7 @@ fun MementoMoriScreen(
                 Spacer(Modifier.height(24.dp))
                 Text(
                     text = stringResource(R.string.memento_mori_prompt),
-                    style = MaterialTheme.typography.bodyMedium.copy(
-                        fontFamily = CormorantGaramond,
-                        fontStyle = FontStyle.Italic,
-                        fontSize = 18.sp
-                    ),
+                    style = AtaraxyText.prompt,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     textAlign = TextAlign.Center
                 )
@@ -151,10 +134,7 @@ fun MementoMoriScreen(
                 TextButton(onClick = viewModel::dismissReflection) {
                     Text(
                         text = stringResource(R.string.close),
-                        style = MaterialTheme.typography.labelLarge.copy(
-                            fontFamily = Jost,
-                            letterSpacing = 2.sp
-                        ),
+                        style = AtaraxyText.button,
                         color = MaterialTheme.colorScheme.onBackground
                     )
                 }
@@ -194,41 +174,35 @@ private fun BirthYearSetup(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
+        val marcusQuote = stringResource(R.string.marcus_aurelius_quote)
         Text(
-            text = stringResource(R.string.marcus_aurelius_quote),
-            style = MaterialTheme.typography.displaySmall.copy(
-                fontFamily = CormorantGaramond,
-                fontStyle = FontStyle.Italic,
-                lineHeight = 36.sp,
-                fontSize = 22.sp
-            ),
+            text = marcusQuote,
+            style = AtaraxyText.quote(marcusQuote, QuoteSize.CARD),
             color = MaterialTheme.colorScheme.onBackground,
             textAlign = TextAlign.Center
         )
         Spacer(Modifier.height(12.dp))
         Text(
             text = stringResource(R.string.quote_attribution, stringResource(R.string.marcus_aurelius_name)),
-            style = MaterialTheme.typography.labelSmall.copy(
-                fontFamily = Jost,
-                letterSpacing = 2.sp
-            ),
+            style = AtaraxyText.attribution,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
         Spacer(Modifier.height(40.dp))
         OutlinedTextField(
             value = input,
             onValueChange = onInputChange,
+            textStyle = AtaraxyText.body,
             label = {
                 Text(
                     text = stringResource(R.string.birth_year_label),
-                    style = MaterialTheme.typography.labelMedium.copy(fontFamily = Jost)
+                    style = AtaraxyText.meta
                 )
             },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             singleLine = true,
             isError = error != null,
             supportingText = error?.let {
-                { Text(text = it, style = MaterialTheme.typography.labelSmall.copy(fontFamily = Jost)) }
+                { Text(text = it, style = AtaraxyText.hint) }
             },
             modifier = Modifier.fillMaxWidth(0.6f)
         )
@@ -244,11 +218,7 @@ private fun BirthYearSetup(
         ) {
             Text(
                 text = stringResource(R.string.set_birth_year),
-                style = MaterialTheme.typography.labelLarge.copy(
-                    fontFamily = Jost,
-                    letterSpacing = 2.sp,
-                    fontWeight = FontWeight.Medium
-                )
+                style = AtaraxyText.button
             )
         }
         if (showCancel) {
@@ -256,7 +226,7 @@ private fun BirthYearSetup(
             TextButton(onClick = onCancel) {
                 Text(
                     text = stringResource(R.string.cancel),
-                    style = MaterialTheme.typography.labelMedium.copy(fontFamily = Jost),
+                    style = AtaraxyText.button,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
@@ -351,7 +321,7 @@ private fun WeeksGrid(
         ) {
             Text(
                 text = stringResource(R.string.change_birth_year),
-                style = MaterialTheme.typography.labelSmall.copy(fontFamily = Jost),
+                style = AtaraxyText.reading.copy(fontStyle = FontStyle.Italic),
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }
@@ -364,7 +334,7 @@ private fun WeeksGrid(
         ) {
             Text(
                 text = stringResource(R.string.memento_mori_insight_link),
-                style = MaterialTheme.typography.labelMedium.copy(fontFamily = Jost, letterSpacing = 1.sp),
+                style = AtaraxyText.reading.copy(fontStyle = FontStyle.Italic),
                 color = MaterialTheme.colorScheme.onBackground
             )
         }

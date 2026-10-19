@@ -25,7 +25,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ataraxy.app.R
@@ -33,8 +32,8 @@ import com.ataraxy.app.data.seed.InsightData
 import com.ataraxy.app.domain.model.Quote
 import com.ataraxy.app.domain.model.Virtue
 import com.ataraxy.app.ui.components.AtaraxyDivider
-import com.ataraxy.app.ui.theme.CormorantGaramond
-import com.ataraxy.app.ui.theme.Jost
+import com.ataraxy.app.ui.theme.AtaraxyText
+import com.ataraxy.app.ui.theme.QuoteSize
 
 @Composable
 fun ArchiveScreen(
@@ -63,23 +62,18 @@ fun ArchiveScreen(
                 Spacer(Modifier.height(20.dp))
                 Text(
                     text = stringResource(R.string.archive_title_eyebrow),
-                    style = MaterialTheme.typography.labelLarge.copy(
-                        fontFamily = Jost, letterSpacing = 4.sp
-                    ),
+                    style = AtaraxyText.eyebrow,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 Text(
                     text = stringResource(R.string.archive_title),
-                    style = MaterialTheme.typography.headlineLarge.copy(
-                        fontFamily = CormorantGaramond,
-                        fontStyle = FontStyle.Italic
-                    ),
+                    style = AtaraxyText.display.copy(fontStyle = FontStyle.Italic),
                     color = MaterialTheme.colorScheme.onBackground
                 )
                 Spacer(Modifier.height(4.dp))
                 Text(
                     text = stringResource(R.string.archive_tagline),
-                    style = MaterialTheme.typography.bodyMedium.copy(fontFamily = Jost),
+                    style = AtaraxyText.secondary,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 Spacer(Modifier.height(20.dp))
@@ -165,9 +159,7 @@ fun ArchiveScreen(
             Spacer(Modifier.height(24.dp))
             Text(
                 text = stringResource(R.string.the_four_virtues),
-                style = MaterialTheme.typography.labelLarge.copy(
-                    fontFamily = Jost, letterSpacing = 4.sp
-                ),
+                style = AtaraxyText.eyebrow,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.padding(horizontal = 24.dp)
             )
@@ -198,7 +190,7 @@ private fun BasicSearchField(label: String, value: String, onValueChange: (Strin
         if (value.isEmpty()) {
             Text(
                 text = placeholder,
-                style = MaterialTheme.typography.bodyMedium.copy(fontFamily = Jost),
+                style = AtaraxyText.hint,
                 color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
             )
         }
@@ -208,10 +200,7 @@ private fun BasicSearchField(label: String, value: String, onValueChange: (Strin
             modifier = Modifier
                 .fillMaxWidth()
                 .semantics { contentDescription = label },
-            textStyle = MaterialTheme.typography.bodyMedium.copy(
-                fontFamily = Jost,
-                color = MaterialTheme.colorScheme.onBackground
-            ),
+            textStyle = AtaraxyText.body.copy(color = MaterialTheme.colorScheme.onBackground),
             cursorBrush = androidx.compose.ui.graphics.SolidColor(MaterialTheme.colorScheme.onBackground)
         )
     }
@@ -228,11 +217,7 @@ private fun AuthorTab(label: String, selected: Boolean, onClick: () -> Unit) {
     ) {
         Text(
             text = label,
-            style = MaterialTheme.typography.labelSmall.copy(
-                fontFamily = Jost,
-                letterSpacing = 2.sp,
-                fontWeight = if (selected) FontWeight.Medium else FontWeight.Normal
-            ),
+            style = AtaraxyText.meta.copy(fontWeight = if (selected) FontWeight.Medium else FontWeight.Normal),
             color = if (selected) MaterialTheme.colorScheme.onBackground
             else MaterialTheme.colorScheme.onSurfaceVariant
         )
@@ -267,12 +252,12 @@ private fun QuoteCard(
         ) {
             Text(
                 text = quote.source.uppercase(),
-                style = MaterialTheme.typography.labelSmall.copy(fontFamily = Jost, letterSpacing = 2.sp),
+                style = AtaraxyText.meta,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
             Text(
                 text = quote.virtueId,
-                style = MaterialTheme.typography.labelSmall.copy(fontFamily = Jost),
+                style = AtaraxyText.meta,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier
                     .background(MaterialTheme.colorScheme.surfaceVariant, RoundedCornerShape(4.dp))
@@ -281,8 +266,8 @@ private fun QuoteCard(
         }
         Spacer(Modifier.height(4.dp))
         Text(
-            text = stringResource(R.string.quote_attribution, quote.authorName),
-            style = MaterialTheme.typography.labelSmall.copy(fontFamily = Jost),
+            text = stringResource(R.string.quote_attribution, quote.authorName.uppercase()),
+            style = AtaraxyText.attribution,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier
                 .minimumInteractiveComponentSize()
@@ -291,10 +276,7 @@ private fun QuoteCard(
         Spacer(Modifier.height(6.dp))
         Text(
             text = quote.text,
-            style = MaterialTheme.typography.displaySmall.copy(
-                fontFamily = CormorantGaramond,
-                fontStyle = FontStyle.Italic
-            ),
+            style = AtaraxyText.quote(quote.text, QuoteSize.CARD),
             color = MaterialTheme.colorScheme.onBackground,
             maxLines = 4,
             overflow = TextOverflow.Ellipsis
@@ -310,10 +292,7 @@ private fun QuoteCard(
             ) {
                 Text(
                     text = stringResource(R.string.archive_insight_link),
-                    style = MaterialTheme.typography.labelSmall.copy(
-                        fontFamily = Jost,
-                        letterSpacing = 2.sp
-                    ),
+                    style = AtaraxyText.meta,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 Spacer(Modifier.width(2.dp))
@@ -340,19 +319,17 @@ private fun VirtueCard(virtue: Virtue, onClick: () -> Unit) {
         Column(modifier = Modifier.weight(1f)) {
             Text(
                 text = virtue.latinName.uppercase(),
-                style = MaterialTheme.typography.labelSmall.copy(
-                    fontFamily = Jost, letterSpacing = 2.sp
-                ),
+                style = AtaraxyText.eyebrow,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
             Text(
                 text = virtue.name,
-                style = MaterialTheme.typography.headlineSmall.copy(fontFamily = CormorantGaramond),
+                style = AtaraxyText.heading,
                 color = MaterialTheme.colorScheme.onBackground
             )
             Text(
                 text = virtue.definingQuote.take(80) + if (virtue.definingQuote.length > 80) "…" else "",
-                style = MaterialTheme.typography.bodySmall.copy(fontFamily = Jost),
+                style = AtaraxyText.secondary,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }
@@ -382,17 +359,14 @@ private fun FeaturedQuoteBlock(quote: Quote) {
     ) {
         Text(
             text = stringResource(R.string.quote_in_marks, quote.text),
-            style = MaterialTheme.typography.displaySmall.copy(
-                fontFamily = CormorantGaramond,
-                fontStyle = FontStyle.Italic
-            ),
+            style = AtaraxyText.quote(quote.text),
             color = MaterialTheme.colorScheme.onBackground,
             textAlign = TextAlign.Center
         )
         Spacer(Modifier.height(12.dp))
         Text(
             text = stringResource(R.string.quote_attribution, quote.authorName.uppercase()),
-            style = MaterialTheme.typography.labelSmall.copy(fontFamily = Jost, letterSpacing = 2.sp),
+            style = AtaraxyText.attribution,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
     }
