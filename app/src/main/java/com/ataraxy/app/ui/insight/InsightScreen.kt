@@ -17,7 +17,6 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ataraxy.app.R
@@ -26,12 +25,11 @@ import com.ataraxy.app.domain.model.InsightSection
 import com.ataraxy.app.domain.model.InsightTable
 import com.ataraxy.app.domain.model.Quote
 import com.ataraxy.app.ui.components.AtaraxyDivider
-import com.ataraxy.app.ui.components.quoteTextStyle
+import com.ataraxy.app.ui.theme.AtaraxyText
+import com.ataraxy.app.ui.theme.QuoteSize
 import com.ataraxy.app.ui.components.AtaraxyTopBar
 import com.ataraxy.app.ui.components.orrery.orreryBackground
 import com.ataraxy.app.ui.components.orrery.rememberOrreryPattern
-import com.ataraxy.app.ui.theme.CormorantGaramond
-import com.ataraxy.app.ui.theme.Jost
 
 @Composable
 fun InsightScreen(
@@ -77,7 +75,7 @@ fun InsightScreen(
                 ) {
                     Text(
                         text = stringResource(R.string.insight_empty),
-                        style = MaterialTheme.typography.bodyMedium.copy(fontFamily = Jost),
+                        style = AtaraxyText.secondary,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         textAlign = TextAlign.Center
                     )
@@ -91,10 +89,7 @@ fun InsightScreen(
             Spacer(Modifier.height(28.dp))
             Text(
                 text = insight.intro,
-                style = MaterialTheme.typography.bodyLarge.copy(
-                    fontFamily = Jost,
-                    lineHeight = 26.sp
-                ),
+                style = AtaraxyText.body,
                 color = MaterialTheme.colorScheme.onBackground,
                 modifier = Modifier.padding(horizontal = 24.dp)
             )
@@ -105,10 +100,7 @@ fun InsightScreen(
         item {
             Text(
                 text = stringResource(R.string.insight_breakdown_header),
-                style = MaterialTheme.typography.labelMedium.copy(
-                    fontFamily = Jost,
-                    letterSpacing = 3.sp
-                ),
+                style = AtaraxyText.eyebrow,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.padding(horizontal = 24.dp)
             )
@@ -135,20 +127,14 @@ fun InsightScreen(
             item {
                 Text(
                     text = stringResource(R.string.insight_modern_application),
-                    style = MaterialTheme.typography.labelMedium.copy(
-                        fontFamily = Jost,
-                        letterSpacing = 3.sp
-                    ),
+                    style = AtaraxyText.eyebrow,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.padding(horizontal = 24.dp)
                 )
                 Spacer(Modifier.height(12.dp))
                 Text(
                     text = text,
-                    style = MaterialTheme.typography.bodyLarge.copy(
-                        fontFamily = Jost,
-                        lineHeight = 26.sp
-                    ),
+                    style = AtaraxyText.body,
                     color = MaterialTheme.colorScheme.onBackground,
                     modifier = Modifier.padding(horizontal = 24.dp)
                 )
@@ -169,11 +155,7 @@ fun InsightScreen(
             item {
                 Text(
                     text = prompt,
-                    style = MaterialTheme.typography.bodyMedium.copy(
-                        fontFamily = Jost,
-                        fontStyle = FontStyle.Italic,
-                        lineHeight = 24.sp
-                    ),
+                    style = AtaraxyText.prompt,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.padding(horizontal = 24.dp)
                 )
@@ -190,11 +172,7 @@ fun InsightScreen(
                     TextButton(onClick = { onNavigateToAuthor(quote!!.authorId) }) {
                         Text(
                             text = stringResource(R.string.insight_about_author),
-                            style = MaterialTheme.typography.bodySmall.copy(
-                                fontFamily = CormorantGaramond,
-                                fontStyle = FontStyle.Italic,
-                                fontSize = 15.sp
-                            ),
+                            style = AtaraxyText.reading.copy(fontStyle = FontStyle.Italic),
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     }
@@ -215,17 +193,14 @@ private fun QuoteHeader(quote: Quote, onAuthorClick: () -> Unit) {
     ) {
         Text(
             text = stringResource(R.string.quote_in_marks, quote.text),
-            style = quoteTextStyle(quote.text),
+            style = AtaraxyText.quote(quote.text),
             color = MaterialTheme.colorScheme.onBackground,
             textAlign = TextAlign.Center
         )
         Spacer(Modifier.height(12.dp))
         Text(
             text = stringResource(R.string.quote_attribution_with_source, quote.authorName.uppercase(), quote.source.uppercase()),
-            style = MaterialTheme.typography.labelSmall.copy(
-                fontFamily = Jost,
-                letterSpacing = 2.sp
-            ),
+            style = AtaraxyText.attribution,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center,
             modifier = Modifier
@@ -240,9 +215,7 @@ private fun InsightSectionBlock(section: InsightSection) {
     Column(modifier = Modifier.padding(horizontal = 24.dp)) {
         Text(
             text = "${section.number}. ${section.title}",
-            style = MaterialTheme.typography.headlineSmall.copy(
-                fontFamily = CormorantGaramond
-            ),
+            style = AtaraxyText.heading,
             color = MaterialTheme.colorScheme.onBackground
         )
         Spacer(Modifier.height(12.dp))
@@ -261,11 +234,7 @@ private fun InsightSectionBlock(section: InsightSection) {
             Spacer(Modifier.width(12.dp))
             Text(
                 text = stringResource(R.string.quote_in_marks, section.blockquote),
-                style = MaterialTheme.typography.bodyLarge.copy(
-                    fontFamily = CormorantGaramond,
-                    fontStyle = FontStyle.Italic,
-                    lineHeight = 26.sp
-                ),
+                style = AtaraxyText.quote(section.blockquote, QuoteSize.CARD),
                 color = MaterialTheme.colorScheme.onBackground
             )
         }
@@ -273,10 +242,7 @@ private fun InsightSectionBlock(section: InsightSection) {
 
         Text(
             text = section.body,
-            style = MaterialTheme.typography.bodyMedium.copy(
-                fontFamily = Jost,
-                lineHeight = 24.sp
-            ),
+            style = AtaraxyText.secondary,
             color = MaterialTheme.colorScheme.onBackground
         )
 
@@ -289,26 +255,20 @@ private fun InsightSectionBlock(section: InsightSection) {
                 ) {
                     Text(
                         text = "·",
-                        style = MaterialTheme.typography.bodyMedium.copy(fontFamily = Jost),
+                        style = AtaraxyText.secondary,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier.padding(top = 1.dp, end = 12.dp)
                     )
                     Column(modifier = Modifier.weight(1f)) {
                         Text(
                             text = bullet.label,
-                            style = MaterialTheme.typography.bodyMedium.copy(
-                                fontFamily = Jost,
-                                fontWeight = FontWeight.Medium
-                            ),
+                            style = AtaraxyText.secondary.copy(fontWeight = FontWeight.Medium),
                             color = MaterialTheme.colorScheme.onBackground
                         )
                         Spacer(Modifier.height(4.dp))
                         Text(
                             text = bullet.text,
-                            style = MaterialTheme.typography.bodyMedium.copy(
-                                fontFamily = Jost,
-                                lineHeight = 22.sp
-                            ),
+                            style = AtaraxyText.secondary,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     }
@@ -341,11 +301,7 @@ private fun InsightTableBlock(table: InsightTable) {
         ) {
             Text(
                 text = table.leftHeader,
-                style = MaterialTheme.typography.labelSmall.copy(
-                    fontFamily = Jost,
-                    letterSpacing = 1.sp,
-                    fontWeight = FontWeight.Medium
-                ),
+                style = AtaraxyText.meta.copy(fontWeight = FontWeight.Medium),
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier
                     .weight(1f)
@@ -359,11 +315,7 @@ private fun InsightTableBlock(table: InsightTable) {
             )
             Text(
                 text = table.rightHeader,
-                style = MaterialTheme.typography.labelSmall.copy(
-                    fontFamily = Jost,
-                    letterSpacing = 1.sp,
-                    fontWeight = FontWeight.Medium
-                ),
+                style = AtaraxyText.meta.copy(fontWeight = FontWeight.Medium),
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier
                     .weight(1f)
@@ -376,10 +328,7 @@ private fun InsightTableBlock(table: InsightTable) {
             Row(modifier = Modifier.fillMaxWidth()) {
                 Text(
                     text = left,
-                    style = MaterialTheme.typography.bodySmall.copy(
-                        fontFamily = Jost,
-                        lineHeight = 20.sp
-                    ),
+                    style = AtaraxyText.secondary,
                     color = MaterialTheme.colorScheme.onBackground,
                     modifier = Modifier
                         .weight(1f)
@@ -393,10 +342,7 @@ private fun InsightTableBlock(table: InsightTable) {
                 )
                 Text(
                     text = right,
-                    style = MaterialTheme.typography.bodySmall.copy(
-                        fontFamily = Jost,
-                        lineHeight = 20.sp
-                    ),
+                    style = AtaraxyText.secondary,
                     color = MaterialTheme.colorScheme.onBackground,
                     modifier = Modifier
                         .weight(1f)
@@ -432,11 +378,7 @@ private fun ClosingBlock(text: String) {
         Spacer(Modifier.width(16.dp))
         Text(
             text = text,
-            style = MaterialTheme.typography.bodyLarge.copy(
-                fontFamily = CormorantGaramond,
-                fontStyle = FontStyle.Italic,
-                lineHeight = 28.sp
-            ),
+            style = AtaraxyText.reading.copy(fontStyle = FontStyle.Italic),
             color = MaterialTheme.colorScheme.onBackground
         )
     }

@@ -18,11 +18,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.ataraxy.app.R
-import com.ataraxy.app.ui.theme.Jost
+import com.ataraxy.app.ui.theme.AtaraxyText
 
 /**
  * The app's screen header: optional back button, a tracked all-caps [title] with an optional
@@ -57,18 +55,13 @@ fun AtaraxyTopBar(
                     Text(
                         text = title,
                         modifier = Modifier.semantics { heading() },
-                        style = MaterialTheme.typography.labelLarge.copy(
-                            fontFamily = Jost,
-                            fontWeight = FontWeight.Medium,
-                            letterSpacing = 4.sp,
-                            fontSize = 14.sp
-                        ),
+                        style = AtaraxyText.screenTitle,
                         color = MaterialTheme.colorScheme.onBackground
                     )
                     if (subtitle != null) {
                         Text(
                             text = subtitle,
-                            style = MaterialTheme.typography.labelSmall.copy(fontFamily = Jost),
+                            style = AtaraxyText.meta,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     }

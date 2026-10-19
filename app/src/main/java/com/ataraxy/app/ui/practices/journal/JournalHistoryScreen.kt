@@ -18,11 +18,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ataraxy.app.R
@@ -30,8 +28,8 @@ import com.ataraxy.app.domain.model.JournalEntry
 import com.ataraxy.app.domain.model.Quote
 import com.ataraxy.app.ui.components.AtaraxyDivider
 import com.ataraxy.app.ui.components.AtaraxyTopBar
-import com.ataraxy.app.ui.theme.CormorantGaramond
-import com.ataraxy.app.ui.theme.Jost
+import com.ataraxy.app.ui.theme.AtaraxyText
+import com.ataraxy.app.ui.theme.QuoteSize
 import java.time.format.DateTimeFormatter
 
 @Composable
@@ -73,7 +71,7 @@ fun JournalHistoryScreen(
                 if (state.searchQuery.isEmpty()) {
                     Text(
                         text = stringResource(R.string.journal_search_placeholder),
-                        style = MaterialTheme.typography.bodyMedium.copy(fontFamily = Jost),
+                        style = AtaraxyText.hint,
                         color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
                     )
                 }
@@ -81,10 +79,7 @@ fun JournalHistoryScreen(
                     value = state.searchQuery,
                     onValueChange = { viewModel.setSearchQuery(it) },
                     modifier = Modifier.fillMaxWidth(),
-                    textStyle = MaterialTheme.typography.bodyMedium.copy(
-                        fontFamily = Jost,
-                        color = MaterialTheme.colorScheme.onBackground
-                    ),
+                    textStyle = AtaraxyText.body.copy(color = MaterialTheme.colorScheme.onBackground),
                     cursorBrush = SolidColor(MaterialTheme.colorScheme.onBackground),
                     singleLine = true
                 )
@@ -105,10 +100,7 @@ fun JournalHistoryScreen(
                     label = {
                         Text(
                             text = stringResource(filter.labelRes),
-                            style = MaterialTheme.typography.labelSmall.copy(
-                                fontFamily = Jost,
-                                letterSpacing = 1.5.sp
-                            )
+                            style = AtaraxyText.meta
                         )
                     },
                     colors = FilterChipDefaults.filterChipColors(
@@ -184,12 +176,7 @@ private fun EmptyState(filter: JournalFilter, hasSearch: Boolean) {
     ) {
         Text(
             text = stringResource(messageRes),
-            style = MaterialTheme.typography.bodyMedium.copy(
-                fontFamily = CormorantGaramond,
-                fontStyle = FontStyle.Italic,
-                fontSize = 18.sp,
-                lineHeight = 28.sp
-            ),
+            style = AtaraxyText.prompt,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center,
             modifier = Modifier.padding(horizontal = 40.dp)
@@ -227,21 +214,19 @@ private fun JournalEntryRow(
             ) {
                 Text(
                     text = dateStr,
-                    style = MaterialTheme.typography.labelSmall.copy(fontFamily = Jost),
+                    style = AtaraxyText.meta,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 Text(
                     text = timeStr,
-                    style = MaterialTheme.typography.labelSmall.copy(fontFamily = Jost),
+                    style = AtaraxyText.meta,
                     color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f)
                 )
             }
             entry.ritualType?.let { type ->
                 Text(
                     text = type,
-                    style = MaterialTheme.typography.labelSmall.copy(
-                        fontFamily = Jost, letterSpacing = 1.sp, fontSize = 10.sp
-                    ),
+                    style = AtaraxyText.meta,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier
                         .background(MaterialTheme.colorScheme.surfaceVariant, RoundedCornerShape(4.dp))
@@ -250,9 +235,7 @@ private fun JournalEntryRow(
             } ?: entry.virtueId?.let { virtue ->
                 Text(
                     text = virtue.uppercase(),
-                    style = MaterialTheme.typography.labelSmall.copy(
-                        fontFamily = Jost, letterSpacing = 1.sp, fontSize = 10.sp
-                    ),
+                    style = AtaraxyText.meta,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier
                         .background(MaterialTheme.colorScheme.surfaceVariant, RoundedCornerShape(4.dp))
@@ -266,7 +249,7 @@ private fun JournalEntryRow(
         // Entry content (collapsed = 2 lines, expanded = full)
         Text(
             text = if (isExpanded) entry.content else entry.content,
-            style = MaterialTheme.typography.bodyMedium.copy(fontFamily = Jost),
+            style = AtaraxyText.body,
             color = MaterialTheme.colorScheme.onBackground,
             maxLines = if (isExpanded) Int.MAX_VALUE else 2,
             overflow = TextOverflow.Ellipsis
@@ -287,26 +270,19 @@ private fun JournalEntryRow(
                 ) {
                     Text(
                         text = linkedQuote.source.uppercase(),
-                        style = MaterialTheme.typography.labelSmall.copy(
-                            fontFamily = Jost,
-                            letterSpacing = 2.sp
-                        ),
+                        style = AtaraxyText.meta,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                     Spacer(Modifier.height(4.dp))
                     Text(
                         text = stringResource(R.string.quote_in_marks, linkedQuote.text),
-                        style = MaterialTheme.typography.bodyLarge.copy(
-                            fontFamily = CormorantGaramond,
-                            fontStyle = FontStyle.Italic,
-                            lineHeight = 24.sp
-                        ),
+                        style = AtaraxyText.quote(linkedQuote.text, QuoteSize.CARD),
                         color = MaterialTheme.colorScheme.onBackground
                     )
                     Spacer(Modifier.height(4.dp))
                     Text(
-                        text = stringResource(R.string.quote_attribution, linkedQuote.authorName),
-                        style = MaterialTheme.typography.labelSmall.copy(fontFamily = Jost),
+                        text = stringResource(R.string.quote_attribution, linkedQuote.authorName.uppercase()),
+                        style = AtaraxyText.attribution,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
@@ -325,10 +301,7 @@ private fun JournalEntryRow(
                 ) {
                     Text(
                         text = stringResource(R.string.journal_edit),
-                        style = MaterialTheme.typography.labelSmall.copy(
-                            fontFamily = Jost,
-                            letterSpacing = 1.5.sp
-                        ),
+                        style = AtaraxyText.button,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }

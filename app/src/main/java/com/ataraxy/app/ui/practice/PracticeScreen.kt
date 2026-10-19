@@ -15,21 +15,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ataraxy.app.R
 import com.ataraxy.app.data.seed.InsightData
 import com.ataraxy.app.domain.model.Quote
 import com.ataraxy.app.ui.components.AnnotatedQuoteText
+import com.ataraxy.app.ui.theme.QuoteSize
+import com.ataraxy.app.ui.theme.AtaraxyText
 import com.ataraxy.app.ui.components.AtaraxyDivider
 import com.ataraxy.app.ui.components.AtaraxyTopBar
 import com.ataraxy.app.ui.components.orrery.orreryBackground
 import com.ataraxy.app.ui.components.orrery.rememberOrreryPattern
-import com.ataraxy.app.ui.theme.CormorantGaramond
-import com.ataraxy.app.ui.theme.Jost
 
 @Composable
 fun PracticeScreen(
@@ -79,19 +77,13 @@ fun PracticeScreen(
                 Column(modifier = Modifier.padding(horizontal = 24.dp)) {
                     Text(
                         text = stringResource(R.string.practice_prompt_label),
-                        style = MaterialTheme.typography.labelMedium.copy(
-                            fontFamily = Jost,
-                            letterSpacing = 3.sp
-                        ),
+                        style = AtaraxyText.eyebrow,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                     Spacer(Modifier.height(8.dp))
                     Text(
                         text = promptText,
-                        style = MaterialTheme.typography.displaySmall.copy(
-                            fontFamily = CormorantGaramond,
-                            fontStyle = FontStyle.Italic
-                        ),
+                        style = AtaraxyText.prompt,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                     Spacer(Modifier.height(20.dp))
@@ -101,20 +93,14 @@ fun PracticeScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .heightIn(min = 100.dp),
-                        textStyle = MaterialTheme.typography.bodyLarge.copy(
-                            fontFamily = Jost,
-                            color = MaterialTheme.colorScheme.onBackground
-                        ),
+                        textStyle = AtaraxyText.body.copy(color = MaterialTheme.colorScheme.onBackground),
                         cursorBrush = SolidColor(MaterialTheme.colorScheme.onBackground),
                         decorationBox = { innerTextField ->
                             Box {
                                 if (inputText.isEmpty()) {
                                     Text(
                                         text = stringResource(R.string.practice_input_placeholder),
-                                        style = MaterialTheme.typography.bodyLarge.copy(
-                                            fontFamily = CormorantGaramond,
-                                            fontStyle = FontStyle.Italic
-                                        ),
+                                        style = AtaraxyText.hint,
                                         color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
                                     )
                                 }
@@ -140,10 +126,7 @@ fun PracticeScreen(
                     ) {
                         Text(
                             text = stringResource(R.string.practice_save_reflection),
-                            style = MaterialTheme.typography.labelMedium.copy(
-                                fontFamily = Jost,
-                                letterSpacing = 2.sp
-                            )
+                            style = AtaraxyText.button
                         )
                     }
                 }
@@ -170,17 +153,14 @@ private fun QuoteRecapCard(
         if (quote.source.isNotBlank()) {
             Text(
                 text = quote.source.uppercase(),
-                style = MaterialTheme.typography.labelSmall.copy(fontFamily = Jost, letterSpacing = 2.sp),
+                style = AtaraxyText.meta,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
             Spacer(Modifier.height(6.dp))
         }
         AnnotatedQuoteText(
             text = stringResource(R.string.quote_in_marks, quote.text),
-            style = MaterialTheme.typography.displaySmall.copy(
-                fontFamily = CormorantGaramond,
-                fontStyle = FontStyle.Italic
-            ),
+            style = AtaraxyText.quote(quote.text, QuoteSize.CARD),
             color = MaterialTheme.colorScheme.onBackground
         )
         Spacer(Modifier.height(8.dp))
@@ -190,8 +170,8 @@ private fun QuoteRecapCard(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                text = stringResource(R.string.quote_attribution, quote.authorName),
-                style = MaterialTheme.typography.labelSmall.copy(fontFamily = Jost),
+                text = stringResource(R.string.quote_attribution, quote.authorName.uppercase()),
+                style = AtaraxyText.attribution,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
             if (hasInsight && onInsightClick != null) {
@@ -204,10 +184,7 @@ private fun QuoteRecapCard(
                 ) {
                     Text(
                         text = stringResource(R.string.practice_insight_link),
-                        style = MaterialTheme.typography.labelSmall.copy(
-                            fontFamily = Jost,
-                            letterSpacing = 2.sp
-                        ),
+                        style = AtaraxyText.meta,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                     Spacer(Modifier.width(2.dp))

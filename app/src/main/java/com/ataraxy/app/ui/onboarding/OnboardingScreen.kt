@@ -16,10 +16,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.ataraxy.app.R
-import com.ataraxy.app.ui.theme.CormorantGaramond
-import com.ataraxy.app.ui.theme.Jost
+import com.ataraxy.app.ui.theme.AtaraxyText
 import kotlinx.coroutines.launch
 
 @OptIn(androidx.compose.foundation.ExperimentalFoundationApi::class)
@@ -84,7 +82,7 @@ fun OnboardingScreen(onComplete: () -> Unit) {
             ) {
                 Text(
                     text = if (pagerState.currentPage < 2) stringResource(R.string.next) else stringResource(R.string.begin),
-                    style = MaterialTheme.typography.labelMedium.copy(fontFamily = Jost, letterSpacing = 2.sp)
+                    style = AtaraxyText.button
                 )
                 if (pagerState.currentPage < 2) {
                     Spacer(Modifier.width(8.dp))
@@ -104,24 +102,20 @@ private fun OnboardingPage1() {
     OnboardingPage {
         Text(
             text = stringResource(R.string.onboarding_wordmark),
-            style = MaterialTheme.typography.labelLarge.copy(fontFamily = Jost, letterSpacing = 6.sp),
+            style = AtaraxyText.screenTitle,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
         Spacer(Modifier.height(16.dp))
         Text(
             text = stringResource(R.string.onboarding_p1_subtitle),
-            style = MaterialTheme.typography.headlineLarge.copy(
-                fontFamily = CormorantGaramond,
-                fontStyle = FontStyle.Italic,
-                lineHeight = 64.sp
-            ),
+            style = AtaraxyText.display.copy(fontStyle = FontStyle.Italic),
             color = MaterialTheme.colorScheme.onBackground,
             textAlign = TextAlign.Center
         )
         Spacer(Modifier.height(24.dp))
         Text(
             text = stringResource(R.string.onboarding_p1_body),
-            style = MaterialTheme.typography.bodyMedium.copy(fontFamily = Jost),
+            style = AtaraxyText.body,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center
         )
@@ -133,7 +127,7 @@ private fun OnboardingPage2() {
     OnboardingPage {
         Text(
             text = stringResource(R.string.the_four_virtues),
-            style = MaterialTheme.typography.labelLarge.copy(fontFamily = Jost, letterSpacing = 4.sp),
+            style = AtaraxyText.eyebrow,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
         Spacer(Modifier.height(24.dp))
@@ -151,16 +145,13 @@ private fun OnboardingPage2() {
             ) {
                 Text(
                     text = stringResource(nameRes),
-                    style = MaterialTheme.typography.headlineSmall.copy(fontFamily = CormorantGaramond),
+                    style = AtaraxyText.heading,
                     color = MaterialTheme.colorScheme.onBackground,
                     modifier = Modifier.weight(1f)
                 )
                 Text(
                     text = stringResource(latinRes),
-                    style = MaterialTheme.typography.bodySmall.copy(
-                        fontFamily = Jost,
-                        fontStyle = FontStyle.Italic
-                    ),
+                    style = AtaraxyText.reading.copy(fontStyle = FontStyle.Italic),
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
@@ -174,24 +165,20 @@ private fun OnboardingPage3() {
     OnboardingPage {
         Text(
             text = stringResource(R.string.your_morning),
-            style = MaterialTheme.typography.labelLarge.copy(fontFamily = Jost, letterSpacing = 4.sp),
+            style = AtaraxyText.eyebrow,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
         Spacer(Modifier.height(16.dp))
         Text(
             text = stringResource(R.string.onboarding_p3_subtitle),
-            style = MaterialTheme.typography.headlineMedium.copy(
-                fontFamily = CormorantGaramond,
-                fontStyle = FontStyle.Italic,
-                lineHeight = 48.sp
-            ),
+            style = AtaraxyText.display.copy(fontStyle = FontStyle.Italic),
             color = MaterialTheme.colorScheme.onBackground,
             textAlign = TextAlign.Center
         )
         Spacer(Modifier.height(24.dp))
         Text(
             text = stringResource(R.string.onboarding_p3_body),
-            style = MaterialTheme.typography.bodyMedium.copy(fontFamily = Jost),
+            style = AtaraxyText.body,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center
         )

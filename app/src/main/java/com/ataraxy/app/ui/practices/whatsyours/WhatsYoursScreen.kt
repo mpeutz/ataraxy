@@ -28,7 +28,6 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ataraxy.app.R
@@ -37,7 +36,7 @@ import com.ataraxy.app.ui.components.AtaraxyDivider
 import com.ataraxy.app.ui.components.AtaraxyTopBar
 import com.ataraxy.app.ui.components.orrery.orreryBackground
 import com.ataraxy.app.ui.components.orrery.rememberOrreryPattern
-import com.ataraxy.app.ui.theme.Jost
+import com.ataraxy.app.ui.theme.AtaraxyText
 
 @Composable
 fun WhatsYoursScreen(
@@ -65,7 +64,7 @@ fun WhatsYoursScreen(
             Column(modifier = Modifier.padding(horizontal = 24.dp, vertical = 24.dp)) {
                 Text(
                     text = stringResource(R.string.whats_yours_explainer),
-                    style = serifTextStyle().copy(fontStyle = FontStyle.Italic),
+                    style = AtaraxyText.reading.copy(fontStyle = FontStyle.Italic),
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 Spacer(Modifier.height(28.dp))
@@ -87,7 +86,7 @@ fun WhatsYoursScreen(
                     TextButton(onClick = begin, enabled = state.draftWorry.isNotBlank()) {
                         Text(
                             text = stringResource(R.string.whats_yours_begin),
-                            style = MaterialTheme.typography.labelLarge.copy(fontFamily = Jost, letterSpacing = 2.sp)
+                            style = AtaraxyText.button
                         )
                     }
                 }
@@ -136,12 +135,12 @@ private fun ReflectionRow(reflection: Reflection, onClick: () -> Unit) {
     ) {
         Text(
             text = reflection.worry,
-            style = serifTextStyle(),
+            style = AtaraxyText.reading,
             color = MaterialTheme.colorScheme.onBackground
         )
         Text(
             text = meta,
-            style = MaterialTheme.typography.labelSmall.copy(fontFamily = Jost),
+            style = AtaraxyText.meta,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
     }

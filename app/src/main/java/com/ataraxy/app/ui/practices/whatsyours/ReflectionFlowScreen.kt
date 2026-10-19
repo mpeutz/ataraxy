@@ -40,7 +40,6 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ataraxy.app.R
@@ -48,7 +47,8 @@ import com.ataraxy.app.domain.model.Quote
 import com.ataraxy.app.ui.components.AtaraxyTopBar
 import com.ataraxy.app.ui.components.orrery.orreryBackground
 import com.ataraxy.app.ui.components.orrery.rememberOrreryPattern
-import com.ataraxy.app.ui.theme.Jost
+import com.ataraxy.app.ui.theme.AtaraxyText
+import com.ataraxy.app.ui.theme.QuoteSize
 
 private const val STEP_COUNT = 2
 
@@ -90,7 +90,7 @@ fun ReflectionFlowScreen(
             Spacer(Modifier.height(16.dp))
             Text(
                 text = stringResource(R.string.quote_in_marks, state.worry),
-                style = worryTextStyle(),
+                style = AtaraxyText.heading.copy(fontStyle = FontStyle.Italic),
                 color = MaterialTheme.colorScheme.onBackground
             )
             Spacer(Modifier.height(24.dp))
@@ -161,7 +161,7 @@ private fun ActStep(state: ReflectionFlowUiState, viewModel: ReflectionFlowViewM
 }
 
 @Composable
-private fun LineList(
+internal fun LineList(
     question: String,
     hint: String,
     lines: List<String>,
@@ -178,14 +178,14 @@ private fun LineList(
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(
                 text = line,
-                style = entryTextStyle(),
+                style = AtaraxyText.body,
                 color = MaterialTheme.colorScheme.onBackground,
                 modifier = Modifier.weight(1f)
             )
             IconButton(onClick = { onRemove(index) }) {
                 Icon(
                     imageVector = Icons.Outlined.Close,
-                    contentDescription = stringResource(R.string.whats_yours_remove_line),
+                    contentDescription = stringResource(R.string.whats_yours_remove_line, line),
                     tint = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.size(18.dp)
                 )
@@ -237,9 +237,10 @@ private fun AnswerField(question: String, hint: String, value: String, onValueCh
 @Composable
 private fun ClosingQuote(quote: Quote) {
     Spacer(Modifier.height(36.dp))
+    val text = stringResource(R.string.quote_in_marks, quote.text)
     Text(
-        text = stringResource(R.string.quote_in_marks, quote.text),
-        style = serifTextStyle(scale = 1.25f).copy(fontStyle = FontStyle.Italic),
+        text = text,
+        style = AtaraxyText.quote(text, QuoteSize.CARD),
         color = MaterialTheme.colorScheme.onBackground,
         textAlign = TextAlign.Center,
         modifier = Modifier.fillMaxWidth()
@@ -247,7 +248,7 @@ private fun ClosingQuote(quote: Quote) {
     Spacer(Modifier.height(10.dp))
     Text(
         text = stringResource(R.string.quote_attribution, quote.authorName.uppercase()),
-        style = MaterialTheme.typography.labelMedium.copy(fontFamily = Jost, letterSpacing = 2.sp),
+        style = AtaraxyText.attribution,
         color = MaterialTheme.colorScheme.onSurfaceVariant,
         textAlign = TextAlign.Center,
         modifier = Modifier.fillMaxWidth()
@@ -292,7 +293,7 @@ private fun FlowButton(text: String, enabled: Boolean, onClick: () -> Unit) {
         ) {
             Text(
                 text = text,
-                style = MaterialTheme.typography.labelLarge.copy(fontFamily = Jost, letterSpacing = 2.sp),
+                style = AtaraxyText.button,
                 color = if (enabled) MaterialTheme.colorScheme.onBackground else MaterialTheme.colorScheme.onSurfaceVariant
             )
         }

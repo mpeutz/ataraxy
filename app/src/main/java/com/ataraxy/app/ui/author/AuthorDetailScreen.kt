@@ -9,18 +9,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.ataraxy.app.R
 import com.ataraxy.app.data.seed.AuthorDetailData
 import com.ataraxy.app.domain.model.AuthorWork
 import com.ataraxy.app.ui.components.AtaraxyDivider
 import com.ataraxy.app.ui.components.AtaraxyTopBar
-import com.ataraxy.app.ui.theme.CormorantGaramond
-import com.ataraxy.app.ui.theme.Jost
+import com.ataraxy.app.ui.theme.AtaraxyText
 
 @Composable
 fun AuthorDetailScreen(
@@ -49,7 +45,7 @@ fun AuthorDetailScreen(
                 ) {
                     Text(
                         text = stringResource(R.string.author_empty),
-                        style = MaterialTheme.typography.bodyMedium.copy(fontFamily = Jost),
+                        style = AtaraxyText.secondary,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         textAlign = TextAlign.Center
                     )
@@ -68,20 +64,14 @@ fun AuthorDetailScreen(
             ) {
                 Text(
                     text = profile.name,
-                    style = MaterialTheme.typography.displayMedium.copy(
-                        fontFamily = CormorantGaramond,
-                        fontWeight = FontWeight.Normal
-                    ),
+                    style = AtaraxyText.display,
                     color = MaterialTheme.colorScheme.onBackground,
                     textAlign = TextAlign.Center
                 )
                 Spacer(Modifier.height(8.dp))
                 Text(
                     text = profile.era,
-                    style = MaterialTheme.typography.labelMedium.copy(
-                        fontFamily = Jost,
-                        letterSpacing = 2.sp
-                    ),
+                    style = AtaraxyText.meta,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     textAlign = TextAlign.Center
                 )
@@ -94,10 +84,7 @@ fun AuthorDetailScreen(
             Spacer(Modifier.height(28.dp))
             Text(
                 text = stringResource(R.string.author_biography),
-                style = MaterialTheme.typography.labelMedium.copy(
-                    fontFamily = Jost,
-                    letterSpacing = 3.sp
-                ),
+                style = AtaraxyText.eyebrow,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.padding(horizontal = 24.dp)
             )
@@ -109,10 +96,7 @@ fun AuthorDetailScreen(
         items(paragraphs) { paragraph ->
             Text(
                 text = paragraph,
-                style = MaterialTheme.typography.bodyLarge.copy(
-                    fontFamily = Jost,
-                    lineHeight = 26.sp
-                ),
+                style = AtaraxyText.body,
                 color = MaterialTheme.colorScheme.onBackground,
                 modifier = Modifier.padding(horizontal = 24.dp)
             )
@@ -126,10 +110,7 @@ fun AuthorDetailScreen(
             Spacer(Modifier.height(28.dp))
             Text(
                 text = stringResource(R.string.author_works),
-                style = MaterialTheme.typography.labelMedium.copy(
-                    fontFamily = Jost,
-                    letterSpacing = 3.sp
-                ),
+                style = AtaraxyText.eyebrow,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier.padding(horizontal = 24.dp)
             )
@@ -150,20 +131,13 @@ private fun WorkBlock(work: AuthorWork) {
     Column(modifier = Modifier.padding(horizontal = 24.dp)) {
         Text(
             text = work.title,
-            style = MaterialTheme.typography.headlineSmall.copy(
-                fontFamily = CormorantGaramond,
-                fontWeight = FontWeight.Medium
-            ),
+            style = AtaraxyText.heading,
             color = MaterialTheme.colorScheme.onBackground
         )
         Spacer(Modifier.height(4.dp))
         Text(
             text = work.type,
-            style = MaterialTheme.typography.labelSmall.copy(
-                fontFamily = Jost,
-                letterSpacing = 1.5.sp,
-                fontStyle = FontStyle.Normal
-            ),
+            style = AtaraxyText.meta,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
         Spacer(Modifier.height(12.dp))
@@ -172,10 +146,7 @@ private fun WorkBlock(work: AuthorWork) {
         descParagraphs.forEachIndexed { index, para ->
             Text(
                 text = para,
-                style = MaterialTheme.typography.bodyMedium.copy(
-                    fontFamily = Jost,
-                    lineHeight = 24.sp
-                ),
+                style = AtaraxyText.secondary,
                 color = MaterialTheme.colorScheme.onBackground
             )
             if (index < descParagraphs.lastIndex) Spacer(Modifier.height(12.dp))

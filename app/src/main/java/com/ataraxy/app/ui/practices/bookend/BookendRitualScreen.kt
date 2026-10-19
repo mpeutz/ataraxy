@@ -16,17 +16,13 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ataraxy.app.R
 import com.ataraxy.app.ui.components.AtaraxyDivider
 import com.ataraxy.app.ui.components.AtaraxyTopBar
-import com.ataraxy.app.ui.theme.CormorantGaramond
-import com.ataraxy.app.ui.theme.Jost
+import com.ataraxy.app.ui.theme.AtaraxyText
 
 @Composable
 fun BookendRitualScreen(
@@ -56,10 +52,7 @@ fun BookendRitualScreen(
                     TextButton(onClick = viewModel::resetSession) {
                         Text(
                             text = stringResource(R.string.bookend_change),
-                            style = MaterialTheme.typography.labelSmall.copy(
-                                fontFamily = Jost,
-                                letterSpacing = 1.5.sp
-                            ),
+                            style = AtaraxyText.button,
                             color = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                     }
@@ -109,11 +102,7 @@ private fun SessionSelector(onSelectSession: (RitualSession) -> Unit) {
     Spacer(Modifier.height(32.dp))
     Text(
         text = stringResource(R.string.bookend_select_prompt),
-        style = MaterialTheme.typography.bodyMedium.copy(
-            fontFamily = CormorantGaramond,
-            fontStyle = FontStyle.Italic,
-            fontSize = 20.sp
-        ),
+        style = AtaraxyText.prompt,
         color = MaterialTheme.colorScheme.onSurfaceVariant,
         modifier = Modifier.padding(horizontal = 24.dp)
     )
@@ -144,10 +133,7 @@ private fun SessionSelector(onSelectSession: (RitualSession) -> Unit) {
                 ) {
                     Text(
                         text = stringResource(labelRes),
-                        style = MaterialTheme.typography.labelLarge.copy(
-                            fontFamily = Jost,
-                            letterSpacing = 3.sp
-                        ),
+                        style = AtaraxyText.button,
                         color = MaterialTheme.colorScheme.onBackground
                     )
                 }
@@ -183,10 +169,7 @@ private fun RitualContent(
     ) {
         Text(
             text = ritualLabel,
-            style = MaterialTheme.typography.labelMedium.copy(
-                fontFamily = Jost,
-                letterSpacing = 3.sp
-            ),
+            style = AtaraxyText.eyebrow,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
         if (streak > 1) {
@@ -197,7 +180,7 @@ private fun RitualContent(
             ) {
                 Text(
                     text = stringResource(R.string.day_streak, streak),
-                    style = MaterialTheme.typography.labelSmall.copy(fontFamily = Jost),
+                    style = AtaraxyText.meta,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
@@ -235,11 +218,7 @@ private fun RitualContent(
     ) {
         Text(
             text = stringResource(R.string.bookend_complete_ritual),
-            style = MaterialTheme.typography.labelLarge.copy(
-                fontFamily = Jost,
-                letterSpacing = 2.sp,
-                fontWeight = FontWeight.Medium
-            )
+            style = AtaraxyText.button
         )
     }
 }
@@ -253,11 +232,7 @@ private fun PromptField(
     Column(modifier = Modifier.padding(horizontal = 24.dp)) {
         Text(
             text = prompt,
-            style = MaterialTheme.typography.bodyLarge.copy(
-                fontFamily = CormorantGaramond,
-                fontStyle = FontStyle.Italic,
-                fontSize = 20.sp
-            ),
+            style = AtaraxyText.prompt,
             color = MaterialTheme.colorScheme.onBackground
         )
         Spacer(Modifier.height(12.dp))
@@ -265,22 +240,14 @@ private fun PromptField(
             value = value,
             onValueChange = onValueChange,
             modifier = Modifier.fillMaxWidth(),
-            textStyle = MaterialTheme.typography.bodyLarge.copy(
-                fontFamily = Jost,
-                color = MaterialTheme.colorScheme.onBackground,
-                fontSize = 16.sp,
-                lineHeight = 26.sp
-            ),
+            textStyle = AtaraxyText.body.copy(color = MaterialTheme.colorScheme.onBackground),
             decorationBox = { innerTextField ->
                 Column {
                     Box {
                         if (value.isEmpty()) {
                             Text(
                                 text = stringResource(R.string.bookend_input_placeholder),
-                                style = MaterialTheme.typography.bodyLarge.copy(
-                                    fontFamily = Jost,
-                                    fontSize = 16.sp
-                                ),
+                                style = AtaraxyText.hint,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.5f)
                             )
                         }
@@ -299,6 +266,7 @@ private fun CompletionContent(session: RitualSession, onBack: () -> Unit) {
     val quote = stringResource(
         if (session == RitualSession.MORNING) R.string.bookend_completion_morning else R.string.bookend_completion_evening
     )
+    val quoteText = stringResource(R.string.quote_in_marks, quote)
 
     Spacer(Modifier.height(48.dp))
     Column(
@@ -308,13 +276,8 @@ private fun CompletionContent(session: RitualSession, onBack: () -> Unit) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = stringResource(R.string.quote_in_marks, quote),
-            style = MaterialTheme.typography.displaySmall.copy(
-                fontFamily = CormorantGaramond,
-                fontStyle = FontStyle.Italic,
-                lineHeight = 36.sp,
-                fontSize = 24.sp
-            ),
+            text = quoteText,
+            style = AtaraxyText.quote(quoteText),
             color = MaterialTheme.colorScheme.onBackground
         )
         Spacer(Modifier.height(32.dp))
@@ -329,11 +292,7 @@ private fun CompletionContent(session: RitualSession, onBack: () -> Unit) {
         ) {
             Text(
                 text = stringResource(R.string.bookend_done),
-                style = MaterialTheme.typography.labelLarge.copy(
-                    fontFamily = Jost,
-                    letterSpacing = 2.sp,
-                    fontWeight = FontWeight.Medium
-                )
+                style = AtaraxyText.button
             )
         }
     }
@@ -350,21 +309,14 @@ private fun AlreadyCompletedContent(message: String, onBack: () -> Unit) {
     ) {
         Text(
             text = message,
-            style = MaterialTheme.typography.bodyLarge.copy(
-                fontFamily = CormorantGaramond,
-                fontStyle = FontStyle.Italic,
-                fontSize = 20.sp
-            ),
+            style = AtaraxyText.prompt,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
         Spacer(Modifier.height(24.dp))
         TextButton(onClick = onBack) {
             Text(
                 text = stringResource(R.string.bookend_back),
-                style = MaterialTheme.typography.labelLarge.copy(
-                    fontFamily = Jost,
-                    letterSpacing = 2.sp
-                ),
+                style = AtaraxyText.button,
                 color = MaterialTheme.colorScheme.onBackground
             )
         }

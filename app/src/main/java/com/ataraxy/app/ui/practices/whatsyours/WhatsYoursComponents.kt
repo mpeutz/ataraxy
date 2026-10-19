@@ -25,44 +25,18 @@ import androidx.compose.ui.res.stringResource
 import com.ataraxy.app.R
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.SolidColor
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.em
-import androidx.compose.ui.unit.sp
 import com.ataraxy.app.ui.settings.ConfirmDialog
-import com.ataraxy.app.ui.theme.CormorantGaramond
-import com.ataraxy.app.ui.theme.Jost
+import com.ataraxy.app.ui.theme.AtaraxyText
 import java.time.format.DateTimeFormatter
 
 internal val shortDate: DateTimeFormatter = DateTimeFormatter.ofPattern("MMM d")
-
-// Sizes derive from theme styles so the Content Text Size setting scales them.
-
-/** The worry itself, shown as a heading in quotes. */
-@Composable
-internal fun worryTextStyle(): TextStyle {
-    val base = MaterialTheme.typography.displaySmall
-    return base.copy(fontFamily = CormorantGaramond, fontStyle = FontStyle.Italic, fontSize = base.fontSize * 0.87f, lineHeight = 1.3.em)
-}
-
-/** Serif reading text: the explainer, row titles, the closing quote. */
-@Composable
-internal fun serifTextStyle(scale: Float = 1.2f): TextStyle {
-    val base = MaterialTheme.typography.bodyLarge
-    return base.copy(fontFamily = CormorantGaramond, fontSize = base.fontSize * scale, lineHeight = 1.35.em)
-}
-
-/** What the user wrote: lines, answers, notes. */
-@Composable
-internal fun entryTextStyle(): TextStyle =
-    MaterialTheme.typography.bodyLarge.copy(fontFamily = Jost, lineHeight = 1.4.em)
 
 @Composable
 internal fun ReflectionLabel(text: String, modifier: Modifier = Modifier) {
     Text(
         text = text,
-        style = MaterialTheme.typography.labelMedium.copy(fontFamily = Jost, letterSpacing = 2.sp),
+        style = AtaraxyText.eyebrow,
         color = MaterialTheme.colorScheme.onSurfaceVariant,
         modifier = modifier
     )
@@ -72,7 +46,7 @@ internal fun ReflectionLabel(text: String, modifier: Modifier = Modifier) {
 internal fun ReflectionHint(text: String, modifier: Modifier = Modifier) {
     Text(
         text = text,
-        style = MaterialTheme.typography.bodySmall.copy(fontFamily = Jost, fontStyle = FontStyle.Italic),
+        style = AtaraxyText.hint,
         color = MaterialTheme.colorScheme.onSurfaceVariant,
         modifier = modifier
     )
@@ -97,14 +71,14 @@ internal fun UnderlinedTextField(
         keyboardOptions = keyboardOptions,
         keyboardActions = keyboardActions,
         cursorBrush = SolidColor(MaterialTheme.colorScheme.onBackground),
-        textStyle = entryTextStyle().copy(color = MaterialTheme.colorScheme.onBackground),
+        textStyle = AtaraxyText.body.copy(color = MaterialTheme.colorScheme.onBackground),
         decorationBox = { inner ->
             Column {
                 Box {
                     if (value.isEmpty()) {
                         Text(
                             text = hint,
-                            style = entryTextStyle(),
+                            style = AtaraxyText.body,
                             color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f)
                         )
                     }
@@ -134,7 +108,7 @@ internal fun ReflectionOptionsMenu(actions: List<MenuAction>) {
         DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
             actions.forEach { action ->
                 DropdownMenuItem(
-                    text = { Text(action.label) },
+                    text = { Text(action.label, style = AtaraxyText.body) },
                     onClick = {
                         expanded = false
                         action.onClick()

@@ -17,13 +17,10 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.ataraxy.app.R
 import com.ataraxy.app.ui.components.AtaraxyDivider
-import com.ataraxy.app.ui.theme.CormorantGaramond
-import com.ataraxy.app.ui.theme.Jost
+import com.ataraxy.app.ui.theme.AtaraxyText
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -54,17 +51,12 @@ fun PracticesHubScreen(
         ) {
             Text(
                 text = stringResource(R.string.practices_title),
-                style = MaterialTheme.typography.labelLarge.copy(
-                    fontFamily = Jost,
-                    fontWeight = FontWeight.Medium,
-                    letterSpacing = 4.sp,
-                    fontSize = 14.sp
-                ),
+                style = AtaraxyText.screenTitle,
                 color = MaterialTheme.colorScheme.onBackground
             )
             Text(
                 text = todayDate,
-                style = MaterialTheme.typography.labelSmall.copy(fontFamily = Jost),
+                style = AtaraxyText.meta,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }
@@ -86,10 +78,7 @@ fun PracticesHubScreen(
 
         Text(
             text = stringResource(R.string.practices_tools_header),
-            style = MaterialTheme.typography.labelMedium.copy(
-                fontFamily = Jost,
-                letterSpacing = 3.sp
-            ),
+            style = AtaraxyText.eyebrow,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.padding(horizontal = 24.dp)
         )
@@ -134,10 +123,7 @@ fun PracticesHubScreen(
 
         Text(
             text = stringResource(R.string.practices_journal_header),
-            style = MaterialTheme.typography.labelMedium.copy(
-                fontFamily = Jost,
-                letterSpacing = 3.sp
-            ),
+            style = AtaraxyText.eyebrow,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.padding(horizontal = 24.dp)
         )
@@ -181,26 +167,19 @@ private fun PracticeCard(
             Column(modifier = Modifier.weight(1f)) {
                 Text(
                     text = eyebrow,
-                    style = MaterialTheme.typography.labelSmall.copy(
-                        fontFamily = Jost,
-                        letterSpacing = 3.sp
-                    ),
+                    style = AtaraxyText.eyebrow,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
                 Spacer(Modifier.height(4.dp))
                 Text(
                     text = title,
-                    style = MaterialTheme.typography.displaySmall.copy(
-                        fontFamily = CormorantGaramond,
-                        fontStyle = FontStyle.Italic,
-                        fontSize = 24.sp
-                    ),
+                    style = AtaraxyText.heading.copy(fontStyle = FontStyle.Italic),
                     color = MaterialTheme.colorScheme.onBackground
                 )
                 Spacer(Modifier.height(4.dp))
                 Text(
                     text = description,
-                    style = MaterialTheme.typography.bodySmall.copy(fontFamily = Jost),
+                    style = AtaraxyText.secondary,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }

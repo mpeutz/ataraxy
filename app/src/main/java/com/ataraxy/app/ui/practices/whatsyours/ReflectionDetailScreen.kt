@@ -20,9 +20,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ataraxy.app.R
@@ -31,7 +31,7 @@ import com.ataraxy.app.domain.model.ReflectionNote
 import com.ataraxy.app.ui.components.AtaraxyTopBar
 import com.ataraxy.app.ui.components.orrery.orreryBackground
 import com.ataraxy.app.ui.components.orrery.rememberOrreryPattern
-import com.ataraxy.app.ui.theme.Jost
+import com.ataraxy.app.ui.theme.AtaraxyText
 
 @Composable
 fun ReflectionDetailScreen(
@@ -99,7 +99,7 @@ private fun ReflectionBody(
         Spacer(Modifier.height(10.dp))
         Text(
             text = stringResource(R.string.quote_in_marks, reflection.worry),
-            style = worryTextStyle(),
+            style = AtaraxyText.heading.copy(fontStyle = FontStyle.Italic),
             color = MaterialTheme.colorScheme.onBackground
         )
         AnswerSection(R.string.whats_yours_yours_label, reflection.yours)
@@ -124,7 +124,7 @@ private fun ReflectionBody(
             TextButton(onClick = onAddNote, enabled = noteDraft.isNotBlank()) {
                 Text(
                     text = stringResource(R.string.add),
-                    style = MaterialTheme.typography.labelLarge.copy(fontFamily = Jost, letterSpacing = 2.sp)
+                    style = AtaraxyText.button
                 )
             }
         }
@@ -141,7 +141,7 @@ private fun AnswerSection(label: Int, lines: List<String>) {
     lines.forEach { line ->
         Text(
             text = line,
-            style = entryTextStyle(),
+            style = AtaraxyText.body,
             color = MaterialTheme.colorScheme.onBackground,
             modifier = Modifier.padding(vertical = 2.dp)
         )
@@ -153,12 +153,12 @@ private fun NoteRow(note: ReflectionNote) {
     Column(modifier = Modifier.padding(bottom = 14.dp)) {
         Text(
             text = note.createdAt.format(shortDate),
-            style = MaterialTheme.typography.labelSmall.copy(fontFamily = Jost),
+            style = AtaraxyText.meta,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
         Text(
             text = note.text,
-            style = entryTextStyle(),
+            style = AtaraxyText.body,
             color = MaterialTheme.colorScheme.onBackground
         )
     }

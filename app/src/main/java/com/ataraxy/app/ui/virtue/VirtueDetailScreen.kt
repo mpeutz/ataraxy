@@ -12,11 +12,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ataraxy.app.R
@@ -28,8 +26,7 @@ import com.ataraxy.app.ui.components.AtaraxyDivider
 import com.ataraxy.app.ui.components.AtaraxyTopBar
 import com.ataraxy.app.ui.components.orrery.orreryBackground
 import com.ataraxy.app.ui.components.orrery.rememberOrreryPattern
-import com.ataraxy.app.ui.theme.CormorantGaramond
-import com.ataraxy.app.ui.theme.Jost
+import com.ataraxy.app.ui.theme.AtaraxyText
 
 @Composable
 fun VirtueDetailScreen(
@@ -66,9 +63,7 @@ fun VirtueDetailScreen(
                 Spacer(Modifier.height(20.dp))
                 Text(
                     text = stringResource(R.string.virtue_principles),
-                    style = MaterialTheme.typography.labelMedium.copy(
-                        fontFamily = Jost, letterSpacing = 3.sp
-                    ),
+                    style = AtaraxyText.eyebrow,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier.padding(horizontal = 24.dp)
                 )
@@ -87,9 +82,7 @@ fun VirtueDetailScreen(
                     Spacer(Modifier.height(20.dp))
                     Text(
                         text = stringResource(R.string.virtue_related_reflections),
-                        style = MaterialTheme.typography.labelMedium.copy(
-                            fontFamily = Jost, letterSpacing = 3.sp
-                        ),
+                        style = AtaraxyText.eyebrow,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
                         modifier = Modifier.padding(horizontal = 24.dp)
                     )
@@ -122,13 +115,13 @@ private fun VirtueHeader(virtue: Virtue) {
     ) {
         Text(
             text = stringResource(R.string.virtue_current_exploration),
-            style = MaterialTheme.typography.labelMedium.copy(fontFamily = Jost, letterSpacing = 3.sp),
+            style = AtaraxyText.eyebrow,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
         Spacer(Modifier.height(12.dp))
         Text(
             text = virtue.name,
-            style = MaterialTheme.typography.headlineLarge.copy(fontFamily = CormorantGaramond, fontWeight = FontWeight.Bold),
+            style = AtaraxyText.display,
             color = MaterialTheme.colorScheme.onBackground,
             textAlign = TextAlign.Center
         )
@@ -149,17 +142,14 @@ private fun VirtueHeader(virtue: Virtue) {
         Spacer(Modifier.height(16.dp))
         Text(
             text = stringResource(R.string.quote_in_marks, virtue.definingQuote),
-            style = MaterialTheme.typography.displaySmall.copy(
-                fontFamily = CormorantGaramond,
-                fontStyle = FontStyle.Italic
-            ),
+            style = AtaraxyText.quote(virtue.definingQuote),
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             textAlign = TextAlign.Center
         )
         Spacer(Modifier.height(8.dp))
         Text(
             text = stringResource(R.string.quote_attribution, virtue.definingQuoteAuthor.uppercase()),
-            style = MaterialTheme.typography.labelSmall.copy(fontFamily = Jost, letterSpacing = 2.sp),
+            style = AtaraxyText.attribution,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
     }
@@ -174,20 +164,20 @@ private fun SubConceptItem(concept: SubConcept) {
     ) {
         Text(
             text = concept.number.toString().padStart(2, '0'),
-            style = MaterialTheme.typography.labelSmall.copy(fontFamily = Jost),
+            style = AtaraxyText.meta,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier.width(32.dp)
         )
         Column(modifier = Modifier.weight(1f)) {
             Text(
                 text = concept.title,
-                style = MaterialTheme.typography.titleSmall.copy(fontFamily = Jost, fontWeight = FontWeight.Medium),
+                style = AtaraxyText.body.copy(fontWeight = FontWeight.Medium),
                 color = MaterialTheme.colorScheme.onBackground
             )
             Spacer(Modifier.height(4.dp))
             Text(
                 text = concept.description,
-                style = MaterialTheme.typography.bodyMedium.copy(fontFamily = Jost),
+                style = AtaraxyText.secondary,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }
@@ -204,16 +194,13 @@ private fun RelatedQuoteCard(quote: Quote, onClick: () -> Unit) {
     ) {
         AnnotatedQuoteText(
             text = stringResource(R.string.quote_in_marks, quote.text),
-            style = MaterialTheme.typography.displaySmall.copy(
-                fontFamily = CormorantGaramond,
-                fontStyle = FontStyle.Italic
-            ),
+            style = AtaraxyText.quote(quote.text),
             color = MaterialTheme.colorScheme.onBackground
         )
         Spacer(Modifier.height(4.dp))
         Text(
-            text = stringResource(R.string.quote_attribution, quote.authorName),
-            style = MaterialTheme.typography.labelSmall.copy(fontFamily = Jost),
+            text = stringResource(R.string.quote_attribution, quote.authorName.uppercase()),
+            style = AtaraxyText.attribution,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
     }

@@ -6,33 +6,24 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.TextUnit
-import androidx.compose.ui.unit.sp
-import com.ataraxy.app.ui.theme.CormorantGaramond
-import com.ataraxy.app.ui.theme.Jost
+import com.ataraxy.app.ui.theme.AtaraxyText
 
 /** A large serif number over a small tracked label, e.g. "12 / RELEASED". */
 @Composable
 fun StatChip(
     value: String,
     label: String,
-    modifier: Modifier = Modifier,
-    valueSize: TextUnit = 20.sp
+    modifier: Modifier = Modifier
 ) {
     Column(modifier, horizontalAlignment = Alignment.CenterHorizontally) {
         Text(
             text = value,
-            style = MaterialTheme.typography.bodyLarge.copy(
-                fontFamily = CormorantGaramond,
-                fontWeight = FontWeight.Medium,
-                fontSize = valueSize
-            ),
+            style = AtaraxyText.figure,
             color = MaterialTheme.colorScheme.onBackground
         )
         Text(
             text = label.uppercase(),
-            style = MaterialTheme.typography.labelSmall.copy(fontFamily = Jost, letterSpacing = 2.sp),
+            style = AtaraxyText.meta,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
     }
