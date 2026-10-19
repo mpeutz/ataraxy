@@ -33,7 +33,9 @@ data class BottomNavItem(
 private val practicesRoutes = setOf(
     Screen.Practices.route,
     Screen.BookendRitual.route,
-    Screen.DichotomyOfControl.route,
+    Screen.WhatsYours.route,
+    Screen.ReflectionFlow.ROUTE,
+    Screen.ReflectionDetail.ROUTE,
     Screen.SosQuotes.route,
     Screen.MementoMori.route,
     Screen.JournalHistory.route

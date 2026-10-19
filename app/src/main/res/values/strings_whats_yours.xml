@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="whats_yours_title">WHAT\'S YOURS</string>
+    <string name="whats_yours_subtitle">The dichotomy of control.</string>
+
+    <!-- Start -->
+    <string name="whats_yours_explainer">Some things are up to you: your effort, your words, how you care. Others are not: outcomes, other people, the past. Bring what is weighing on you and find the part that is yours.</string>
+    <string name="whats_yours_prompt">WHAT IS WEIGHING ON YOU?</string>
+    <string name="whats_yours_prompt_hint">Write it in a sentence…</string>
+    <string name="whats_yours_begin">BEGIN</string>
+    <string name="whats_yours_open_header">YOUR REFLECTIONS</string>
+    <string name="whats_yours_past_header">PAST</string>
+    <string name="whats_yours_started">Started %1$s</string>
+    <string name="whats_yours_unfinished">Unfinished</string>
+    <plurals name="whats_yours_note_count">
+        <item quantity="one">%1$d note</item>
+        <item quantity="other">%1$d notes</item>
+    </plurals>
+
+    <!-- Flow -->
+    <string name="whats_yours_step">Step %1$d of %2$d</string>
+    <string name="whats_yours_yours_question">WHAT PART OF THIS IS YOURS?</string>
+    <string name="whats_yours_yours_hint">Your effort, your words, how you care, how you treat yourself.</string>
+    <string name="whats_yours_not_yours_question">WHAT ISN\'T?</string>
+    <string name="whats_yours_not_yours_hint">Outcomes, other people, timing, the past.</string>
+    <string name="whats_yours_add_line_hint">Add a line…</string>
+    <string name="whats_yours_add_line">Add line</string>
+    <string name="whats_yours_remove_line">Remove line</string>
+    <string name="whats_yours_can_do_question">WHAT CAN YOU STILL DO?</string>
+    <string name="whats_yours_can_do_hint">Even something small: a call, a visit, a kind word to yourself.</string>
+    <string name="whats_yours_set_down_question">WHAT WILL YOU SET DOWN?</string>
+    <string name="whats_yours_set_down_hint">Name what you will stop carrying, and let it be.</string>
+    <string name="whats_yours_keep">KEEP THIS REFLECTION</string>
+
+    <!-- Revisit -->
+    <string name="whats_yours_started_on">STARTED %1$s</string>
+    <string name="whats_yours_set_down_on">Set down on %1$s</string>
+    <string name="whats_yours_yours_label">YOURS</string>
+    <string name="whats_yours_not_yours_label">NOT YOURS</string>
+    <string name="whats_yours_can_do_label">WHAT YOU CAN STILL DO</string>
+    <string name="whats_yours_set_down_label">WHAT YOU WILL SET DOWN</string>
+    <string name="whats_yours_notes_label">NOTES AS IT UNFOLDS</string>
+    <string name="whats_yours_note_hint">Add a note…</string>
+    <string name="whats_yours_options">Reflection options</string>
+    <string name="whats_yours_set_down_action">This no longer weighs on me</string>
+    <string name="whats_yours_pick_up_action">Pick it back up</string>
+    <string name="whats_yours_delete_action">Delete reflection</string>
+    <string name="whats_yours_delete_title">Delete this reflection?</string>
+    <string name="whats_yours_delete_body">Its notes will be deleted too. This can\'t be undone.</string>
+    <string name="whats_yours_delete_confirm">Delete</string>
+</resources>

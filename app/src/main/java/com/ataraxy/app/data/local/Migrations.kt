@@ -58,3 +58,39 @@ val MIGRATION_1_2 = object : Migration(1, 2) {
         )
     }
 }
+
+/** What's Yours replaces the Dichotomy of Control list; its old items are not carried over. */
+val MIGRATION_2_3 = object : Migration(2, 3) {
+    override fun migrate(db: SupportSQLiteDatabase) {
+        db.execSQL("DROP TABLE IF EXISTS `control_items`")
+        db.execSQL(
+            """
+            CREATE TABLE IF NOT EXISTS `reflections` (
+                `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                `worry` TEXT NOT NULL,
+                `yours` TEXT NOT NULL DEFAULT '',
+                `notYours` TEXT NOT NULL DEFAULT '',
+                `canDo` TEXT NOT NULL DEFAULT '',
+                `setDown` TEXT NOT NULL DEFAULT '',
+                `createdAt` TEXT NOT NULL,
+                `completedAt` TEXT,
+                `setDownAt` TEXT
+            )
+            """.trimIndent()
+        )
+        db.execSQL(
+            """
+            CREATE TABLE IF NOT EXISTS `reflection_notes` (
+                `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                `reflectionId` INTEGER NOT NULL,
+                `text` TEXT NOT NULL,
+                `createdAt` TEXT NOT NULL,
+                FOREIGN KEY(`reflectionId`) REFERENCES `reflections`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE
+            )
+            """.trimIndent()
+        )
+        db.execSQL(
+            "CREATE INDEX IF NOT EXISTS `index_reflection_notes_reflectionId` ON `reflection_notes` (`reflectionId`)"
+        )
+    }
+}

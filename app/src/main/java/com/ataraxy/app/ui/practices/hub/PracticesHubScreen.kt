@@ -30,7 +30,7 @@ import java.time.format.DateTimeFormatter
 @Composable
 fun PracticesHubScreen(
     onNavigateToBookend: () -> Unit,
-    onNavigateToDichotomy: () -> Unit,
+    onNavigateToWhatsYours: () -> Unit,
     onNavigateToSos: () -> Unit,
     onNavigateToMementoMori: () -> Unit,
     onNavigateToJournal: () -> Unit
@@ -107,10 +107,10 @@ fun PracticesHubScreen(
                 onClick = onNavigateToBookend
             )
             PracticeCard(
-                eyebrow = stringResource(R.string.practices_dichotomy_eyebrow),
-                title = stringResource(R.string.practices_dichotomy_title),
-                description = stringResource(R.string.practices_dichotomy_description),
-                onClick = onNavigateToDichotomy
+                eyebrow = stringResource(R.string.practices_whats_yours_eyebrow),
+                title = stringResource(R.string.practices_whats_yours_title),
+                description = stringResource(R.string.practices_whats_yours_description),
+                onClick = onNavigateToWhatsYours
             )
             PracticeCard(
                 eyebrow = stringResource(R.string.practices_sos_eyebrow),

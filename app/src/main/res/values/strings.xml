@@ -11,8 +11,6 @@
     <string name="close">CLOSE</string>
     <!-- All-caps by design: buttons use the tracked uppercase label style. -->
     <string name="cancel" tools:ignore="ButtonCase">CANCEL</string>
-    <string name="save">SAVE</string>
-    <string name="skip">SKIP</string>
     <string name="next">NEXT</string>
     <string name="begin">BEGIN</string>
     <string name="add">ADD</string>
@@ -56,37 +54,6 @@
     <string name="memento_mori_insight_how_to_use_header">PUTTING IT INTO PRACTICE</string>
     <string name="memento_mori_insight_how_to_use_body">Use the weeks grid as a daily orientation tool: not to create fear, but to increase intention. Each filled week is evidence that life is moving. Ask one concrete question each morning: What matters enough to deserve this day?</string>
     <string name="memento_mori_insight_reflection_prompt">“If this week were all you had, what would be the most Stoic use of it?”</string>
-    <string name="dichotomy_title">DICHOTOMY OF CONTROL</string>
-    <string name="dichotomy_subtitle">Some things are in our control and others not.</string>
-    <string name="dichotomy_input_hint">What is weighing on your mind?</string>
-    <string name="in_control">In Control</string>
-    <string name="completed_count">Completed</string>
-    <string name="released_count">Released</string>
-    <string name="sort_your_worries">SORT YOUR WORRIES</string>
-    <string name="sort_subtitle">Is this something you can act on, or must you let it go?</string>
-    <string name="in_my_control_label">IN MY CONTROL</string>
-    <string name="in_my_control_button">In My Control</string>
-    <string name="not_in_my_control_button">Not In My Control</string>
-    <string name="take_action_subtitle">Take action on these. Mark done when complete.</string>
-    <string name="how_to_use_practice">How to use this practice</string>
-    <string name="practice_step_1">Write down something that is worrying or stressing you.</string>
-    <string name="practice_step_2">Ask: is this within my control? Sort it honestly.</string>
-    <string name="practice_step_3">If yes — define one action and take it. If no — release it and move on.</string>
-    <string name="completed_header">COMPLETED (%1$d)</string>
-    <string name="released_header">RELEASED (%1$d)</string>
-    <string name="action_step_prompt">What specific action will you take?</string>
-    <string name="action_step_hint">Describe a concrete next step…</string>
-    <string name="manage_item">Manage item</string>
-    <string name="edit_item">Edit item</string>
-    <string name="delete_item">Delete item</string>
-    <string name="move_to_pending">Move to Pending</string>
-    <string name="move_to_released">Move to Released</string>
-    <string name="restore_to_in_control">Restore to In Control</string>
-    <string name="restore_to_pending">Restore to Pending</string>
-    <string name="define_action_step">Define action step</string>
-    <string name="mark_done">Mark done</string>
-    <string name="released_overlay_title">Released.</string>
-    <string name="released_overlay_subtitle">This is beyond your control.</string>
 
     <!-- Home Screen -->
     <string name="morning_contemplation">MORNING CONTEMPLATION</string>

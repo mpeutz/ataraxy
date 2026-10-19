@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ataraxy.app.data.export.JournalExporter
 import com.ataraxy.app.data.preferences.UserPrefsRepository
-import com.ataraxy.app.data.repository.ControlItemRepository
 import com.ataraxy.app.data.repository.JournalRepository
+import com.ataraxy.app.data.repository.ReflectionRepository
 import com.ataraxy.app.data.repository.SosRepository
 import com.ataraxy.app.domain.model.AppTheme
 import com.ataraxy.app.domain.model.ContentTextSize
@@ -28,7 +28,7 @@ class SettingsViewModel @Inject constructor(
     private val userPrefsRepository: UserPrefsRepository,
     private val journalRepository: JournalRepository,
     private val notificationScheduler: NotificationScheduler,
-    private val controlItemRepository: ControlItemRepository,
+    private val reflectionRepository: ReflectionRepository,
     private val sosRepository: SosRepository,
     private val journalExporter: JournalExporter
 ) : ViewModel() {
@@ -103,7 +103,7 @@ class SettingsViewModel @Inject constructor(
     fun deactivate() {
         viewModelScope.launch {
             journalRepository.deleteAll()
-            controlItemRepository.deleteAll()
+            reflectionRepository.deleteAll()
             sosRepository.deleteAll()
             notificationScheduler.cancelAll()
             userPrefsRepository.clearAll()
