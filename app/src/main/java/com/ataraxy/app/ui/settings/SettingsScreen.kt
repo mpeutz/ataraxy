@@ -9,6 +9,10 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
+import androidx.activity.compose.LocalActivity
+import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.compose.LifecycleResumeEffect
+import kotlinx.coroutines.launch
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
@@ -21,6 +25,7 @@ import com.ataraxy.app.domain.model.ContentTextSize
 import com.ataraxy.app.domain.model.NotificationStyle
 import com.ataraxy.app.ui.components.AtaraxyDivider
 import com.ataraxy.app.ui.components.SegmentedToggle
+import com.ataraxy.app.ui.lock.rememberLockGuard
 import com.ataraxy.app.ui.theme.AtaraxyText
 
 private enum class TimePickerTarget { DAILY, MORNING, EVENING }
@@ -32,6 +37,7 @@ fun SettingsScreen(
 ) {
     val prefs by viewModel.prefs.collectAsStateWithLifecycle()
     val resources = LocalResources.current
+    val guard = rememberLockGuard()
 
     var showClearConfirm by rememberSaveable { mutableStateOf(false) }
     var showDeactivateConfirm by rememberSaveable { mutableStateOf(false) }
@@ -157,6 +163,8 @@ fun SettingsScreen(
                 onTimeClick = { timePickerTarget = TimePickerTarget.EVENING }
             )
 
+            AppLockSection()
+
             BackupSection(onMessage = { snackbarMessage = it })
 
             AtaraxyDivider()
@@ -165,19 +173,19 @@ fun SettingsScreen(
             SettingsRow(
                 title = stringResource(R.string.settings_export),
                 value = stringResource(R.string.settings_export_value),
-                onClick = { viewModel.exportJournal() }
+                onClick = { guard { viewModel.exportJournal() } }
             )
 
             SettingsRow(
                 title = stringResource(R.string.settings_clear_journal),
                 value = stringResource(R.string.settings_clear_journal_value),
-                onClick = { showClearConfirm = true }
+                onClick = { guard { showClearConfirm = true } }
             )
 
             SettingsRow(
                 title = stringResource(R.string.settings_deactivate),
                 value = stringResource(R.string.settings_deactivate_value),
-                onClick = { showDeactivateConfirm = true },
+                onClick = { guard { showDeactivateConfirm = true } },
                 isDestructive = true
             )
 
@@ -280,5 +288,33 @@ internal fun ThemeToggle(current: AppTheme, onSelect: (AppTheme) -> Unit) {
         ),
         selected = current,
         onSelect = onSelect
+    )
+}
+
+@Composable
+private fun AppLockSection(viewModel: AppLockViewModel = hiltViewModel()) {
+    val state by viewModel.state.collectAsStateWithLifecycle()
+    val activity = LocalActivity.current as? FragmentActivity
+    val title = stringResource(R.string.lock_prompt_confirm_title)
+    val scope = rememberCoroutineScope()
+
+    LifecycleResumeEffect(viewModel) {
+        viewModel.refreshAvailability()
+        onPauseOrDispose {}
+    }
+
+    AtaraxyDivider()
+    SectionHeader(stringResource(R.string.settings_section_privacy))
+    SettingsSwitchRow(
+        title = stringResource(R.string.settings_app_lock),
+        subtitle = stringResource(
+            if (state.available) R.string.settings_app_lock_subtitle else R.string.settings_app_lock_unavailable
+        ),
+        checked = state.enabled,
+        enabled = state.available,
+        contentAlpha = if (state.available) 1f else 0.5f,
+        onToggle = {
+            if (activity != null) scope.launch { viewModel.toggle(activity, title) }
+        }
     )
 }

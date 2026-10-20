@@ -17,6 +17,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ataraxy.app.R
 import com.ataraxy.app.data.backup.BackupFailure
 import com.ataraxy.app.ui.components.AtaraxyDivider
+import com.ataraxy.app.ui.lock.rememberLockGuard
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -35,6 +36,7 @@ fun BackupSection(
     val pendingRestore by viewModel.pendingRestore.collectAsStateWithLifecycle()
     val keepUpdatingUri by viewModel.offerKeepUpdating.collectAsStateWithLifecycle()
     val resources = LocalResources.current
+    val guard = rememberLockGuard()
     var showReplaceConfirm by rememberSaveable { mutableStateOf(false) }
 
     LaunchedEffect(viewModel) {
@@ -66,7 +68,7 @@ fun BackupSection(
         subtitle = automaticValue(state),
         checked = state.enabled,
         onToggle = { on ->
-            if (on) turnOnLauncher.launch(AUTOMATIC_FILE_NAME) else viewModel.turnOff()
+            if (on) guard { turnOnLauncher.launch(AUTOMATIC_FILE_NAME) } else viewModel.turnOff()
         }
     )
     RowDivider()
@@ -75,7 +77,7 @@ fun BackupSection(
         SettingsRow(
             title = stringResource(R.string.settings_backup_location),
             value = state.locationName ?: stringResource(R.string.settings_backup_location_unknown),
-            onClick = { turnOnLauncher.launch(AUTOMATIC_FILE_NAME) }
+            onClick = { guard { turnOnLauncher.launch(AUTOMATIC_FILE_NAME) } }
         )
     }
 
@@ -83,12 +85,12 @@ fun BackupSection(
         SettingsRow(
             title = stringResource(R.string.settings_backup_restore_blocked),
             value = state.locationName ?: stringResource(R.string.settings_backup_location_unknown),
-            onClick = { viewModel.previewRestoreOfBackupFile() }
+            onClick = { guard { viewModel.previewRestoreOfBackupFile() } }
         )
         SettingsRow(
             title = stringResource(R.string.settings_backup_replace),
             value = stringResource(R.string.settings_backup_replace_value),
-            onClick = { showReplaceConfirm = true },
+            onClick = { guard { showReplaceConfirm = true } },
             isDestructive = true
         )
     }
@@ -96,13 +98,13 @@ fun BackupSection(
     SettingsRow(
         title = stringResource(R.string.settings_backup_now),
         value = stringResource(R.string.settings_backup_now_value),
-        onClick = { backUpNowLauncher.launch(viewModel.manualBackupFileName()) }
+        onClick = { guard { backUpNowLauncher.launch(viewModel.manualBackupFileName()) } }
     )
 
     SettingsRow(
         title = stringResource(R.string.settings_restore),
         value = stringResource(R.string.settings_restore_value),
-        onClick = { restoreLauncher.launch(RESTORE_MIME_TYPES) }
+        onClick = { guard { restoreLauncher.launch(RESTORE_MIME_TYPES) } }
     )
 
     pendingRestore?.let { pending ->

@@ -87,12 +87,13 @@ internal fun SettingsSwitchRow(
     subtitle: String,
     checked: Boolean,
     onToggle: (Boolean) -> Unit,
-    contentAlpha: Float = 1f
+    contentAlpha: Float = 1f,
+    enabled: Boolean = true
 ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .toggleable(value = checked, role = Role.Switch, onValueChange = onToggle)
+            .toggleable(value = checked, enabled = enabled, role = Role.Switch, onValueChange = onToggle)
             .padding(horizontal = 24.dp, vertical = 14.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
@@ -113,6 +114,7 @@ internal fun SettingsSwitchRow(
         Switch(
             checked = checked,
             onCheckedChange = null,
+            enabled = enabled,
             modifier = Modifier.minimumInteractiveComponentSize(),
             colors = SwitchDefaults.colors(
                 checkedThumbColor = MaterialTheme.colorScheme.background,
