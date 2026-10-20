@@ -19,8 +19,12 @@ class QuoteWidgetProvider : AppWidgetProvider() {
         val pending = goAsync()
         CoroutineScope(SupervisorJob() + Dispatchers.Default).launch {
             try {
-                appWidgetIds.forEach { id ->
-                    appWidgetManager.updateAppWidget(id, renderer.render(id, heightOf(appWidgetManager, id)))
+                withUpdateTimeout {
+                    updateEach(
+                        ids = appWidgetIds,
+                        render = { id -> renderer.render(id, heightOf(appWidgetManager, id)) },
+                        push = appWidgetManager::updateAppWidget
+                    )
                 }
             } finally {
                 pending.finish()

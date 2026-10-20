@@ -7,7 +7,9 @@ import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.net.Uri
+import android.util.Log
 import android.util.TypedValue
+import android.view.View
 import android.widget.RemoteViews
 import androidx.core.content.ContextCompat
 import com.ataraxy.app.MainActivity
@@ -16,11 +18,15 @@ import com.ataraxy.app.data.preferences.UserPrefsRepository
 import com.ataraxy.app.data.repository.QuoteRepository
 import com.ataraxy.app.ui.theme.WidgetType
 import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.withTimeoutOrNull
 import java.time.LocalDate
 import javax.inject.Inject
 
 private const val DEFAULT_HEIGHT_DP = 110
+internal const val UPDATE_TIMEOUT_MS = 8_000L
+private const val LOG_TAG = "QuoteWidget"
 private const val HOME_LINK = "ataraxy://home"
 
 fun quoteWidgetIds(context: Context): IntArray =
@@ -52,6 +58,7 @@ class QuoteWidgetRenderer @Inject constructor(
             setTextViewTextSize(R.id.widget_quote, TypedValue.COMPLEX_UNIT_SP, spec.sizeSp)
             setInt(R.id.widget_quote, "setMaxLines", spec.maxLines)
             setTextViewText(R.id.widget_author, author)
+            setViewVisibility(R.id.widget_author, if (author.isEmpty()) View.GONE else View.VISIBLE)
             setTextColor(R.id.widget_author, ContextCompat.getColor(context, look.authorColor))
             setTextViewTextSize(R.id.widget_author, TypedValue.COMPLEX_UNIT_SP, WidgetType.AUTHOR_SP)
             setContentDescription(R.id.widget_root, listOf(quoteText, author).filter { it.isNotEmpty() }.joinToString(". "))
@@ -61,9 +68,11 @@ class QuoteWidgetRenderer @Inject constructor(
 
     suspend fun updateAll() {
         val manager = AppWidgetManager.getInstance(context)
-        quoteWidgetIds(context).forEach { id ->
-            manager.updateAppWidget(id, render(id, heightOf(manager, id)))
-        }
+        updateEach(
+            ids = quoteWidgetIds(context),
+            render = { id -> render(id, heightOf(manager, id)) },
+            push = manager::updateAppWidget
+        )
     }
 
     private fun isSystemDark(): Boolean =
@@ -81,3 +90,25 @@ fun heightOf(manager: AppWidgetManager, appWidgetId: Int): Int =
     manager.getAppWidgetOptions(appWidgetId)
         .getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_HEIGHT)
         .takeIf { it > 0 } ?: DEFAULT_HEIGHT_DP
+
+/** Renders and pushes each id on its own, so one failing widget keeps its old views and the rest still update. */
+internal suspend fun updateEach(
+    ids: IntArray,
+    render: suspend (Int) -> RemoteViews,
+    push: (Int, RemoteViews) -> Unit
+) {
+    ids.forEach { id ->
+        try {
+            push(id, render(id))
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            Log.w(LOG_TAG, "Could not update widget $id", e)
+        }
+    }
+}
+
+/** Gives up quietly once a broadcast's ~10 s budget is nearly spent. */
+internal suspend fun withUpdateTimeout(timeoutMs: Long = UPDATE_TIMEOUT_MS, block: suspend () -> Unit) {
+    withTimeoutOrNull(timeoutMs) { block() }
+}

@@ -3,7 +3,9 @@ package com.ataraxy.app.widget
 import android.content.Context
 import android.content.res.Configuration
 import android.text.TextUtils
+import android.view.View
 import android.widget.FrameLayout
+import android.widget.RemoteViews
 import android.widget.TextView
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.test.core.app.ApplicationProvider
@@ -15,14 +17,18 @@ import com.ataraxy.app.data.local.entity.QuoteEntity
 import com.ataraxy.app.data.local.inMemoryDatabase
 import com.ataraxy.app.data.repository.QuoteRepository
 import com.ataraxy.app.testing.testUserPrefs
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -79,6 +85,7 @@ class QuoteWidgetRendererTest {
 
         assertEquals(context.getString(R.string.widget_empty), root.text(R.id.widget_quote))
         assertEquals("", root.text(R.id.widget_author))
+        assertEquals(View.GONE, root.findViewById<View>(R.id.widget_author).visibility)
     }
 
     @Test
@@ -139,6 +146,46 @@ class QuoteWidgetRendererTest {
             darkContext.getColor(R.color.widget_quote_dark),
             root.findViewById<TextView>(R.id.widget_quote).currentTextColor
         )
+    }
+
+    @Test
+    fun updateEach_failureOnOneId_stillUpdatesTheOthers() = runBlocking {
+        val pushed = mutableListOf<Int>()
+
+        updateEach(
+            ids = intArrayOf(1, 2, 3),
+            render = { id -> if (id == 2) error("boom") else RemoteViews(context.packageName, R.layout.widget_quote_card) },
+            push = { id, _ -> pushed += id }
+        )
+
+        assertEquals(listOf(1, 3), pushed)
+    }
+
+    @Test
+    fun updateEach_rethrowsCancellation() {
+        val result = runCatching {
+            runBlocking {
+                updateEach(
+                    ids = intArrayOf(1),
+                    render = { throw CancellationException("stop") },
+                    push = { _, _ -> }
+                )
+            }
+        }
+
+        assertTrue(result.exceptionOrNull() is CancellationException)
+    }
+
+    @Test
+    fun withUpdateTimeout_slowWork_endsWithoutCrashing() = runBlocking {
+        var finished = false
+
+        withUpdateTimeout(timeoutMs = 50) {
+            delay(5_000)
+            finished = true
+        }
+
+        assertFalse(finished)
     }
 
     private fun inflate(views: android.widget.RemoteViews): FrameLayout {
