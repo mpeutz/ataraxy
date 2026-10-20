@@ -17,6 +17,8 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
+import com.ataraxy.app.data.backup.AutomaticBackupController
 import com.ataraxy.app.data.preferences.UserPrefsRepository
 import com.ataraxy.app.notifications.NotificationScheduler
 import com.ataraxy.app.notifications.SeedWorker
@@ -35,6 +37,7 @@ class MainActivity : ComponentActivity() {
 
     @Inject lateinit var userPrefsRepository: UserPrefsRepository
     @Inject lateinit var notificationScheduler: NotificationScheduler
+    @Inject lateinit var automaticBackupController: AutomaticBackupController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +51,7 @@ class MainActivity : ComponentActivity() {
 
         // Kick off one-time DB seeding
         SeedWorker.enqueue(this)
+        lifecycleScope.launch { automaticBackupController.ensureScheduled() }
 
         setContent {
             val prefs by userPrefsRepository.userPrefs.collectAsState(initial = null)

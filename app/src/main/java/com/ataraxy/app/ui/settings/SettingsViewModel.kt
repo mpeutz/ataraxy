@@ -2,6 +2,7 @@ package com.ataraxy.app.ui.settings
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ataraxy.app.data.backup.AutomaticBackupController
 import com.ataraxy.app.data.export.JournalExporter
 import com.ataraxy.app.data.preferences.UserPrefsRepository
 import com.ataraxy.app.data.repository.JournalRepository
@@ -30,7 +31,8 @@ class SettingsViewModel @Inject constructor(
     private val notificationScheduler: NotificationScheduler,
     private val reflectionRepository: ReflectionRepository,
     private val sosRepository: SosRepository,
-    private val journalExporter: JournalExporter
+    private val journalExporter: JournalExporter,
+    private val automaticBackupController: AutomaticBackupController
 ) : ViewModel() {
 
     private val _exportResults = Channel<Result<Unit>>(Channel.BUFFERED)
@@ -102,6 +104,7 @@ class SettingsViewModel @Inject constructor(
 
     fun deactivate() {
         viewModelScope.launch {
+            automaticBackupController.disable()
             journalRepository.deleteAll()
             reflectionRepository.deleteAll()
             sosRepository.deleteAll()

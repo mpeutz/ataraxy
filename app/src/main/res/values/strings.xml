@@ -62,6 +62,7 @@
     <!-- Onboarding -->
     <string name="onboarding_p1_subtitle">The Art of\nSerene Calmness</string>
     <string name="onboarding_p1_body">A daily practice rooted in two thousand years of Stoic philosophy.</string>
+    <string name="onboarding_restore">Moving from another phone? Restore a backup</string>
     <string name="the_four_virtues">THE FOUR VIRTUES</string>
     <string name="your_morning">YOUR MORNING</string>
     <string name="onboarding_p3_subtitle">Begin each day\nwith intention</string>

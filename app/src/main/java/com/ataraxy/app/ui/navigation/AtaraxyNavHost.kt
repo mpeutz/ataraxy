@@ -16,9 +16,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -72,9 +74,16 @@ fun AtaraxyNavHost() {
         return
     }
 
-    val startDestination = if (onboardingComplete == true) Screen.Home.route else Screen.Onboarding.route
+    // Fixed at the first known value: a restore during onboarding flips the flag but must not swap the start.
+    val startDestination = rememberSaveable {
+        if (onboardingComplete == true) Screen.Home.route else Screen.Onboarding.route
+    }
 
     NewIntentDeepLinks(navController, enabled = onboardingComplete == true)
+
+    LaunchedEffect(onboardingComplete) {
+        navController.returnToOnboardingIfReset(onboardingComplete)
+    }
 
     Scaffold(
         bottomBar = {
@@ -123,6 +132,19 @@ private fun NewIntentDeepLinks(navController: NavHostController, enabled: Boolea
         }
         activity.addOnNewIntentListener(listener)
         onDispose { activity.removeOnNewIntentListener(listener) }
+    }
+}
+
+/**
+ * Deactivate clears every preference, so the app starts over at onboarding with nothing to go back to.
+ * Finishing onboarding is left alone: onboarding navigates on by itself.
+ */
+internal fun NavHostController.returnToOnboardingIfReset(onboardingComplete: Boolean?) {
+    if (onboardingComplete != false) return
+    val route = currentDestination?.route ?: return
+    if (route == Screen.Onboarding.route) return
+    navigate(Screen.Onboarding.route) {
+        popUpTo(graph.id) { inclusive = true }
     }
 }
 

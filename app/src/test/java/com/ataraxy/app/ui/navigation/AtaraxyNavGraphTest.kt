@@ -7,6 +7,8 @@ import androidx.navigation.testing.TestNavHostController
 import androidx.test.core.app.ApplicationProvider
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNull
+import org.junit.Assert.assertSame
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -65,5 +67,34 @@ class AtaraxyNavGraphTest {
         navController.navigate(Uri.parse("ataraxy://bookend"))
 
         assertEquals(Screen.BookendRitual.route, navController.currentDestination?.route)
+    }
+
+    @Test
+    fun reset_awayFromOnboarding_returnsToOnboardingAlone() {
+        navController.navigate(Screen.Settings.route)
+
+        navController.returnToOnboardingIfReset(onboardingComplete = false)
+
+        assertEquals(Screen.Onboarding.route, navController.currentDestination?.route)
+        assertNull(navController.previousBackStackEntry)
+    }
+
+    @Test
+    fun reset_onOnboarding_staysPut() {
+        navController.navigate(Screen.Onboarding.route)
+        val onboarding = navController.currentBackStackEntry
+
+        navController.returnToOnboardingIfReset(onboardingComplete = false)
+
+        assertSame(onboarding, navController.currentBackStackEntry)
+    }
+
+    @Test
+    fun completed_doesNotNavigate() {
+        navController.navigate(Screen.Settings.route)
+
+        navController.returnToOnboardingIfReset(onboardingComplete = true)
+
+        assertEquals(Screen.Settings.route, navController.currentDestination?.route)
     }
 }

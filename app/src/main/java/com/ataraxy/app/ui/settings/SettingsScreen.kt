@@ -157,6 +157,8 @@ fun SettingsScreen(
                 onTimeClick = { timePickerTarget = TimePickerTarget.EVENING }
             )
 
+            BackupSection(onMessage = { snackbarMessage = it })
+
             AtaraxyDivider()
             SectionHeader(stringResource(R.string.settings_section_account))
 

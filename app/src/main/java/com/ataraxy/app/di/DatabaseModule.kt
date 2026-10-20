@@ -6,6 +6,7 @@ import com.ataraxy.app.data.local.AtaraxyDatabase
 import com.ataraxy.app.data.local.MIGRATION_1_2
 import com.ataraxy.app.data.local.MIGRATION_2_3
 import com.ataraxy.app.data.local.dao.AuthorDao
+import com.ataraxy.app.data.local.dao.BackupDao
 import com.ataraxy.app.data.local.dao.BookmarkDao
 import com.ataraxy.app.data.local.dao.JournalDao
 import com.ataraxy.app.data.local.dao.QuoteDao
@@ -39,4 +40,5 @@ object DatabaseModule {
     @Provides fun provideBookmarkDao(db: AtaraxyDatabase): BookmarkDao = db.bookmarkDao()
     @Provides fun provideReflectionDao(db: AtaraxyDatabase): ReflectionDao = db.reflectionDao()
     @Provides fun provideSosEventDao(db: AtaraxyDatabase): SosEventDao = db.sosEventDao()
+    @Provides fun provideBackupDao(db: AtaraxyDatabase): BackupDao = db.backupDao()
 }
