@@ -26,12 +26,13 @@ class AutomaticBackup @Inject constructor(
     private val documents: BackupDocuments,
     private val settings: BackupSettingsRepository,
     private val appVersion: AppVersion,
-    private val clock: Clock
+    private val clock: Clock,
+    private val lock: BackupLock
 ) {
-    suspend fun run(): BackupRunResult {
+    suspend fun run(): BackupRunResult = lock.withLock {
         val current = settings.settings.first()
-        val target = current.targetUri ?: return BackupRunResult.DISABLED
-        return try {
+        val target = current.targetUri ?: return@withLock BackupRunResult.DISABLED
+        try {
             val snapshot = repository.snapshot()
             val hash = BackupCodec.contentHash(snapshot)
             when {
@@ -43,7 +44,7 @@ class AutomaticBackup @Inject constructor(
                 else -> {
                     val now = clock.instant()
                     documents.write(target, BackupCodec.encode(snapshot, now, appVersion.code()))
-                    settings.recordSuccess(now, hash)
+                    settings.recordSuccess(target, now, hash)
                     BackupRunResult.WRITTEN
                 }
             }
@@ -79,13 +80,20 @@ class AutomaticBackup @Inject constructor(
 class AutomaticBackupController @Inject constructor(
     @ApplicationContext private val context: Context,
     private val documents: BackupDocuments,
-    private val settings: BackupSettingsRepository
+    private val settings: BackupSettingsRepository,
+    private val lock: BackupLock
 ) {
     private val workManager get() = WorkManager.getInstance(context)
 
     suspend fun enable(uri: String): Boolean {
-        if (!documents.persist(uri)) return false
-        settings.setTarget(uri)
+        val enabled = lock.withLock {
+            if (!documents.persist(uri)) return@withLock false
+            val previous = settings.settings.first().targetUri
+            if (previous != null && previous != uri) documents.release(previous)
+            settings.setTarget(uri)
+            true
+        }
+        if (!enabled) return false
         enqueuePeriodic()
         workManager.enqueueUniqueWork(
             RUN_NOW_WORK,
@@ -98,8 +106,10 @@ class AutomaticBackupController @Inject constructor(
     suspend fun disable() {
         workManager.cancelUniqueWork(PERIODIC_WORK)
         workManager.cancelUniqueWork(RUN_NOW_WORK)
-        settings.settings.first().targetUri?.let(documents::release)
-        settings.setTarget(null)
+        lock.withLock {
+            settings.settings.first().targetUri?.let(documents::release)
+            settings.setTarget(null)
+        }
     }
 
     suspend fun ensureScheduled() {

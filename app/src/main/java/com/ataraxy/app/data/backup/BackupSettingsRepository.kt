@@ -53,8 +53,10 @@ class BackupSettingsRepository @Inject constructor(
         }
     }
 
-    suspend fun recordSuccess(at: Instant, hash: String) {
+    /** Records a write to [target]; ignored if the user has since chosen another file. */
+    suspend fun recordSuccess(target: String, at: Instant, hash: String) {
         dataStore.edit { prefs ->
+            if (prefs[Keys.TARGET_URI] != target) return@edit
             prefs[Keys.LAST_SUCCESS_AT] = at.toString()
             prefs[Keys.LAST_WRITTEN_HASH] = hash
             prefs.remove(Keys.FAILURE)

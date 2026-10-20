@@ -13,6 +13,7 @@ import com.ataraxy.app.R
 import com.ataraxy.app.data.backup.AutomaticBackupController
 import com.ataraxy.app.data.backup.BackupCodec
 import com.ataraxy.app.data.backup.BackupFailure
+import com.ataraxy.app.data.backup.BackupLock
 import com.ataraxy.app.data.backup.BackupRepository
 import com.ataraxy.app.data.backup.BackupSettingsRepository
 import com.ataraxy.app.data.backup.FakeBackupDocuments
@@ -71,9 +72,10 @@ class BackupViewModelTest {
         backupRepository = BackupRepository(db, userPrefsStore)
         documents = FakeBackupDocuments()
         settings = BackupSettingsRepository(tempDataStore("backup_prefs"))
-        val restore = RestoreBackup(documents, backupRepository, UserPrefsRepository(userPrefsStore)) { }
+        val lock = BackupLock()
+        val restore = RestoreBackup(documents, backupRepository, UserPrefsRepository(userPrefsStore), { }, lock)
         viewModel = BackupViewModel(
-            AutomaticBackupController(context, documents, settings),
+            AutomaticBackupController(context, documents, settings, lock),
             settings,
             documents,
             backupRepository,
@@ -119,6 +121,20 @@ class BackupViewModelTest {
 
         viewModel.turnOff()
         awaitMain { !viewModel.state.value.enabled }
+
+        assertEquals(listOf(uri), documents.released)
+    }
+
+    @Test
+    fun turnOn_otherFile_releasesThePreviousOne() {
+        val other = "content://docs/other.json"
+        viewModel.turnOn(uri)
+        awaitMain { viewModel.state.value.enabled }
+
+        viewModel.turnOn(other)
+        awaitMain { viewModel.state.value.locationName == "other.json" }
+        viewModel.turnOn(other)
+        settleMain()
 
         assertEquals(listOf(uri), documents.released)
     }

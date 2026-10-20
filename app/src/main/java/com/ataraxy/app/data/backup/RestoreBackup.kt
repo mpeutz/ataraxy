@@ -35,7 +35,8 @@ class RestoreBackup @Inject constructor(
     private val documents: BackupDocuments,
     private val repository: BackupRepository,
     private val userPrefs: UserPrefsRepository,
-    private val rescheduler: Rescheduler
+    private val rescheduler: Rescheduler,
+    private val lock: BackupLock
 ) {
 
     suspend fun preview(uri: String): Result<BackupPreview> = load(uri).map { file ->
@@ -46,7 +47,9 @@ class RestoreBackup @Inject constructor(
         )
     }
 
-    suspend fun restore(uri: String): Result<Unit> {
+    suspend fun restore(uri: String): Result<Unit> = lock.withLock { restoreLocked(uri) }
+
+    private suspend fun restoreLocked(uri: String): Result<Unit> {
         val file = load(uri).getOrElse { return Result.failure(it) }
         return try {
             repository.replaceAll(file.snapshot)

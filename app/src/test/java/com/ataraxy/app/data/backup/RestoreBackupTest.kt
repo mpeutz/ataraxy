@@ -49,7 +49,7 @@ class RestoreBackupTest {
         repository = BackupRepository(db, dataStore)
         prefs = UserPrefsRepository(dataStore)
         documents = FakeBackupDocuments()
-        restore = RestoreBackup(documents, repository, prefs) { rescheduled += it }
+        restore = RestoreBackup(documents, repository, prefs, { rescheduled += it }, BackupLock())
     }
 
     @After

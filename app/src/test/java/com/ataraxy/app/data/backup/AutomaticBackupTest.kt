@@ -45,7 +45,7 @@ class AutomaticBackupTest {
         repository = BackupRepository(db, tempDataStore("user_prefs"))
         documents = FakeBackupDocuments()
         settings = BackupSettingsRepository(tempDataStore("backup_prefs"))
-        backup = AutomaticBackup(repository, documents, settings, { 42L }, Clock.fixed(now, ZoneOffset.UTC))
+        backup = AutomaticBackup(repository, documents, settings, { 42L }, Clock.fixed(now, ZoneOffset.UTC), BackupLock())
     }
 
     @After
@@ -169,9 +169,31 @@ class AutomaticBackupTest {
     }
 
     @Test
+    fun run_targetTooLarge_failsWithoutWriting() = runBlocking {
+        settings.setTarget(target)
+        documents.files[target] = "{}"
+        documents.failReadWith = BackupTooLargeException()
+
+        assertEquals(BackupRunResult.FAILED, backup.run())
+        assertEquals(0, documents.writeCount)
+        assertEquals(BackupFailure.UNKNOWN, settings.settings.first().failure)
+    }
+
+    @Test
+    fun recordSuccess_forStaleTarget_doesNotMarkNewTarget() = runBlocking {
+        val other = "content://docs/other.json"
+        settings.setTarget(target)
+        settings.setTarget(other)
+
+        settings.recordSuccess(target, now, "abc")
+
+        assertEquals(BackupSettings(targetUri = other), settings.settings.first())
+    }
+
+    @Test
     fun setTarget_clearsHashAndFailure() = runBlocking {
         settings.setTarget(target)
-        settings.recordSuccess(now, "abc")
+        settings.recordSuccess(target, now, "abc")
         settings.recordFailure(BackupFailure.UNKNOWN)
 
         settings.setTarget("content://docs/other.json")
