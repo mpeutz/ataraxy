@@ -61,7 +61,7 @@ class RestoreBackupTest {
 
         val preview = restore.preview(uri).getOrThrow()
 
-        assertEquals(BackupPreview(createdAt, journalEntryCount = 2, reflectionCount = 1), preview)
+        assertEquals(BackupPreview(createdAt, journalEntryCount = 4, reflectionCount = 1), preview)
     }
 
     @Test

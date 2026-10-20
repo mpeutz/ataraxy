@@ -39,7 +39,7 @@ class RestoreBackup @Inject constructor(
     suspend fun preview(uri: String): Result<BackupPreview> = load(uri).map { file ->
         BackupPreview(
             createdAt = file.createdAt,
-            journalEntryCount = countJournalEntries(file.snapshot),
+            journalEntryCount = file.snapshot.journalEntries.size,
             reflectionCount = file.snapshot.reflections.size
         )
     }
@@ -85,10 +85,4 @@ class RestoreBackup @Inject constructor(
 
     private fun failure(problem: RestoreProblem): Result<BackupFile> =
         Result.failure(RestoreException(problem))
-
-    /** Entries of one ritual session share a type and a timestamp and show as a single entry. */
-    private fun countJournalEntries(snapshot: BackupSnapshot): Int {
-        val (ritual, plain) = snapshot.journalEntries.partition { it.ritualType != null }
-        return ritual.distinctBy { it.ritualType to it.createdAt }.size + plain.size
-    }
 }
