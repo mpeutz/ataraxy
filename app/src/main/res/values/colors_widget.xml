@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="widget_bg_light_fill">#F5F0E8</color>
+    <color name="widget_quote_light">#1A1814</color>
+    <color name="widget_author_light">#5C5549</color>
+
+    <color name="widget_bg_dark_fill">#1C1C1A</color>
+    <color name="widget_quote_dark">#F0EBE2</color>
+    <color name="widget_author_dark">#ABA49A</color>
+
+    <color name="widget_quote_clear">#FFFFFF</color>
+    <color name="widget_author_clear">#D9FFFFFF</color>
+    <color name="widget_shadow_clear">#80000000</color>
+
+    <!-- Fallbacks below Android 12, which has no system accent palette; the style is hidden there. -->
+    <color name="widget_bg_accent_fill">#F5F0E8</color>
+    <color name="widget_quote_accent">#1A1814</color>
+    <color name="widget_author_accent">#5C5549</color>
+</resources>
