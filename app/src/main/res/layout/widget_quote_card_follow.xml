@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/widget_root"
+    android:background="@drawable/widget_bg_follow"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_vertical"
@@ -16,6 +17,7 @@
         android:fontFamily="serif"
         android:gravity="start"
         android:maxLines="4"
+        android:textColor="@color/widget_quote_follow"
         android:textStyle="italic" />
 
     <TextView
@@ -27,5 +29,6 @@
         android:fontFamily="sans-serif-medium"
         android:gravity="start"
         android:letterSpacing="0.2"
-        android:maxLines="1" />
+        android:maxLines="1"
+        android:textColor="@color/widget_author_follow" />
 </LinearLayout>

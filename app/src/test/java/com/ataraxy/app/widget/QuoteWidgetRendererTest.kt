@@ -27,6 +27,7 @@ import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNotEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue
 import org.junit.Before
@@ -101,7 +102,7 @@ class QuoteWidgetRendererTest {
     fun cardStyle_usesCardLayout() = runBlocking {
         styles.set(APP_WIDGET_ID, WidgetStyle.LIGHT)
 
-        assertEquals(R.layout.widget_quote_card, renderer.render(APP_WIDGET_ID, HEIGHT_4X2).layoutId)
+        assertEquals(R.layout.widget_quote_card_light, renderer.render(APP_WIDGET_ID, HEIGHT_4X2).layoutId)
     }
 
     @Test
@@ -127,26 +128,53 @@ class QuoteWidgetRendererTest {
     }
 
     @Test
-    fun darkUiMode_withMatchApp_usesDarkQuoteColor() = runBlocking {
+    fun matchAppWithSystemTheme_followsThePhonesNightMode() = runBlocking {
         seedQuotes()
-        val dark = Configuration(context.resources.configuration).apply {
-            uiMode = (uiMode and Configuration.UI_MODE_NIGHT_MASK.inv()) or Configuration.UI_MODE_NIGHT_YES
-        }
-        val darkContext = context.createConfigurationContext(dark)
-        val darkRenderer = QuoteWidgetRenderer(
-            darkContext,
-            QuoteRepository(db.quoteDao(), db.authorDao(), db.bookmarkDao()),
-            testUserPrefs(),
-            styles
-        )
+        val views = renderer.render(APP_WIDGET_ID, HEIGHT_4X2)
 
-        val root = inflate(darkRenderer.render(APP_WIDGET_ID, HEIGHT_4X2))
-
-        assertEquals(
-            darkContext.getColor(R.color.widget_quote_dark),
-            root.findViewById<TextView>(R.id.widget_quote).currentTextColor
-        )
+        assertQuoteColor(R.color.widget_quote_light, views, night = false)
+        assertQuoteColor(R.color.widget_quote_dark, views, night = true)
     }
+
+    @Test
+    fun accentStyle_followsThePhonesNightMode() = runBlocking {
+        seedQuotes()
+        styles.set(APP_WIDGET_ID, WidgetStyle.ACCENT)
+        val views = renderer.render(APP_WIDGET_ID, HEIGHT_4X2)
+
+        val day = quoteColor(views, night = false)
+        val night = quoteColor(views, night = true)
+        assertEquals(configContext(false).getColor(R.color.widget_quote_accent), day)
+        assertEquals(configContext(true).getColor(R.color.widget_quote_accent), night)
+        assertNotEquals(day, night)
+    }
+
+    @Test
+    fun fixedStyles_ignoreTheNightMode() = runBlocking {
+        seedQuotes()
+        styles.set(APP_WIDGET_ID, WidgetStyle.LIGHT)
+        val views = renderer.render(APP_WIDGET_ID, HEIGHT_4X2)
+
+        assertQuoteColor(R.color.widget_quote_light, views, night = true)
+    }
+
+    private fun configContext(night: Boolean): Context {
+        val config = Configuration(context.resources.configuration).apply {
+            val mode = if (night) Configuration.UI_MODE_NIGHT_YES else Configuration.UI_MODE_NIGHT_NO
+            uiMode = (uiMode and Configuration.UI_MODE_NIGHT_MASK.inv()) or mode
+        }
+        return context.createConfigurationContext(config)
+    }
+
+    private fun quoteColor(views: RemoteViews, night: Boolean): Int {
+        val ctx = configContext(night)
+        val parent = FrameLayout(ctx)
+        parent.addView(views.apply(ctx, parent))
+        return parent.findViewById<TextView>(R.id.widget_quote).currentTextColor
+    }
+
+    private fun assertQuoteColor(@androidx.annotation.ColorRes expected: Int, views: RemoteViews, night: Boolean) =
+        assertEquals(configContext(night).getColor(expected), quoteColor(views, night))
 
     @Test
     fun updateEach_failureOnOneId_stillUpdatesTheOthers() = runBlocking {
@@ -154,7 +182,7 @@ class QuoteWidgetRendererTest {
 
         updateEach(
             ids = intArrayOf(1, 2, 3),
-            render = { id -> if (id == 2) error("boom") else RemoteViews(context.packageName, R.layout.widget_quote_card) },
+            render = { id -> if (id == 2) error("boom") else RemoteViews(context.packageName, R.layout.widget_quote_card_follow) },
             push = { id, _ -> pushed += id }
         )
 

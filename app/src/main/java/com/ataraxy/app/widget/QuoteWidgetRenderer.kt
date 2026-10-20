@@ -5,13 +5,11 @@ import android.appwidget.AppWidgetManager
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
-import android.content.res.Configuration
 import android.net.Uri
 import android.util.Log
 import android.util.TypedValue
 import android.view.View
 import android.widget.RemoteViews
-import androidx.core.content.ContextCompat
 import com.ataraxy.app.MainActivity
 import com.ataraxy.app.R
 import com.ataraxy.app.data.preferences.UserPrefsRepository
@@ -45,25 +43,18 @@ class QuoteWidgetRenderer @Inject constructor(
 ) : WidgetUpdater {
 
     suspend fun render(appWidgetId: Int, heightDp: Int): RemoteViews {
-        val look = resolveLook(styles.get(appWidgetId), prefs.userPrefs.first().theme, isSystemDark())
-        val layoutId = when (look.layout) {
-            WidgetLayout.CARD -> R.layout.widget_quote_card
-            WidgetLayout.CLEAR -> R.layout.widget_quote_clear
-        }
+        val look = resolveLook(styles.get(appWidgetId), prefs.userPrefs.first().theme)
         val quote = quotes.getDailyQuote(LocalDate.now()).first()
         val quoteText = quote?.text ?: context.getString(R.string.widget_empty)
         val author = quote?.let { "— ${it.authorName.uppercase()}" }.orEmpty()
         val spec = quoteTextSpec(heightDp)
 
-        return RemoteViews(context.packageName, layoutId).apply {
-            look.background?.let { setInt(R.id.widget_root, "setBackgroundResource", it) }
+        return RemoteViews(context.packageName, look.layoutRes).apply {
             setTextViewText(R.id.widget_quote, quoteText)
-            setTextColor(R.id.widget_quote, ContextCompat.getColor(context, look.quoteColor))
             setTextViewTextSize(R.id.widget_quote, TypedValue.COMPLEX_UNIT_SP, spec.sizeSp)
             setInt(R.id.widget_quote, "setMaxLines", spec.maxLines)
             setTextViewText(R.id.widget_author, author)
             setViewVisibility(R.id.widget_author, if (author.isEmpty()) View.GONE else View.VISIBLE)
-            setTextColor(R.id.widget_author, ContextCompat.getColor(context, look.authorColor))
             setTextViewTextSize(R.id.widget_author, TypedValue.COMPLEX_UNIT_SP, WidgetType.AUTHOR_SP)
             setContentDescription(R.id.widget_root, listOf(quoteText, author).filter { it.isNotEmpty() }.joinToString(". "))
             setOnClickPendingIntent(R.id.widget_root, openHomeIntent())
@@ -78,9 +69,6 @@ class QuoteWidgetRenderer @Inject constructor(
             push = manager::updateAppWidget
         )
     }
-
-    private fun isSystemDark(): Boolean =
-        context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
 
     private fun openHomeIntent(): PendingIntent {
         val intent = Intent(Intent.ACTION_VIEW, Uri.parse(HOME_LINK), context, MainActivity::class.java)

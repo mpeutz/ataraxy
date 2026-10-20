@@ -3,7 +3,6 @@ package com.ataraxy.app.widget
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.background
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -63,7 +62,7 @@ fun WidgetSetupScreen(viewModel: WidgetSetupViewModel, onSave: () -> Unit) {
     val prefs by viewModel.userPrefs.collectAsState()
     val saving by viewModel.saving.collectAsState()
 
-    val look = resolveLook(selected, prefs?.theme ?: AppTheme.SYSTEM, isSystemInDarkTheme())
+    val look = resolveLook(selected, prefs?.theme ?: AppTheme.SYSTEM)
     val quoteText = quote?.text ?: stringResource(R.string.widget_empty)
     val author = quote?.let { "— ${it.authorName.uppercase()}" }.orEmpty()
 

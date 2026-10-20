@@ -10,8 +10,8 @@ import org.junit.Test
 
 class WidgetStyleTest {
 
-    private val light = resolveLook(WidgetStyle.LIGHT, AppTheme.SYSTEM, systemDark = false)
-    private val dark = resolveLook(WidgetStyle.DARK, AppTheme.SYSTEM, systemDark = false)
+    private val light = resolveLook(WidgetStyle.LIGHT, AppTheme.SYSTEM)
+    private val dark = resolveLook(WidgetStyle.DARK, AppTheme.SYSTEM)
 
     @Test fun accentHiddenBelowAndroid12() {
         assertFalse(WidgetStyle.ACCENT in availableStyles(30))
@@ -19,17 +19,19 @@ class WidgetStyleTest {
     }
 
     @Test fun matchApp_followsAppTheme() {
-        assertEquals(light, resolveLook(WidgetStyle.MATCH_APP, AppTheme.LIGHT, systemDark = true))
-        assertEquals(dark, resolveLook(WidgetStyle.MATCH_APP, AppTheme.DARK, systemDark = false))
+        assertEquals(light, resolveLook(WidgetStyle.MATCH_APP, AppTheme.LIGHT))
+        assertEquals(dark, resolveLook(WidgetStyle.MATCH_APP, AppTheme.DARK))
     }
 
-    @Test fun matchApp_systemTheme_followsPhone() {
-        assertEquals(dark, resolveLook(WidgetStyle.MATCH_APP, AppTheme.SYSTEM, systemDark = true))
-        assertEquals(light, resolveLook(WidgetStyle.MATCH_APP, AppTheme.SYSTEM, systemDark = false))
+    @Test fun matchApp_systemTheme_usesFollowLayout() {
+        val look = resolveLook(WidgetStyle.MATCH_APP, AppTheme.SYSTEM)
+        assertEquals(R.layout.widget_quote_card_follow, look.layoutRes)
+        assertEquals(R.layout.widget_quote_card_light, light.layoutRes)
+        assertEquals(R.layout.widget_quote_card_dark, dark.layoutRes)
     }
 
     @Test fun clear_usesClearLayoutWithoutBackground() {
-        val look = resolveLook(WidgetStyle.CLEAR, AppTheme.LIGHT, systemDark = false)
+        val look = resolveLook(WidgetStyle.CLEAR, AppTheme.LIGHT)
         assertEquals(WidgetLayout.CLEAR, look.layout)
         assertNull(look.background)
         assertEquals(WidgetLayout.CARD, light.layout)
