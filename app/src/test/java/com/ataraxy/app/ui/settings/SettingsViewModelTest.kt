@@ -24,6 +24,7 @@ import com.ataraxy.app.data.repository.JournalRepository
 import com.ataraxy.app.data.repository.QuoteRepository
 import com.ataraxy.app.data.repository.ReflectionRepository
 import com.ataraxy.app.data.repository.SosRepository
+import com.ataraxy.app.widget.WidgetUpdater
 import com.ataraxy.app.lock.AppLock
 import com.ataraxy.app.lock.FakeDeviceAuthenticator
 import com.ataraxy.app.lock.FakeElapsedRealtime
@@ -88,7 +89,8 @@ class SettingsViewModelTest {
                 override suspend fun writeText(fileName: String, text: String) = Unit
             }),
             AutomaticBackupController(context, documents, settings, BackupLock()),
-            appLock
+            appLock,
+            WidgetUpdater { }
         )
     }
 

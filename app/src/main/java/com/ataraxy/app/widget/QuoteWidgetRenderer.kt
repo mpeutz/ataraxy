@@ -33,12 +33,16 @@ fun quoteWidgetIds(context: Context): IntArray =
     AppWidgetManager.getInstance(context)
         .getAppWidgetIds(ComponentName(context, QuoteWidgetProvider::class.java))
 
+fun interface WidgetUpdater {
+    suspend fun updateAll()
+}
+
 class QuoteWidgetRenderer @Inject constructor(
     @ApplicationContext private val context: Context,
     private val quotes: QuoteRepository,
     private val prefs: UserPrefsRepository,
     private val styles: WidgetStyleStore
-) {
+) : WidgetUpdater {
 
     suspend fun render(appWidgetId: Int, heightDp: Int): RemoteViews {
         val look = resolveLook(styles.get(appWidgetId), prefs.userPrefs.first().theme, isSystemDark())
@@ -66,7 +70,7 @@ class QuoteWidgetRenderer @Inject constructor(
         }
     }
 
-    suspend fun updateAll() {
+    override suspend fun updateAll() {
         val manager = AppWidgetManager.getInstance(context)
         updateEach(
             ids = quoteWidgetIds(context),
