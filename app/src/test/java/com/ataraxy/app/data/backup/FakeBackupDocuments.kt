@@ -4,6 +4,8 @@ class FakeBackupDocuments : BackupDocuments {
     val files = mutableMapOf<String, String>()
     var failWith: Exception? = null
     var failReadWith: Exception? = null
+    var persistResult = true
+    val released = mutableListOf<String>()
     var writeCount = 0
         private set
 
@@ -21,7 +23,9 @@ class FakeBackupDocuments : BackupDocuments {
 
     override fun displayName(uri: String): String? = uri.substringAfterLast('/')
 
-    override fun persist(uri: String): Boolean = true
+    override fun persist(uri: String): Boolean = persistResult
 
-    override fun release(uri: String) = Unit
+    override fun release(uri: String) {
+        released += uri
+    }
 }

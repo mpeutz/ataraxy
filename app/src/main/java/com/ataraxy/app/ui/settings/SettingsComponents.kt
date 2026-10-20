@@ -234,7 +234,8 @@ internal fun ConfirmDialog(
     confirmLabel: String,
     onConfirm: () -> Unit,
     onDismiss: () -> Unit,
-    isDestructive: Boolean = false
+    isDestructive: Boolean = false,
+    dismissLabel: String = stringResource(R.string.settings_cancel)
 ) {
     AlertDialog(
         onDismissRequest = onDismiss,
@@ -252,7 +253,7 @@ internal fun ConfirmDialog(
         dismissButton = {
             TextButton(onClick = onDismiss) {
                 Text(
-                    stringResource(R.string.settings_cancel),
+                    dismissLabel,
                     style = AtaraxyText.button
                 )
             }
