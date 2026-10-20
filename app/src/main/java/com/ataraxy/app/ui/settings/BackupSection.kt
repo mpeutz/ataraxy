@@ -141,14 +141,16 @@ internal fun RestoreConfirmDialog(
     onDismiss: () -> Unit
 ) {
     val preview = pending.preview
+    val message = stringResource(
+        R.string.settings_restore_message,
+        formatBackupTime(preview.createdAt),
+        pluralStringResource(R.plurals.settings_restore_entries, preview.journalEntryCount, preview.journalEntryCount),
+        pluralStringResource(R.plurals.settings_restore_reflections, preview.reflectionCount, preview.reflectionCount)
+    )
+    val updatesBackup = stringResource(R.string.settings_restore_updates_backup)
     ConfirmDialog(
         title = stringResource(R.string.settings_restore_title),
-        message = stringResource(
-            R.string.settings_restore_message,
-            formatBackupTime(preview.createdAt),
-            pluralStringResource(R.plurals.settings_restore_entries, preview.journalEntryCount, preview.journalEntryCount),
-            pluralStringResource(R.plurals.settings_restore_reflections, preview.reflectionCount, preview.reflectionCount)
-        ),
+        message = if (pending.updatesAutomaticBackup) "$message $updatesBackup" else message,
         confirmLabel = stringResource(R.string.settings_restore_confirm),
         onConfirm = onConfirm,
         onDismiss = onDismiss,

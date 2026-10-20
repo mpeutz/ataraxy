@@ -43,7 +43,12 @@ data class BackupUiState(
     val failure: BackupFailure? = null
 )
 
-data class PendingRestore(val uri: String, val preview: BackupPreview)
+/** [updatesAutomaticBackup]: restoring will also rewrite the automatic backup, which is another file. */
+data class PendingRestore(
+    val uri: String,
+    val preview: BackupPreview,
+    val updatesAutomaticBackup: Boolean = false
+)
 
 sealed interface BackupEvent {
     data object Saved : BackupEvent
@@ -119,7 +124,10 @@ class BackupViewModel @Inject constructor(
 
     private suspend fun preview(uri: String) {
         restoreBackup.preview(uri).fold(
-            onSuccess = { _pendingRestore.value = PendingRestore(uri, it) },
+            onSuccess = {
+                val updates = settingsRepository.settings.first().updatesAfterRestoring(uri)
+                _pendingRestore.value = PendingRestore(uri, it, updatesAutomaticBackup = updates)
+            },
             onFailure = { fail(it) }
         )
     }
@@ -130,13 +138,21 @@ class BackupViewModel @Inject constructor(
         viewModelScope.launch {
             restoreBackup.restore(pending.uri).fold(
                 onSuccess = {
-                    val target = settingsRepository.settings.first().targetUri
-                    if (target == null) _offerKeepUpdating.value = pending.uri
-                    else controller.enable(target)
+                    afterRestore(pending.uri)
                     _events.send(BackupEvent.Restored)
                 },
                 onFailure = { fail(it) }
             )
+        }
+    }
+
+    /** Restoring the blocked file lifts the block; restoring another file leaves it for the user to decide. */
+    private suspend fun afterRestore(uri: String) {
+        val current = settingsRepository.settings.first()
+        val target = current.targetUri
+        when {
+            target == null -> _offerKeepUpdating.value = uri
+            uri == target || current.updatesAfterRestoring(uri) -> controller.enable(target)
         }
     }
 
@@ -165,6 +181,9 @@ class BackupViewModel @Inject constructor(
         }
         _events.send(BackupEvent.Failed(message))
     }
+
+    private fun BackupSettings.updatesAfterRestoring(uri: String): Boolean =
+        targetUri != null && targetUri != uri && blockedTarget != targetUri
 
     private fun BackupSettings.toUiState() = BackupUiState(
         enabled = targetUri != null,

@@ -171,6 +171,7 @@ class BackupViewModelTest {
 
         viewModel.previewRestoreOfBackupFile()
         awaitMain { viewModel.pendingRestore.value != null }
+        assertFalse(viewModel.pendingRestore.value!!.updatesAutomaticBackup)
         viewModel.confirmRestore()
         awaitMain { viewModel.state.value.failure == null }
         settleMain()
@@ -193,6 +194,53 @@ class BackupViewModelTest {
         val stored = runBlocking { settings.settings.first() }
         assertEquals(uri, stored.targetUri)
         assertNull(stored.blockedTarget)
+    }
+
+    @Test
+    fun previewRestore_otherFileWhileAutomaticOn_saysBackupWillUpdate() {
+        val other = "content://docs/other.json"
+        runBlocking { db.journalDao().upsert(entry(1, "from backup")) }
+        val backup = BackupCodec.encode(runBlocking { backupRepository.snapshot() }, now, 7L)
+        documents.files[uri] = backup
+        documents.files[other] = backup
+
+        viewModel.previewRestore(other)
+        awaitMain { viewModel.pendingRestore.value != null }
+        assertFalse(viewModel.pendingRestore.value!!.updatesAutomaticBackup)
+        viewModel.cancelRestore()
+
+        viewModel.turnOn(uri)
+        awaitMain { viewModel.state.value.enabled }
+        viewModel.previewRestore(uri)
+        awaitMain { viewModel.pendingRestore.value != null }
+        assertFalse(viewModel.pendingRestore.value!!.updatesAutomaticBackup)
+        viewModel.cancelRestore()
+
+        viewModel.previewRestore(other)
+        awaitMain { viewModel.pendingRestore.value != null }
+        assertTrue(viewModel.pendingRestore.value!!.updatesAutomaticBackup)
+    }
+
+    @Test
+    fun restoreOtherFile_whileBlocked_keepsTheBlock() {
+        val other = "content://docs/other.json"
+        runBlocking { db.journalDao().upsert(entry(1, "from backup")) }
+        documents.files[other] = BackupCodec.encode(runBlocking { backupRepository.snapshot() }, now, 7L)
+        viewModel.turnOn(uri)
+        awaitMain { viewModel.state.value.enabled }
+        runBlocking { settings.recordBlocked(uri) }
+        awaitMain { viewModel.state.value.failure == BackupFailure.EXISTING_BACKUP }
+
+        viewModel.previewRestore(other)
+        awaitMain { viewModel.pendingRestore.value != null }
+        assertFalse(viewModel.pendingRestore.value!!.updatesAutomaticBackup)
+        viewModel.confirmRestore()
+        awaitMain { events.isNotEmpty() }
+        settleMain()
+
+        assertEquals(listOf<BackupEvent>(BackupEvent.Restored), events.toList())
+        assertEquals(uri, runBlocking { settings.settings.first().blockedTarget })
+        assertEquals(BackupFailure.EXISTING_BACKUP, viewModel.state.value.failure)
     }
 
     @Test
