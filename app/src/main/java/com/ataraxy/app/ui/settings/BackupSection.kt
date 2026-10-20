@@ -68,7 +68,7 @@ fun BackupSection(
         subtitle = automaticValue(state),
         checked = state.enabled,
         onToggle = { on ->
-            if (on) guard { turnOnLauncher.launch(AUTOMATIC_FILE_NAME) } else viewModel.turnOff()
+            guard { if (on) turnOnLauncher.launch(AUTOMATIC_FILE_NAME) else viewModel.turnOff() }
         }
     )
     RowDivider()
