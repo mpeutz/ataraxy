@@ -12,6 +12,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowForward
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalResources
@@ -44,7 +45,7 @@ fun OnboardingScreen(
     val keepUpdatingUri by backupViewModel.offerKeepUpdating.collectAsStateWithLifecycle()
     val resources = LocalResources.current
     val currentOnComplete by rememberUpdatedState(onComplete)
-    var restored by remember { mutableStateOf(false) }
+    var restored by rememberSaveable { mutableStateOf(false) }
 
     LaunchedEffect(backupViewModel) {
         backupViewModel.events.collect { event ->

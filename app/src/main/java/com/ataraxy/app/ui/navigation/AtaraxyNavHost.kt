@@ -19,6 +19,7 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -72,7 +73,10 @@ fun AtaraxyNavHost() {
         return
     }
 
-    val startDestination = if (onboardingComplete == true) Screen.Home.route else Screen.Onboarding.route
+    // Fixed at the first known value: a restore during onboarding flips the flag but must not swap the start.
+    val startDestination = rememberSaveable {
+        if (onboardingComplete == true) Screen.Home.route else Screen.Onboarding.route
+    }
 
     NewIntentDeepLinks(navController, enabled = onboardingComplete == true)
 
