@@ -1,9 +1,11 @@
 package com.ataraxy.app.lock
 
 import androidx.datastore.core.DataStore
+import androidx.datastore.core.handlers.ReplaceFileCorruptionHandler
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.preferencesOf
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -26,8 +28,8 @@ class AppLock @Inject constructor(
     private val authenticator: DeviceAuthenticator,
     private val clock: Clock
 ) {
-    private var storedFlag = runBlocking { dataStore.data.first()[ENABLED_KEY] ?: false }
-    private var backgroundedAt: Instant? = null
+    @Volatile private var storedFlag = runBlocking { dataStore.data.first()[ENABLED_KEY] ?: false }
+    @Volatile private var backgroundedAt: Instant? = null
 
     private val _enabled = MutableStateFlow(storedFlag && authenticator.isDeviceSecure())
     val enabled: StateFlow<Boolean> = _enabled.asStateFlow()
@@ -72,5 +74,8 @@ class AppLock @Inject constructor(
     companion object {
         val RELOCK_AFTER: Duration = Duration.ofSeconds(60)
         private val ENABLED_KEY = booleanPreferencesKey("app_lock_enabled")
+
+        /** A corrupt file fails closed: the lock stays on (still ANDed with the device being secure). */
+        fun corruptionHandler() = ReplaceFileCorruptionHandler<Preferences> { preferencesOf(ENABLED_KEY to true) }
     }
 }

@@ -129,6 +129,22 @@ class AppLockTest {
         assertTrue(newLock().enabled.value)
     }
 
+    @Test
+    fun corruptLockFile_failsClosedWithoutCrashing() {
+        val dir = Files.createTempDirectory("prefs").toFile()
+        val file = File(dir, "lock_prefs.preferences_pb").apply { writeBytes(byteArrayOf(1, 2, 3, 120, 99, 42)) }
+        val store = PreferenceDataStoreFactory.create(
+            corruptionHandler = AppLock.corruptionHandler(),
+            scope = CoroutineScope(Dispatchers.IO + SupervisorJob()),
+            produceFile = { file }
+        )
+
+        val lock = AppLock(store, authenticator, clock)
+
+        assertTrue(lock.enabled.value)
+        assertFalse(lock.isUnlocked.value)
+    }
+
     private fun tempDataStore(fileName: String): DataStore<Preferences> {
         val dir = Files.createTempDirectory("prefs").toFile()
         return PreferenceDataStoreFactory.create(
