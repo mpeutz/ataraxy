@@ -24,6 +24,9 @@ import com.ataraxy.app.data.repository.JournalRepository
 import com.ataraxy.app.data.repository.QuoteRepository
 import com.ataraxy.app.data.repository.ReflectionRepository
 import com.ataraxy.app.data.repository.SosRepository
+import com.ataraxy.app.lock.AppLock
+import com.ataraxy.app.lock.FakeDeviceAuthenticator
+import com.ataraxy.app.lock.FakeElapsedRealtime
 import com.ataraxy.app.notifications.NotificationScheduler
 import com.ataraxy.app.testing.awaitMain
 import kotlinx.coroutines.CoroutineScope
@@ -33,6 +36,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
 import org.junit.Before
 import org.junit.Test
@@ -48,6 +52,8 @@ class SettingsViewModelTest {
 
     private lateinit var db: AtaraxyDatabase
     private lateinit var settings: BackupSettingsRepository
+    private lateinit var lockStore: DataStore<Preferences>
+    private lateinit var appLock: AppLock
     private lateinit var viewModel: SettingsViewModel
     private var journalEntriesWhenReleased: Int? = null
 
@@ -69,6 +75,8 @@ class SettingsViewModelTest {
         }
         val journal = JournalRepository(db.journalDao())
         val reflections = ReflectionRepository(db.reflectionDao())
+        lockStore = tempDataStore("lock_prefs")
+        appLock = AppLock(lockStore, FakeDeviceAuthenticator(), FakeElapsedRealtime())
         viewModel = SettingsViewModel(
             UserPrefsRepository(tempDataStore("user_prefs")),
             journal,
@@ -78,7 +86,8 @@ class SettingsViewModelTest {
             JournalExporter(journal, reflections, object : DownloadsWriter {
                 override suspend fun writeText(fileName: String, text: String) = Unit
             }),
-            AutomaticBackupController(context, documents, settings, BackupLock())
+            AutomaticBackupController(context, documents, settings, BackupLock()),
+            appLock
         )
     }
 
@@ -100,6 +109,16 @@ class SettingsViewModelTest {
 
         assertEquals(1, journalEntriesWhenReleased)
         assertNull(runBlocking { settings.settings.first().targetUri })
+    }
+
+    @Test
+    fun deactivate_turnsOffAppLock() {
+        runBlocking { appLock.setEnabled(true) }
+
+        viewModel.deactivate()
+        awaitMain { !appLock.enabled.value }
+
+        assertFalse(AppLock(lockStore, FakeDeviceAuthenticator(), FakeElapsedRealtime()).enabled.value)
     }
 
     private fun entry() = JournalEntryEntity(
