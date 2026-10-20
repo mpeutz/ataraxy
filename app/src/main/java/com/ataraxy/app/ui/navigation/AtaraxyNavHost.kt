@@ -205,13 +205,14 @@ private fun NavGraphBuilder.gatedComposable(
     }
 }
 
-private fun NavHostController.leaveLockedRoute() {
-    if (previousBackStackEntry != null) {
-        popBackStack()
-        return
-    }
-    navigate(Screen.Home.route) { popUpTo(0) }
+/** Leaves every locked screen on top of the stack, so one cancel doesn't land on another prompt. */
+internal fun NavHostController.leaveLockedRoute() {
+    while (isOnLockedRoute() && previousBackStackEntry != null) popBackStack()
+    if (!isOnLockedRoute()) return
+    navigate(Screen.Home.route) { popUpTo(graph.id) { inclusive = true } }
 }
+
+private fun NavHostController.isOnLockedRoute(): Boolean = currentDestination?.route in LOCKED_ROUTES
 
 /** Every destination in the app. Kept separate from [AtaraxyNavHost] so the graph can be tested. */
 internal fun NavGraphBuilder.ataraxyGraph(
