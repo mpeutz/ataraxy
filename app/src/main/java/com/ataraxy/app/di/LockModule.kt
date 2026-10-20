@@ -8,7 +8,7 @@ import com.ataraxy.app.lock.AppLock
 import com.ataraxy.app.lock.BiometricDeviceAuthenticator
 import com.ataraxy.app.lock.DeviceAuthenticator
 import com.ataraxy.app.lock.LockPrefs
-import dagger.Binds
+import com.ataraxy.app.lock.SingleFlightAuthenticator
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,10 +25,12 @@ private val Context.lockPrefsDataStore: DataStore<Preferences> by preferencesDat
 @InstallIn(SingletonComponent::class)
 abstract class LockModule {
 
-    @Binds
-    abstract fun bindDeviceAuthenticator(impl: BiometricDeviceAuthenticator): DeviceAuthenticator
-
     companion object {
+        @Provides
+        @Singleton
+        fun provideDeviceAuthenticator(impl: BiometricDeviceAuthenticator): DeviceAuthenticator =
+            SingleFlightAuthenticator(impl)
+
         @Provides
         @Singleton
         @LockPrefs

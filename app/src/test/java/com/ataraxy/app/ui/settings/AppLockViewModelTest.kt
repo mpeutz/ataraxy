@@ -6,6 +6,11 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.fragment.app.FragmentActivity
 import com.ataraxy.app.lock.AppLock
 import com.ataraxy.app.lock.FakeDeviceAuthenticator
+import com.ataraxy.app.lock.SingleFlightAuthenticator
+import com.ataraxy.app.lock.DeviceAuthenticator
+import kotlinx.coroutines.CompletableDeferred
+import kotlinx.coroutines.CoroutineStart
+import kotlinx.coroutines.async
 import com.ataraxy.app.testing.awaitMain
 import com.ataraxy.app.testing.settleMain
 import kotlinx.coroutines.CoroutineScope
@@ -95,6 +100,27 @@ class AppLockViewModelTest {
         assertFalse(viewModel.state.value.available)
         assertTrue(authenticator.titles.isEmpty())
         assertFalse(viewModel.state.value.enabled)
+    }
+
+    @Test
+    fun concurrentToggles_oneSuccess_endsOn() = runBlocking {
+        val gate = CompletableDeferred<Boolean>()
+        val gated = object : DeviceAuthenticator {
+            override fun isDeviceSecure() = true
+            override suspend fun authenticate(activity: FragmentActivity, title: String) = gate.await()
+        }
+        val single = SingleFlightAuthenticator(gated)
+        val viewModel = AppLockViewModel(AppLock(tempDataStore(), single, Clock.systemUTC()), single)
+
+        val first = async(start = CoroutineStart.UNDISPATCHED) { viewModel.toggle(activity, "Confirm") }
+        val second = async(start = CoroutineStart.UNDISPATCHED) { viewModel.toggle(activity, "Confirm") }
+        gate.complete(true)
+        first.await()
+        second.await()
+        awaitMain { viewModel.state.value.enabled }
+        settleMain()
+
+        assertTrue(viewModel.state.value.enabled)
     }
 
     private fun tempDataStore(): DataStore<Preferences> {
