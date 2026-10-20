@@ -16,9 +16,11 @@ import com.ataraxy.app.data.backup.BackupSettingsRepository
 import com.ataraxy.app.data.backup.RestoreBackup
 import com.ataraxy.app.data.backup.RestoreException
 import com.ataraxy.app.data.backup.RestoreProblem
+import com.ataraxy.app.lock.AppLock
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -64,7 +66,8 @@ class BackupViewModel @Inject constructor(
     private val backupRepository: BackupRepository,
     private val restoreBackup: RestoreBackup,
     private val appVersion: AppVersion,
-    private val clock: Clock
+    private val clock: Clock,
+    private val appLock: AppLock
 ) : ViewModel() {
 
     val state: StateFlow<BackupUiState> = settingsRepository.settings
@@ -77,6 +80,8 @@ class BackupViewModel @Inject constructor(
 
     private val _pendingRestore = MutableStateFlow<PendingRestore?>(null)
     val pendingRestore: StateFlow<PendingRestore?> = _pendingRestore
+
+    private var previewJob: Job? = null
 
     private val _offerKeepUpdating = MutableStateFlow<String?>(null)
     val offerKeepUpdating: StateFlow<String?> = _offerKeepUpdating
@@ -112,20 +117,28 @@ class BackupViewModel @Inject constructor(
 
     /** Opens the restore flow for the file automatic backup is pointed at. */
     fun previewRestoreOfBackupFile() {
-        viewModelScope.launch {
-            val target = settingsRepository.settings.first().targetUri ?: return@launch
-            preview(target)
-        }
+        startPreview { settingsRepository.settings.first().targetUri }
     }
 
     fun previewRestore(uri: String) {
-        viewModelScope.launch { preview(uri) }
+        startPreview { uri }
     }
 
-    private suspend fun preview(uri: String) {
+    /** A preview that outlives a relock is dropped, so the confirmation never shows without a fresh unlock. */
+    private fun startPreview(target: suspend () -> String?) {
+        previewJob?.cancel()
+        val relocksAtStart = appLock.relocks.value
+        previewJob = viewModelScope.launch {
+            val uri = target() ?: return@launch
+            preview(uri, relocksAtStart)
+        }
+    }
+
+    private suspend fun preview(uri: String, relocksAtStart: Int) {
         restoreBackup.preview(uri).fold(
             onSuccess = {
                 val updates = settingsRepository.settings.first().updatesAfterRestoring(uri)
+                if (appLock.relocks.value != relocksAtStart) return
                 _pendingRestore.value = PendingRestore(uri, it, updatesAutomaticBackup = updates)
             },
             onFailure = { fail(it) }
@@ -161,6 +174,7 @@ class BackupViewModel @Inject constructor(
     }
 
     fun cancelRestore() {
+        previewJob?.cancel()
         _pendingRestore.value = null
     }
 
