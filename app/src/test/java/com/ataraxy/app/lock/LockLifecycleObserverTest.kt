@@ -18,23 +18,19 @@ import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import java.io.File
 import java.nio.file.Files
-import java.time.Clock
 import java.time.Duration
-import java.time.Instant
-import java.time.ZoneId
-import java.time.ZoneOffset
 
 @RunWith(RobolectricTestRunner::class)
 class LockLifecycleObserverTest {
 
-    private val clock = TestClock()
+    private val ticker = FakeElapsedRealtime()
     private var changingConfigurations = false
     private lateinit var appLock: AppLock
     private lateinit var registry: LifecycleRegistry
 
     @Before
     fun setUp() = runBlocking {
-        appLock = AppLock(tempDataStore(), FakeDeviceAuthenticator(), clock)
+        appLock = AppLock(tempDataStore(), FakeDeviceAuthenticator(), ticker)
         appLock.setEnabled(true)
         val owner = object : LifecycleOwner {
             override val lifecycle: Lifecycle get() = registry
@@ -48,7 +44,7 @@ class LockLifecycleObserverTest {
     fun configurationChange_doesNotRelock() {
         changingConfigurations = true
         registry.currentState = Lifecycle.State.CREATED
-        clock.advance(Duration.ofSeconds(120))
+        ticker.advance(Duration.ofSeconds(120))
         registry.currentState = Lifecycle.State.RESUMED
 
         assertTrue(appLock.isUnlocked.value)
@@ -57,7 +53,7 @@ class LockLifecycleObserverTest {
     @Test
     fun realBackground_relocksAfter60s() {
         registry.currentState = Lifecycle.State.CREATED
-        clock.advance(Duration.ofSeconds(61))
+        ticker.advance(Duration.ofSeconds(61))
         registry.currentState = Lifecycle.State.RESUMED
 
         assertFalse(appLock.isUnlocked.value)
@@ -69,17 +65,5 @@ class LockLifecycleObserverTest {
             scope = CoroutineScope(Dispatchers.IO + SupervisorJob()),
             produceFile = { File(dir, "lock_prefs.preferences_pb") }
         )
-    }
-
-    private class TestClock : Clock() {
-        private var now: Instant = Instant.parse("2026-10-20T09:00:00Z")
-
-        fun advance(by: Duration) {
-            now = now.plus(by)
-        }
-
-        override fun getZone(): ZoneId = ZoneOffset.UTC
-        override fun withZone(zone: ZoneId): Clock = this
-        override fun instant(): Instant = now
     }
 }

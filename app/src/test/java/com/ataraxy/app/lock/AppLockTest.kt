@@ -22,9 +22,6 @@ import java.io.File
 import java.nio.file.Files
 import java.time.Clock
 import java.time.Duration
-import java.time.Instant
-import java.time.ZoneId
-import java.time.ZoneOffset
 
 @RunWith(RobolectricTestRunner::class)
 class AppLockTest {
@@ -32,7 +29,7 @@ class AppLockTest {
     private lateinit var db: AtaraxyDatabase
     private lateinit var lockStore: DataStore<Preferences>
     private val authenticator = FakeDeviceAuthenticator()
-    private val clock = TestClock()
+    private val ticker = FakeElapsedRealtime()
 
     @Before
     fun setUp() {
@@ -43,7 +40,7 @@ class AppLockTest {
     @After
     fun tearDown() = db.close()
 
-    private fun newLock() = AppLock(lockStore, authenticator, clock)
+    private fun newLock() = AppLock(lockStore, authenticator, ticker)
 
     @Test
     fun offByDefault_andAlwaysUnlocked() {
@@ -71,7 +68,7 @@ class AppLockTest {
         val lock = newLock().also { it.setEnabled(true) }
 
         lock.onBackgrounded()
-        clock.advance(Duration.ofSeconds(59))
+        ticker.advance(Duration.ofSeconds(59))
         lock.onForegrounded()
 
         assertTrue(lock.isUnlocked.value)
@@ -82,7 +79,7 @@ class AppLockTest {
         val lock = newLock().also { it.setEnabled(true) }
 
         lock.onBackgrounded()
-        clock.advance(Duration.ofSeconds(60))
+        ticker.advance(Duration.ofSeconds(60))
         lock.onForegrounded()
 
         assertFalse(lock.isUnlocked.value)
@@ -91,10 +88,23 @@ class AppLockTest {
     }
 
     @Test
+    fun relockTimer_ignoresTheWallClock() = runBlocking {
+        val usesWallClock = AppLock::class.java.constructors.any { Clock::class.java in it.parameterTypes }
+        val lock = newLock().also { it.setEnabled(true) }
+
+        lock.onBackgrounded()
+        ticker.advance(Duration.ofSeconds(60))
+        lock.onForegrounded()
+
+        assertFalse(usesWallClock)
+        assertFalse(lock.isUnlocked.value)
+    }
+
+    @Test
     fun turnOff_isAlwaysUnlocked() = runBlocking {
         val lock = newLock().also { it.setEnabled(true) }
         lock.onBackgrounded()
-        clock.advance(Duration.ofMinutes(5))
+        ticker.advance(Duration.ofMinutes(5))
         lock.onForegrounded()
 
         lock.setEnabled(false)
@@ -139,7 +149,7 @@ class AppLockTest {
             produceFile = { file }
         )
 
-        val lock = AppLock(store, authenticator, clock)
+        val lock = AppLock(store, authenticator, ticker)
 
         assertTrue(lock.enabled.value)
         assertFalse(lock.isUnlocked.value)
@@ -151,17 +161,5 @@ class AppLockTest {
             scope = CoroutineScope(Dispatchers.IO + SupervisorJob()),
             produceFile = { File(dir, fileName) }
         )
-    }
-
-    private class TestClock : Clock() {
-        private var now: Instant = Instant.parse("2026-10-20T09:00:00Z")
-
-        fun advance(by: Duration) {
-            now = now.plus(by)
-        }
-
-        override fun getZone(): ZoneId = ZoneOffset.UTC
-        override fun withZone(zone: ZoneId): Clock = this
-        override fun instant(): Instant = now
     }
 }

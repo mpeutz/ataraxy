@@ -11,9 +11,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
-import java.time.Clock
 import java.time.Duration
-import java.time.Instant
 import javax.inject.Inject
 import javax.inject.Qualifier
 import javax.inject.Singleton
@@ -26,10 +24,10 @@ annotation class LockPrefs
 class AppLock @Inject constructor(
     @LockPrefs private val dataStore: DataStore<Preferences>,
     private val authenticator: DeviceAuthenticator,
-    private val clock: Clock
+    private val elapsedRealtime: ElapsedRealtime
 ) {
     @Volatile private var storedFlag = runBlocking { dataStore.data.first()[ENABLED_KEY] ?: false }
-    @Volatile private var backgroundedAt: Instant? = null
+    @Volatile private var backgroundedAt: Long? = null
 
     private val _enabled = MutableStateFlow(storedFlag && authenticator.isDeviceSecure())
     val enabled: StateFlow<Boolean> = _enabled.asStateFlow()
@@ -51,7 +49,7 @@ class AppLock @Inject constructor(
     }
 
     fun onBackgrounded() {
-        backgroundedAt = clock.instant()
+        backgroundedAt = elapsedRealtime.millis()
     }
 
     fun onForegrounded() {
@@ -62,7 +60,7 @@ class AppLock @Inject constructor(
             _isUnlocked.value = true
             return
         }
-        if (since != null && Duration.between(since, clock.instant()) >= RELOCK_AFTER) {
+        if (since != null && elapsedRealtime.millis() - since >= RELOCK_AFTER.toMillis()) {
             _isUnlocked.value = false
         }
     }

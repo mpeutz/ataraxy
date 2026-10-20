@@ -6,6 +6,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.fragment.app.FragmentActivity
 import com.ataraxy.app.lock.AppLock
 import com.ataraxy.app.lock.FakeDeviceAuthenticator
+import com.ataraxy.app.lock.FakeElapsedRealtime
 import com.ataraxy.app.lock.SingleFlightAuthenticator
 import com.ataraxy.app.lock.DeviceAuthenticator
 import kotlinx.coroutines.CompletableDeferred
@@ -26,7 +27,6 @@ import org.robolectric.Robolectric
 import org.robolectric.RobolectricTestRunner
 import java.io.File
 import java.nio.file.Files
-import java.time.Clock
 
 @RunWith(RobolectricTestRunner::class)
 class AppLockViewModelTest {
@@ -35,7 +35,7 @@ class AppLockViewModelTest {
     private val activity: FragmentActivity = Robolectric.buildActivity(FragmentActivity::class.java).get()
 
     private fun newViewModel(): AppLockViewModel {
-        val appLock = AppLock(tempDataStore(), authenticator, Clock.systemUTC())
+        val appLock = AppLock(tempDataStore(), authenticator, FakeElapsedRealtime())
         return AppLockViewModel(appLock, authenticator)
     }
 
@@ -110,7 +110,7 @@ class AppLockViewModelTest {
             override suspend fun authenticate(activity: FragmentActivity, title: String) = gate.await()
         }
         val single = SingleFlightAuthenticator(gated)
-        val viewModel = AppLockViewModel(AppLock(tempDataStore(), single, Clock.systemUTC()), single)
+        val viewModel = AppLockViewModel(AppLock(tempDataStore(), single, FakeElapsedRealtime()), single)
 
         val first = async(start = CoroutineStart.UNDISPATCHED) { viewModel.toggle(activity, "Confirm") }
         val second = async(start = CoroutineStart.UNDISPATCHED) { viewModel.toggle(activity, "Confirm") }
