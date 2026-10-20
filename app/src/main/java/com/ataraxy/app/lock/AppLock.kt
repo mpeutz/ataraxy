@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.runBlocking
 import java.time.Duration
 import javax.inject.Inject
@@ -34,6 +35,11 @@ class AppLock @Inject constructor(
 
     private val _isUnlocked = MutableStateFlow(!_enabled.value)
     val isUnlocked: StateFlow<Boolean> = _isUnlocked.asStateFlow()
+
+    private val _relocks = MutableStateFlow(0)
+
+    /** Counts relocks, including ones while already locked, so open confirmations can be dropped each time. */
+    val relocks: StateFlow<Int> = _relocks.asStateFlow()
 
     fun isAvailable(): Boolean = authenticator.isDeviceSecure()
 
@@ -62,6 +68,7 @@ class AppLock @Inject constructor(
         }
         if (since != null && elapsedRealtime.millis() - since >= RELOCK_AFTER.toMillis()) {
             _isUnlocked.value = false
+            _relocks.update { it + 1 }
         }
     }
 

@@ -2,6 +2,7 @@ package com.ataraxy.app.ui.lock
 
 import androidx.activity.compose.LocalActivity
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -38,5 +39,25 @@ fun rememberLockGuard(): (action: () -> Unit) -> Unit {
                 }
             }
         }
+    }
+}
+
+/**
+ * Calls [onRelock] whenever App Lock locks again, and on first composition while locked (a restored
+ * screen), so a confirmation opened behind an earlier unlock can't outlive it.
+ */
+@Composable
+fun DismissOnRelock(onRelock: () -> Unit) {
+    val lock: LockViewModel = hiltViewModel()
+    val isUnlocked by lock.appLock.isUnlocked.collectAsState()
+    val relocks by lock.appLock.relocks.collectAsState()
+    RelockEffect(isUnlocked, relocks, onRelock)
+}
+
+@Composable
+internal fun RelockEffect(isUnlocked: Boolean, relocks: Int, onRelock: () -> Unit) {
+    val current by rememberUpdatedState(onRelock)
+    LaunchedEffect(isUnlocked, relocks) {
+        if (!isUnlocked) current()
     }
 }

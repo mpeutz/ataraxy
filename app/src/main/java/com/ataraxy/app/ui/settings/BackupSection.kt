@@ -17,6 +17,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ataraxy.app.R
 import com.ataraxy.app.data.backup.BackupFailure
 import com.ataraxy.app.ui.components.AtaraxyDivider
+import com.ataraxy.app.ui.lock.DismissOnRelock
 import com.ataraxy.app.ui.lock.rememberLockGuard
 import java.time.Instant
 import java.time.ZoneId
@@ -38,6 +39,11 @@ fun BackupSection(
     val resources = LocalResources.current
     val guard = rememberLockGuard()
     var showReplaceConfirm by rememberSaveable { mutableStateOf(false) }
+
+    DismissOnRelock {
+        showReplaceConfirm = false
+        viewModel.cancelRestore()
+    }
 
     LaunchedEffect(viewModel) {
         viewModel.events.collect { event ->

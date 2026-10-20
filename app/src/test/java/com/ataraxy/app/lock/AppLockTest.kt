@@ -12,6 +12,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.runBlocking
 import org.junit.After
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Before
@@ -98,6 +99,22 @@ class AppLockTest {
 
         assertFalse(usesWallClock)
         assertFalse(lock.isUnlocked.value)
+    }
+
+    @Test
+    fun relockWhileAlreadyLocked_stillCountsAsRelock() {
+        runBlocking { newLock().setEnabled(true) }
+        val coldStart = newLock()
+
+        coldStart.onBackgrounded()
+        ticker.advance(Duration.ofSeconds(60))
+        coldStart.onForegrounded()
+        coldStart.onBackgrounded()
+        ticker.advance(Duration.ofSeconds(59))
+        coldStart.onForegrounded()
+
+        assertFalse(coldStart.isUnlocked.value)
+        assertEquals(1, coldStart.relocks.value)
     }
 
     @Test

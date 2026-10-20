@@ -25,6 +25,7 @@ import com.ataraxy.app.domain.model.ContentTextSize
 import com.ataraxy.app.domain.model.NotificationStyle
 import com.ataraxy.app.ui.components.AtaraxyDivider
 import com.ataraxy.app.ui.components.SegmentedToggle
+import com.ataraxy.app.ui.lock.DismissOnRelock
 import com.ataraxy.app.ui.lock.rememberLockGuard
 import com.ataraxy.app.ui.theme.AtaraxyText
 
@@ -47,6 +48,11 @@ fun SettingsScreen(
 
     val journalClearedMessage = stringResource(R.string.settings_journal_cleared)
     val allDataClearedMessage = stringResource(R.string.settings_all_data_cleared)
+
+    DismissOnRelock {
+        showClearConfirm = false
+        showDeactivateConfirm = false
+    }
 
     LaunchedEffect(Unit) {
         viewModel.exportResults.collect { result ->
