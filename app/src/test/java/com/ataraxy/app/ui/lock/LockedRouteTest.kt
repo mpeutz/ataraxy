@@ -7,11 +7,16 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.test.junit4.v2.createComposeRule
+import androidx.activity.ComponentActivity
+import androidx.compose.ui.test.junit4.v2.createAndroidComposeRule
 import androidx.compose.ui.test.onNodeWithTag
 import com.ataraxy.app.ui.navigation.LOCKED_ROUTES
 import com.ataraxy.app.ui.navigation.Screen
+import android.view.WindowManager
+import kotlinx.coroutines.CompletableDeferred
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -21,7 +26,7 @@ import org.robolectric.RobolectricTestRunner
 class LockedRouteTest {
 
     @get:Rule
-    val composeRule = createComposeRule()
+    val composeRule = createAndroidComposeRule<ComponentActivity>()
 
     private var requests = 0
     private var unlockedCalls = 0
@@ -83,6 +88,55 @@ class LockedRouteTest {
 
         composeRule.onNodeWithTag(CONTENT).assertExists()
         assertEquals(0, requests)
+    }
+
+    @Test
+    fun pendingPrompt_hidesContentUntilItCompletesWithTrue() {
+        val prompt = CompletableDeferred<Boolean>()
+        composeRule.setContent {
+            var unlocked by remember { mutableStateOf(false) }
+            LockedRoute(
+                isUnlocked = unlocked,
+                onUnlockRequest = { prompt.await() },
+                onUnlocked = { unlocked = true },
+                onCancel = { cancelCalls++ }
+            ) {
+                Box(Modifier.testTag(CONTENT))
+            }
+        }
+        composeRule.waitForIdle()
+        composeRule.onNodeWithTag(CONTENT).assertDoesNotExist()
+
+        prompt.complete(true)
+        composeRule.waitForIdle()
+
+        composeRule.onNodeWithTag(CONTENT).assertExists()
+        assertEquals(0, cancelCalls)
+    }
+
+    @Test
+    fun secureFlag_staysWhileAnotherLockedRouteIsComposed() {
+        var first by mutableStateOf(true)
+        var second by mutableStateOf(true)
+        composeRule.setContent {
+            if (first) LockedRoute(true, { true }, {}, {}) { Box(Modifier.testTag("a")) }
+            if (second) LockedRoute(true, { true }, {}, {}) { Box(Modifier.testTag("b")) }
+        }
+        composeRule.waitForIdle()
+        assertTrue(isSecure())
+
+        first = false
+        composeRule.waitForIdle()
+        assertTrue(isSecure())
+
+        second = false
+        composeRule.waitForIdle()
+        assertFalse(isSecure())
+    }
+
+    private fun isSecure(): Boolean {
+        val flags = composeRule.activity.window.attributes.flags
+        return flags and WindowManager.LayoutParams.FLAG_SECURE != 0
     }
 
     @Test
