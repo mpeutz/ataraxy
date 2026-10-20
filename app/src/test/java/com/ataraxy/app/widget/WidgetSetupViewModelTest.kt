@@ -6,7 +6,10 @@ import androidx.datastore.core.DataStore
 import com.ataraxy.app.data.local.AtaraxyDatabase
 import com.ataraxy.app.data.local.inMemoryDatabase
 import com.ataraxy.app.data.repository.QuoteRepository
+import android.appwidget.AppWidgetProviderInfo
+import android.content.ComponentName
 import com.ataraxy.app.testing.awaitMain
+import com.ataraxy.app.testing.settleMain
 import com.ataraxy.app.testing.testUserPrefs
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -63,14 +66,51 @@ class WidgetSetupViewModelTest {
         assertFalse(WidgetStyle.ACCENT in availableStyles(30))
     }
 
-    @Test fun select_thenSave_storesStyleForThatWidget() = runBlocking {
+    @Test fun select_thenSave_storesStyleForThatWidget() {
         val viewModel = viewModel()
+        viewModel.load(4)
+        awaitMain { viewModel.loaded.value }
         viewModel.select(WidgetStyle.CLEAR)
         viewModel.save(4)
+        awaitMain { viewModel.saved.value }
 
-        assertEquals(WidgetStyle.CLEAR, store.get(4))
-        assertEquals(WidgetStyle.MATCH_APP, store.get(5))
+        runBlocking {
+            assertEquals(WidgetStyle.CLEAR, store.get(4))
+            assertEquals(WidgetStyle.MATCH_APP, store.get(5))
+        }
         assertEquals(1, updates)
+    }
+
+    @Test fun concurrentSaves_storeAndUpdateOnce() {
+        val viewModel = viewModel()
+        viewModel.load(4)
+        awaitMain { viewModel.loaded.value }
+        viewModel.select(WidgetStyle.DARK)
+        viewModel.save(4)
+        viewModel.save(4)
+        awaitMain { viewModel.saved.value }
+        settleMain()
+
+        assertEquals(1, updates)
+        assertTrue(viewModel.saving.value)
+    }
+
+    @Test fun selectingBeforeLoad_isIgnored() {
+        val viewModel = viewModel()
+        viewModel.select(WidgetStyle.CLEAR)
+
+        assertEquals(WidgetStyle.MATCH_APP, viewModel.selected.value)
+    }
+
+    @Test fun isOurWidget_acceptsOnlyOurProvider() {
+        val ours = AppWidgetProviderInfo().apply {
+            provider = ComponentName("com.ataraxy.app", QuoteWidgetProvider::class.java.name)
+        }
+        val other = AppWidgetProviderInfo().apply { provider = ComponentName("com.other", "com.other.Provider") }
+
+        assertFalse(isOurWidget(null, QuoteWidgetProvider::class.java))
+        assertFalse(isOurWidget(other, QuoteWidgetProvider::class.java))
+        assertTrue(isOurWidget(ours, QuoteWidgetProvider::class.java))
     }
 
     @Test fun reopening_showsTheStoredStyle() {

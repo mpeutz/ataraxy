@@ -24,9 +24,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
@@ -42,6 +39,7 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
@@ -63,7 +61,7 @@ fun WidgetSetupScreen(viewModel: WidgetSetupViewModel, onSave: () -> Unit) {
     val loaded by viewModel.loaded.collectAsState()
     val quote by viewModel.quote.collectAsState()
     val prefs by viewModel.userPrefs.collectAsState()
-    var saving by remember { mutableStateOf(false) }
+    val saving by viewModel.saving.collectAsState()
 
     val look = resolveLook(selected, prefs?.theme ?: AppTheme.SYSTEM, isSystemInDarkTheme())
     val quoteText = quote?.text ?: stringResource(R.string.widget_empty)
@@ -86,14 +84,11 @@ fun WidgetSetupScreen(viewModel: WidgetSetupViewModel, onSave: () -> Unit) {
         WidgetPreview(look, quoteText, author)
         Column(Modifier.selectableGroup()) {
             viewModel.styles.forEach { style ->
-                StyleOption(style, style == selected) { viewModel.select(style) }
+                StyleOption(style, style == selected, loaded) { viewModel.select(style) }
             }
         }
         Button(
-            onClick = {
-                saving = true
-                onSave()
-            },
+            onClick = onSave,
             enabled = loaded && !saving,
             modifier = Modifier.fillMaxWidth(),
             colors = ButtonDefaults.buttonColors(
@@ -109,11 +104,11 @@ fun WidgetSetupScreen(viewModel: WidgetSetupViewModel, onSave: () -> Unit) {
 }
 
 @Composable
-private fun StyleOption(style: WidgetStyle, isSelected: Boolean, onSelect: () -> Unit) {
+private fun StyleOption(style: WidgetStyle, isSelected: Boolean, enabled: Boolean, onSelect: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .selectable(selected = isSelected, onClick = onSelect, role = Role.RadioButton)
+            .selectable(selected = isSelected, enabled = enabled, onClick = onSelect, role = Role.RadioButton)
             .padding(vertical = 4.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -149,6 +144,8 @@ private fun WidgetPreview(look: WidgetLook, quoteText: String, author: String) {
         shadow = shadow
     )
     val authorStyle = AtaraxyText.meta.copy(
+        fontFamily = FontFamily.SansSerif,
+        fontWeight = FontWeight.Medium,
         fontSize = WidgetType.AUTHOR_SP.sp,
         letterSpacing = 0.2.em,
         color = colorResource(look.authorColor),
