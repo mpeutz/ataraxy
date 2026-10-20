@@ -23,8 +23,10 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.core.util.Consumer
+import androidx.fragment.app.FragmentActivity
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavGraphBuilder
@@ -36,10 +38,13 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import androidx.navigation.navDeepLink
+import com.ataraxy.app.R
 import com.ataraxy.app.ui.archive.ArchiveScreen
 import com.ataraxy.app.ui.author.AuthorDetailScreen
 import com.ataraxy.app.ui.home.HomeScreen
 import com.ataraxy.app.ui.insight.InsightScreen
+import com.ataraxy.app.ui.lock.LockViewModel
+import com.ataraxy.app.ui.lock.LockedRoute
 import com.ataraxy.app.ui.onboarding.OnboardingScreen
 import com.ataraxy.app.ui.practice.PracticeScreen
 import com.ataraxy.app.ui.practices.bookend.BookendRitualScreen
@@ -56,6 +61,15 @@ import com.ataraxy.app.ui.settings.SettingsScreen
 import com.ataraxy.app.ui.virtue.VirtueDetailScreen
 
 private val MaxContentWidth = 720.dp
+
+/** Screens that show past writing; each asks for the unlock while App Lock is on. */
+internal val LOCKED_ROUTES = setOf(
+    Screen.JournalHistory.route,
+    Screen.PracticeEdit.ROUTE,
+    Screen.WhatsYours.route,
+    Screen.ReflectionFlow.ROUTE,
+    Screen.ReflectionDetail.ROUTE
+)
 
 @Composable
 fun AtaraxyNavHost() {
@@ -157,6 +171,29 @@ internal fun isShowing(entry: NavBackStackEntry?, uri: Uri): Boolean {
     val args = entry.arguments ?: return uri.pathSegments.isEmpty()
     val argValues = args.keySet().mapNotNull { args.getString(it) }.toSet()
     return uri.pathSegments.all { it in argValues }
+}
+
+@Composable
+private fun LockGate(navController: NavHostController, content: @Composable () -> Unit) {
+    val lock: LockViewModel = hiltViewModel()
+    val activity = LocalActivity.current as? FragmentActivity
+    val title = stringResource(R.string.lock_prompt_title)
+    val isUnlocked by lock.appLock.isUnlocked.collectAsState()
+    LockedRoute(
+        isUnlocked = isUnlocked,
+        onUnlockRequest = { activity != null && lock.authenticator.authenticate(activity, title) },
+        onUnlocked = lock.appLock::markUnlocked,
+        onCancel = { navController.leaveLockedRoute() },
+        content = content
+    )
+}
+
+private fun NavHostController.leaveLockedRoute() {
+    if (previousBackStackEntry != null) {
+        popBackStack()
+        return
+    }
+    navigate(Screen.Home.route) { popUpTo(0) }
 }
 
 /** Every destination in the app. Kept separate from [AtaraxyNavHost] so the graph can be tested. */
@@ -277,22 +314,26 @@ internal fun NavGraphBuilder.ataraxyGraph(
     }
 
     composable(Screen.JournalHistory.route) {
-        JournalHistoryScreen(
-            onBack = { navController.popBackStack() },
-            onEditEntry = { entry ->
-                navController.navigate("practice/edit/${entry.id}")
-            }
-        )
+        LockGate(navController) {
+            JournalHistoryScreen(
+                onBack = { navController.popBackStack() },
+                onEditEntry = { entry ->
+                    navController.navigate("practice/edit/${entry.id}")
+                }
+            )
+        }
     }
 
     composable(
         route = Screen.PracticeEdit.ROUTE,
         arguments = listOf(navArgument("entryId") { type = NavType.LongType })
     ) {
-        PracticeScreen(
-            onBack = { navController.popBackStack() },
-            onNavigateToInsight = { quoteId -> navController.navigate("insight/$quoteId") }
-        )
+        LockGate(navController) {
+            PracticeScreen(
+                onBack = { navController.popBackStack() },
+                onNavigateToInsight = { quoteId -> navController.navigate("insight/$quoteId") }
+            )
+        }
     }
 
     composable(
@@ -303,36 +344,42 @@ internal fun NavGraphBuilder.ataraxyGraph(
     }
 
     composable(Screen.WhatsYours.route) {
-        WhatsYoursScreen(
-            onBack = { navController.popBackStack() },
-            onBegin = { id -> navController.navigate(Screen.ReflectionFlow(id).route) },
-            onOpenReflection = { reflection ->
-                val target = if (reflection.completedAt == null) Screen.ReflectionFlow(reflection.id)
-                else Screen.ReflectionDetail(reflection.id)
-                navController.navigate(target.route)
-            }
-        )
+        LockGate(navController) {
+            WhatsYoursScreen(
+                onBack = { navController.popBackStack() },
+                onBegin = { id -> navController.navigate(Screen.ReflectionFlow(id).route) },
+                onOpenReflection = { reflection ->
+                    val target = if (reflection.completedAt == null) Screen.ReflectionFlow(reflection.id)
+                    else Screen.ReflectionDetail(reflection.id)
+                    navController.navigate(target.route)
+                }
+            )
+        }
     }
 
     composable(
         route = Screen.ReflectionFlow.ROUTE,
         arguments = listOf(navArgument("reflectionId") { type = NavType.LongType })
     ) {
-        ReflectionFlowScreen(
-            onClose = { navController.popBackStack() },
-            onFinished = { id ->
-                navController.navigate(Screen.ReflectionDetail(id).route) {
-                    popUpTo(Screen.ReflectionFlow.ROUTE) { inclusive = true }
+        LockGate(navController) {
+            ReflectionFlowScreen(
+                onClose = { navController.popBackStack() },
+                onFinished = { id ->
+                    navController.navigate(Screen.ReflectionDetail(id).route) {
+                        popUpTo(Screen.ReflectionFlow.ROUTE) { inclusive = true }
+                    }
                 }
-            }
-        )
+            )
+        }
     }
 
     composable(
         route = Screen.ReflectionDetail.ROUTE,
         arguments = listOf(navArgument("reflectionId") { type = NavType.LongType })
     ) {
-        ReflectionDetailScreen(onBack = { navController.popBackStack() })
+        LockGate(navController) {
+            ReflectionDetailScreen(onBack = { navController.popBackStack() })
+        }
     }
 
     composable(Screen.SosQuotes.route) {

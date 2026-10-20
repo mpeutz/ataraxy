@@ -7,6 +7,7 @@ import androidx.biometric.BiometricManager.Authenticators.DEVICE_CREDENTIAL
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.Lifecycle
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.suspendCancellableCoroutine
@@ -23,6 +24,7 @@ class BiometricDeviceAuthenticator @Inject constructor(
 
     override suspend fun authenticate(activity: FragmentActivity, title: String): Boolean =
         withContext(Dispatchers.Main.immediate) {
+            if (!activity.canHostPrompt()) return@withContext false
             suspendCancellableCoroutine { continuation ->
                 val callback = object : BiometricPrompt.AuthenticationCallback() {
                     override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
@@ -39,8 +41,11 @@ class BiometricDeviceAuthenticator @Inject constructor(
                     .setTitle(title)
                     .setAllowedAuthenticators(BIOMETRIC_WEAK or DEVICE_CREDENTIAL)
                     .build()
-                continuation.invokeOnCancellation { prompt.cancelAuthentication() }
+                continuation.invokeOnCancellation { activity.runOnUiThread { prompt.cancelAuthentication() } }
                 prompt.authenticate(info)
             }
         }
 }
+
+private fun FragmentActivity.canHostPrompt(): Boolean =
+    !isFinishing && !isDestroyed && lifecycle.currentState.isAtLeast(Lifecycle.State.CREATED)
