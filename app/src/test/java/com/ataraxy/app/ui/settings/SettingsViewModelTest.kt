@@ -56,6 +56,7 @@ class SettingsViewModelTest {
     private lateinit var appLock: AppLock
     private lateinit var viewModel: SettingsViewModel
     private var journalEntriesWhenReleased: Int? = null
+    private var lockEnabledWhenPrefsFirstWritten: Boolean? = null
 
     @Before
     fun setUp() {
@@ -78,7 +79,7 @@ class SettingsViewModelTest {
         lockStore = tempDataStore("lock_prefs")
         appLock = AppLock(lockStore, FakeDeviceAuthenticator(), FakeElapsedRealtime())
         viewModel = SettingsViewModel(
-            UserPrefsRepository(tempDataStore("user_prefs")),
+            UserPrefsRepository(recordingLockOnWrite(tempDataStore("user_prefs"))),
             journal,
             NotificationScheduler(context),
             reflections,
@@ -119,6 +120,25 @@ class SettingsViewModelTest {
         awaitMain { !appLock.enabled.value }
 
         assertFalse(AppLock(lockStore, FakeDeviceAuthenticator(), FakeElapsedRealtime()).enabled.value)
+    }
+
+    @Test
+    fun deactivate_turnsOffAppLockBeforeClearingPrefs() {
+        runBlocking { appLock.setEnabled(true) }
+
+        viewModel.deactivate()
+        awaitMain { lockEnabledWhenPrefsFirstWritten != null }
+
+        assertEquals(false, lockEnabledWhenPrefsFirstWritten)
+    }
+
+    private fun recordingLockOnWrite(delegate: DataStore<Preferences>) = object : DataStore<Preferences> {
+        override val data = delegate.data
+
+        override suspend fun updateData(transform: suspend (t: Preferences) -> Preferences): Preferences {
+            if (lockEnabledWhenPrefsFirstWritten == null) lockEnabledWhenPrefsFirstWritten = appLock.enabled.value
+            return delegate.updateData(transform)
+        }
     }
 
     private fun entry() = JournalEntryEntity(

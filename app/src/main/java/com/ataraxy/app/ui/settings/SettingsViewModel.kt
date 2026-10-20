@@ -111,8 +111,8 @@ class SettingsViewModel @Inject constructor(
             reflectionRepository.deleteAll()
             sosRepository.deleteAll()
             notificationScheduler.cancelAll()
-            userPrefsRepository.clearAll()
             appLock.setEnabled(false)
+            userPrefsRepository.clearAll()
         }
     }
 
