@@ -70,7 +70,7 @@ class QuoteWidgetRenderer @Inject constructor(
         }
     }
 
-    override suspend fun updateAll() {
+    override suspend fun updateAll() = guardedUpdate {
         val manager = AppWidgetManager.getInstance(context)
         updateEach(
             ids = quoteWidgetIds(context),
@@ -115,4 +115,15 @@ internal suspend fun updateEach(
 /** Gives up quietly once a broadcast's ~10 s budget is nearly spent. */
 internal suspend fun withUpdateTimeout(timeoutMs: Long = UPDATE_TIMEOUT_MS, block: suspend () -> Unit) {
     withTimeoutOrNull(timeoutMs) { block() }
+}
+
+/** Bounds [block] and swallows its failures, so callers such as a ViewModel scope never see a throw. */
+internal suspend fun guardedUpdate(block: suspend () -> Unit) {
+    try {
+        withUpdateTimeout(block = block)
+    } catch (e: CancellationException) {
+        throw e
+    } catch (e: Exception) {
+        Log.w(LOG_TAG, "Could not update widgets", e)
+    }
 }

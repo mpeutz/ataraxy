@@ -1,5 +1,6 @@
 package com.ataraxy.app.widget
 
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import androidx.test.core.app.ApplicationProvider
@@ -25,6 +26,7 @@ import java.time.LocalDate
 import java.time.LocalTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
+import java.util.concurrent.atomic.AtomicInteger
 
 @RunWith(RobolectricTestRunner::class)
 class WidgetRefreshTest {
@@ -83,16 +85,46 @@ class WidgetRefreshTest {
 
     @Test
     fun timeZoneChange_rerendersAndReschedules() {
-        var updates = 0
-        val updater = WidgetUpdater { updates++ }
-        assertTrue(isClockChange(Intent.ACTION_TIMEZONE_CHANGED))
-        assertTrue(isClockChange(Intent.ACTION_TIME_CHANGED))
-        assertFalse(isClockChange(Intent.ACTION_BOOT_COMPLETED))
+        val updates = AtomicInteger()
 
-        runBlocking { refreshAndReschedule(updater, scheduler) }
+        receive(Intent(Intent.ACTION_TIMEZONE_CHANGED), updates)
 
-        assertEquals(1, updates)
-        assertEquals(1, pendingWork().size)
+        awaitCondition { updates.get() == 1 && pendingWork().size == 1 }
+    }
+
+    @Test
+    fun timeSet_rerendersAndReschedules() {
+        val updates = AtomicInteger()
+
+        receive(Intent(Intent.ACTION_TIME_CHANGED), updates)
+
+        awaitCondition { updates.get() == 1 && pendingWork().size == 1 }
+    }
+
+    @Test
+    fun unrelatedAction_doesNothing() {
+        val updates = AtomicInteger()
+
+        receive(Intent(Intent.ACTION_BOOT_COMPLETED), updates)
+        Thread.sleep(300)
+
+        assertEquals(0, updates.get())
+        assertTrue(pendingWork().isEmpty())
+    }
+
+    private fun receive(intent: Intent, updates: AtomicInteger) {
+        val receiver = object : BroadcastReceiver() {
+            override fun onReceive(context: Context, intent: Intent) = Unit
+        }
+        receiver.handleClockChange(intent, WidgetUpdater { updates.incrementAndGet() }, scheduler)
+    }
+
+    private fun awaitCondition(timeoutMs: Long = 5_000, condition: () -> Boolean) {
+        val deadline = System.currentTimeMillis() + timeoutMs
+        while (!condition()) {
+            check(System.currentTimeMillis() < deadline) { "Condition not met within ${timeoutMs}ms" }
+            Thread.sleep(10)
+        }
     }
 
     @Test

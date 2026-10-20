@@ -24,6 +24,7 @@ import com.ataraxy.app.data.repository.JournalRepository
 import com.ataraxy.app.data.repository.QuoteRepository
 import com.ataraxy.app.data.repository.ReflectionRepository
 import com.ataraxy.app.data.repository.SosRepository
+import com.ataraxy.app.domain.model.AppTheme
 import com.ataraxy.app.widget.WidgetUpdater
 import com.ataraxy.app.lock.AppLock
 import com.ataraxy.app.lock.FakeDeviceAuthenticator
@@ -58,6 +59,8 @@ class SettingsViewModelTest {
     private lateinit var viewModel: SettingsViewModel
     private var journalEntriesWhenReleased: Int? = null
     private var lockEnabledWhenPrefsFirstWritten: Boolean? = null
+    private lateinit var userPrefs: UserPrefsRepository
+    private var themeWhenWidgetsUpdated: AppTheme? = null
 
     @Before
     fun setUp() {
@@ -79,8 +82,9 @@ class SettingsViewModelTest {
         val reflections = ReflectionRepository(db.reflectionDao())
         lockStore = tempDataStore("lock_prefs")
         appLock = AppLock(lockStore, FakeDeviceAuthenticator(), FakeElapsedRealtime())
+        userPrefs = UserPrefsRepository(recordingLockOnWrite(tempDataStore("user_prefs")))
         viewModel = SettingsViewModel(
-            UserPrefsRepository(recordingLockOnWrite(tempDataStore("user_prefs"))),
+            userPrefs,
             journal,
             NotificationScheduler(context),
             reflections,
@@ -90,7 +94,7 @@ class SettingsViewModelTest {
             }),
             AutomaticBackupController(context, documents, settings, BackupLock()),
             appLock,
-            WidgetUpdater { }
+            WidgetUpdater { themeWhenWidgetsUpdated = userPrefs.userPrefs.first().theme }
         )
     }
 
@@ -132,6 +136,14 @@ class SettingsViewModelTest {
         awaitMain { lockEnabledWhenPrefsFirstWritten != null }
 
         assertEquals(false, lockEnabledWhenPrefsFirstWritten)
+    }
+
+    @Test
+    fun setTheme_updatesWidgetsAfterSaving() {
+        viewModel.setTheme(AppTheme.DARK)
+        awaitMain { themeWhenWidgetsUpdated != null }
+
+        assertEquals(AppTheme.DARK, themeWhenWidgetsUpdated)
     }
 
     private fun recordingLockOnWrite(delegate: DataStore<Preferences>) = object : DataStore<Preferences> {

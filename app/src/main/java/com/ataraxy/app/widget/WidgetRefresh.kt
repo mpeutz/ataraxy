@@ -87,9 +87,17 @@ class TimeChangeReceiver : BroadcastReceiver() {
     @Inject lateinit var scheduler: WidgetRefreshScheduler
 
     override fun onReceive(context: Context, intent: Intent) {
-        if (!isClockChange(intent.action)) return
-        launchBounded { refreshAndReschedule(updater, scheduler) }
+        handleClockChange(intent, updater, scheduler)
     }
+}
+
+internal fun BroadcastReceiver.handleClockChange(
+    intent: Intent,
+    updater: WidgetUpdater,
+    scheduler: WidgetRefreshScheduler
+) {
+    if (!isClockChange(intent.action)) return
+    launchBounded { refreshAndReschedule(updater, scheduler) }
 }
 
 /** Runs [block] off the main thread under the broadcast's time budget, then releases the broadcast. */

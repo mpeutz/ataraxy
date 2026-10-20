@@ -207,4 +207,19 @@ class QuoteWidgetRendererTest {
         const val APP_WIDGET_ID = 7
         const val HEIGHT_4X2 = 130
     }
+
+    @Test
+    fun updateAll_withNoWidgets_completes() = runBlocking {
+        renderer.updateAll()
+    }
+
+    @Test
+    fun guardedUpdate_swallowsFailures() = runBlocking {
+        guardedUpdate { error("id lookup failed") }
+    }
+
+    @Test(expected = CancellationException::class)
+    fun guardedUpdate_rethrowsCancellation(): Unit = runBlocking {
+        guardedUpdate { throw CancellationException("cancelled") }
+    }
 }
