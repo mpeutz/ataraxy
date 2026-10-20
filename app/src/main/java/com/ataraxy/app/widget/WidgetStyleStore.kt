@@ -20,6 +20,8 @@ class WidgetStyleStore @Inject constructor(
         return WidgetStyle.entries.firstOrNull { it.name == stored } ?: WidgetStyle.MATCH_APP
     }
 
+    suspend fun has(id: Int): Boolean = dataStore.data.first().contains(key(id))
+
     suspend fun set(id: Int, style: WidgetStyle) {
         dataStore.edit { it[key(id)] = style.name }
     }
