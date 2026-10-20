@@ -9,6 +9,11 @@ import java.io.ByteArrayInputStream
 class BoundedReadTest {
 
     @Test
+    fun backupReadCap_isTenMegabytes() {
+        assertEquals(10 * 1024 * 1024, MAX_BACKUP_BYTES)
+    }
+
+    @Test
     fun readCappedText_atLimit_returnsText() {
         val text = "é".repeat(8)
 

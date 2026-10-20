@@ -13,8 +13,8 @@ import java.io.FileNotFoundException
 import java.io.InputStream
 import javax.inject.Inject
 
-/** Far beyond any real journal; keeps a wrong file from exhausting memory. */
-const val MAX_BACKUP_BYTES = 50 * 1024 * 1024
+/** Far beyond any real journal; keeps a wrong file from exhausting memory while decoding. */
+const val MAX_BACKUP_BYTES = 10 * 1024 * 1024
 
 class BackupTooLargeException : Exception("Backup file is larger than $MAX_BACKUP_BYTES bytes")
 

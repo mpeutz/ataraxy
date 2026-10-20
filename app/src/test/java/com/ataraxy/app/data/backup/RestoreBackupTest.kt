@@ -130,6 +130,23 @@ class RestoreBackupTest {
     }
 
     @Test
+    fun restore_missingFile_reportsNoAccess() = runBlocking {
+        assertProblem(RestoreProblem.NO_ACCESS, restore.restore(uri))
+        assertProblem(RestoreProblem.NO_ACCESS, restore.preview(uri))
+    }
+
+    @Test
+    fun restore_deeplyNestedFile_isNotABackup() = runBlocking {
+        val before = seedLocal()
+        documents.files[uri] = "[".repeat(100_000)
+
+        assertProblem(RestoreProblem.NOT_A_BACKUP, restore.restore(uri))
+        assertProblem(RestoreProblem.NOT_A_BACKUP, restore.preview(uri))
+
+        assertEquals(before, repository.snapshot())
+    }
+
+    @Test
     fun restore_tooLargeFile_isNotABackup() = runBlocking {
         val before = seedLocal()
         documents.failReadWith = BackupTooLargeException()

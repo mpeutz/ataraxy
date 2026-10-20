@@ -87,6 +87,8 @@ class RestoreBackup @Inject constructor(
             throw e
         } catch (e: Exception) {
             failure(RestoreProblem.NOT_A_BACKUP)
+        } catch (e: StackOverflowError) {
+            failure(RestoreProblem.NOT_A_BACKUP)
         }
     }
 
