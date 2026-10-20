@@ -4,7 +4,9 @@ import com.ataraxy.app.data.preferences.UserPrefsRepository
 import com.ataraxy.app.domain.model.UserPrefs
 import com.ataraxy.app.notifications.NotificationScheduler
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.withContext
 import java.io.IOException
 import java.time.Instant
 import javax.inject.Inject
@@ -62,13 +64,15 @@ class RestoreBackup @Inject constructor(
             documents.read(uri)
         } catch (e: CancellationException) {
             throw e
+        } catch (e: BackupTooLargeException) {
+            return failure(RestoreProblem.NOT_A_BACKUP)
         } catch (e: SecurityException) {
             return failure(RestoreProblem.NO_ACCESS)
         } catch (e: IOException) {
             return failure(RestoreProblem.NO_ACCESS)
         }
         return try {
-            Result.success(BackupCodec.decode(text))
+            Result.success(withContext(Dispatchers.Default) { BackupCodec.decode(text) })
         } catch (e: BackupFormatException) {
             failure(
                 when (e.reason) {

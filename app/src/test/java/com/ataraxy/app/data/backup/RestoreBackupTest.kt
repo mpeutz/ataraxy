@@ -129,6 +129,17 @@ class RestoreBackupTest {
         assertProblem(RestoreProblem.NO_ACCESS, restore.preview(uri))
     }
 
+    @Test
+    fun restore_tooLargeFile_isNotABackup() = runBlocking {
+        val before = seedLocal()
+        documents.failReadWith = BackupTooLargeException()
+
+        assertProblem(RestoreProblem.NOT_A_BACKUP, restore.restore(uri))
+        assertProblem(RestoreProblem.NOT_A_BACKUP, restore.preview(uri))
+
+        assertEquals(before, repository.snapshot())
+    }
+
     private fun assertProblem(expected: RestoreProblem, result: Result<*>) {
         val error = result.exceptionOrNull() as? RestoreException
         assertEquals(expected, error?.problem)

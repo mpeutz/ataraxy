@@ -30,6 +30,7 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.time.Clock
 import java.time.Instant
 import java.time.LocalDate
@@ -90,7 +91,10 @@ class BackupViewModel @Inject constructor(
     fun backUpNow(uri: String) {
         viewModelScope.launch {
             try {
-                val text = BackupCodec.encode(backupRepository.snapshot(), clock.instant(), appVersion.code())
+                val snapshot = backupRepository.snapshot()
+                val text = withContext(Dispatchers.Default) {
+                    BackupCodec.encode(snapshot, clock.instant(), appVersion.code())
+                }
                 documents.write(uri, text)
                 _events.send(BackupEvent.Saved)
             } catch (e: CancellationException) {
