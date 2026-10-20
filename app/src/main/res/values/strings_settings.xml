@@ -59,7 +59,7 @@
     <string name="settings_backup_pending">Your first backup will be saved shortly</string>
     <string name="settings_backup_last">Last backed up %1$s</string>
     <string name="settings_backup_failed_access">Your backup couldn\'t be saved. Choose where to keep it again.</string>
-    <string name="settings_backup_failed_existing">That file already holds a backup. Restore it, or choose a new place.</string>
+    <string name="settings_backup_failed_existing">That file already holds a backup. Restore it, replace it, or choose a new place.</string>
     <string name="settings_backup_failed_unknown">Your last backup didn\'t save. It will try again tomorrow.</string>
     <string name="settings_backup_location">Backup File</string>
     <string name="settings_backup_location_unknown">Chosen file</string>

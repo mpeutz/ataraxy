@@ -7,6 +7,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.pluralStringResource
@@ -34,7 +35,7 @@ fun BackupSection(
     val pendingRestore by viewModel.pendingRestore.collectAsStateWithLifecycle()
     val keepUpdatingUri by viewModel.offerKeepUpdating.collectAsStateWithLifecycle()
     val resources = LocalResources.current
-    var showReplaceConfirm by remember { mutableStateOf(false) }
+    var showReplaceConfirm by rememberSaveable { mutableStateOf(false) }
 
     LaunchedEffect(viewModel) {
         viewModel.events.collect { event ->
