@@ -37,6 +37,7 @@ class LockedRouteTest {
             var unlocked by remember { mutableStateOf(startUnlocked) }
             LockedRoute(
                 isUnlocked = unlocked,
+                secure = true,
                 onUnlockRequest = {
                     requests++
                     result
@@ -97,6 +98,7 @@ class LockedRouteTest {
             var unlocked by remember { mutableStateOf(false) }
             LockedRoute(
                 isUnlocked = unlocked,
+                secure = true,
                 onUnlockRequest = { prompt.await() },
                 onUnlocked = { unlocked = true },
                 onCancel = { cancelCalls++ }
@@ -119,8 +121,8 @@ class LockedRouteTest {
         var first by mutableStateOf(true)
         var second by mutableStateOf(true)
         composeRule.setContent {
-            if (first) LockedRoute(true, { true }, {}, {}) { Box(Modifier.testTag("a")) }
-            if (second) LockedRoute(true, { true }, {}, {}) { Box(Modifier.testTag("b")) }
+            if (first) LockedRoute(true, true, { true }, {}, {}) { Box(Modifier.testTag("a")) }
+            if (second) LockedRoute(true, true, { true }, {}, {}) { Box(Modifier.testTag("b")) }
         }
         composeRule.waitForIdle()
         assertTrue(isSecure())
@@ -130,6 +132,31 @@ class LockedRouteTest {
         assertTrue(isSecure())
 
         second = false
+        composeRule.waitForIdle()
+        assertFalse(isSecure())
+    }
+
+    @Test
+    fun lockOff_leavesScreenshotsAndRecentsAlone() {
+        composeRule.setContent {
+            LockedRoute(true, secure = false, { true }, {}, {}) { Box(Modifier.testTag(CONTENT)) }
+        }
+        composeRule.waitForIdle()
+
+        composeRule.onNodeWithTag(CONTENT).assertExists()
+        assertFalse(isSecure())
+    }
+
+    @Test
+    fun lockOn_setsSecureFlag_untilTurnedOff() {
+        var secure by mutableStateOf(true)
+        composeRule.setContent {
+            LockedRoute(true, secure, { true }, {}, {}) { Box(Modifier.testTag(CONTENT)) }
+        }
+        composeRule.waitForIdle()
+        assertTrue(isSecure())
+
+        secure = false
         composeRule.waitForIdle()
         assertFalse(isSecure())
     }

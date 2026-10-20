@@ -19,10 +19,12 @@ import java.util.WeakHashMap
  * Shows [content] only while [isUnlocked]. Locked, it draws just the theme background and asks
  * once per lock state for the unlock; a refusal calls [onCancel]. The prompt runs in this
  * composition's scope, so a recreated activity cancels it and the route asks again.
+ * While [secure], screenshots and the recent-apps preview are blocked.
  */
 @Composable
 fun LockedRoute(
     isUnlocked: Boolean,
+    secure: Boolean,
     onUnlockRequest: suspend () -> Boolean,
     onUnlocked: () -> Unit,
     onCancel: () -> Unit,
@@ -32,7 +34,7 @@ fun LockedRoute(
     val currentUnlocked by rememberUpdatedState(onUnlocked)
     val currentCancel by rememberUpdatedState(onCancel)
 
-    SecureWindow()
+    if (secure) SecureWindow()
 
     if (isUnlocked) {
         content()

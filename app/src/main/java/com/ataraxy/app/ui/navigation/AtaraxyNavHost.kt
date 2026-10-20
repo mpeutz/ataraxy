@@ -181,8 +181,10 @@ private fun LockGate(navController: NavHostController, content: @Composable () -
     val activity = LocalActivity.current as? FragmentActivity
     val title = stringResource(R.string.lock_prompt_title)
     val isUnlocked by lock.appLock.isUnlocked.collectAsState()
+    val enabled by lock.appLock.enabled.collectAsState()
     LockedRoute(
         isUnlocked = isUnlocked,
+        secure = enabled,
         onUnlockRequest = { activity != null && lock.authenticator.authenticate(activity, title) },
         onUnlocked = lock.appLock::markUnlocked,
         onCancel = { navController.leaveLockedRoute() },
