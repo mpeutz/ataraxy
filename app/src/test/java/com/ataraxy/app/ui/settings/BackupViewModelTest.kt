@@ -10,7 +10,10 @@ import androidx.work.impl.WorkManagerImpl
 import androidx.work.testing.SynchronousExecutor
 import androidx.work.testing.WorkManagerTestInitHelper
 import com.ataraxy.app.R
+import com.ataraxy.app.data.backup.AutomaticBackup
 import com.ataraxy.app.data.backup.AutomaticBackupController
+import com.ataraxy.app.data.backup.BackupRunResult
+import com.ataraxy.app.data.backup.BackupSnapshot
 import com.ataraxy.app.data.backup.BackupCodec
 import com.ataraxy.app.data.backup.BackupFailure
 import com.ataraxy.app.data.backup.BackupLock
@@ -90,6 +93,16 @@ class BackupViewModelTest {
     fun tearDown() {
         db.close()
         WorkManagerImpl.getInstance(ApplicationProvider.getApplicationContext()).workDatabase.close()
+    }
+
+    @Test
+    fun blockedBackupCopy_mentionsReplace() {
+        val context = ApplicationProvider.getApplicationContext<Context>()
+
+        assertEquals(
+            "That file already holds a backup. Restore it, replace it, or choose a new place.",
+            context.getString(R.string.settings_backup_failed_existing)
+        )
     }
 
     @Test
@@ -194,6 +207,42 @@ class BackupViewModelTest {
         val stored = runBlocking { settings.settings.first() }
         assertEquals(uri, stored.targetUri)
         assertNull(stored.blockedTarget)
+    }
+
+    @Test
+    fun replaceBlockedBackup_thenPeriodicRun_onEmptyJournal_writes() {
+        val existing = BackupCodec.encode(
+            BackupSnapshot(listOf(entry(1, "old")), emptyList(), emptyList(), emptyList(), emptyMap()), now, 1L
+        )
+        documents.files[uri] = existing
+        viewModel.turnOn(uri)
+        awaitMain { viewModel.state.value.enabled }
+        runBlocking { settings.recordBlocked(uri) }
+        awaitMain { viewModel.state.value.failure == BackupFailure.EXISTING_BACKUP }
+
+        viewModel.replaceBlockedBackup()
+        awaitMain { viewModel.state.value.failure == null }
+
+        val periodic = AutomaticBackup(backupRepository, documents, settings, { 42L }, Clock.fixed(now, ZoneOffset.UTC), BackupLock())
+        assertEquals(BackupRunResult.WRITTEN, runBlocking { periodic.run() })
+    }
+
+    @Test
+    fun confirmRestore_whenAutomaticOn_doesNotOfferKeepUpdating() {
+        val other = "content://docs/other.json"
+        runBlocking { db.journalDao().upsert(entry(1, "from backup")) }
+        documents.files[other] = BackupCodec.encode(runBlocking { backupRepository.snapshot() }, now, 7L)
+        viewModel.turnOn(uri)
+        awaitMain { viewModel.state.value.enabled }
+
+        viewModel.previewRestore(other)
+        awaitMain { viewModel.pendingRestore.value != null }
+        viewModel.confirmRestore()
+        awaitMain { events.isNotEmpty() }
+        settleMain()
+
+        assertEquals(listOf<BackupEvent>(BackupEvent.Restored), events.toList())
+        assertNull(viewModel.offerKeepUpdating.value)
     }
 
     @Test

@@ -6,11 +6,11 @@ import androidx.work.ExistingWorkPolicy
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
-import androidx.work.workDataOf
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.first
 import java.io.FileNotFoundException
+import java.io.IOException
 import java.time.Clock
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
@@ -30,8 +30,7 @@ class AutomaticBackup @Inject constructor(
     private val clock: Clock,
     private val lock: BackupLock
 ) {
-    /** [overwriteExisting] is the user's go-ahead to replace a backup this install didn't write. */
-    suspend fun run(overwriteExisting: Boolean = false): BackupRunResult = lock.withLock {
+    suspend fun run(): BackupRunResult = lock.withLock {
         val current = settings.settings.first()
         val target = current.targetUri ?: return@withLock BackupRunResult.DISABLED
         if (current.blockedTarget == target) return@withLock BackupRunResult.BLOCKED_EXISTING_BACKUP
@@ -40,7 +39,7 @@ class AutomaticBackup @Inject constructor(
             val hash = BackupCodec.contentHash(snapshot)
             when {
                 hash == current.lastWrittenHash -> BackupRunResult.UNCHANGED
-                !overwriteExisting && current.lastWrittenHash == null && !snapshot.hasPrivateData &&
+                current.overwriteConsent != target && current.lastWrittenHash == null && !snapshot.hasPrivateData &&
                     targetHoldsPrivateData(target) -> {
                     settings.recordBlocked(target)
                     BackupRunResult.BLOCKED_EXISTING_BACKUP
@@ -76,6 +75,8 @@ class AutomaticBackup @Inject constructor(
             BackupCodec.decode(text).snapshot.hasPrivateData
         } catch (e: BackupFormatException) {
             false
+        } catch (e: StackOverflowError) {
+            throw IOException("Backup file is nested too deeply", e)
         }
     }
 }
@@ -99,7 +100,7 @@ class AutomaticBackupController @Inject constructor(
         }
         if (!enabled) return false
         enqueuePeriodic()
-        runNow(overwriteExisting = false)
+        runNow()
         return true
     }
 
@@ -116,11 +117,13 @@ class AutomaticBackupController @Inject constructor(
     suspend fun replaceBlockedBackup() {
         val replaced = lock.withLock {
             val current = settings.settings.first()
-            if (current.targetUri == null || current.failure != BackupFailure.EXISTING_BACKUP) return@withLock false
+            val target = current.targetUri
+            if (target == null || current.failure != BackupFailure.EXISTING_BACKUP) return@withLock false
+            settings.grantOverwrite(target)
             settings.clearBlock()
             true
         }
-        if (replaced) runNow(overwriteExisting = true)
+        if (replaced) runNow()
     }
 
     suspend fun ensureScheduled() {
@@ -136,13 +139,11 @@ class AutomaticBackupController @Inject constructor(
         )
     }
 
-    private fun runNow(overwriteExisting: Boolean) {
+    private fun runNow() {
         workManager.enqueueUniqueWork(
             RUN_NOW_WORK,
             ExistingWorkPolicy.REPLACE,
-            OneTimeWorkRequestBuilder<AutoBackupWorker>()
-                .setInputData(workDataOf(AutoBackupWorker.OVERWRITE_EXISTING to overwriteExisting))
-                .build()
+            OneTimeWorkRequestBuilder<AutoBackupWorker>().build()
         )
     }
 

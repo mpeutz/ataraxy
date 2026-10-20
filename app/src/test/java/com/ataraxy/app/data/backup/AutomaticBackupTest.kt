@@ -7,6 +7,7 @@ import com.ataraxy.app.data.local.AtaraxyDatabase
 import com.ataraxy.app.data.local.entity.JournalEntryEntity
 import com.ataraxy.app.data.local.entity.ReflectionEntity
 import com.ataraxy.app.data.local.inMemoryDatabase
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -16,6 +17,7 @@ import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
+import org.junit.Assert.fail
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -146,19 +148,21 @@ class AutomaticBackupTest {
     }
 
     @Test
-    fun run_overwriteExisting_replacesBackupWithEmptyJournal() = runBlocking {
+    fun run_overwriteConsent_replacesBackupWithEmptyJournal() = runBlocking {
         blockTarget()
         settings.clearBlock()
+        settings.grantOverwrite(target)
 
-        assertEquals(BackupRunResult.WRITTEN, backup.run(overwriteExisting = true))
+        assertEquals(BackupRunResult.WRITTEN, backup.run())
         assertEquals(false, BackupCodec.decode(documents.files.getValue(target)).snapshot.hasPrivateData)
     }
 
     @Test
-    fun run_overwriteExisting_stillRespectsBlock() = runBlocking {
+    fun run_overwriteConsent_stillRespectsBlock() = runBlocking {
         blockTarget()
+        settings.grantOverwrite(target)
 
-        assertEquals(BackupRunResult.BLOCKED_EXISTING_BACKUP, backup.run(overwriteExisting = true))
+        assertEquals(BackupRunResult.BLOCKED_EXISTING_BACKUP, backup.run())
         assertEquals(0, documents.writeCount)
     }
 
@@ -184,6 +188,60 @@ class AutomaticBackupTest {
         assertEquals(BackupRunResult.FAILED, backup.run())
         assertEquals(0, documents.writeCount)
         assertEquals(BackupFailure.UNKNOWN, settings.settings.first().failure)
+    }
+
+    @Test
+    fun run_targetNestedTooDeeply_failsWithoutWriting() = runBlocking {
+        settings.setTarget(target)
+        documents.files[target] = "[".repeat(100_000)
+
+        assertEquals(BackupRunResult.FAILED, backup.run())
+        assertEquals(0, documents.writeCount)
+        assertEquals(BackupFailure.UNKNOWN, settings.settings.first().failure)
+    }
+
+    @Test
+    fun run_writeThrowsIoException_failsAsUnknown() = runBlocking {
+        settings.setTarget(target)
+        db.journalDao().upsert(entry(1, "first"))
+        documents.failWith = java.io.IOException("disk full")
+
+        assertEquals(BackupRunResult.FAILED, backup.run())
+        assertEquals(BackupFailure.UNKNOWN, settings.settings.first().failure)
+    }
+
+    @Test
+    fun run_cancelled_rethrowsAndRecordsNothing() = runBlocking {
+        settings.setTarget(target)
+        db.journalDao().upsert(entry(1, "first"))
+        documents.failWith = CancellationException("cancelled")
+
+        try {
+            backup.run()
+            fail("expected cancellation")
+        } catch (e: CancellationException) {
+            assertNull(settings.settings.first().failure)
+        }
+    }
+
+    @Test
+    fun run_overwriteConsent_survivesUntilNextWrite() = runBlocking {
+        blockTarget()
+        settings.clearBlock()
+        settings.grantOverwrite(target)
+
+        assertEquals(BackupRunResult.WRITTEN, backup.run())
+        assertNull(settings.settings.first().overwriteConsent)
+    }
+
+    @Test
+    fun setTarget_clearsOverwriteConsent() = runBlocking {
+        settings.setTarget(target)
+        settings.grantOverwrite(target)
+
+        settings.setTarget("content://docs/other.json")
+
+        assertNull(settings.settings.first().overwriteConsent)
     }
 
     @Test

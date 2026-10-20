@@ -23,7 +23,9 @@ data class BackupSettings(
     val lastWrittenHash: String? = null,
     val failure: BackupFailure? = null,
     /** The file automatic backup refused to overwrite because it already held a backup. */
-    val blockedTarget: String? = null
+    val blockedTarget: String? = null,
+    /** The file the user agreed to overwrite despite the backup it holds, until the next write to it. */
+    val overwriteConsent: String? = null
 )
 
 @Singleton
@@ -36,6 +38,7 @@ class BackupSettingsRepository @Inject constructor(
         val LAST_WRITTEN_HASH = stringPreferencesKey("last_written_hash")
         val FAILURE = stringPreferencesKey("failure")
         val BLOCKED_TARGET = stringPreferencesKey("blocked_target")
+        val OVERWRITE_CONSENT = stringPreferencesKey("overwrite_consent")
     }
 
     val settings: Flow<BackupSettings> = dataStore.data.map { prefs ->
@@ -44,7 +47,8 @@ class BackupSettingsRepository @Inject constructor(
             lastSuccessAt = prefs[Keys.LAST_SUCCESS_AT]?.let(Instant::parse),
             lastWrittenHash = prefs[Keys.LAST_WRITTEN_HASH],
             failure = prefs[Keys.FAILURE]?.let { name -> BackupFailure.entries.firstOrNull { it.name == name } },
-            blockedTarget = prefs[Keys.BLOCKED_TARGET]
+            blockedTarget = prefs[Keys.BLOCKED_TARGET],
+            overwriteConsent = prefs[Keys.OVERWRITE_CONSENT]
         )
     }
 
@@ -54,6 +58,7 @@ class BackupSettingsRepository @Inject constructor(
             prefs.remove(Keys.LAST_SUCCESS_AT)
             prefs.remove(Keys.FAILURE)
             prefs.remove(Keys.BLOCKED_TARGET)
+            prefs.remove(Keys.OVERWRITE_CONSENT)
             if (uri == null) prefs.remove(Keys.TARGET_URI) else prefs[Keys.TARGET_URI] = uri
         }
     }
@@ -65,6 +70,7 @@ class BackupSettingsRepository @Inject constructor(
             prefs[Keys.LAST_SUCCESS_AT] = at.toString()
             prefs[Keys.LAST_WRITTEN_HASH] = hash
             prefs.remove(Keys.FAILURE)
+            prefs.remove(Keys.OVERWRITE_CONSENT)
         }
     }
 
@@ -85,6 +91,14 @@ class BackupSettingsRepository @Inject constructor(
         dataStore.edit { prefs ->
             prefs.remove(Keys.BLOCKED_TARGET)
             prefs.remove(Keys.FAILURE)
+        }
+    }
+
+    /** Lets automatic backup replace the backup [target] holds, however empty this install is. */
+    suspend fun grantOverwrite(target: String) {
+        dataStore.edit { prefs ->
+            if (prefs[Keys.TARGET_URI] != target) return@edit
+            prefs[Keys.OVERWRITE_CONSENT] = target
         }
     }
 }
