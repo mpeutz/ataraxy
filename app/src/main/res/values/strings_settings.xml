@@ -53,6 +53,10 @@
     <string name="settings_evening_ritual_time">Evening Ritual Time</string>
 
     <!-- Settings: backup -->
+    <string name="settings_section_privacy">PRIVACY</string>
+    <string name="settings_app_lock">App Lock</string>
+    <string name="settings_app_lock_subtitle">Ask for your fingerprint, face or PIN before showing your journal</string>
+    <string name="settings_app_lock_unavailable">Set up a screen lock on this phone to use App Lock</string>
     <string name="settings_section_backup">BACKUP</string>
     <string name="settings_backup_auto">Automatic Backup</string>
     <string name="settings_backup_auto_off">Keep a copy up to date in a place you choose</string>
