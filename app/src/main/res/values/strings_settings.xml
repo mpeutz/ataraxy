@@ -69,7 +69,15 @@
     <string name="settings_restore">Restore From Backup</string>
     <string name="settings_restore_value">Replace this journal with a backup</string>
     <string name="settings_restore_title">Restore This Backup?</string>
-    <string name="settings_restore_message">Backup from %1$s with %2$d journal entries and %3$d reflections. Everything on this phone will be replaced. This cannot be undone.</string>
+    <string name="settings_restore_message">Backup from %1$s with %2$s and %3$s. Everything on this phone will be replaced. This cannot be undone.</string>
+    <plurals name="settings_restore_entries">
+        <item quantity="one">%d journal entry</item>
+        <item quantity="other">%d journal entries</item>
+    </plurals>
+    <plurals name="settings_restore_reflections">
+        <item quantity="one">%d reflection</item>
+        <item quantity="other">%d reflections</item>
+    </plurals>
     <string name="settings_restore_confirm">RESTORE</string>
     <string name="settings_restored">Your journal has been restored</string>
     <string name="settings_restore_not_backup">That file isn\'t an Ataraxy backup</string>

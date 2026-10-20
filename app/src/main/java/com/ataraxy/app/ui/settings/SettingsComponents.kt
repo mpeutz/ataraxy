@@ -38,37 +38,13 @@ internal fun NotificationGroup(
     val timeFormatter = remember { DateTimeFormatter.ofPattern("h:mm a") }
     val contentAlpha = if (enabled) 1f else 0.38f
 
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .toggleable(value = enabled, role = Role.Switch, onValueChange = onToggle)
-            .padding(horizontal = 24.dp, vertical = 14.dp),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Column(modifier = Modifier.weight(1f)) {
-            Text(
-                text = title,
-                style = AtaraxyText.body.copy(fontWeight = FontWeight.Medium),
-                color = MaterialTheme.colorScheme.onBackground.copy(alpha = contentAlpha)
-            )
-            Text(
-                text = subtitle,
-                style = AtaraxyText.secondary,
-                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = contentAlpha)
-            )
-        }
-        // A null onCheckedChange drops the Switch's own 48dp touch padding; keep its footprint.
-        Switch(
-            checked = enabled,
-            onCheckedChange = null,
-            modifier = Modifier.minimumInteractiveComponentSize(),
-            colors = SwitchDefaults.colors(
-                checkedThumbColor = MaterialTheme.colorScheme.background,
-                checkedTrackColor = MaterialTheme.colorScheme.onBackground
-            )
-        )
-    }
+    SettingsSwitchRow(
+        title = title,
+        subtitle = subtitle,
+        checked = enabled,
+        onToggle = onToggle,
+        contentAlpha = contentAlpha
+    )
 
     AnimatedVisibility(visible = enabled) {
         Row(
@@ -103,6 +79,47 @@ internal fun NotificationGroup(
     }
 
     RowDivider()
+}
+
+@Composable
+internal fun SettingsSwitchRow(
+    title: String,
+    subtitle: String,
+    checked: Boolean,
+    onToggle: (Boolean) -> Unit,
+    contentAlpha: Float = 1f
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .toggleable(value = checked, role = Role.Switch, onValueChange = onToggle)
+            .padding(horizontal = 24.dp, vertical = 14.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Column(modifier = Modifier.weight(1f)) {
+            Text(
+                text = title,
+                style = AtaraxyText.body.copy(fontWeight = FontWeight.Medium),
+                color = MaterialTheme.colorScheme.onBackground.copy(alpha = contentAlpha)
+            )
+            Text(
+                text = subtitle,
+                style = AtaraxyText.secondary,
+                color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = contentAlpha)
+            )
+        }
+        // A null onCheckedChange drops the Switch's own 48dp touch padding; keep its footprint.
+        Switch(
+            checked = checked,
+            onCheckedChange = null,
+            modifier = Modifier.minimumInteractiveComponentSize(),
+            colors = SwitchDefaults.colors(
+                checkedThumbColor = MaterialTheme.colorScheme.background,
+                checkedTrackColor = MaterialTheme.colorScheme.onBackground
+            )
+        )
+    }
 }
 
 @Composable
@@ -158,7 +175,7 @@ internal fun SettingsRow(
 
 /** A lighter hairline than [com.ataraxy.app.ui.components.AtaraxyDivider], used between rows. */
 @Composable
-private fun RowDivider() {
+internal fun RowDivider() {
     HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f), thickness = 0.5.dp)
 }
 

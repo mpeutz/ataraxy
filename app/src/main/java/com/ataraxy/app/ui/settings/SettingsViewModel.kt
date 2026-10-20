@@ -104,11 +104,11 @@ class SettingsViewModel @Inject constructor(
 
     fun deactivate() {
         viewModelScope.launch {
+            automaticBackupController.disable()
             journalRepository.deleteAll()
             reflectionRepository.deleteAll()
             sosRepository.deleteAll()
             notificationScheduler.cancelAll()
-            automaticBackupController.disable()
             userPrefsRepository.clearAll()
         }
     }

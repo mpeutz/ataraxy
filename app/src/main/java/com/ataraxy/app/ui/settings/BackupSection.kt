@@ -2,35 +2,18 @@ package com.ataraxy.app.ui.settings
 
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.selection.toggleable
-import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Switch
-import androidx.compose.material3.SwitchDefaults
-import androidx.compose.material3.Text
-import androidx.compose.material3.minimumInteractiveComponentSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalResources
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ataraxy.app.R
 import com.ataraxy.app.data.backup.BackupFailure
 import com.ataraxy.app.ui.components.AtaraxyDivider
-import com.ataraxy.app.ui.theme.AtaraxyText
 import java.time.Instant
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -74,14 +57,15 @@ fun BackupSection(
     AtaraxyDivider()
     SectionHeader(stringResource(R.string.settings_section_backup))
 
-    BackupSwitchRow(
+    SettingsSwitchRow(
         title = stringResource(R.string.settings_backup_auto),
-        value = automaticValue(state),
-        enabled = state.enabled,
+        subtitle = automaticValue(state),
+        checked = state.enabled,
         onToggle = { on ->
             if (on) turnOnLauncher.launch(AUTOMATIC_FILE_NAME) else viewModel.turnOff()
         }
     )
+    RowDivider()
 
     if (state.enabled) {
         SettingsRow(
@@ -118,8 +102,8 @@ fun BackupSection(
             message = stringResource(
                 R.string.settings_restore_message,
                 formatBackupTime(preview.createdAt),
-                preview.journalEntryCount,
-                preview.reflectionCount
+                pluralStringResource(R.plurals.settings_restore_entries, preview.journalEntryCount, preview.journalEntryCount),
+                pluralStringResource(R.plurals.settings_restore_reflections, preview.reflectionCount, preview.reflectionCount)
             ),
             confirmLabel = stringResource(R.string.settings_restore_confirm),
             onConfirm = { viewModel.confirmRestore() },
@@ -164,48 +148,4 @@ private fun formatBackupTime(instant: Instant): String {
             .withZone(ZoneId.systemDefault())
     }
     return formatter.format(instant)
-}
-
-@Composable
-private fun BackupSwitchRow(
-    title: String,
-    value: String,
-    enabled: Boolean,
-    onToggle: (Boolean) -> Unit
-) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .toggleable(value = enabled, role = Role.Switch, onValueChange = onToggle)
-            .padding(horizontal = 24.dp, vertical = 14.dp),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Column(modifier = Modifier.weight(1f)) {
-            Text(
-                text = title,
-                style = AtaraxyText.body.copy(fontWeight = FontWeight.Medium),
-                color = MaterialTheme.colorScheme.onBackground
-            )
-            Text(
-                text = value,
-                style = AtaraxyText.secondary,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
-        }
-        // A null onCheckedChange drops the Switch's own 48dp touch padding; keep its footprint.
-        Switch(
-            checked = enabled,
-            onCheckedChange = null,
-            modifier = Modifier.minimumInteractiveComponentSize(),
-            colors = SwitchDefaults.colors(
-                checkedThumbColor = MaterialTheme.colorScheme.background,
-                checkedTrackColor = MaterialTheme.colorScheme.onBackground
-            )
-        )
-    }
-    HorizontalDivider(
-        color = MaterialTheme.colorScheme.outlineVariant.copy(alpha = 0.5f),
-        thickness = 0.5.dp
-    )
 }

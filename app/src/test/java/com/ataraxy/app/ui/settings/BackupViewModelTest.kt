@@ -6,11 +6,13 @@ import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
 import androidx.test.core.app.ApplicationProvider
 import androidx.work.Configuration
+import androidx.work.impl.WorkManagerImpl
 import androidx.work.testing.SynchronousExecutor
 import androidx.work.testing.WorkManagerTestInitHelper
 import com.ataraxy.app.R
 import com.ataraxy.app.data.backup.AutomaticBackupController
 import com.ataraxy.app.data.backup.BackupCodec
+import com.ataraxy.app.data.backup.BackupFailure
 import com.ataraxy.app.data.backup.BackupRepository
 import com.ataraxy.app.data.backup.BackupSettingsRepository
 import com.ataraxy.app.data.backup.FakeBackupDocuments
@@ -83,7 +85,10 @@ class BackupViewModelTest {
     }
 
     @After
-    fun tearDown() = db.close()
+    fun tearDown() {
+        db.close()
+        WorkManagerImpl.getInstance(ApplicationProvider.getApplicationContext()).workDatabase.close()
+    }
 
     @Test
     fun turnOn_enablesAndShowsPending() {
@@ -137,6 +142,25 @@ class BackupViewModelTest {
         assertEquals(listOf<BackupEvent>(BackupEvent.Restored), events.toList())
         assertNull(viewModel.pendingRestore.value)
         assertEquals(1, runBlocking { backupRepository.snapshot().journalEntries.size })
+    }
+
+    @Test
+    fun restoreFromBlockedTarget_clearsFailureAndDoesNotOffer() {
+        runBlocking { db.journalDao().upsert(entry(1, "from backup")) }
+        documents.files[uri] = BackupCodec.encode(runBlocking { backupRepository.snapshot() }, now, 7L)
+        viewModel.turnOn(uri)
+        awaitMain { viewModel.state.value.enabled }
+        runBlocking { settings.recordFailure(BackupFailure.EXISTING_BACKUP) }
+        awaitMain { viewModel.state.value.failure == BackupFailure.EXISTING_BACKUP }
+
+        viewModel.previewRestoreOfBackupFile()
+        awaitMain { viewModel.pendingRestore.value != null }
+        viewModel.confirmRestore()
+        awaitMain { viewModel.state.value.failure == null }
+        settleMain()
+
+        assertTrue(viewModel.state.value.enabled)
+        assertNull(viewModel.offerKeepUpdating.value)
     }
 
     @Test

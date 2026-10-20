@@ -18,12 +18,14 @@ import com.ataraxy.app.data.backup.RestoreException
 import com.ataraxy.app.data.backup.RestoreProblem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
@@ -61,6 +63,7 @@ class BackupViewModel @Inject constructor(
 
     val state: StateFlow<BackupUiState> = settingsRepository.settings
         .map { it.toUiState() }
+        .flowOn(Dispatchers.IO)
         .stateIn(viewModelScope, SharingStarted.Eagerly, BackupUiState())
 
     private val _events = Channel<BackupEvent>(Channel.BUFFERED)
@@ -124,9 +127,9 @@ class BackupViewModel @Inject constructor(
             restoreBackup.restore(pending.uri).fold(
                 onSuccess = {
                     _events.send(BackupEvent.Restored)
-                    if (settingsRepository.settings.first().targetUri == null) {
-                        _offerKeepUpdating.value = pending.uri
-                    }
+                    val target = settingsRepository.settings.first().targetUri
+                    if (target == null) _offerKeepUpdating.value = pending.uri
+                    else controller.enable(target)
                 },
                 onFailure = { fail(it) }
             )
