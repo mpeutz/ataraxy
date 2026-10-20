@@ -126,10 +126,10 @@ class BackupViewModel @Inject constructor(
         viewModelScope.launch {
             restoreBackup.restore(pending.uri).fold(
                 onSuccess = {
-                    _events.send(BackupEvent.Restored)
                     val target = settingsRepository.settings.first().targetUri
                     if (target == null) _offerKeepUpdating.value = pending.uri
                     else controller.enable(target)
+                    _events.send(BackupEvent.Restored)
                 },
                 onFailure = { fail(it) }
             )

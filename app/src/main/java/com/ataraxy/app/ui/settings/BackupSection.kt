@@ -21,7 +21,7 @@ import java.time.format.FormatStyle
 
 private const val BACKUP_MIME = "application/json"
 private const val AUTOMATIC_FILE_NAME = "ataraxy-backup.json"
-private val RESTORE_MIME_TYPES = arrayOf("application/json", "application/octet-stream", "text/plain")
+internal val RESTORE_MIME_TYPES = arrayOf("application/json", "application/octet-stream", "text/plain")
 
 @Composable
 fun BackupSection(
@@ -96,32 +96,53 @@ fun BackupSection(
     )
 
     pendingRestore?.let { pending ->
-        val preview = pending.preview
-        ConfirmDialog(
-            title = stringResource(R.string.settings_restore_title),
-            message = stringResource(
-                R.string.settings_restore_message,
-                formatBackupTime(preview.createdAt),
-                pluralStringResource(R.plurals.settings_restore_entries, preview.journalEntryCount, preview.journalEntryCount),
-                pluralStringResource(R.plurals.settings_restore_reflections, preview.reflectionCount, preview.reflectionCount)
-            ),
-            confirmLabel = stringResource(R.string.settings_restore_confirm),
+        RestoreConfirmDialog(
+            pending = pending,
             onConfirm = { viewModel.confirmRestore() },
-            onDismiss = { viewModel.cancelRestore() },
-            isDestructive = true
+            onDismiss = { viewModel.cancelRestore() }
         )
     }
 
     keepUpdatingUri?.let { uri ->
-        ConfirmDialog(
-            title = stringResource(R.string.settings_keep_updating_title),
-            message = stringResource(R.string.settings_keep_updating_message),
-            confirmLabel = stringResource(R.string.settings_keep_updating_confirm),
-            dismissLabel = stringResource(R.string.not_now),
-            onConfirm = { viewModel.keepUpdating(uri) },
+        KeepUpdatingDialog(
+            onKeep = { viewModel.keepUpdating(uri) },
             onDismiss = { viewModel.dismissKeepUpdating() }
         )
     }
+}
+
+@Composable
+internal fun RestoreConfirmDialog(
+    pending: PendingRestore,
+    onConfirm: () -> Unit,
+    onDismiss: () -> Unit
+) {
+    val preview = pending.preview
+    ConfirmDialog(
+        title = stringResource(R.string.settings_restore_title),
+        message = stringResource(
+            R.string.settings_restore_message,
+            formatBackupTime(preview.createdAt),
+            pluralStringResource(R.plurals.settings_restore_entries, preview.journalEntryCount, preview.journalEntryCount),
+            pluralStringResource(R.plurals.settings_restore_reflections, preview.reflectionCount, preview.reflectionCount)
+        ),
+        confirmLabel = stringResource(R.string.settings_restore_confirm),
+        onConfirm = onConfirm,
+        onDismiss = onDismiss,
+        isDestructive = true
+    )
+}
+
+@Composable
+internal fun KeepUpdatingDialog(onKeep: () -> Unit, onDismiss: () -> Unit) {
+    ConfirmDialog(
+        title = stringResource(R.string.settings_keep_updating_title),
+        message = stringResource(R.string.settings_keep_updating_message),
+        confirmLabel = stringResource(R.string.settings_keep_updating_confirm),
+        dismissLabel = stringResource(R.string.not_now),
+        onConfirm = onKeep,
+        onDismiss = onDismiss
+    )
 }
 
 @Composable
