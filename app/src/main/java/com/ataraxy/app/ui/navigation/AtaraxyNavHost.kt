@@ -219,7 +219,7 @@ internal fun NavGraphBuilder.ataraxyGraph(
     navController: NavHostController,
     onOnboardingComplete: () -> Unit
 ) {
-    gatedComposable(navController, 
+    gatedComposable(navController,
         route = Screen.Home.route,
         deepLinks = listOf(navDeepLink { uriPattern = "ataraxy://home" })
     ) {
@@ -231,7 +231,7 @@ internal fun NavGraphBuilder.ataraxyGraph(
         )
     }
 
-    gatedComposable(navController, 
+    gatedComposable(navController,
         route = Screen.Practice.ROUTE,
         arguments = listOf(
             navArgument("quoteId") {
@@ -251,7 +251,7 @@ internal fun NavGraphBuilder.ataraxyGraph(
     }
 
     // Also allow plain "practice" without quoteId
-    gatedComposable(navController, 
+    gatedComposable(navController,
         route = Screen.Practice.BASE,
         deepLinks = listOf(navDeepLink { uriPattern = "ataraxy://practice" })
     ) {
@@ -276,7 +276,7 @@ internal fun NavGraphBuilder.ataraxyGraph(
         )
     }
 
-    gatedComposable(navController, 
+    gatedComposable(navController,
         route = Screen.Insight.ROUTE,
         arguments = listOf(navArgument("quoteId") { type = NavType.StringType })
     ) { backStackEntry ->
@@ -287,7 +287,7 @@ internal fun NavGraphBuilder.ataraxyGraph(
         )
     }
 
-    gatedComposable(navController, 
+    gatedComposable(navController,
         route = Screen.VirtueDetail.ROUTE,
         arguments = listOf(navArgument("virtueId") { type = NavType.StringType })
     ) { backStackEntry ->
@@ -340,7 +340,7 @@ internal fun NavGraphBuilder.ataraxyGraph(
         )
     }
 
-    gatedComposable(navController, 
+    gatedComposable(navController,
         route = Screen.PracticeEdit.ROUTE,
         arguments = listOf(navArgument("entryId") { type = NavType.LongType })
     ) {
@@ -350,7 +350,7 @@ internal fun NavGraphBuilder.ataraxyGraph(
         )
     }
 
-    gatedComposable(navController, 
+    gatedComposable(navController,
         Screen.BookendRitual.route,
         deepLinks = listOf(navDeepLink { uriPattern = "ataraxy://bookend" })
     ) {
@@ -369,7 +369,7 @@ internal fun NavGraphBuilder.ataraxyGraph(
         )
     }
 
-    gatedComposable(navController, 
+    gatedComposable(navController,
         route = Screen.ReflectionFlow.ROUTE,
         arguments = listOf(navArgument("reflectionId") { type = NavType.LongType })
     ) {
@@ -383,7 +383,7 @@ internal fun NavGraphBuilder.ataraxyGraph(
         )
     }
 
-    gatedComposable(navController, 
+    gatedComposable(navController,
         route = Screen.ReflectionDetail.ROUTE,
         arguments = listOf(navArgument("reflectionId") { type = NavType.LongType })
     ) {
@@ -408,7 +408,7 @@ internal fun NavGraphBuilder.ataraxyGraph(
         MementoMoriInsightScreen(onBack = { navController.popBackStack() })
     }
 
-    gatedComposable(navController, 
+    gatedComposable(navController,
         route = Screen.AuthorDetail.ROUTE,
         arguments = listOf(navArgument("authorId") { type = NavType.StringType })
     ) { backStackEntry ->
