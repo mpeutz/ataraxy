@@ -110,6 +110,91 @@ class AutomaticBackupTest {
         assertEquals(existing, documents.files.getValue(target))
         assertEquals(0, documents.writeCount)
         assertEquals(BackupFailure.EXISTING_BACKUP, settings.settings.first().failure)
+        assertEquals(target, settings.settings.first().blockedTarget)
+    }
+
+    @Test
+    fun run_blockedTarget_staysBlockedAfterLocalGainsEntry() = runBlocking {
+        val existing = blockTarget()
+
+        db.journalDao().upsert(entry(1, "new phone, first thought"))
+
+        assertEquals(BackupRunResult.BLOCKED_EXISTING_BACKUP, backup.run())
+        assertEquals(existing, documents.files.getValue(target))
+        assertEquals(0, documents.writeCount)
+    }
+
+    @Test
+    fun run_blockedTarget_doesNotReadTheFile() = runBlocking {
+        blockTarget()
+        documents.failReadWith = java.io.IOException("would have read")
+
+        assertEquals(BackupRunResult.BLOCKED_EXISTING_BACKUP, backup.run())
+        assertEquals(BackupFailure.EXISTING_BACKUP, settings.settings.first().failure)
+    }
+
+    @Test
+    fun run_afterBlockCleared_writes() = runBlocking {
+        blockTarget()
+        db.journalDao().upsert(entry(1, "new phone, first thought"))
+
+        settings.clearBlock()
+
+        assertEquals(BackupRunResult.WRITTEN, backup.run())
+        assertEquals(1, BackupCodec.decode(documents.files.getValue(target)).snapshot.journalEntries.size)
+        assertNull(settings.settings.first().failure)
+    }
+
+    @Test
+    fun run_overwriteExisting_replacesBackupWithEmptyJournal() = runBlocking {
+        blockTarget()
+        settings.clearBlock()
+
+        assertEquals(BackupRunResult.WRITTEN, backup.run(overwriteExisting = true))
+        assertEquals(false, BackupCodec.decode(documents.files.getValue(target)).snapshot.hasPrivateData)
+    }
+
+    @Test
+    fun run_overwriteExisting_stillRespectsBlock() = runBlocking {
+        blockTarget()
+
+        assertEquals(BackupRunResult.BLOCKED_EXISTING_BACKUP, backup.run(overwriteExisting = true))
+        assertEquals(0, documents.writeCount)
+    }
+
+    @Test
+    fun setTarget_otherFile_liftsBlock() = runBlocking {
+        blockTarget()
+        val other = "content://docs/other.json"
+        db.journalDao().upsert(entry(1, "first"))
+
+        settings.setTarget(other)
+
+        assertNull(settings.settings.first().blockedTarget)
+        assertEquals(BackupRunResult.WRITTEN, backup.run())
+        assertEquals(true, documents.files.containsKey(other))
+    }
+
+    @Test
+    fun run_targetTooLarge_failsWithoutWriting() = runBlocking {
+        settings.setTarget(target)
+        documents.files[target] = "{}"
+        documents.failReadWith = BackupTooLargeException()
+
+        assertEquals(BackupRunResult.FAILED, backup.run())
+        assertEquals(0, documents.writeCount)
+        assertEquals(BackupFailure.UNKNOWN, settings.settings.first().failure)
+    }
+
+    @Test
+    fun recordSuccess_forStaleTarget_doesNotMarkNewTarget() = runBlocking {
+        val other = "content://docs/other.json"
+        settings.setTarget(target)
+        settings.setTarget(other)
+
+        settings.recordSuccess(target, now, "abc")
+
+        assertEquals(BackupSettings(targetUri = other), settings.settings.first())
     }
 
     @Test
@@ -169,36 +254,26 @@ class AutomaticBackupTest {
     }
 
     @Test
-    fun run_targetTooLarge_failsWithoutWriting() = runBlocking {
-        settings.setTarget(target)
-        documents.files[target] = "{}"
-        documents.failReadWith = BackupTooLargeException()
-
-        assertEquals(BackupRunResult.FAILED, backup.run())
-        assertEquals(0, documents.writeCount)
-        assertEquals(BackupFailure.UNKNOWN, settings.settings.first().failure)
-    }
-
-    @Test
-    fun recordSuccess_forStaleTarget_doesNotMarkNewTarget() = runBlocking {
-        val other = "content://docs/other.json"
-        settings.setTarget(target)
-        settings.setTarget(other)
-
-        settings.recordSuccess(target, now, "abc")
-
-        assertEquals(BackupSettings(targetUri = other), settings.settings.first())
-    }
-
-    @Test
     fun setTarget_clearsHashAndFailure() = runBlocking {
         settings.setTarget(target)
         settings.recordSuccess(target, now, "abc")
-        settings.recordFailure(BackupFailure.UNKNOWN)
+        settings.recordBlocked(target)
 
         settings.setTarget("content://docs/other.json")
 
         assertEquals(BackupSettings(targetUri = "content://docs/other.json"), settings.settings.first())
+    }
+
+    private suspend fun blockTarget(): String {
+        val existing = BackupCodec.encode(
+            BackupSnapshot(listOf(entry(1, "old")), emptyList(), emptyList(), emptyList(), emptyMap()),
+            now,
+            1L
+        )
+        documents.files[target] = existing
+        settings.setTarget(target)
+        assertEquals(BackupRunResult.BLOCKED_EXISTING_BACKUP, backup.run())
+        return existing
     }
 
     private fun entry(id: Long, content: String) = JournalEntryEntity(

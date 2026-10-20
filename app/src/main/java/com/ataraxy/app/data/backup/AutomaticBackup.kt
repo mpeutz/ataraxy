@@ -6,6 +6,7 @@ import androidx.work.ExistingWorkPolicy
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
+import androidx.work.workDataOf
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.flow.first
@@ -29,16 +30,19 @@ class AutomaticBackup @Inject constructor(
     private val clock: Clock,
     private val lock: BackupLock
 ) {
-    suspend fun run(): BackupRunResult = lock.withLock {
+    /** [overwriteExisting] is the user's go-ahead to replace a backup this install didn't write. */
+    suspend fun run(overwriteExisting: Boolean = false): BackupRunResult = lock.withLock {
         val current = settings.settings.first()
         val target = current.targetUri ?: return@withLock BackupRunResult.DISABLED
+        if (current.blockedTarget == target) return@withLock BackupRunResult.BLOCKED_EXISTING_BACKUP
         try {
             val snapshot = repository.snapshot()
             val hash = BackupCodec.contentHash(snapshot)
             when {
                 hash == current.lastWrittenHash -> BackupRunResult.UNCHANGED
-                current.lastWrittenHash == null && !snapshot.hasPrivateData && targetHoldsPrivateData(target) -> {
-                    settings.recordFailure(BackupFailure.EXISTING_BACKUP)
+                !overwriteExisting && current.lastWrittenHash == null && !snapshot.hasPrivateData &&
+                    targetHoldsPrivateData(target) -> {
+                    settings.recordBlocked(target)
                     BackupRunResult.BLOCKED_EXISTING_BACKUP
                 }
                 else -> {
@@ -95,11 +99,7 @@ class AutomaticBackupController @Inject constructor(
         }
         if (!enabled) return false
         enqueuePeriodic()
-        workManager.enqueueUniqueWork(
-            RUN_NOW_WORK,
-            ExistingWorkPolicy.REPLACE,
-            OneTimeWorkRequestBuilder<AutoBackupWorker>().build()
-        )
+        runNow(overwriteExisting = false)
         return true
     }
 
@@ -112,6 +112,17 @@ class AutomaticBackupController @Inject constructor(
         }
     }
 
+    /** The user chose to overwrite the backup automatic backup refused to replace. */
+    suspend fun replaceBlockedBackup() {
+        val replaced = lock.withLock {
+            val current = settings.settings.first()
+            if (current.targetUri == null || current.failure != BackupFailure.EXISTING_BACKUP) return@withLock false
+            settings.clearBlock()
+            true
+        }
+        if (replaced) runNow(overwriteExisting = true)
+    }
+
     suspend fun ensureScheduled() {
         if (settings.settings.first().targetUri == null) return
         enqueuePeriodic()
@@ -122,6 +133,16 @@ class AutomaticBackupController @Inject constructor(
             PERIODIC_WORK,
             ExistingPeriodicWorkPolicy.KEEP,
             PeriodicWorkRequestBuilder<AutoBackupWorker>(1, TimeUnit.DAYS).build()
+        )
+    }
+
+    private fun runNow(overwriteExisting: Boolean) {
+        workManager.enqueueUniqueWork(
+            RUN_NOW_WORK,
+            ExistingWorkPolicy.REPLACE,
+            OneTimeWorkRequestBuilder<AutoBackupWorker>()
+                .setInputData(workDataOf(AutoBackupWorker.OVERWRITE_EXISTING to overwriteExisting))
+                .build()
         )
     }
 

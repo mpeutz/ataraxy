@@ -21,7 +21,9 @@ data class BackupSettings(
     val targetUri: String? = null,
     val lastSuccessAt: Instant? = null,
     val lastWrittenHash: String? = null,
-    val failure: BackupFailure? = null
+    val failure: BackupFailure? = null,
+    /** The file automatic backup refused to overwrite because it already held a backup. */
+    val blockedTarget: String? = null
 )
 
 @Singleton
@@ -33,6 +35,7 @@ class BackupSettingsRepository @Inject constructor(
         val LAST_SUCCESS_AT = stringPreferencesKey("last_success_at")
         val LAST_WRITTEN_HASH = stringPreferencesKey("last_written_hash")
         val FAILURE = stringPreferencesKey("failure")
+        val BLOCKED_TARGET = stringPreferencesKey("blocked_target")
     }
 
     val settings: Flow<BackupSettings> = dataStore.data.map { prefs ->
@@ -40,7 +43,8 @@ class BackupSettingsRepository @Inject constructor(
             targetUri = prefs[Keys.TARGET_URI],
             lastSuccessAt = prefs[Keys.LAST_SUCCESS_AT]?.let(Instant::parse),
             lastWrittenHash = prefs[Keys.LAST_WRITTEN_HASH],
-            failure = prefs[Keys.FAILURE]?.let { name -> BackupFailure.entries.firstOrNull { it.name == name } }
+            failure = prefs[Keys.FAILURE]?.let { name -> BackupFailure.entries.firstOrNull { it.name == name } },
+            blockedTarget = prefs[Keys.BLOCKED_TARGET]
         )
     }
 
@@ -49,6 +53,7 @@ class BackupSettingsRepository @Inject constructor(
             prefs.remove(Keys.LAST_WRITTEN_HASH)
             prefs.remove(Keys.LAST_SUCCESS_AT)
             prefs.remove(Keys.FAILURE)
+            prefs.remove(Keys.BLOCKED_TARGET)
             if (uri == null) prefs.remove(Keys.TARGET_URI) else prefs[Keys.TARGET_URI] = uri
         }
     }
@@ -65,5 +70,21 @@ class BackupSettingsRepository @Inject constructor(
 
     suspend fun recordFailure(failure: BackupFailure) {
         dataStore.edit { it[Keys.FAILURE] = failure.name }
+    }
+
+    /** Stops automatic backup from writing to [target] until the user decides what to do with it. */
+    suspend fun recordBlocked(target: String) {
+        dataStore.edit { prefs ->
+            if (prefs[Keys.TARGET_URI] != target) return@edit
+            prefs[Keys.FAILURE] = BackupFailure.EXISTING_BACKUP.name
+            prefs[Keys.BLOCKED_TARGET] = target
+        }
+    }
+
+    suspend fun clearBlock() {
+        dataStore.edit { prefs ->
+            prefs.remove(Keys.BLOCKED_TARGET)
+            prefs.remove(Keys.FAILURE)
+        }
     }
 }

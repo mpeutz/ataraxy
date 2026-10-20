@@ -166,7 +166,7 @@ class BackupViewModelTest {
         documents.files[uri] = BackupCodec.encode(runBlocking { backupRepository.snapshot() }, now, 7L)
         viewModel.turnOn(uri)
         awaitMain { viewModel.state.value.enabled }
-        runBlocking { settings.recordFailure(BackupFailure.EXISTING_BACKUP) }
+        runBlocking { settings.recordBlocked(uri) }
         awaitMain { viewModel.state.value.failure == BackupFailure.EXISTING_BACKUP }
 
         viewModel.previewRestoreOfBackupFile()
@@ -177,6 +177,22 @@ class BackupViewModelTest {
 
         assertTrue(viewModel.state.value.enabled)
         assertNull(viewModel.offerKeepUpdating.value)
+        assertNull(runBlocking { settings.settings.first().blockedTarget })
+    }
+
+    @Test
+    fun replaceBlockedBackup_liftsBlock() {
+        viewModel.turnOn(uri)
+        awaitMain { viewModel.state.value.enabled }
+        runBlocking { settings.recordBlocked(uri) }
+        awaitMain { viewModel.state.value.failure == BackupFailure.EXISTING_BACKUP }
+
+        viewModel.replaceBlockedBackup()
+        awaitMain { viewModel.state.value.failure == null }
+
+        val stored = runBlocking { settings.settings.first() }
+        assertEquals(uri, stored.targetUri)
+        assertNull(stored.blockedTarget)
     }
 
     @Test

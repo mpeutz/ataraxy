@@ -66,6 +66,12 @@
     <string name="settings_backup_now">Back Up Now</string>
     <string name="settings_backup_now_value">Save a copy anywhere</string>
     <string name="settings_backup_saved">Backup saved</string>
+    <string name="settings_backup_restore_blocked">Restore That Backup</string>
+    <string name="settings_backup_replace">Replace That Backup</string>
+    <string name="settings_backup_replace_value">Overwrite it with this phone\'s journal</string>
+    <string name="settings_backup_replace_title">Replace That Backup?</string>
+    <string name="settings_backup_replace_message">The backup in that file will be overwritten with this phone\'s journal. This cannot be undone.</string>
+    <string name="settings_backup_replace_confirm">REPLACE</string>
     <string name="settings_restore">Restore From Backup</string>
     <string name="settings_restore_value">Replace this journal with a backup</string>
     <string name="settings_restore_title">Restore This Backup?</string>

@@ -5,7 +5,9 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringResource
@@ -32,6 +34,7 @@ fun BackupSection(
     val pendingRestore by viewModel.pendingRestore.collectAsStateWithLifecycle()
     val keepUpdatingUri by viewModel.offerKeepUpdating.collectAsStateWithLifecycle()
     val resources = LocalResources.current
+    var showReplaceConfirm by remember { mutableStateOf(false) }
 
     LaunchedEffect(viewModel) {
         viewModel.events.collect { event ->
@@ -77,9 +80,15 @@ fun BackupSection(
 
     if (state.failure == BackupFailure.EXISTING_BACKUP) {
         SettingsRow(
-            title = stringResource(R.string.settings_restore),
+            title = stringResource(R.string.settings_backup_restore_blocked),
             value = state.locationName ?: stringResource(R.string.settings_backup_location_unknown),
             onClick = { viewModel.previewRestoreOfBackupFile() }
+        )
+        SettingsRow(
+            title = stringResource(R.string.settings_backup_replace),
+            value = stringResource(R.string.settings_backup_replace_value),
+            onClick = { showReplaceConfirm = true },
+            isDestructive = true
         )
     }
 
@@ -107,6 +116,20 @@ fun BackupSection(
         KeepUpdatingDialog(
             onKeep = { viewModel.keepUpdating(uri) },
             onDismiss = { viewModel.dismissKeepUpdating() }
+        )
+    }
+
+    if (showReplaceConfirm) {
+        ConfirmDialog(
+            title = stringResource(R.string.settings_backup_replace_title),
+            message = stringResource(R.string.settings_backup_replace_message),
+            confirmLabel = stringResource(R.string.settings_backup_replace_confirm),
+            onConfirm = {
+                showReplaceConfirm = false
+                viewModel.replaceBlockedBackup()
+            },
+            onDismiss = { showReplaceConfirm = false },
+            isDestructive = true
         )
     }
 }

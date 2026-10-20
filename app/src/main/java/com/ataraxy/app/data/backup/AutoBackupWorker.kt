@@ -15,7 +15,11 @@ class AutoBackupWorker @AssistedInject constructor(
 ) : CoroutineWorker(context, params) {
 
     override suspend fun doWork(): Result {
-        automaticBackup.run()
+        automaticBackup.run(overwriteExisting = inputData.getBoolean(OVERWRITE_EXISTING, false))
         return Result.success()
+    }
+
+    companion object {
+        const val OVERWRITE_EXISTING = "overwrite_existing"
     }
 }

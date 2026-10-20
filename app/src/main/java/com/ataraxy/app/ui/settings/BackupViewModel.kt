@@ -140,6 +140,10 @@ class BackupViewModel @Inject constructor(
         }
     }
 
+    fun replaceBlockedBackup() {
+        viewModelScope.launch { controller.replaceBlockedBackup() }
+    }
+
     fun cancelRestore() {
         _pendingRestore.value = null
     }
