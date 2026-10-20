@@ -1,0 +1,151 @@
+package com.ataraxy.app.lock
+
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.PreferenceDataStoreFactory
+import androidx.datastore.preferences.core.Preferences
+import com.ataraxy.app.data.backup.BackupRepository
+import com.ataraxy.app.data.backup.BackupSnapshot
+import com.ataraxy.app.data.local.AtaraxyDatabase
+import com.ataraxy.app.data.local.inMemoryDatabase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.runBlocking
+import org.junit.After
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
+import org.junit.Before
+import org.junit.Test
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
+import java.io.File
+import java.nio.file.Files
+import java.time.Clock
+import java.time.Duration
+import java.time.Instant
+import java.time.ZoneId
+import java.time.ZoneOffset
+
+@RunWith(RobolectricTestRunner::class)
+class AppLockTest {
+
+    private lateinit var db: AtaraxyDatabase
+    private lateinit var lockStore: DataStore<Preferences>
+    private val authenticator = FakeDeviceAuthenticator()
+    private val clock = TestClock()
+
+    @Before
+    fun setUp() {
+        db = inMemoryDatabase()
+        lockStore = tempDataStore("lock_prefs.preferences_pb")
+    }
+
+    @After
+    fun tearDown() = db.close()
+
+    private fun newLock() = AppLock(lockStore, authenticator, clock)
+
+    @Test
+    fun offByDefault_andAlwaysUnlocked() {
+        val lock = newLock()
+
+        assertFalse(lock.enabled.value)
+        assertTrue(lock.isUnlocked.value)
+    }
+
+    @Test
+    fun turnOn_marksUnlocked_coldStartIsLocked() = runBlocking {
+        val lock = newLock()
+
+        lock.setEnabled(true)
+
+        assertTrue(lock.enabled.value)
+        assertTrue(lock.isUnlocked.value)
+        val coldStart = newLock()
+        assertTrue(coldStart.enabled.value)
+        assertFalse(coldStart.isUnlocked.value)
+    }
+
+    @Test
+    fun background59s_staysUnlocked() = runBlocking {
+        val lock = newLock().also { it.setEnabled(true) }
+
+        lock.onBackgrounded()
+        clock.advance(Duration.ofSeconds(59))
+        lock.onForegrounded()
+
+        assertTrue(lock.isUnlocked.value)
+    }
+
+    @Test
+    fun background60s_relocks() = runBlocking {
+        val lock = newLock().also { it.setEnabled(true) }
+
+        lock.onBackgrounded()
+        clock.advance(Duration.ofSeconds(60))
+        lock.onForegrounded()
+
+        assertFalse(lock.isUnlocked.value)
+        lock.markUnlocked()
+        assertTrue(lock.isUnlocked.value)
+    }
+
+    @Test
+    fun turnOff_isAlwaysUnlocked() = runBlocking {
+        val lock = newLock().also { it.setEnabled(true) }
+        lock.onBackgrounded()
+        clock.advance(Duration.ofMinutes(5))
+        lock.onForegrounded()
+
+        lock.setEnabled(false)
+
+        assertFalse(lock.enabled.value)
+        assertTrue(lock.isUnlocked.value)
+    }
+
+    @Test
+    fun deviceNotSecure_lockReportsDisabled() = runBlocking {
+        newLock().setEnabled(true)
+        authenticator.secure = false
+
+        val lock = newLock()
+
+        assertFalse(lock.enabled.value)
+        assertTrue(lock.isUnlocked.value)
+        assertFalse(lock.isAvailable())
+    }
+
+    @Test
+    fun lockFlag_isNotInUserPrefsOrBackups() = runBlocking {
+        val lock = newLock()
+        lock.setEnabled(true)
+        val userPrefs = tempDataStore("user_prefs.preferences_pb")
+        val repository = BackupRepository(db, userPrefs)
+
+        val snapshot = repository.snapshot()
+        repository.replaceAll(BackupSnapshot(emptyList(), emptyList(), emptyList(), emptyList(), emptyMap()))
+
+        assertFalse(snapshot.preferences.containsKey("app_lock_enabled"))
+        assertTrue(newLock().enabled.value)
+    }
+
+    private fun tempDataStore(fileName: String): DataStore<Preferences> {
+        val dir = Files.createTempDirectory("prefs").toFile()
+        return PreferenceDataStoreFactory.create(
+            scope = CoroutineScope(Dispatchers.IO + SupervisorJob()),
+            produceFile = { File(dir, fileName) }
+        )
+    }
+
+    private class TestClock : Clock() {
+        private var now: Instant = Instant.parse("2026-10-20T09:00:00Z")
+
+        fun advance(by: Duration) {
+            now = now.plus(by)
+        }
+
+        override fun getZone(): ZoneId = ZoneOffset.UTC
+        override fun withZone(zone: ZoneId): Clock = this
+        override fun instant(): Instant = now
+    }
+}

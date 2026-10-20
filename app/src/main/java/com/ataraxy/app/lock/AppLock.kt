@@ -1,0 +1,76 @@
+package com.ataraxy.app.lock
+
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
+import androidx.datastore.preferences.core.edit
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.runBlocking
+import java.time.Clock
+import java.time.Duration
+import java.time.Instant
+import javax.inject.Inject
+import javax.inject.Qualifier
+import javax.inject.Singleton
+
+@Qualifier
+@Retention(AnnotationRetention.BINARY)
+annotation class LockPrefs
+
+@Singleton
+class AppLock @Inject constructor(
+    @LockPrefs private val dataStore: DataStore<Preferences>,
+    private val authenticator: DeviceAuthenticator,
+    private val clock: Clock
+) {
+    private var storedFlag = runBlocking { dataStore.data.first()[ENABLED_KEY] ?: false }
+    private var backgroundedAt: Instant? = null
+
+    private val _enabled = MutableStateFlow(storedFlag && authenticator.isDeviceSecure())
+    val enabled: StateFlow<Boolean> = _enabled.asStateFlow()
+
+    private val _isUnlocked = MutableStateFlow(!_enabled.value)
+    val isUnlocked: StateFlow<Boolean> = _isUnlocked.asStateFlow()
+
+    fun isAvailable(): Boolean = authenticator.isDeviceSecure()
+
+    suspend fun setEnabled(on: Boolean) {
+        dataStore.edit { it[ENABLED_KEY] = on }
+        storedFlag = on
+        refreshEnabled()
+        _isUnlocked.value = true
+    }
+
+    fun markUnlocked() {
+        _isUnlocked.value = true
+    }
+
+    fun onBackgrounded() {
+        backgroundedAt = clock.instant()
+    }
+
+    fun onForegrounded() {
+        val since = backgroundedAt
+        backgroundedAt = null
+        refreshEnabled()
+        if (!_enabled.value) {
+            _isUnlocked.value = true
+            return
+        }
+        if (since != null && Duration.between(since, clock.instant()) >= RELOCK_AFTER) {
+            _isUnlocked.value = false
+        }
+    }
+
+    private fun refreshEnabled() {
+        _enabled.value = storedFlag && authenticator.isDeviceSecure()
+    }
+
+    companion object {
+        val RELOCK_AFTER: Duration = Duration.ofSeconds(60)
+        private val ENABLED_KEY = booleanPreferencesKey("app_lock_enabled")
+    }
+}
