@@ -63,12 +63,15 @@ class AutomaticBackup @Inject constructor(
         return BackupRunResult.FAILED
     }
 
-    private suspend fun targetHoldsPrivateData(target: String): Boolean = try {
-        BackupCodec.decode(documents.read(target)).snapshot.hasPrivateData
-    } catch (e: CancellationException) {
-        throw e
-    } catch (e: Exception) {
-        false
+    /** An empty or non-backup file counts as no data; any other read failure ends the run. */
+    private suspend fun targetHoldsPrivateData(target: String): Boolean {
+        val text = documents.read(target)
+        if (text.isBlank()) return false
+        return try {
+            BackupCodec.decode(text).snapshot.hasPrivateData
+        } catch (e: BackupFormatException) {
+            false
+        }
     }
 }
 

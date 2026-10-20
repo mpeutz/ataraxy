@@ -3,10 +3,12 @@ package com.ataraxy.app.data.backup
 class FakeBackupDocuments : BackupDocuments {
     val files = mutableMapOf<String, String>()
     var failWith: Exception? = null
+    var failReadWith: Exception? = null
     var writeCount = 0
         private set
 
     override suspend fun read(uri: String): String {
+        failReadWith?.let { throw it }
         failWith?.let { throw it }
         return files[uri] ?: throw java.io.FileNotFoundException(uri)
     }

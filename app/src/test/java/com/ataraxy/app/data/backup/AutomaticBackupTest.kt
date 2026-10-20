@@ -113,6 +113,33 @@ class AutomaticBackupTest {
     }
 
     @Test
+    fun run_emptyInstall_readFails_doesNotWrite() = runBlocking {
+        val existing = BackupCodec.encode(
+            BackupSnapshot(listOf(entry(1, "a")), emptyList(), emptyList(), emptyList(), emptyMap()),
+            now,
+            1L
+        )
+        documents.files[target] = existing
+        documents.failReadWith = java.io.IOException("transient")
+        settings.setTarget(target)
+
+        assertEquals(BackupRunResult.FAILED, backup.run())
+
+        assertEquals(existing, documents.files.getValue(target))
+        assertEquals(0, documents.writeCount)
+        assertEquals(BackupFailure.UNKNOWN, settings.settings.first().failure)
+    }
+
+    @Test
+    fun run_emptyInstall_emptyTargetFile_writes() = runBlocking {
+        documents.files[target] = ""
+        settings.setTarget(target)
+
+        assertEquals(BackupRunResult.WRITTEN, backup.run())
+        assertEquals(1, documents.writeCount)
+    }
+
+    @Test
     fun run_afterThisInstallWrote_emptyJournalDoesOverwrite() = runBlocking {
         settings.setTarget(target)
         db.journalDao().upsert(entry(1, "first"))
