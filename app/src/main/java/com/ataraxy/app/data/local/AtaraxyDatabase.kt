@@ -3,6 +3,7 @@ package com.ataraxy.app.data.local
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.ataraxy.app.data.local.dao.AuthorDao
+import com.ataraxy.app.data.local.dao.BackupDao
 import com.ataraxy.app.data.local.dao.BookmarkDao
 import com.ataraxy.app.data.local.dao.JournalDao
 import com.ataraxy.app.data.local.dao.QuoteDao
@@ -42,4 +43,5 @@ abstract class AtaraxyDatabase : RoomDatabase() {
     abstract fun bookmarkDao(): BookmarkDao
     abstract fun reflectionDao(): ReflectionDao
     abstract fun sosEventDao(): SosEventDao
+    abstract fun backupDao(): BackupDao
 }
