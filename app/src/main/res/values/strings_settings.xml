@@ -102,7 +102,7 @@
     <string name="settings_deactivate">Deactivate Ataraxy</string>
     <string name="settings_deactivate_value">Clear all data</string>
     <string name="settings_deactivate_title">Deactivate Ataraxy?</string>
-    <string name="settings_deactivate_message">All data, preferences, and journal entries will be deleted. Notifications will be cancelled.</string>
+    <string name="settings_deactivate_message">All data, preferences, and journal entries will be deleted. Notifications will be canceled. Your backup file is kept.</string>
     <string name="settings_deactivate_confirm">DEACTIVATE</string>
     <string name="settings_all_data_cleared">All data cleared</string>
 

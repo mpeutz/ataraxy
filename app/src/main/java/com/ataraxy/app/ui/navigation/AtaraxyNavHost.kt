@@ -16,6 +16,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberUpdatedState
@@ -80,6 +81,10 @@ fun AtaraxyNavHost() {
 
     NewIntentDeepLinks(navController, enabled = onboardingComplete == true)
 
+    LaunchedEffect(onboardingComplete) {
+        navController.returnToOnboardingIfReset(onboardingComplete)
+    }
+
     Scaffold(
         bottomBar = {
             if (showBottomBar) {
@@ -127,6 +132,19 @@ private fun NewIntentDeepLinks(navController: NavHostController, enabled: Boolea
         }
         activity.addOnNewIntentListener(listener)
         onDispose { activity.removeOnNewIntentListener(listener) }
+    }
+}
+
+/**
+ * Deactivate clears every preference, so the app starts over at onboarding with nothing to go back to.
+ * Finishing onboarding is left alone: onboarding navigates on by itself.
+ */
+internal fun NavHostController.returnToOnboardingIfReset(onboardingComplete: Boolean?) {
+    if (onboardingComplete != false) return
+    val route = currentDestination?.route ?: return
+    if (route == Screen.Onboarding.route) return
+    navigate(Screen.Onboarding.route) {
+        popUpTo(graph.id) { inclusive = true }
     }
 }
 
