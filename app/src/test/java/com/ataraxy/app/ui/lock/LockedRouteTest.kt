@@ -167,14 +167,15 @@ class LockedRouteTest {
     }
 
     @Test
-    fun lockedRoutes_areExactlyTheFiveJournalScreens() {
+    fun lockedRoutes_areExactlyTheSixJournalScreens() {
         assertEquals(
             setOf(
                 Screen.JournalHistory.route,
                 Screen.PracticeEdit.ROUTE,
                 Screen.WhatsYours.route,
                 Screen.ReflectionFlow.ROUTE,
-                Screen.ReflectionDetail.ROUTE
+                Screen.ReflectionDetail.ROUTE,
+                Screen.Entry.ROUTE
             ),
             LOCKED_ROUTES
         )

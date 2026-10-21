@@ -15,6 +15,7 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
+import java.time.Clock
 import java.time.LocalDateTime
 
 @RunWith(RobolectricTestRunner::class)
@@ -80,5 +81,5 @@ class WhatsYoursViewModelTest {
         assertTrue(vm.uiState.value.open.isEmpty())
     }
 
-    private fun viewModel(handle: SavedStateHandle = SavedStateHandle()) = WhatsYoursViewModel(handle, repository)
+    private fun viewModel(handle: SavedStateHandle = SavedStateHandle()) = WhatsYoursViewModel(handle, repository, Clock.systemDefaultZone())
 }

@@ -41,6 +41,11 @@
     <string name="whats_yours_set_down_label">WHAT YOU WILL SET DOWN</string>
     <string name="whats_yours_notes_label">NOTES AS IT UNFOLDS</string>
     <string name="whats_yours_note_hint">Add a note…</string>
+    <string name="whats_yours_checkin_prompt">Two weeks on, does this still weigh on you?</string>
+    <string name="whats_yours_checkin_set_down">SET IT DOWN</string>
+    <string name="whats_yours_checkin_carry">STILL CARRYING IT</string>
+    <string name="whats_yours_checkin_note">Still carrying this.</string>
+    <string name="whats_yours_checkin_marker">Two weeks on</string>
     <string name="whats_yours_options">Reflection options</string>
     <string name="whats_yours_set_down_action">This no longer weighs on me</string>
     <string name="whats_yours_pick_up_action">Pick it back up</string>

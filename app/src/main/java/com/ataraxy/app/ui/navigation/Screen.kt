@@ -51,4 +51,9 @@ sealed class Screen(val route: String) {
             const val ROUTE = "practice/edit/{entryId}"
         }
     }
+    data class Entry(val entryId: Long) : Screen("entry/$entryId") {
+        companion object {
+            const val ROUTE = "entry/{entryId}"
+        }
+    }
 }

@@ -45,6 +45,6 @@ abstract class BackupModule {
 
         @Provides
         @Singleton
-        fun provideClock(): Clock = Clock.systemDefaultZone()
+        fun provideClock(): Clock = SystemZoneClock()
     }
 }

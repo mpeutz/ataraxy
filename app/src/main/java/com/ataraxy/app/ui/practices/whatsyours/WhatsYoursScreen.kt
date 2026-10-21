@@ -29,6 +29,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ataraxy.app.R
 import com.ataraxy.app.domain.model.Reflection
@@ -47,6 +48,11 @@ fun WhatsYoursScreen(
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val begin = { viewModel.begin(onBegin) }
+
+    LifecycleResumeEffect(viewModel) {
+        viewModel.refresh()
+        onPauseOrDispose {}
+    }
 
     LazyColumn(
         modifier = Modifier
@@ -92,7 +98,7 @@ fun WhatsYoursScreen(
                 }
             }
         }
-        reflectionSection(R.string.whats_yours_open_header, state.open, onOpenReflection)
+        reflectionSection(R.string.whats_yours_open_header, state.open, onOpenReflection, state.dueIds)
         reflectionSection(R.string.whats_yours_past_header, state.past, onOpenReflection)
         item { Spacer(Modifier.height(32.dp)) }
     }
@@ -101,7 +107,8 @@ fun WhatsYoursScreen(
 private fun androidx.compose.foundation.lazy.LazyListScope.reflectionSection(
     header: Int,
     reflections: List<Reflection>,
-    onOpen: (Reflection) -> Unit
+    onOpen: (Reflection) -> Unit,
+    dueIds: Set<Long> = emptySet()
 ) {
     if (reflections.isEmpty()) return
     item(key = "header_$header") {
@@ -112,12 +119,12 @@ private fun androidx.compose.foundation.lazy.LazyListScope.reflectionSection(
         )
     }
     items(reflections, key = { "reflection_${it.id}" }) { reflection ->
-        ReflectionRow(reflection = reflection, onClick = { onOpen(reflection) })
+        ReflectionRow(reflection = reflection, due = reflection.id in dueIds, onClick = { onOpen(reflection) })
     }
 }
 
 @Composable
-private fun ReflectionRow(reflection: Reflection, onClick: () -> Unit) {
+private fun ReflectionRow(reflection: Reflection, due: Boolean, onClick: () -> Unit) {
     val meta = buildList {
         add(stringResource(R.string.whats_yours_started, reflection.createdAt.format(shortDate)))
         when {
@@ -143,5 +150,12 @@ private fun ReflectionRow(reflection: Reflection, onClick: () -> Unit) {
             style = AtaraxyText.meta,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
+        if (due) {
+            Text(
+                text = stringResource(R.string.whats_yours_checkin_marker),
+                style = AtaraxyText.meta,
+                color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+        }
     }
 }

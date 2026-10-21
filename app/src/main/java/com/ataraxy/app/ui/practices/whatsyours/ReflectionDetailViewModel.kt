@@ -3,6 +3,7 @@ package com.ataraxy.app.ui.practices.whatsyours
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ataraxy.app.lookback.isCheckInDue
 import com.ataraxy.app.data.repository.ReflectionRepository
 import com.ataraxy.app.domain.model.Reflection
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -11,6 +12,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.time.Clock
 import java.time.LocalDateTime
 import javax.inject.Inject
 
@@ -19,13 +21,15 @@ private const val NOTE_DRAFT_KEY = "noteDraft"
 data class ReflectionDetailUiState(
     val reflection: Reflection? = null,
     val noteDraft: String = "",
-    val confirmingDelete: Boolean = false
+    val confirmingDelete: Boolean = false,
+    val checkInDue: Boolean = false
 )
 
 @HiltViewModel
 class ReflectionDetailViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
-    private val repository: ReflectionRepository
+    private val repository: ReflectionRepository,
+    private val clock: Clock
 ) : ViewModel() {
 
     private val reflectionId: Long = checkNotNull(savedStateHandle[REFLECTION_ID_KEY])
@@ -33,10 +37,15 @@ class ReflectionDetailViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(ReflectionDetailUiState(noteDraft = savedStateHandle[NOTE_DRAFT_KEY] ?: ""))
     val uiState: StateFlow<ReflectionDetailUiState> = _uiState.asStateFlow()
 
+    private var settingDown = false
+    private var carryingSince: LocalDateTime? = null
+
     init {
         viewModelScope.launch {
             repository.observe(reflectionId).collect { reflection ->
-                if (reflection != null) _uiState.update { it.copy(reflection = reflection) }
+                if (reflection == null) return@collect
+                if (hasCarryingNote(reflection)) carryingSince = null
+                _uiState.update { it.copy(reflection = reflection, checkInDue = isDue(reflection)) }
             }
         }
     }
@@ -50,11 +59,41 @@ class ReflectionDetailViewModel @Inject constructor(
         val note = _uiState.value.noteDraft.trim()
         if (note.isEmpty()) return
         updateNoteDraft("")
-        viewModelScope.launch { repository.addNote(reflectionId, note, LocalDateTime.now()) }
+        viewModelScope.launch { repository.addNote(reflectionId, note, LocalDateTime.now(clock)) }
     }
 
     fun setDown() {
-        viewModelScope.launch { repository.setDown(reflectionId, LocalDateTime.now()) }
+        if (settingDown) return
+        settingDown = true
+        _uiState.update { it.copy(checkInDue = false) }
+        viewModelScope.launch {
+            try {
+                repository.setDown(reflectionId, LocalDateTime.now(clock))
+            } finally {
+                settingDown = false
+            }
+        }
+    }
+
+    fun stillCarrying(noteText: String) {
+        if (!_uiState.value.checkInDue || carryingSince != null) return
+        val now = LocalDateTime.now(clock)
+        carryingSince = now
+        _uiState.update { it.copy(checkInDue = false) }
+        viewModelScope.launch { repository.addNote(reflectionId, noteText, now) }
+    }
+
+    /** Re-checks the two-week mark; the screen calls this on resume. */
+    fun refresh() {
+        _uiState.update { state -> state.copy(checkInDue = state.reflection?.let(::isDue) ?: false) }
+    }
+
+    private fun isDue(reflection: Reflection) =
+        carryingSince == null && isCheckInDue(reflection, LocalDateTime.now(clock))
+
+    private fun hasCarryingNote(reflection: Reflection): Boolean {
+        val since = carryingSince ?: return false
+        return reflection.notes.any { !it.createdAt.isBefore(since) }
     }
 
     fun pickUp() {

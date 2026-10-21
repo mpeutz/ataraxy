@@ -3,6 +3,7 @@ package com.ataraxy.app.ui.practices.whatsyours
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ataraxy.app.lookback.isCheckInDue
 import com.ataraxy.app.data.repository.ReflectionRepository
 import com.ataraxy.app.domain.model.Reflection
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -11,6 +12,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.time.Clock
 import java.time.LocalDateTime
 import javax.inject.Inject
 
@@ -19,13 +21,15 @@ private const val DRAFT_KEY = "draftWorry"
 data class WhatsYoursUiState(
     val draftWorry: String = "",
     val open: List<Reflection> = emptyList(),
-    val past: List<Reflection> = emptyList()
+    val past: List<Reflection> = emptyList(),
+    val dueIds: Set<Long> = emptySet()
 )
 
 @HiltViewModel
 class WhatsYoursViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
-    private val repository: ReflectionRepository
+    private val repository: ReflectionRepository,
+    private val clock: Clock
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(WhatsYoursUiState(draftWorry = savedStateHandle[DRAFT_KEY] ?: ""))
@@ -33,11 +37,23 @@ class WhatsYoursViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            repository.observeOpen().collect { open -> _uiState.update { it.copy(open = open) } }
+            repository.observeOpen().collect { open ->
+                _uiState.update { it.copy(open = open, dueIds = dueIds(open)) }
+            }
         }
         viewModelScope.launch {
             repository.observePast().collect { past -> _uiState.update { it.copy(past = past) } }
         }
+    }
+
+    /** Re-checks the two-week mark; the screen calls this on resume. */
+    fun refresh() {
+        _uiState.update { it.copy(dueIds = dueIds(it.open)) }
+    }
+
+    private fun dueIds(open: List<Reflection>): Set<Long> {
+        val now = LocalDateTime.now(clock)
+        return open.filter { isCheckInDue(it, now) }.map { it.id }.toSet()
     }
 
     fun updateDraft(text: String) {
@@ -50,6 +66,6 @@ class WhatsYoursViewModel @Inject constructor(
         val worry = _uiState.value.draftWorry.trim()
         if (worry.isEmpty()) return
         updateDraft("")
-        viewModelScope.launch { onCreated(repository.create(worry, LocalDateTime.now())) }
+        viewModelScope.launch { onCreated(repository.create(worry, LocalDateTime.now(clock))) }
     }
 }

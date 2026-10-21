@@ -43,6 +43,7 @@ import androidx.navigation.navDeepLink
 import com.ataraxy.app.R
 import com.ataraxy.app.ui.archive.ArchiveScreen
 import com.ataraxy.app.ui.author.AuthorDetailScreen
+import com.ataraxy.app.ui.entry.EntryScreen
 import com.ataraxy.app.ui.home.HomeScreen
 import com.ataraxy.app.ui.insight.InsightScreen
 import com.ataraxy.app.ui.lock.LockViewModel
@@ -70,7 +71,8 @@ internal val LOCKED_ROUTES = setOf(
     Screen.PracticeEdit.ROUTE,
     Screen.WhatsYours.route,
     Screen.ReflectionFlow.ROUTE,
-    Screen.ReflectionDetail.ROUTE
+    Screen.ReflectionDetail.ROUTE,
+    Screen.Entry.ROUTE
 )
 
 @Composable
@@ -214,6 +216,10 @@ internal fun NavHostController.leaveLockedRoute() {
 
 private fun NavHostController.isOnLockedRoute(): Boolean = currentDestination?.route in LOCKED_ROUTES
 
+internal fun NavHostController.openEntry(entryId: Long) {
+    navigate(Screen.Entry(entryId).route) { launchSingleTop = true }
+}
+
 /** Every destination in the app. Kept separate from [AtaraxyNavHost] so the graph can be tested. */
 internal fun NavGraphBuilder.ataraxyGraph(
     navController: NavHostController,
@@ -227,7 +233,8 @@ internal fun NavGraphBuilder.ataraxyGraph(
             onNavigateToPractice = { quoteId ->
                 navController.navigate(Screen.Practice.BASE + if (quoteId != null) "?quoteId=$quoteId" else "")
             },
-            onNavigateToAuthor = { authorId -> navController.navigate("author/$authorId") }
+            onNavigateToAuthor = { authorId -> navController.navigate("author/$authorId") },
+            onOpenEntry = { entryId -> navController.openEntry(entryId) }
         )
     }
 
@@ -388,6 +395,16 @@ internal fun NavGraphBuilder.ataraxyGraph(
         arguments = listOf(navArgument("reflectionId") { type = NavType.LongType })
     ) {
         ReflectionDetailScreen(onBack = { navController.popBackStack() })
+    }
+
+    gatedComposable(navController,
+        route = Screen.Entry.ROUTE,
+        arguments = listOf(navArgument("entryId") { type = NavType.LongType })
+    ) {
+        EntryScreen(
+            onBack = { navController.popBackStack() },
+            onEdit = { id -> navController.navigate(Screen.PracticeEdit(id).route) }
+        )
     }
 
     gatedComposable(navController, Screen.SosQuotes.route) {

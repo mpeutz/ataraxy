@@ -45,6 +45,8 @@
     <string name="journal_empty_morning">No morning rituals recorded.\nComplete a morning bookend to begin.</string>
     <string name="journal_empty_evening">No evening rituals recorded.\nComplete an evening bookend to begin.</string>
     <string name="journal_edit">EDIT</string>
+    <string name="entry_title">ENTRY</string>
+    <string name="entry_missing">This entry is no longer in your journal.</string>
     <string name="journal_delete_entry">Delete entry</string>
 
     <!-- SOS -->
