@@ -28,19 +28,23 @@ fun sessionsOf(entries: List<JournalEntry>): List<JournalSession> {
 }
 
 fun pickLookBack(entries: List<JournalEntry>, today: LocalDate): LookBackPick? {
-    val eligible = sessionsOf(entries)
-        .filter { it.date <= today.minusDays(LOOKBACK_MIN_DAYS) }
-        .sortedBy { it.representative.createdAt }
-    if (eligible.isEmpty()) return null
+    val sessions = sessionsOf(entries).sortedWith(SESSION_ORDER)
 
-    eligible.firstOrNull { it.date == today.minusYears(1) }
+    sessions.firstOrNull { it.date == today.minusYears(1) }
         ?.let { return LookBackPick(it, LookBackKind.YEAR) }
-    eligible.firstOrNull { it.date == today.minusMonths(1) }
+    sessions.firstOrNull { it.date == today.minusMonths(1) }
         ?.let { return LookBackPick(it, LookBackKind.MONTH) }
 
+    val eligible = sessions.filter { it.date <= today.minusDays(LOOKBACK_MIN_DAYS) }
+    if (eligible.isEmpty()) return null
     val index = Math.floorMod(today.toEpochDay(), eligible.size.toLong()).toInt()
     return LookBackPick(eligible[index], LookBackKind.OLDER)
 }
+
+private val SESSION_ORDER = compareBy<JournalSession>(
+    { it.representative.createdAt },
+    { it.representative.id }
+)
 
 fun isCheckInDue(reflection: Reflection, now: LocalDateTime): Boolean {
     if (reflection.setDownAt != null || reflection.completedAt == null) return false

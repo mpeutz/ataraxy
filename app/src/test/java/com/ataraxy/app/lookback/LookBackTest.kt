@@ -135,4 +135,41 @@ class LookBackTest {
         assertEquals(LookBackKind.MONTH, month!!.kind)
     }
 
+
+    @Test
+    fun exactMonth_winsEvenWhenUnder30Days() {
+        val march = LocalDate.of(2026, 3, 15)
+        val pick = pickLookBack(listOf(entry(1, LocalDate.of(2026, 2, 15))), march)
+
+        assertEquals(LookBackKind.MONTH, pick!!.kind)
+    }
+
+    @Test
+    fun sameCreatedAt_pickIsIndependentOfInputOrder() {
+        val date = today.minusDays(60)
+        val a = entry(1, date)
+        val b = entry(2, date)
+
+        assertEquals(pickLookBack(listOf(a, b), today), pickLookBack(listOf(b, a), today))
+        val yearDay = today.minusYears(1)
+        val c = entry(3, yearDay)
+        val d = entry(4, yearDay)
+        assertEquals(3L, pickLookBack(listOf(d, c), today)!!.session.representative.id)
+    }
+
+    @Test
+    fun olderBoundary_30DaysEligible_29DaysNot() {
+        val day = LocalDate.of(2026, 10, 31)
+        assertEquals(LookBackKind.OLDER, pickLookBack(listOf(entry(1, day.minusDays(30))), day)!!.kind)
+        assertNull(pickLookBack(listOf(entry(2, day.minusDays(29))), day))
+    }
+
+    @Test
+    fun sameRitualTypeSameDate_differentCreatedAt_areTwoSessions() {
+        val date = today.minusDays(60)
+        val first = entry(1, date, ritualType = "morning")
+        val second = entry(2, date, ritualType = "morning").copy(createdAt = date.atTime(9, 0))
+
+        assertEquals(2, sessionsOf(listOf(first, second)).size)
+    }
 }
