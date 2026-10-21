@@ -118,6 +118,7 @@ class SettingsViewModel @Inject constructor(
             notificationScheduler.cancelAll()
             appLock.setEnabled(false)
             userPrefsRepository.clearAll()
+            widgets.updateAll()
         }
     }
 

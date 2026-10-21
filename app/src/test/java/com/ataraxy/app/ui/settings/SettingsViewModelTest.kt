@@ -139,6 +139,16 @@ class SettingsViewModelTest {
     }
 
     @Test
+    fun deactivate_updatesWidgetsAfterClearingPrefs() {
+        runBlocking { userPrefs.setTheme(AppTheme.DARK) }
+
+        viewModel.deactivate()
+        awaitMain { themeWhenWidgetsUpdated != null }
+
+        assertEquals(AppTheme.SYSTEM, themeWhenWidgetsUpdated)
+    }
+
+    @Test
     fun setTheme_updatesWidgetsAfterSaving() {
         viewModel.setTheme(AppTheme.DARK)
         awaitMain { themeWhenWidgetsUpdated != null }

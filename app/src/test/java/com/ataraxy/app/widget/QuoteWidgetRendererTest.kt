@@ -35,6 +35,7 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.Shadows.shadowOf
+import org.robolectric.shadows.ShadowLog
 import java.io.File
 import java.nio.file.Files
 import java.time.LocalDate
@@ -214,6 +215,24 @@ class QuoteWidgetRendererTest {
         }
 
         assertFalse(finished)
+    }
+
+    @Test
+    fun withUpdateTimeout_slowWork_logsTheTimeout() = runBlocking {
+        ShadowLog.clear()
+
+        withUpdateTimeout(timeoutMs = 50) { delay(5_000) }
+
+        assertTrue(ShadowLog.getLogsForTag("QuoteWidget").any { it.msg.contains("timed out") })
+    }
+
+    @Test
+    fun withUpdateTimeout_fastWork_logsNothing() = runBlocking {
+        ShadowLog.clear()
+
+        withUpdateTimeout(timeoutMs = 5_000) { }
+
+        assertTrue(ShadowLog.getLogsForTag("QuoteWidget").isEmpty())
     }
 
     private fun inflate(views: android.widget.RemoteViews): FrameLayout {

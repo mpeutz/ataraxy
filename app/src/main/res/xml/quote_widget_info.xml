@@ -6,6 +6,7 @@
     android:minWidth="250dp"
     android:minHeight="40dp"
     android:minResizeHeight="40dp"
+    android:previewLayout="@layout/widget_quote_card_follow"
     android:maxResizeHeight="300dp"
     android:resizeMode="vertical|horizontal"
     android:targetCellWidth="4"

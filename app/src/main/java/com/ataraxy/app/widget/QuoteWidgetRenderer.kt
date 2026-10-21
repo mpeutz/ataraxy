@@ -102,7 +102,8 @@ internal suspend fun updateEach(
 
 /** Gives up quietly once a broadcast's ~10 s budget is nearly spent. */
 internal suspend fun withUpdateTimeout(timeoutMs: Long = UPDATE_TIMEOUT_MS, block: suspend () -> Unit) {
-    withTimeoutOrNull(timeoutMs) { block() }
+    val finished = withTimeoutOrNull(timeoutMs) { block() }
+    if (finished == null) Log.w(LOG_TAG, "Widget update timed out after $timeoutMs ms")
 }
 
 /** Bounds [block] and swallows its failures, so callers such as a ViewModel scope never see a throw. */

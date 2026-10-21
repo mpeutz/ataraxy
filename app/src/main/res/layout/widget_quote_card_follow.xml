@@ -17,6 +17,7 @@
         android:fontFamily="serif"
         android:gravity="start"
         android:maxLines="4"
+        android:text="@string/widget_preview_quote"
         android:textColor="@color/widget_quote_follow"
         android:textStyle="italic" />
 
@@ -30,5 +31,6 @@
         android:gravity="start"
         android:letterSpacing="0.2"
         android:maxLines="1"
+        android:text="@string/widget_preview_author"
         android:textColor="@color/widget_author_follow" />
 </LinearLayout>
