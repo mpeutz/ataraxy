@@ -91,4 +91,11 @@
     <string name="quote_attribution_with_source">— %1$s  ·  %2$s</string>
     <string name="lock_prompt_title">Unlock your journal</string>
     <string name="lock_prompt_confirm_title">Confirm it\'s you</string>
+    <string name="home_lookback_eyebrow">FROM YOUR JOURNAL</string>
+    <string name="home_lookback_year">A year ago today, you wrote</string>
+    <string name="home_lookback_month">A month ago today, you wrote</string>
+    <string name="home_lookback_older">On %1$s, you wrote</string>
+    <string name="home_lookback_locked_year">You wrote something a year ago today</string>
+    <string name="home_lookback_locked_month">You wrote something a month ago today</string>
+    <string name="home_lookback_locked_older">You wrote something on %1$s</string>
 </resources>

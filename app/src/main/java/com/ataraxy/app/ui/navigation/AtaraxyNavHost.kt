@@ -229,7 +229,8 @@ internal fun NavGraphBuilder.ataraxyGraph(
             onNavigateToPractice = { quoteId ->
                 navController.navigate(Screen.Practice.BASE + if (quoteId != null) "?quoteId=$quoteId" else "")
             },
-            onNavigateToAuthor = { authorId -> navController.navigate("author/$authorId") }
+            onNavigateToAuthor = { authorId -> navController.navigate("author/$authorId") },
+            onOpenEntry = { entryId -> navController.navigate(Screen.Entry(entryId).route) }
         )
     }
 
