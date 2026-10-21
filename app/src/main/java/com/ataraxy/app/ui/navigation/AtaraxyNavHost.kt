@@ -216,6 +216,10 @@ internal fun NavHostController.leaveLockedRoute() {
 
 private fun NavHostController.isOnLockedRoute(): Boolean = currentDestination?.route in LOCKED_ROUTES
 
+internal fun NavHostController.openEntry(entryId: Long) {
+    navigate(Screen.Entry(entryId).route) { launchSingleTop = true }
+}
+
 /** Every destination in the app. Kept separate from [AtaraxyNavHost] so the graph can be tested. */
 internal fun NavGraphBuilder.ataraxyGraph(
     navController: NavHostController,
@@ -230,7 +234,7 @@ internal fun NavGraphBuilder.ataraxyGraph(
                 navController.navigate(Screen.Practice.BASE + if (quoteId != null) "?quoteId=$quoteId" else "")
             },
             onNavigateToAuthor = { authorId -> navController.navigate("author/$authorId") },
-            onOpenEntry = { entryId -> navController.navigate(Screen.Entry(entryId).route) }
+            onOpenEntry = { entryId -> navController.openEntry(entryId) }
         )
     }
 

@@ -139,6 +139,15 @@ class AtaraxyNavGraphTest {
     }
 
     @Test
+    fun openEntryTwice_keepsOneEntryOnTop() {
+        navController.openEntry(5)
+        navController.openEntry(5)
+
+        assertEquals(Screen.Entry.ROUTE, navController.currentDestination?.route)
+        assertEquals(Screen.Home.route, navController.previousBackStackEntry?.destination?.route)
+    }
+
+    @Test
     fun cancelWithOnlyLockedScreensBehind_opensHomeAlone() {
         navController.navigate(Screen.JournalHistory.route) { popUpTo(navController.graph.id) { inclusive = true } }
         navController.navigate("practice/edit/1")
