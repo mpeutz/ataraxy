@@ -80,7 +80,7 @@ private fun EntryBody(session: JournalSession, quote: Quote?, onEdit: (Long) -> 
     ) {
         Text(
             text = session.date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)),
-            style = AtaraxyText.eyebrow,
+            style = AtaraxyText.meta,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
         session.entries.forEach { entry ->

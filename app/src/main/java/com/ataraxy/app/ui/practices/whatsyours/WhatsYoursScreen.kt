@@ -153,7 +153,7 @@ private fun ReflectionRow(reflection: Reflection, due: Boolean, onClick: () -> U
         if (due) {
             Text(
                 text = stringResource(R.string.whats_yours_checkin_marker),
-                style = AtaraxyText.eyebrow,
+                style = AtaraxyText.meta,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }
