@@ -73,6 +73,10 @@
     <string name="disclaimer_content">Ataraxy is a tool for personal reflection and Stoic philosophy exploration. It is not a substitute for professional mental health treatment, therapy, or medical advice. If you are experiencing mental health challenges, please seek help from a qualified healthcare professional.</string>
     <string name="about_ataraxy_title">ABOUT ATARAXY</string>
     <string name="about_ataraxy_content">Ataraxy is a personal reflection tool designed to help you explore Stoic philosophy through daily quotes, guided practices, and journaling. The goal is to cultivate tranquility and resilience through the wisdom of Stoic philosophers.</string>
+    <string name="about_privacy_title">PRIVACY</string>
+    <string name="about_privacy_content">Everything you write stays on your phone unless you choose to save a backup elsewhere. Ataraxy has no accounts, ads or analytics, and no internet access.</string>
+    <string name="about_privacy_link">READ THE PRIVACY POLICY</string>
+    <string name="privacy_policy_url" translatable="false">https://mpeutz.github.io/ataraxy/privacy/</string>
     <string name="quote_sources_title">QUOTE SOURCES</string>
     <string name="image_attributions_title">IMAGE ATTRIBUTIONS</string>
     <string name="philosophy_title">PHILOSOPHY</string>
