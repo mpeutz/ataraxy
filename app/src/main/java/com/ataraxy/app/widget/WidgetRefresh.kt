@@ -1,8 +1,10 @@
 package com.ataraxy.app.widget
 
 import android.content.BroadcastReceiver
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.util.Log
 import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
@@ -35,18 +37,33 @@ private val JUST_AFTER_MIDNIGHT = LocalTime.of(0, 0, 30)
 internal fun delayUntilNextMidnight(now: ZonedDateTime): Duration = delayUntilNext(JUST_AFTER_MIDNIGHT, now)
 
 @Singleton
-class WidgetRefreshScheduler @Inject constructor(
-    @ApplicationContext private val context: Context
+class WidgetRefreshScheduler internal constructor(
+    private val context: Context,
+    private val hasWidgets: () -> Boolean
 ) {
-    fun scheduleNext() {
-        val request = OneTimeWorkRequestBuilder<MidnightWidgetWorker>()
-            .setInitialDelay(delayUntilNextMidnight(ZonedDateTime.now()).toMillis(), TimeUnit.MILLISECONDS)
-            .build()
-        WorkManager.getInstance(context).enqueueUniqueWork(WORK_NAME, ExistingWorkPolicy.REPLACE, request)
+    @Inject constructor(@ApplicationContext context: Context) : this(context, { quoteWidgetIds(context).isNotEmpty() })
+
+    fun scheduleNext() = enqueue(ExistingWorkPolicy.REPLACE)
+
+    /** Restarts a chain lost to a first launch or a clear-data, without moving one already pending. */
+    fun ensureScheduled() {
+        if (hasWidgets()) enqueue(ExistingWorkPolicy.KEEP)
+    }
+
+    /** Arms the next midnight run while widgets exist, and ends the chain once none are left. */
+    fun scheduleNextOrCancel() {
+        if (hasWidgets()) scheduleNext() else cancel()
     }
 
     fun cancel() {
         WorkManager.getInstance(context).cancelUniqueWork(WORK_NAME)
+    }
+
+    private fun enqueue(policy: ExistingWorkPolicy) {
+        val request = OneTimeWorkRequestBuilder<MidnightWidgetWorker>()
+            .setInitialDelay(delayUntilNextMidnight(ZonedDateTime.now()).toMillis(), TimeUnit.MILLISECONDS)
+            .build()
+        WorkManager.getInstance(context).enqueueUniqueWork(WORK_NAME, policy, request)
     }
 }
 
@@ -64,7 +81,7 @@ class MidnightWidgetWorker @AssistedInject constructor(
     }
 }
 
-/** Always schedules the next run, even when the update fails or times out, so the daily chain never breaks. */
+/** Reschedules even when the update fails or times out, so the daily chain never breaks while widgets exist. */
 internal suspend fun refreshAndReschedule(updater: WidgetUpdater, scheduler: WidgetRefreshScheduler) {
     try {
         withUpdateTimeout { updater.updateAll() }
@@ -73,8 +90,16 @@ internal suspend fun refreshAndReschedule(updater: WidgetUpdater, scheduler: Wid
     } catch (e: Exception) {
         Log.w(LOG_TAG, "Could not refresh widgets", e)
     } finally {
-        scheduler.scheduleNext()
+        scheduler.scheduleNextOrCancel()
     }
+}
+
+/** The clock receiver is off in the manifest and runs only while at least one widget is placed. */
+internal fun setClockReceiverEnabled(context: Context, enabled: Boolean) {
+    val receiver = ComponentName(context, TimeChangeReceiver::class.java)
+    val state = if (enabled) PackageManager.COMPONENT_ENABLED_STATE_ENABLED else PackageManager.COMPONENT_ENABLED_STATE_DISABLED
+    if (context.packageManager.getComponentEnabledSetting(receiver) == state) return
+    context.packageManager.setComponentEnabledSetting(receiver, state, PackageManager.DONT_KILL_APP)
 }
 
 internal fun isClockChange(action: String?): Boolean =

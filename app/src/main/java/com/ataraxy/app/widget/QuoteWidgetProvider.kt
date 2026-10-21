@@ -15,7 +15,11 @@ class QuoteWidgetProvider : AppWidgetProvider() {
     @Inject lateinit var scheduler: WidgetRefreshScheduler
 
     override fun onUpdate(context: Context, appWidgetManager: AppWidgetManager, appWidgetIds: IntArray) {
-        launchBounded { renderEach(appWidgetManager, appWidgetIds) }
+        setClockReceiverEnabled(context, true)
+        launchBounded {
+            scheduler.ensureScheduled()
+            renderEach(appWidgetManager, appWidgetIds)
+        }
     }
 
     override fun onAppWidgetOptionsChanged(
@@ -28,10 +32,12 @@ class QuoteWidgetProvider : AppWidgetProvider() {
     }
 
     override fun onEnabled(context: Context) {
+        setClockReceiverEnabled(context, true)
         scheduler.scheduleNext()
     }
 
     override fun onDisabled(context: Context) {
+        setClockReceiverEnabled(context, false)
         scheduler.cancel()
     }
 

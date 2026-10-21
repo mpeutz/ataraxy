@@ -1,8 +1,11 @@
 package com.ataraxy.app.widget
 
+import android.appwidget.AppWidgetManager
 import android.content.BroadcastReceiver
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import androidx.test.core.app.ApplicationProvider
 import androidx.work.Configuration
 import androidx.work.ListenableWorker
@@ -34,6 +37,7 @@ class WidgetRefreshTest {
     private val newYork = ZoneId.of("America/New_York")
     private val context: Context = ApplicationProvider.getApplicationContext()
     private lateinit var scheduler: WidgetRefreshScheduler
+    private var widgetsExist = true
 
     @Before
     fun setUp() {
@@ -41,7 +45,7 @@ class WidgetRefreshTest {
             context,
             Configuration.Builder().setExecutor(SynchronousExecutor()).build()
         )
-        scheduler = WidgetRefreshScheduler(context)
+        scheduler = WidgetRefreshScheduler(context) { widgetsExist }
     }
 
     private fun at(date: LocalDate, time: LocalTime) = ZonedDateTime.of(date, time, newYork)
@@ -84,6 +88,49 @@ class WidgetRefreshTest {
     }
 
     @Test
+    fun ensureScheduled_keepsPendingWork() {
+        scheduler.scheduleNext()
+        val first = pendingWork().single().id
+        scheduler.ensureScheduled()
+        assertEquals(first, pendingWork().single().id)
+    }
+
+    @Test
+    fun ensureScheduled_withNothingPending_schedules() {
+        scheduler.ensureScheduled()
+        assertEquals(1, pendingWork().size)
+    }
+
+    @Test
+    fun ensureScheduled_withoutWidgets_doesNothing() {
+        widgetsExist = false
+        scheduler.ensureScheduled()
+        assertTrue(pendingWork().isEmpty())
+    }
+
+    @Test
+    fun refresh_withoutWidgets_cancelsTheChain() {
+        scheduler.scheduleNext()
+        widgetsExist = false
+
+        runBlocking { refreshAndReschedule(WidgetUpdater { }, scheduler) }
+
+        assertTrue(pendingWork().isEmpty())
+    }
+
+    @Test
+    fun timeZoneChange_withoutWidgets_schedulesNothing() {
+        widgetsExist = false
+        val updates = AtomicInteger()
+
+        receive(Intent(Intent.ACTION_TIMEZONE_CHANGED), updates)
+
+        awaitCondition { updates.get() == 1 }
+        Thread.sleep(100)
+        assertTrue(pendingWork().isEmpty())
+    }
+
+    @Test
     fun timeZoneChange_rerendersAndReschedules() {
         val updates = AtomicInteger()
 
@@ -110,6 +157,72 @@ class WidgetRefreshTest {
 
         assertEquals(0, updates.get())
         assertTrue(pendingWork().isEmpty())
+    }
+
+    @Test
+    fun worker_withoutWidgets_succeedsWithoutScheduling() {
+        widgetsExist = false
+        val worker = TestListenableWorkerBuilder<MidnightWidgetWorker>(context)
+            .setWorkerFactory(workerFactory(WidgetUpdater { }))
+            .build()
+
+        val result = runBlocking { worker.doWork() }
+
+        assertEquals(ListenableWorker.Result.success(), result)
+        assertTrue(pendingWork().isEmpty())
+    }
+
+    @Test
+    fun manifest_declaresClockReceiverDisabled() {
+        val info = context.packageManager.getReceiverInfo(clockReceiver, PackageManager.MATCH_DISABLED_COMPONENTS)
+        assertFalse(info.enabled)
+    }
+
+    @Test
+    fun firstWidget_enablesClockReceiverAndSchedules() {
+        provider().onEnabled(context)
+
+        assertEquals(PackageManager.COMPONENT_ENABLED_STATE_ENABLED, clockReceiverState())
+        assertEquals(1, pendingWork().size)
+    }
+
+    @Test
+    fun lastWidgetRemoved_disablesClockReceiverAndCancels() {
+        val provider = provider()
+        provider.onEnabled(context)
+
+        provider.onDisabled(context)
+
+        assertEquals(PackageManager.COMPONENT_ENABLED_STATE_DISABLED, clockReceiverState())
+        assertTrue(pendingWork().isEmpty())
+    }
+
+    @Test
+    fun widgetUpdate_ensuresTheChainIsScheduled() {
+        provider().onUpdate(context, AppWidgetManager.getInstance(context), intArrayOf())
+
+        awaitCondition { pendingWork().size == 1 }
+    }
+
+    @Test
+    fun widgetUpdate_enablesClockReceiverForWidgetsPlacedBeforeAnUpgrade() {
+        provider().onUpdate(context, AppWidgetManager.getInstance(context), intArrayOf())
+
+        assertEquals(PackageManager.COMPONENT_ENABLED_STATE_ENABLED, clockReceiverState())
+    }
+
+    private val clockReceiver get() = ComponentName(context, TimeChangeReceiver::class.java)
+
+    private fun clockReceiverState() = context.packageManager.getComponentEnabledSetting(clockReceiver)
+
+    private fun provider() = QuoteWidgetProvider().also { it.scheduler = scheduler }
+
+    private fun workerFactory(updater: WidgetUpdater) = object : WorkerFactory() {
+        override fun createWorker(
+            appContext: Context,
+            workerClassName: String,
+            workerParameters: WorkerParameters
+        ): ListenableWorker = MidnightWidgetWorker(appContext, workerParameters, updater, scheduler)
     }
 
     private fun receive(intent: Intent, updates: AtomicInteger) {
@@ -140,14 +253,9 @@ class WidgetRefreshTest {
     fun worker_updatesThenSchedulesNextAndSucceeds() {
         var updates = 0
         val updater = WidgetUpdater { updates++ }
-        val factory = object : WorkerFactory() {
-            override fun createWorker(
-                appContext: Context,
-                workerClassName: String,
-                workerParameters: WorkerParameters
-            ): ListenableWorker = MidnightWidgetWorker(appContext, workerParameters, updater, scheduler)
-        }
-        val worker = TestListenableWorkerBuilder<MidnightWidgetWorker>(context).setWorkerFactory(factory).build()
+        val worker = TestListenableWorkerBuilder<MidnightWidgetWorker>(context)
+            .setWorkerFactory(workerFactory(updater))
+            .build()
 
         val result = runBlocking { worker.doWork() }
 
