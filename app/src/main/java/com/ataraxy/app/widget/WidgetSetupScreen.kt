@@ -26,32 +26,22 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Shadow
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontStyle
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.em
-import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
 import com.ataraxy.app.R
 import com.ataraxy.app.domain.model.AppTheme
 import com.ataraxy.app.ui.theme.AtaraxyText
-import com.ataraxy.app.ui.theme.WidgetType
+import com.ataraxy.app.ui.theme.WidgetPreviewText
+import com.ataraxy.app.ui.theme.WidgetPreviewWallpaper
 
 private const val PREVIEW_HEIGHT_DP = 140
-private val WALLPAPER = Color(0xFF7A7F87)
-private val CLEAR_SHADOW = Shadow(Color(0x80000000), Offset(0f, 1f), 6f)
 
 @Composable
 fun WidgetSetupScreen(viewModel: WidgetSetupViewModel, onSave: () -> Unit) {
@@ -134,26 +124,12 @@ private fun styleLabel(style: WidgetStyle): Int = when (style) {
 private fun WidgetPreview(look: WidgetLook, quoteText: String, author: String) {
     val isClear = look.layout == WidgetLayout.CLEAR
     val spec = quoteTextSpec(PREVIEW_HEIGHT_DP)
-    val shadow = if (isClear) CLEAR_SHADOW else null
-    val quoteStyle = TextStyle(
-        fontFamily = FontFamily.Serif,
-        fontStyle = FontStyle.Italic,
-        fontSize = spec.sizeSp.sp,
-        color = colorResource(look.quoteColor),
-        shadow = shadow
-    )
-    val authorStyle = AtaraxyText.meta.copy(
-        fontFamily = FontFamily.SansSerif,
-        fontWeight = FontWeight.Medium,
-        fontSize = WidgetType.AUTHOR_SP.sp,
-        letterSpacing = 0.2.em,
-        color = colorResource(look.authorColor),
-        shadow = shadow
-    )
+    val quoteStyle = WidgetPreviewText.quote(spec.sizeSp, colorResource(look.quoteColor), isClear)
+    val authorStyle = WidgetPreviewText.author(colorResource(look.authorColor), isClear)
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .then(if (isClear) Modifier.background(WALLPAPER, MaterialTheme.shapes.large) else Modifier)
+            .then(if (isClear) Modifier.background(WidgetPreviewWallpaper, MaterialTheme.shapes.large) else Modifier)
             .padding(if (isClear) 16.dp else 0.dp)
     ) {
         Column(
