@@ -1,0 +1,6 @@
+title: Ataraxy
+description: A quiet Stoic journal for Android.
+theme: minima
+exclude:
+  - superpowers
+  - play-data-safety.md

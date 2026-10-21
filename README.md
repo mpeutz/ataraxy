@@ -28,7 +28,7 @@ A new quote every day from a library of more than 340 passages by Marcus Aureliu
 ### Made to be calm
 - Daily quote, morning and evening reminders, each at a time you choose.
 - Light and dark themes, plus larger text sizes for reading.
-- Your data never leaves the device: the app has no internet permission and opts out of cloud backup.
+- Your data stays on the device unless you save a backup somewhere you choose: the app has no internet permission and opts out of cloud backup. See the [privacy policy](https://mpeutz.github.io/ataraxy/privacy/).
 
 ## Built with
 

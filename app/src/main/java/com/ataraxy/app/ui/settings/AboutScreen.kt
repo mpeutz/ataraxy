@@ -8,6 +8,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -45,6 +46,8 @@ fun AboutScreen(onBack: () -> Unit) {
                 content = stringResource(R.string.about_ataraxy_content)
             )
 
+            PrivacySection()
+
             // Quotes attribution
             AboutSection(
                 title = stringResource(R.string.quote_sources_title),
@@ -71,6 +74,36 @@ fun AboutScreen(onBack: () -> Unit) {
 
             Spacer(Modifier.height(48.dp))
         }
+    }
+}
+
+@Composable
+private fun PrivacySection() {
+    val uriHandler = LocalUriHandler.current
+    val url = stringResource(R.string.privacy_policy_url)
+    Column {
+        Text(
+            text = stringResource(R.string.about_privacy_title),
+            style = AtaraxyText.eyebrow,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.padding(bottom = 12.dp)
+        )
+        Text(
+            text = stringResource(R.string.about_privacy_content),
+            style = AtaraxyText.body,
+            color = MaterialTheme.colorScheme.onBackground
+        )
+        TextButton(
+            onClick = { uriHandler.openUri(url) },
+            contentPadding = PaddingValues(0.dp)
+        ) {
+            Text(
+                text = stringResource(R.string.about_privacy_link),
+                style = AtaraxyText.button,
+                color = MaterialTheme.colorScheme.onBackground
+            )
+        }
+        Spacer(Modifier.height(16.dp))
     }
 }
 
