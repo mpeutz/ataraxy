@@ -101,6 +101,21 @@ class CheckInViewModelTest {
     }
 
     @Test
+    fun stillCarrying_thenRefreshBeforeTheNoteLands_keepsCheckInHidden() {
+        val vm = detail(dueId)
+
+        vm.stillCarrying("Still carrying this.")
+        vm.refresh()
+        assertFalse(vm.uiState.value.checkInDue)
+        vm.stillCarrying("Still carrying this.")
+
+        awaitMain { vm.uiState.value.reflection?.notes?.isNotEmpty() == true }
+        settleMain()
+        assertEquals(1, vm.uiState.value.reflection!!.notes.size)
+        assertFalse(vm.uiState.value.checkInDue)
+    }
+
+    @Test
     fun list_refresh_marksReflectionOnceTwoWeeksPass() {
         val clockRef = MutableClock(now.minusDays(1))
         val vm = WhatsYoursViewModel(SavedStateHandle(), repository, clockRef)

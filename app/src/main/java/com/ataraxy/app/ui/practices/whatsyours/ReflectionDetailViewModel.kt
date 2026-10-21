@@ -38,11 +38,14 @@ class ReflectionDetailViewModel @Inject constructor(
     val uiState: StateFlow<ReflectionDetailUiState> = _uiState.asStateFlow()
 
     private var settingDown = false
+    private var carryingSince: LocalDateTime? = null
 
     init {
         viewModelScope.launch {
             repository.observe(reflectionId).collect { reflection ->
-                if (reflection != null) _uiState.update { it.copy(reflection = reflection, checkInDue = isDue(reflection)) }
+                if (reflection == null) return@collect
+                if (hasCarryingNote(reflection)) carryingSince = null
+                _uiState.update { it.copy(reflection = reflection, checkInDue = isDue(reflection)) }
             }
         }
     }
@@ -73,9 +76,11 @@ class ReflectionDetailViewModel @Inject constructor(
     }
 
     fun stillCarrying(noteText: String) {
-        if (!_uiState.value.checkInDue) return
+        if (!_uiState.value.checkInDue || carryingSince != null) return
+        val now = LocalDateTime.now(clock)
+        carryingSince = now
         _uiState.update { it.copy(checkInDue = false) }
-        viewModelScope.launch { repository.addNote(reflectionId, noteText, LocalDateTime.now(clock)) }
+        viewModelScope.launch { repository.addNote(reflectionId, noteText, now) }
     }
 
     /** Re-checks the two-week mark; the screen calls this on resume. */
@@ -83,7 +88,13 @@ class ReflectionDetailViewModel @Inject constructor(
         _uiState.update { state -> state.copy(checkInDue = state.reflection?.let(::isDue) ?: false) }
     }
 
-    private fun isDue(reflection: Reflection) = isCheckInDue(reflection, LocalDateTime.now(clock))
+    private fun isDue(reflection: Reflection) =
+        carryingSince == null && isCheckInDue(reflection, LocalDateTime.now(clock))
+
+    private fun hasCarryingNote(reflection: Reflection): Boolean {
+        val since = carryingSince ?: return false
+        return reflection.notes.any { !it.createdAt.isBefore(since) }
+    }
 
     fun pickUp() {
         viewModelScope.launch { repository.pickUp(reflectionId) }
