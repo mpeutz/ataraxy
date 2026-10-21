@@ -9,6 +9,7 @@ import com.ataraxy.app.domain.model.Quote
 import com.ataraxy.app.lookback.JournalSession
 import com.ataraxy.app.lookback.sessionsOf
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.SharingStarted
@@ -16,6 +17,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
@@ -39,6 +41,7 @@ class EntryViewModel @Inject constructor(
     val state: StateFlow<EntryUiState> = journalRepository.getAllEntries()
         .map { entries -> sessionsOf(entries).firstOrNull { session -> session.entries.any { it.id == entryId } } }
         .distinctUntilChanged()
+        .flowOn(Dispatchers.Default)
         .flatMapLatest { session ->
             if (session == null) flowOf(EntryUiState.Missing) else shown(session)
         }

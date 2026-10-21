@@ -11,11 +11,13 @@ import com.ataraxy.app.lookback.LookBackPick
 import com.ataraxy.app.lookback.pickLookBack
 import com.ataraxy.app.domain.model.Quote
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import java.time.Clock
@@ -48,7 +50,9 @@ class HomeViewModel @Inject constructor(
         today
     ) { entries, locked, day ->
         pickLookBack(entries, day)?.toCard(locked)
-    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
+    }
+        .flowOn(Dispatchers.Default)
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
 
     val dailyQuote: StateFlow<Quote?> = quoteRepository.getDailyQuote()
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), null)
