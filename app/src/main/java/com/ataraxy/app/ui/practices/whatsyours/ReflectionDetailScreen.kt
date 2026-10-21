@@ -24,10 +24,12 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ataraxy.app.R
 import com.ataraxy.app.domain.model.Reflection
 import com.ataraxy.app.domain.model.ReflectionNote
+import com.ataraxy.app.ui.components.AtaraxyDivider
 import com.ataraxy.app.ui.components.AtaraxyTopBar
 import com.ataraxy.app.ui.components.orrery.orreryBackground
 import com.ataraxy.app.ui.components.orrery.rememberOrreryPattern
@@ -40,6 +42,12 @@ fun ReflectionDetailScreen(
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val reflection = state.reflection
+    val carryNote = stringResource(R.string.whats_yours_checkin_note)
+
+    LifecycleResumeEffect(viewModel) {
+        viewModel.refresh()
+        onPauseOrDispose {}
+    }
 
     Column(
         modifier = Modifier
@@ -66,6 +74,9 @@ fun ReflectionDetailScreen(
         if (reflection != null) {
             ReflectionBody(
                 reflection = reflection,
+                checkInDue = state.checkInDue,
+                onSetDown = viewModel::setDown,
+                onStillCarrying = { viewModel.stillCarrying(carryNote) },
                 noteDraft = state.noteDraft,
                 onNoteDraftChange = viewModel::updateNoteDraft,
                 onAddNote = viewModel::addNote
@@ -81,6 +92,9 @@ fun ReflectionDetailScreen(
 @Composable
 private fun ReflectionBody(
     reflection: Reflection,
+    checkInDue: Boolean,
+    onSetDown: () -> Unit,
+    onStillCarrying: () -> Unit,
     noteDraft: String,
     onNoteDraftChange: (String) -> Unit,
     onAddNote: () -> Unit
@@ -91,6 +105,10 @@ private fun ReflectionBody(
             .verticalScroll(rememberScrollState())
             .padding(horizontal = 24.dp, vertical = 20.dp)
     ) {
+        if (checkInDue) {
+            CheckInCard(onSetDown = onSetDown, onStillCarrying = onStillCarrying)
+            Spacer(Modifier.height(20.dp))
+        }
         ReflectionLabel(stringResource(R.string.whats_yours_started_on, reflection.createdAt.format(shortDate).uppercase()))
         reflection.setDownAt?.let {
             Spacer(Modifier.height(4.dp))
@@ -129,6 +147,26 @@ private fun ReflectionBody(
             }
         }
         Spacer(Modifier.height(32.dp))
+    }
+}
+
+@Composable
+private fun CheckInCard(onSetDown: () -> Unit, onStillCarrying: () -> Unit) {
+    Column {
+        Text(
+            text = stringResource(R.string.whats_yours_checkin_prompt),
+            style = AtaraxyText.reading.copy(fontStyle = FontStyle.Italic),
+            color = MaterialTheme.colorScheme.onBackground
+        )
+        Row {
+            TextButton(onClick = onSetDown) {
+                Text(text = stringResource(R.string.whats_yours_checkin_set_down), style = AtaraxyText.button)
+            }
+            TextButton(onClick = onStillCarrying) {
+                Text(text = stringResource(R.string.whats_yours_checkin_carry), style = AtaraxyText.button)
+            }
+        }
+        AtaraxyDivider()
     }
 }
 
