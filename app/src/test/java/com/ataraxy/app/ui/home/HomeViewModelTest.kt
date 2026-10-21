@@ -16,6 +16,7 @@ import com.ataraxy.app.testing.testUserPrefs
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.junit.After
@@ -46,7 +47,10 @@ class HomeViewModelTest {
     }
 
     @After
-    fun tearDown() = db.close()
+    fun tearDown() {
+        scope.cancel()
+        db.close()
+    }
 
     @Test
     fun noOldEntries_noCard() {
