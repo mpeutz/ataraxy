@@ -89,4 +89,6 @@
     <string name="quote_in_marks">“%1$s”</string>
     <string name="quote_attribution">— %1$s</string>
     <string name="quote_attribution_with_source">— %1$s  ·  %2$s</string>
+    <string name="lock_prompt_title">Unlock your journal</string>
+    <string name="lock_prompt_confirm_title">Confirm it\'s you</string>
 </resources>

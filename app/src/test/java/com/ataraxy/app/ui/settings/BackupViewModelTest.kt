@@ -15,6 +15,7 @@ import com.ataraxy.app.data.backup.AutomaticBackupController
 import com.ataraxy.app.data.backup.BackupRunResult
 import com.ataraxy.app.data.backup.BackupSnapshot
 import com.ataraxy.app.data.backup.BackupCodec
+import com.ataraxy.app.data.backup.BackupDocuments
 import com.ataraxy.app.data.backup.BackupFailure
 import com.ataraxy.app.data.backup.BackupLock
 import com.ataraxy.app.data.backup.BackupRepository
@@ -25,8 +26,12 @@ import com.ataraxy.app.data.local.AtaraxyDatabase
 import com.ataraxy.app.data.local.entity.JournalEntryEntity
 import com.ataraxy.app.data.local.inMemoryDatabase
 import com.ataraxy.app.data.preferences.UserPrefsRepository
+import com.ataraxy.app.lock.AppLock
+import com.ataraxy.app.lock.FakeDeviceAuthenticator
+import com.ataraxy.app.lock.FakeElapsedRealtime
 import com.ataraxy.app.testing.awaitMain
 import com.ataraxy.app.testing.settleMain
+import kotlinx.coroutines.CompletableDeferred
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
@@ -46,6 +51,7 @@ import org.robolectric.RobolectricTestRunner
 import java.io.File
 import java.nio.file.Files
 import java.time.Clock
+import java.time.Duration
 import java.time.Instant
 import java.time.ZoneOffset
 import java.util.Collections
@@ -61,6 +67,9 @@ class BackupViewModelTest {
     private lateinit var documents: FakeBackupDocuments
     private lateinit var settings: BackupSettingsRepository
     private lateinit var viewModel: BackupViewModel
+    private lateinit var appLock: AppLock
+    private val realtime = FakeElapsedRealtime()
+    private var readGate: CompletableDeferred<Unit>? = null
     private val events = Collections.synchronizedList(mutableListOf<BackupEvent>())
 
     @Before
@@ -76,15 +85,24 @@ class BackupViewModelTest {
         documents = FakeBackupDocuments()
         settings = BackupSettingsRepository(tempDataStore("backup_prefs"))
         val lock = BackupLock()
-        val restore = RestoreBackup(documents, backupRepository, UserPrefsRepository(userPrefsStore), { }, lock)
+        val gatedDocuments = object : BackupDocuments by documents {
+            override suspend fun read(uri: String): String {
+                readGate?.await()
+                return documents.read(uri)
+            }
+        }
+        appLock = AppLock(tempDataStore("lock_prefs"), FakeDeviceAuthenticator(), realtime)
+        runBlocking { appLock.setEnabled(true) }
+        val restore = RestoreBackup(gatedDocuments, backupRepository, UserPrefsRepository(userPrefsStore), { }, lock)
         viewModel = BackupViewModel(
             AutomaticBackupController(context, documents, settings, lock),
             settings,
-            documents,
+            gatedDocuments,
             backupRepository,
             restore,
             { 42L },
-            Clock.fixed(now, ZoneOffset.UTC)
+            Clock.fixed(now, ZoneOffset.UTC),
+            appLock
         )
         CoroutineScope(Dispatchers.Default + SupervisorJob()).launch { viewModel.events.collect { events += it } }
     }
@@ -165,7 +183,7 @@ class BackupViewModelTest {
         assertEquals(1, pending.preview.journalEntryCount)
 
         viewModel.confirmRestore()
-        awaitMain { viewModel.offerKeepUpdating.value != null }
+        awaitMain { viewModel.offerKeepUpdating.value != null && events.isNotEmpty() }
 
         assertEquals(uri, viewModel.offerKeepUpdating.value)
         assertEquals(listOf<BackupEvent>(BackupEvent.Restored), events.toList())
@@ -290,6 +308,66 @@ class BackupViewModelTest {
         assertEquals(listOf<BackupEvent>(BackupEvent.Restored), events.toList())
         assertEquals(uri, runBlocking { settings.settings.first().blockedTarget })
         assertEquals(BackupFailure.EXISTING_BACKUP, viewModel.state.value.failure)
+    }
+
+    @Test
+    fun cancelRestore_duringPreview_leavesNothingPending() {
+        backupFileAt(uri)
+        readGate = CompletableDeferred()
+
+        viewModel.previewRestore(uri)
+        viewModel.cancelRestore()
+        readGate!!.complete(Unit)
+        settleMain()
+
+        assertNull(viewModel.pendingRestore.value)
+    }
+
+    @Test
+    fun relockDuringPreview_dropsTheResult() {
+        backupFileAt(uri)
+        readGate = CompletableDeferred()
+
+        viewModel.previewRestore(uri)
+        relock()
+        readGate!!.complete(Unit)
+        settleMain()
+
+        assertNull(viewModel.pendingRestore.value)
+    }
+
+    @Test
+    fun previewWithoutRelock_setsPending() {
+        backupFileAt(uri)
+        readGate = CompletableDeferred()
+
+        viewModel.previewRestore(uri)
+        readGate!!.complete(Unit)
+        awaitMain { viewModel.pendingRestore.value != null }
+
+        assertEquals(uri, viewModel.pendingRestore.value!!.uri)
+    }
+
+    @Test
+    fun previewStartedAfterRelock_setsPending() {
+        backupFileAt(uri)
+        relock()
+
+        viewModel.previewRestore(uri)
+        awaitMain { viewModel.pendingRestore.value != null }
+
+        assertEquals(uri, viewModel.pendingRestore.value!!.uri)
+    }
+
+    private fun backupFileAt(target: String) {
+        runBlocking { db.journalDao().upsert(entry(1, "from backup")) }
+        documents.files[target] = BackupCodec.encode(runBlocking { backupRepository.snapshot() }, now, 7L)
+    }
+
+    private fun relock() {
+        appLock.onBackgrounded()
+        realtime.advance(AppLock.RELOCK_AFTER + Duration.ofSeconds(1))
+        appLock.onForegrounded()
     }
 
     @Test

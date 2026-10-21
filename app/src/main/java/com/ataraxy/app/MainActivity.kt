@@ -5,7 +5,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
@@ -17,6 +16,9 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.platform.LocalContext
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentActivity
+import com.ataraxy.app.lock.AppLock
+import com.ataraxy.app.lock.LockLifecycleObserver
 import androidx.lifecycle.lifecycleScope
 import com.ataraxy.app.data.backup.AutomaticBackupController
 import com.ataraxy.app.data.preferences.UserPrefsRepository
@@ -33,15 +35,17 @@ import com.ataraxy.app.domain.model.UserPrefs
 import com.ataraxy.app.domain.model.ContentTextSize
 
 @AndroidEntryPoint
-class MainActivity : ComponentActivity() {
+class MainActivity : FragmentActivity() {
 
     @Inject lateinit var userPrefsRepository: UserPrefsRepository
     @Inject lateinit var notificationScheduler: NotificationScheduler
     @Inject lateinit var automaticBackupController: AutomaticBackupController
+    @Inject lateinit var appLock: AppLock
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        lifecycle.addObserver(LockLifecycleObserver(appLock) { isChangingConfigurations })
 
         // Notification launches always carry NEW_TASK. Without CLEAR_TASK, Navigation would finish
         // and relaunch this freshly created activity to rebuild the task, so mark it as a clean start.

@@ -97,4 +97,55 @@ class AtaraxyNavGraphTest {
 
         assertEquals(Screen.Settings.route, navController.currentDestination?.route)
     }
+    @Test
+    fun cancelOnTwoLockedLayers_returnsPastBoth() {
+        navController.navigate(Screen.Practices.route)
+        navController.navigate(Screen.JournalHistory.route)
+        navController.navigate("practice/edit/1")
+
+        navController.leaveLockedRoute()
+
+        assertEquals(Screen.Practices.route, navController.currentDestination?.route)
+    }
+
+    @Test
+    fun cancelOnReflectionFlow_skipsWhatsYours() {
+        navController.navigate(Screen.WhatsYours.route)
+        navController.navigate(Screen.ReflectionFlow(1).route)
+
+        navController.leaveLockedRoute()
+
+        assertEquals(Screen.Home.route, navController.currentDestination?.route)
+    }
+
+    @Test
+    fun cancelOnOneLockedLayer_returnsToPreviousScreen() {
+        navController.navigate(Screen.Practices.route)
+        navController.navigate(Screen.JournalHistory.route)
+
+        navController.leaveLockedRoute()
+
+        assertEquals(Screen.Practices.route, navController.currentDestination?.route)
+    }
+
+    @Test
+    fun cancelWithNothingBehind_opensHomeAlone() {
+        navController.navigate(Screen.JournalHistory.route) { popUpTo(navController.graph.id) { inclusive = true } }
+
+        navController.leaveLockedRoute()
+
+        assertEquals(Screen.Home.route, navController.currentDestination?.route)
+        assertNull(navController.previousBackStackEntry)
+    }
+
+    @Test
+    fun cancelWithOnlyLockedScreensBehind_opensHomeAlone() {
+        navController.navigate(Screen.JournalHistory.route) { popUpTo(navController.graph.id) { inclusive = true } }
+        navController.navigate("practice/edit/1")
+
+        navController.leaveLockedRoute()
+
+        assertEquals(Screen.Home.route, navController.currentDestination?.route)
+        assertNull(navController.previousBackStackEntry)
+    }
 }
