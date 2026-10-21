@@ -38,14 +38,22 @@ class WhatsYoursViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             repository.observeOpen().collect { open ->
-                val now = LocalDateTime.now(clock)
-                val due = open.filter { isCheckInDue(it, now) }.map { it.id }.toSet()
-                _uiState.update { it.copy(open = open, dueIds = due) }
+                _uiState.update { it.copy(open = open, dueIds = dueIds(open)) }
             }
         }
         viewModelScope.launch {
             repository.observePast().collect { past -> _uiState.update { it.copy(past = past) } }
         }
+    }
+
+    /** Re-checks the two-week mark; the screen calls this on resume. */
+    fun refresh() {
+        _uiState.update { it.copy(dueIds = dueIds(it.open)) }
+    }
+
+    private fun dueIds(open: List<Reflection>): Set<Long> {
+        val now = LocalDateTime.now(clock)
+        return open.filter { isCheckInDue(it, now) }.map { it.id }.toSet()
     }
 
     fun updateDraft(text: String) {

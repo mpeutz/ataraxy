@@ -37,6 +37,8 @@ class ReflectionDetailViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(ReflectionDetailUiState(noteDraft = savedStateHandle[NOTE_DRAFT_KEY] ?: ""))
     val uiState: StateFlow<ReflectionDetailUiState> = _uiState.asStateFlow()
 
+    private var settingDown = false
+
     init {
         viewModelScope.launch {
             repository.observe(reflectionId).collect { reflection ->
@@ -58,10 +60,21 @@ class ReflectionDetailViewModel @Inject constructor(
     }
 
     fun setDown() {
-        viewModelScope.launch { repository.setDown(reflectionId, LocalDateTime.now(clock)) }
+        if (settingDown) return
+        settingDown = true
+        _uiState.update { it.copy(checkInDue = false) }
+        viewModelScope.launch {
+            try {
+                repository.setDown(reflectionId, LocalDateTime.now(clock))
+            } finally {
+                settingDown = false
+            }
+        }
     }
 
     fun stillCarrying(noteText: String) {
+        if (!_uiState.value.checkInDue) return
+        _uiState.update { it.copy(checkInDue = false) }
         viewModelScope.launch { repository.addNote(reflectionId, noteText, LocalDateTime.now(clock)) }
     }
 

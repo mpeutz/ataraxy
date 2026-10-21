@@ -29,6 +29,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
+import androidx.lifecycle.compose.LifecycleResumeEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.ataraxy.app.R
 import com.ataraxy.app.domain.model.Reflection
@@ -47,6 +48,11 @@ fun WhatsYoursScreen(
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
     val begin = { viewModel.begin(onBegin) }
+
+    LifecycleResumeEffect(viewModel) {
+        viewModel.refresh()
+        onPauseOrDispose {}
+    }
 
     LazyColumn(
         modifier = Modifier

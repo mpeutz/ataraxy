@@ -6,6 +6,7 @@ import com.ataraxy.app.data.local.inMemoryDatabase
 import com.ataraxy.app.data.repository.ReflectionRepository
 import com.ataraxy.app.testing.awaitMain
 import com.ataraxy.app.testing.settleMain
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.assertEquals
@@ -88,6 +89,31 @@ class CheckInViewModelTest {
     }
 
     @Test
+    fun stillCarrying_twiceInARow_addsOneNote() {
+        val vm = detail(dueId)
+
+        vm.stillCarrying("Still carrying this.")
+        vm.stillCarrying("Still carrying this.")
+        awaitMain { vm.uiState.value.reflection?.notes?.isNotEmpty() == true }
+        settleMain()
+
+        assertEquals(1, vm.uiState.value.reflection!!.notes.size)
+    }
+
+    @Test
+    fun list_refresh_marksReflectionOnceTwoWeeksPass() {
+        val clockRef = MutableClock(now.minusDays(1))
+        val vm = WhatsYoursViewModel(SavedStateHandle(), repository, clockRef)
+        awaitMain { vm.uiState.value.open.size == 2 }
+        assertEquals(emptySet<Long>(), vm.uiState.value.dueIds)
+
+        clockRef.at = now
+        vm.refresh()
+
+        assertEquals(setOf(dueId), vm.uiState.value.dueIds)
+    }
+
+    @Test
     fun setItDown_movesToPast() {
         val vm = detail(dueId)
 
@@ -97,7 +123,8 @@ class CheckInViewModelTest {
 
         assertNotNull(vm.uiState.value.reflection!!.setDownAt)
         assertFalse(vm.uiState.value.checkInDue)
-        assertEquals(listOf(dueId), runBlocking { repository.get(dueId) }!!.let { listOf(it.id) })
+        assertEquals(listOf(freshId), runBlocking { repository.observeOpen().first() }.map { it.id })
+        assertEquals(listOf(dueId), runBlocking { repository.observePast().first() }.map { it.id })
     }
 
     private fun detail(id: Long, useClock: Clock = clock) = ReflectionDetailViewModel(
