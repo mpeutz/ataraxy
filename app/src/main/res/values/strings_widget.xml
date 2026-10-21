@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="widget_empty">Open Ataraxy to begin.</string>
+    <string name="widget_preview_quote">It is indeed foolish to be unhappy now because you may be unhappy at some future time.</string>
+    <string name="widget_preview_author">— SENECA</string>
+    <string name="widget_description">Today\'s Stoic quote</string>
+    <string name="widget_setup_title">Choose a style</string>
+    <string name="widget_style_match_app">Match app theme</string>
+    <string name="widget_style_light">Light</string>
+    <string name="widget_style_dark">Dark</string>
+    <string name="widget_style_clear">Clear</string>
+    <string name="widget_style_accent">Phone accent</string>
+    <string name="widget_setup_save">ADD WIDGET</string>
+    <string name="widget_setup_save_reconfigure">SAVE</string>
+</resources>

@@ -14,6 +14,7 @@ import com.ataraxy.app.domain.model.NotificationStyle
 import com.ataraxy.app.domain.model.UserPrefs
 import com.ataraxy.app.lock.AppLock
 import com.ataraxy.app.notifications.NotificationScheduler
+import com.ataraxy.app.widget.WidgetUpdater
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.Flow
@@ -34,7 +35,8 @@ class SettingsViewModel @Inject constructor(
     private val sosRepository: SosRepository,
     private val journalExporter: JournalExporter,
     private val automaticBackupController: AutomaticBackupController,
-    private val appLock: AppLock
+    private val appLock: AppLock,
+    private val widgets: WidgetUpdater
 ) : ViewModel() {
 
     private val _exportResults = Channel<Result<Unit>>(Channel.BUFFERED)
@@ -44,7 +46,10 @@ class SettingsViewModel @Inject constructor(
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), UserPrefs())
 
     fun setTheme(theme: AppTheme) {
-        viewModelScope.launch { userPrefsRepository.setTheme(theme) }
+        viewModelScope.launch {
+            userPrefsRepository.setTheme(theme)
+            widgets.updateAll()
+        }
     }
 
     fun setContentTextSize(size: ContentTextSize) {
@@ -113,6 +118,7 @@ class SettingsViewModel @Inject constructor(
             notificationScheduler.cancelAll()
             appLock.setEnabled(false)
             userPrefsRepository.clearAll()
+            widgets.updateAll()
         }
     }
 

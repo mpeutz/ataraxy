@@ -6,11 +6,12 @@ import java.io.File
 
 /**
  * Keeps text styling in one place: screens must take their text style from [AtaraxyText] rather
- * than setting sizes, spacing, fonts or raw Material styles themselves.
+ * than setting sizes, spacing, fonts or raw Material styles themselves. Scans the whole app, so
+ * screens outside ui/ (such as the widget's setup screen) are held to the same rule.
  */
 class TypographyGuardTest {
 
-    private val uiRoot = File("src/main/java/com/ataraxy/app/ui")
+    private val appRoot = File("src/main/java/com/ataraxy/app")
     private val forbidden = listOf(
         Regex("""\bfontSize\s*="""),
         Regex("""\blineHeight\s*="""),
@@ -24,16 +25,16 @@ class TypographyGuardTest {
 
     @Test
     fun screensUseTextRolesOnly() {
-        assertTrue("UI sources not found at ${uiRoot.absolutePath}", uiRoot.isDirectory)
-        val screens = uiRoot.walkTopDown()
+        assertTrue("App sources not found at ${appRoot.absolutePath}", appRoot.isDirectory)
+        val screens = appRoot.walkTopDown()
             .filter { it.isFile && it.extension == "kt" && !it.invariantSeparatorsPath.contains("/ui/theme/") }
             .toList()
-        assertTrue("No screens found under ${uiRoot.absolutePath}", screens.size > 10)
+        assertTrue("No screens found under ${appRoot.absolutePath}", screens.size > 10)
 
         val hits = screens
             .flatMap { file ->
                 file.readLines().mapIndexedNotNull { index, line ->
-                    if (forbidden.any { it.containsMatchIn(line) }) "${file.relativeTo(uiRoot).invariantSeparatorsPath}:${index + 1}" else null
+                    if (forbidden.any { it.containsMatchIn(line) }) "${file.relativeTo(appRoot).invariantSeparatorsPath}:${index + 1}" else null
                 }
             }
             .toList()

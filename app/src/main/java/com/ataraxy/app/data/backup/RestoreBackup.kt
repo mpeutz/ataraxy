@@ -3,6 +3,7 @@ package com.ataraxy.app.data.backup
 import com.ataraxy.app.data.preferences.UserPrefsRepository
 import com.ataraxy.app.domain.model.UserPrefs
 import com.ataraxy.app.notifications.NotificationScheduler
+import com.ataraxy.app.widget.WidgetUpdater
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
@@ -26,9 +27,13 @@ fun interface Rescheduler {
 }
 
 class NotificationRescheduler @Inject constructor(
-    private val scheduler: NotificationScheduler
+    private val scheduler: NotificationScheduler,
+    private val widgets: WidgetUpdater
 ) : Rescheduler {
-    override suspend fun reschedule(prefs: UserPrefs) = scheduler.ensureScheduled(prefs)
+    override suspend fun reschedule(prefs: UserPrefs) {
+        scheduler.ensureScheduled(prefs)
+        widgets.updateAll()
+    }
 }
 
 class RestoreBackup @Inject constructor(
