@@ -15,8 +15,8 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Events Stay Outside",
-                    blockquote = "Things do not touch the soul, for they are external and remain immovable",
-                    body = "Marcus pictures events as things that stay where they are. A delayed train, a sharp email, a gray sky: none of them reaches in and moves your mind by itself. They are external and, in his word, immovable. This is not a claim that nothing matters. It is a claim about where the motion starts, and it does not start out there.",
+                    blockquote = "Things cannot touch the mind. They stay outside, unmoved.",
+                    body = "Marcus pictures events as things that stay where they are. A delayed train, a sharp email, a gray sky: none of them reaches in and moves your mind by itself. They stay outside you and do not move. This is not a claim that nothing matters. It is a claim about where the motion starts, and it does not start out there.",
                     bullets = listOf(
                         InsightBullet("Fixed in place", "An event does not travel into you; it stays where it happened, the same for everyone who sees it."),
                         InsightBullet("Same facts, many minds", "Two people can face the identical setback and come away with entirely different days.")
@@ -25,7 +25,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Where the Stir Begins",
-                    blockquote = "our perturbations come only from the opinion which is within",
+                    blockquote = "Our distress comes only from our own opinion.",
                     body = "If the agitation does not come from the thing, it comes from somewhere closer: the judgment you form about it. That can sound like blame, but Marcus meant it as relief. A judgment is something you made, so it is something you can look at again, loosen, or set down. The same note ends with his short summary: the universe is change, and life is opinion.",
                     bullets = listOf(
                         InsightBullet("Name the judgment", "When you feel stirred, try finishing the sentence: this is bad because I think that..."),
@@ -45,7 +45,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Obstacles as Raw Material",
-                    blockquote = "The rational animal is able to make every hindrance its own material",
+                    blockquote = "A reasoning mind can turn every obstacle into material",
                     body = "A sculptor does not resent the stone for being hard; the hardness is what she works with. Marcus asks you to see hindrances in a similar way. The delay, the refusal, the difficult colleague can become the very stuff your patience, fairness, or ingenuity is shaped from. The obstacle does not vanish. It changes its role, from wall to workpiece.",
                     bullets = listOf(
                         InsightBullet("A shared power", "Marcus saw this ability as a gift shared with the whole of nature, which folds every opposing thing into its order."),
@@ -55,7 +55,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Still Your Own Aim",
-                    blockquote = "to use it for such purposes as it may have designed",
+                    blockquote = "for its own purpose",
                     body = "The second half matters as much as the first. The hindrance is put to work for purposes you already hold. Your aim does not shrink to fit the obstacle; the obstacle is bent to serve the aim. If you meant to be kind today and someone is rude, the rudeness becomes the occasion for the kindness you intended all along.",
                     bullets = listOf(
                         InsightBullet("Aim first", "Know what you are trying to be in a situation, and the obstacle has somewhere useful to go."),
@@ -75,7 +75,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Not Ten Thousand Years",
-                    blockquote = "Do not act as if you were going to live ten thousand years.",
+                    blockquote = "Don't live as if you had ten thousand years.",
                     body = "Much of what we put off rests on a quiet assumption that there will always be more time. The apology can wait, the generous act can wait, the change in habit can wait. Marcus names the assumption and sets it aside. He does not say life is short to make you anxious. He says it so that you stop treating goodness as something for later.",
                     bullets = listOf(
                         InsightBullet("The hidden assumption", "Postponing the good usually rests on a belief in endless tomorrows that nobody actually has."),
@@ -85,7 +85,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "While It Is in Your Power",
-                    blockquote = "While you live, while it is in your power, be good.",
+                    blockquote = "While you live, while you can, be good.",
                     body = "The closing sentence turns the thought from limit to opportunity. While you are here, being good is within your reach. It does not depend on money, status, or luck. It depends on what you choose in the next conversation, the next task, the next small decision. That window is open today, and it is enough.",
                     bullets = listOf(
                         InsightBullet("Within reach", "Goodness asks for nothing outside your control; it is always something you can do now."),
@@ -105,7 +105,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "The Short List",
-                    blockquote = "Very little indeed is necessary",
+                    blockquote = "Very little is needed",
                     body = "Make a list of what you think a good life requires and it tends to grow: the right job, the right home, the right reputation, the right body. Marcus, an emperor with everything available, reverses the direction. The list is short: a clear mind, honest action, decent relations with others. Most of the rest is pleasant, but it is not the foundation.",
                     bullets = listOf(
                         InsightBullet("From the top", "These words come from a man who had every comfort in the empire and still concluded that little was needed."),
@@ -115,7 +115,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Happiness Without Credentials",
-                    blockquote = "for living a happy life",
+                    blockquote = "to live a happy life",
                     body = "In the same note Marcus admits he had given up hope of becoming skilled in logic and natural philosophy. He tells himself this is no reason to give up on being free, modest, and social. Happiness, in his view, does not wait for talent or recognition. It is open to anyone who lives rightly, even if no one ever notices.",
                     bullets = listOf(
                         InsightBullet("No special skill", "You do not need to excel at anything in particular to live a good life; you need to live it rightly."),
@@ -135,7 +135,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "The Lift of Clear Sight",
-                    blockquote = "Nothing is so productive of elevation of mind",
+                    blockquote = "Nothing lifts the mind",
                     body = "Elevation of mind here means steadiness and breadth, the ability to stand slightly above the moment instead of being swept along by it. Marcus does not find it in grand thoughts or escape. He finds it in accuracy. When you see something for what it is, it loses its power to inflate itself, and you gain room to respond well.",
                     bullets = listOf(
                         InsightBullet("Height through honesty", "Calm comes less from rising above things than from seeing them exactly as they are."),
@@ -145,7 +145,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Look Methodically and Truly",
-                    blockquote = "to be able to examine methodically and truly every object which is presented to you in life",
+                    blockquote = "looking at everything in your life clearly and truly",
                     body = "Around this line Marcus gives the method. Describe the thing as if stripped bare. Name its parts. Ask what it is composed of, how long it will endure, and what quality it asks of you, such as gentleness, truth, or simplicity. Method keeps you from skipping steps; truth keeps you from flattering the thing or making it a catastrophe.",
                     bullets = listOf(
                         InsightBullet("Strip it bare", "Describe a thing without decoration: an angry message is words on a screen, sent by a person having a bad day."),
@@ -160,12 +160,12 @@ object InsightData {
 
         // q006 — Marcus Aurelius
         "q006" to QuoteInsight(
-            intro = "Marcus calls this \"the chief thing,\" which shows how central it was to him. He pairs two reminders: everything unfolds by nature, and soon he will be as gone as Hadrianus (the emperor Hadrian, who ruled shortly before him) and Augustus (Rome's first emperor).",
+            intro = "Marcus puts this \"above all,\" which shows how central it was to him. He pairs two reminders: everything unfolds by nature, and soon he will be as gone as Hadrian (the emperor who ruled shortly before him) and Augustus (Rome's first emperor).",
             sections = listOf(
                 InsightSection(
                     number = 1,
                     title = "Nothing Outside the Order",
-                    blockquote = "Be not perturbed, for all things are according to the nature of the universal",
+                    blockquote = "don't be disturbed. Everything follows nature",
                     body = "For the Stoics, events are not random insults aimed at you. They belong to one large, connected order, the same nature that brings seasons, growth, and change. Seeing things this way does not make every event pleasant. It makes them less strange. What happens is the kind of thing that happens, and you can meet it without feeling singled out.",
                     bullets = listOf(
                         InsightBullet("Not aimed at you", "Setbacks belong to the ordinary workings of the world, not to a plot against you."),
@@ -175,7 +175,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Even Emperors Pass",
-                    blockquote = "in a little time you will be nobody and nowhere, like Hadrianus and Augustus",
+                    blockquote = "soon you will be nobody and nowhere, like Hadrian and Augustus",
                     body = "Marcus held the same office as the men he names. Augustus founded the role and Hadrian held it within living memory, and both were long gone. If their power did not last, the worries pressing on Marcus would not either. Right after this, he tells himself to fix his eyes on his work and do what a good man does, speaking justly and with modesty.",
                     bullets = listOf(
                         InsightBullet("Perspective, not gloom", "Remembering how brief everything is shrinks today's worry without shrinking today's duty."),
@@ -195,7 +195,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Love What Arrives",
-                    blockquote = "Love that only which happens to you and is spun with the thread of your destiny.",
+                    blockquote = "Love only what happens to you, what is woven into your life.",
                     body = "The word \"only\" is striking. Marcus is not saying to love everything in a vague way. He narrows your affection to what actually comes to you, rather than the life you imagined or the one someone else has. The thread image places your circumstances inside a larger pattern, so what arrives is not an accident to resent but part of the weave.",
                     bullets = listOf(
                         InsightBullet("The actual, not the ideal", "Wishing for a different life spends love on something that does not exist."),
@@ -205,7 +205,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "What Fits Better",
-                    blockquote = "For what is more suitable?",
+                    blockquote = "What could suit you better?",
                     body = "This short question carries the argument. If your circumstances are spun for you, nothing else could fit you more closely. Another person's luck would be a borrowed coat. The question does not deny that some days are hard. It invites you to stop measuring your life against imagined alternatives and to work with the one in your hands.",
                     bullets = listOf(
                         InsightBullet("Borrowed coats", "Other people's circumstances fit them, not you, however attractive they look from outside."),
@@ -225,7 +225,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "All You Hold",
-                    blockquote = "The present is the only thing of which a man can be deprived",
+                    blockquote = "The present is all you can lose",
                     body = "We tend to think of life as a large store of years that can be cut short. Marcus looks at it differently. At any moment, what you actually possess is this moment. Yesterday is gone and tomorrow has not arrived. So what can be taken from you is only ever the present, which is a small thing, and the same size for everyone.",
                     bullets = listOf(
                         InsightBullet("A narrow possession", "At any given time, what you truly have is the moment you are in, nothing more."),
@@ -235,7 +235,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Nothing Lost That Was Never Held",
-                    blockquote = "a man cannot lose a thing if he has it not",
+                    blockquote = "You cannot lose what you do not have.",
                     body = "This is the logical hinge. You cannot be robbed of money you never had, and you cannot be robbed of years that never belonged to you. Marcus uses the point to ease the fear of losing time. It also carries a quiet instruction: since the present is all you hold, it is worth holding attentively instead of spending it on regret or worry.",
                     bullets = listOf(
                         InsightBullet("Ease the fear", "Worry about lost future years loosens when you see they were never yours to hold."),
@@ -255,7 +255,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "The Character Test",
-                    blockquote = "That which does not make a man worse than he was",
+                    blockquote = "What does not make you worse",
                     body = "Most of us measure harm by what we lose: money, comfort, standing, a plan. Marcus measures it by something else, whether we have become less honest, less fair, less kind. By that measure, many painful events leave us untouched where it matters. They may hurt. They do not damage the self that chooses how to act.",
                     bullets = listOf(
                         InsightBullet("A different scale", "Harm, for Marcus, is measured in character, not in comfort or possessions."),
@@ -265,7 +265,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Safe From Both Sides",
-                    blockquote = "nor does it harm him either from without or from within",
+                    blockquote = "It does you no harm, outside or in.",
                     body = "Marcus closes off both routes. Nothing outside can damage your character on its own, and nothing inside is harmed unless you join in by acting badly. This makes your goodness unusually secure. The one thing that can truly hurt you is your own choice to become worse, and that choice stays in your hands.",
                     bullets = listOf(
                         InsightBullet("No outside entry", "Events can press on you, but they cannot make you dishonest or cruel without your consent."),
@@ -285,7 +285,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "The Wrong Fear",
-                    blockquote = "If you shall be afraid not because you must some time cease to live",
+                    blockquote = "Don't fear that your life will end.",
                     body = "Fear of an ending is common and natural, but Marcus thinks it is aimed at the wrong target. The ending is certain for everyone and outside anyone's control. Spending your worry there leaves less attention for what is in your control. He is not asking you to feel nothing. He is asking you to point the concern at something you can act on.",
                     bullets = listOf(
                         InsightBullet("Misplaced worry", "Fear of an ending you cannot change crowds out care for a life you can shape."),
@@ -295,7 +295,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Begin to Live",
-                    blockquote = "if you shall fear never to have begun to live according to nature",
+                    blockquote = "Fear that you never began to live well.",
                     body = "Living according to nature meant living as a reasoning and social being: thinking clearly, acting justly, caring for others. Marcus suggests the real loss would be never to have started this kind of life. Whoever does begin, he says, becomes worthy of the universe that produced them, and stops being a stranger in their native land.",
                     bullets = listOf(
                         InsightBullet("A late start is a start", "The fear Marcus names is of never beginning, which means today is still a good day to begin."),
@@ -315,7 +315,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "The First Division",
-                    blockquote = "Of things some are in our power, and others are not.",
+                    blockquote = "Some things are in our control and others are not.",
                     body = "Epictetus begins with a sorting exercise. Before asking whether something is good or bad, ask whether it is up to you. The next lines list what is not: the body, property, reputation, public office. These matter, but they belong partly to others and to chance. Confusing the two categories, he says, leads to frustration, lament, and blaming gods and men alike.",
                     bullets = listOf(
                         InsightBullet("Sort before judging", "The first question about any situation is not how bad it is but whose it is."),
@@ -325,7 +325,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "What Is Truly Yours",
-                    blockquote = "In our power are opinion, movement toward a thing, desire, aversion, turning from a thing",
+                    blockquote = "Our opinions, desires, and dislikes are ours",
                     body = "The list of what is yours is entirely inner: your opinions, your impulses toward and away from things, your desires and aversions. Epictetus sums it up as whatever are our own acts. This can sound small, but he calls these things free by nature, not subject to restraint or hindrance. No one can force your judgment or choose your response for you.",
                     bullets = listOf(
                         InsightBullet("Inner territory", "Everything on the list lives inside you: how you judge, what you want, what you refuse."),
@@ -354,7 +354,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "The Wrong Address",
-                    blockquote = "Seek not the good in things external",
+                    blockquote = "Don't look for the good outside you.",
                     body = "External things include money, praise, comfort, position, and other people's behavior. Epictetus does not call them worthless. He says the good, the thing that actually makes a life go well, is not located there. Searching for it among externals is like looking for your keys in a room you never entered. The effort is real, but the search cannot succeed.",
                     bullets = listOf(
                         InsightBullet("Not worthless, just elsewhere", "Externals may be pleasant or useful, but the good itself does not live among them."),
@@ -364,7 +364,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Look Within",
-                    blockquote = "seek it in yourselves: if you do not, you will not find it",
+                    blockquote = "Look within, or you will never find it.",
                     body = "For Epictetus the good lives in your own choices: judging well, desiring wisely, acting with integrity. This is why he could speak calmly of poverty, sickness, and exile. In the same passage he mentions being sent to Gyara, a barren island used as a place of exile. Such conditions could not reach the place where his good was kept.",
                     bullets = listOf(
                         InsightBullet("Kept safe inside", "A good located in your own choices cannot be confiscated by circumstance."),
@@ -384,8 +384,8 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Decide Who You Are",
-                    blockquote = "Immediately prescribe some character and some form to yourself",
-                    body = "The word \"immediately\" stands out. Epictetus does not want you to wait until you feel ready or wise. Choose a pattern now: the kind of person you mean to be, the standards you will keep. A clear character works like a set of rails. When a moment arrives, you are not inventing yourself from scratch; you are following a line already drawn.",
+                    blockquote = "Decide now who you want to be",
+                    body = "The word \"now\" stands out. Epictetus does not want you to wait until you feel ready or wise. Choose a pattern now: the kind of person you mean to be, the standards you will keep. A clear character works like a set of rails. When a moment arrives, you are not inventing yourself from scratch; you are following a line already drawn.",
                     bullets = listOf(
                         InsightBullet("No waiting room", "The character you choose today can guide you today, long before you feel complete."),
                         InsightBullet("Rails, not cages", "A chosen standard spares you from deciding everything anew under pressure.")
@@ -394,7 +394,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Alone and in Company",
-                    blockquote = "which you shall observe both when you are alone and when you meet with men",
+                    blockquote = "stay that person alone and with others",
                     body = "A character that appears only in front of others is a costume. Epictetus asks for the same person in an empty room and a crowded one. The rules that follow give the flavor: speak little and only when needed, avoid gossip and blame of others, steer talk toward what is worthwhile. These are private habits that happen to show in public.",
                     bullets = listOf(
                         InsightBullet("Same in both rooms", "Integrity means the private self and the public self are the same self."),
@@ -414,7 +414,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "The First Business",
-                    blockquote = "It is impossible for a man to begin to learn",
+                    blockquote = "No one can learn",
                     body = "Learning begins with an opening, a sense that there is something here you do not yet grasp. Epictetus calls the thing that blocks that opening self-conceit, the comfortable feeling of already knowing. He notes that everyone talks freely of good and bad, honorable and shameful, as if these were settled. That ease is what keeps real understanding out.",
                     bullets = listOf(
                         InsightBullet("A closed door", "Feeling certain shuts the door that curiosity would have opened."),
@@ -424,7 +424,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "The Trap of Knowing",
-                    blockquote = "that which he thinks that he knows",
+                    blockquote = "what they think they already know",
                     body = "The trouble is not ignorance but false confidence. An honest beginner can be taught; someone who mistakes a slogan for understanding cannot. Epictetus wants his students to hold their opinions loosely enough to test them. Saying \"I may not understand this yet\" is not weakness. It is the posture that makes growth possible, at any age.",
                     bullets = listOf(
                         InsightBullet("Beginner's advantage", "The person who knows they do not know has a head start over the one who thinks they do."),
@@ -444,7 +444,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Not the Event Itself",
-                    blockquote = "Men are disturbed not by the things which happen",
+                    blockquote = "People are upset not by what happens",
                     body = "It feels natural to say the traffic made me angry or the news made me anxious. Epictetus asks you to slow that sentence down. Between the event and the feeling there is a step, usually so quick you miss it: a judgment that this is bad, unfair, or unbearable. The event supplies the occasion; it does not supply the disturbance.",
                     bullets = listOf(
                         InsightBullet("A hidden step", "Between what happens and how you feel sits a judgment, often made in a split second."),
@@ -454,7 +454,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "The Opinion Is the Weight",
-                    blockquote = "but by the opinions about the things",
+                    blockquote = "but by their opinions about it",
                     body = "If opinions carry the weight, opinions are where relief can be found. Epictetus goes on to describe three stages of growth. The untrained person blames others for their trouble. The beginner starts to blame their own opinions. The one whose training is complete blames no one at all, but simply sees clearly and responds.",
                     bullets = listOf(
                         InsightBullet("Three stages", "Blaming others, then examining yourself, then needing to blame no one: that is the path Epictetus maps."),
@@ -474,7 +474,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Joy in What Is Here",
-                    blockquote = "Rejoice in that which is present",
+                    blockquote = "Enjoy what you have now",
                     body = "It is easy to postpone gladness until something arrives: the trip, the weekend, the better job. Epictetus points to what is already in front of you, not as a consolation prize but as the real place where joy can happen. The present is the only time you can actually enjoy anything, so it makes sense to start there.",
                     bullets = listOf(
                         InsightBullet("No waiting for joy", "Gladness postponed until conditions improve tends to stay postponed."),
@@ -484,7 +484,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Things in Their Season",
-                    blockquote = "be content with the things which come in season",
+                    blockquote = "be content with what comes in its season",
                     body = "Think of fruit, which ripens when it ripens; no amount of wanting brings it sooner. Epictetus asks you to let things arrive when they arrive, whether success, recognition, or change in yourself. Contentment here is not passivity. It is the patience of someone who tends the field well and trusts the calendar with the rest.",
                     bullets = listOf(
                         InsightBullet("Not before time", "Wanting something before its season only adds frustration to the waiting."),
@@ -492,7 +492,7 @@ object InsightData {
                     )
                 )
             ),
-            modernApplication = "Tonight, name one thing you did well today, however small, and let yourself be glad about it. Tomorrow, when you catch yourself rushing something that is not ready, say \"in season\" and return to the part that is yours.",
+            modernApplication = "Tonight, name one thing you did well today, however small, and let yourself be glad about it. Tomorrow, when you catch yourself rushing something that is not ready, say \"in its season\" and return to the part that is yours.",
             closing = "Celebrate today's good act; tomorrow can bring its own.",
             reflectionPrompt = "What is one good thing in your present life you have not paused to enjoy? What are you trying to hurry that needs its season?"
         ),
@@ -504,7 +504,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "The Price of Freedom",
-                    blockquote = "Whoever then wishes to be free let him neither wish for anything nor avoid anything which depends on others",
+                    blockquote = "If you want to be free, don't want or fear anything that depends on others.",
                     body = "Just before this line Epictetus explains the logic. Anyone who can give or take away the things you want has power over you. If your peace depends on a boss's approval, a partner's mood, or a stranger's opinion, those people hold the key. The way out is not to stop caring about others, but to stop staking your freedom on what they do.",
                     bullets = listOf(
                         InsightBullet("Who holds the key", "Whoever controls what you crave or dread holds a kind of mastery over you."),
@@ -514,7 +514,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Hidden Chains",
-                    blockquote = "if he does not observe this rule, he must be a slave",
+                    blockquote = "Otherwise you will be a slave.",
                     body = "The word is strong, and Epictetus meant it. For him, servitude was not only a legal status but an inner condition. A wealthy official who trembles for favor is less free than a poor person who wants nothing from anyone. The rule is demanding, but it puts freedom within reach of anyone, whatever their circumstances.",
                     bullets = listOf(
                         InsightBullet("Inner condition", "Freedom, for Epictetus, is measured by what you need from others, not by your legal status."),
@@ -534,7 +534,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "A Saying Turned Around",
-                    blockquote = "We must not believe the many, who say that free persons only ought to be educated",
+                    blockquote = "The crowd says only the free should be educated.",
                     body = "The common view treated learning as a reward for status: those who were already free could afford it. Epictetus rejects that order. Status does not produce a free mind; plenty of free citizens lived anxious, driven, fearful lives. The many, as he calls the crowd, had mistaken a legal label for the real thing.",
                     bullets = listOf(
                         InsightBullet("Status is a label", "Legal freedom says little about whether a person is ruled by fear or craving."),
@@ -544,7 +544,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Learning That Frees",
-                    blockquote = "we should rather believe the philosophers who say that the educated only are free",
+                    blockquote = "The philosophers say only the educated are free.",
                     body = "Education here does not mean degrees or reading lists. It means learning to judge well, so you are not pushed around by every fear and impulse. Epictetus asks his listeners whether anyone wants to live in error, fear, or sorrow, and they all say no. Whoever is released from these, he concludes, is free indeed, whatever their station.",
                     bullets = listOf(
                         InsightBullet("Training judgment", "The education Epictetus means is learning to see clearly and respond well."),
@@ -564,7 +564,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Same Event, Different Grief",
-                    blockquote = "It is not that which has happened that afflicts this man, for it does not afflict another",
+                    blockquote = "What happened is not what hurts you, since it doesn't hurt everyone.",
                     body = "The argument is simple observation. If the event itself caused the pain, it would cause the same pain in everyone. It does not: one person is crushed by a loss that another bears calmly. So something besides the event is at work. Epictetus asks you to notice this quietly, so that another person's distress does not sweep you along as if the loss were plainly a disaster.",
                     bullets = listOf(
                         InsightBullet("Watch the difference", "When people react differently to the same event, the difference shows where the weight really lies."),
@@ -574,7 +574,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Sympathy Without Drowning",
-                    blockquote = "it is the opinion about this thing which afflicts the man",
+                    blockquote = "Your opinion of it does.",
                     body = "This is not a license for coldness. Epictetus says plainly that you should not be unwilling to show sympathy in words, and even to lament with the person. What he asks is that you not lament inwardly as well, taking on the opinion that is hurting them. You can be warm and present while keeping your own judgment steady, which often makes you more help.",
                     bullets = listOf(
                         InsightBullet("Warm outside, steady inside", "You can comfort someone fully without taking on the judgment that is hurting them."),
@@ -594,7 +594,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Company Leaves a Mark",
-                    blockquote = "Remember that it is impossible that a man can keep company with one who is covered with soot",
+                    blockquote = "You can't spend time with someone covered in soot",
                     body = "Epictetus is realistic about influence. Habits of talk and attitude spread quietly. He mentions conversations that drift into gossip about who is good and who is bad, or that turn mocking and ill-natured. Spend enough time in that air and you begin to breathe it. This is not a call to look down on anyone, but to be honest about what rubs off.",
                     bullets = listOf(
                         InsightBullet("Quiet spreading", "Tone, habits, and attitudes pass between people without anyone deciding they should."),
@@ -604,7 +604,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Not Yet Socrates",
-                    blockquote = "without being partaker of the soot himself",
+                    blockquote = "without getting some on yourself",
                     body = "Epictetus notes that Socrates could lead any conversation toward something worthwhile, like a musician who instantly tunes a lute. Most of us have not reached that point. Until you are steady enough to be the burning coal, take care with the company you keep closest, and choose some relationships that warm you toward what is good.",
                     bullets = listOf(
                         InsightBullet("Know your strength", "If you cannot yet change the tone of a room, it may change you; plan accordingly."),
@@ -624,7 +624,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Still in Their Grasp",
-                    blockquote = "Why will no man confess his faults? Because he is still in their grasp",
+                    blockquote = "Why won't anyone admit their faults? Because they are still in them.",
                     body = "Seneca's answer is surprising. People do not hide their faults only out of pride. Often they cannot see them, because they are still inside them. A habit of anger feels like justified reaction. A habit of greed feels like prudence. While a fault holds you, it looks like ordinary life, so it does not occur to you to confess anything.",
                     bullets = listOf(
                         InsightBullet("Faults in disguise", "A fault in full grip usually looks like common sense to the one who has it."),
@@ -634,7 +634,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Waking Up",
-                    blockquote = "only he who is awake can recount his dream",
+                    blockquote = "Only someone awake can tell their dream.",
                     body = "The dream image makes the point gently. You cannot describe a dream while you are deep inside it; you need to be awake. So the ability to name your own faults is a good sign, not a shameful one. It means part of you has stepped outside the fault. Seneca then urges Lucilius to rouse himself, and says philosophy is what can shake off this deep slumber.",
                     bullets = listOf(
                         InsightBullet("A good sign", "Seeing and naming a flaw shows you are no longer wholly in its grip."),
@@ -654,7 +654,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Not Only Ahead",
-                    blockquote = "We are mistaken when we look forward to death",
+                    blockquote = "We are wrong to see death as ahead of us.",
                     body = "Most of us picture the end of life as a single event far down the road. Seneca says this picture misleads us. It lets us feel that time is safe until then, so we spend it carelessly. His point is not to dwell on endings but to see that time is slipping away continuously, which is a reason to pay attention to it now.",
                     bullets = listOf(
                         InsightBullet("A misleading picture", "Imagining the end as far off can make today feel cheap and endlessly available."),
@@ -664,7 +664,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Years Already Spent",
-                    blockquote = "the major portion of death has already passed",
+                    blockquote = "Most of it is already behind us.",
                     body = "Seneca explains in the next line that the years behind us already belong to the past and cannot return. Seen this way, you are not saving time for later; you are spending it as you go. So he gives Lucilius practical advice: hold every hour in your grasp, take hold of today's task, and you will depend less on tomorrow.",
                     bullets = listOf(
                         InsightBullet("Gone as you go", "Each day lived is already beyond recall, which makes the next one worth guarding."),
@@ -684,7 +684,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "The Wrong Measure",
-                    blockquote = "A life is really long",
+                    blockquote = "A life is long",
                     body = "We usually count life in years, as though more were automatically better. Seneca questions this. He points to a man who spent eighty years in idleness and says he has not really lived, only lingered. Long life, he writes, needs only fate, but living rightly needs the soul. One measure is out of your hands; the other is entirely yours.",
                     bullets = listOf(
                         InsightBullet("Years or living", "Length is set by fate; the quality of living is set by you."),
@@ -694,7 +694,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "What Fullness Means",
-                    blockquote = "if it is a full life",
+                    blockquote = "if it is full",
                     body = "Fullness, for Seneca, does not mean a packed calendar. It means the soul has given itself its proper good, which he explains as gaining control over itself. A full life is one where you have been your own master, done your duties, and acted well. By that measure a shorter life can be complete, and a longer one can still be waiting to begin.",
                     bullets = listOf(
                         InsightBullet("Not busyness", "A crowded schedule is not the same as a full life; fullness is about self-mastery and right action."),
@@ -714,7 +714,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Pain Sent Ahead",
-                    blockquote = "We men torment ourselves over that which is to come",
+                    blockquote = "We torment ourselves over what is coming",
                     body = "Just before this line, Seneca observes that hope and fear travel together, like a prisoner chained to his guard. Both come from a mind that leans too far forward. Foresight, which he calls the noblest blessing of the human race, gets turned against us. Instead of preparing, we rehearse suffering that has not happened and may never happen.",
                     bullets = listOf(
                         InsightBullet("Hope and fear chained", "Seneca pictures them chained like prisoner and guard: where one goes, the other follows."),
@@ -724,7 +724,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Pain Carried Back",
-                    blockquote = "as well as over that which is past",
+                    blockquote = "and over what is past",
                     body = "Memory does the same thing in the other direction. A past embarrassment or loss gets replayed until it hurts as if new. Seneca's conclusion is quiet and practical: the present alone can make no one wretched. Right now, in this moment, there is usually something you can bear. The torment comes from what we drag in from other times.",
                     bullets = listOf(
                         InsightBullet("Replays", "Memory can make an old hurt feel fresh every time you revisit it."),
@@ -744,7 +744,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "A Day Made Whole",
-                    blockquote = "One who daily puts the finishing touches to his life",
+                    blockquote = "Whoever puts the finishing touches on their life each day",
                     body = "Picture a craftsman who finishes a piece each evening rather than leaving everything half-done for some later date. Seneca asks you to live like that. Do what matters today, settle what can be settled, and let the day stand complete. Then the shape of your life does not depend on how many more days you get, because each one is already whole.",
                     bullets = listOf(
                         InsightBullet("Settle accounts daily", "Seneca's phrase is to balance life's account every day, leaving little left over."),
@@ -754,7 +754,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Never Short of Time",
-                    blockquote = "is never in want of time",
+                    blockquote = "is never short of time",
                     body = "The feeling of never having enough time, Seneca says, breeds fear and a craving for the future that eats away at the mind. That feeling comes largely from postponing. When life always waits on a later chapter, every day feels short. When you finish each day as you go, the pressure lifts. You stop needing more time because you are not living on credit.",
                     bullets = listOf(
                         InsightBullet("Postponing breeds hurry", "The more you put off, the more each day feels too short."),
@@ -784,7 +784,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Acquaintances and Friends",
-                    blockquote = "he ends by having many acquaintances, but no friends",
+                    blockquote = "you end up with many acquaintances but no friends",
                     body = "The traveler meets countless people and leaves before any bond can form. Seneca uses this to show what happens to a mind that never stays. The same holds for relationships today: a wide circle of contacts is not the same as a few people who truly know you. Friendship, like understanding, is built by returning again and again to the same place.",
                     bullets = listOf(
                         InsightBullet("Returning builds bonds", "Friendship grows from repeated time together, not from a long list of names."),
@@ -813,7 +813,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "One True Possession",
-                    blockquote = "Nothing, Lucilius, is ours",
+                    blockquote = "Nothing is ours",
                     body = "House, money, reputation, even health can be taken away or lost. Seneca strips the list down to the one thing he says nature truly gave us to own. Addressing Lucilius by name makes the line feel like advice across a table rather than a lecture. It is a friend reminding a friend where real wealth lies.",
                     bullets = listOf(
                         InsightBullet("A friend's advice", "Seneca writes to Lucilius by name, as personal counsel rather than a public sermon."),
@@ -843,7 +843,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Worry as a Symptom",
-                    blockquote = "He only is anxious about the future",
+                    blockquote = "is anxious about the future",
                     body = "Seneca treats anxiety about what lies ahead as a sign that something is missing now. When today feels thin, the mind leans forward, hoping tomorrow will make up the difference, and then fears it will not. The worry is real, but its root lies in the present. That is hopeful news: you can tend it where you actually are.",
                     bullets = listOf(
                         InsightBullet("Leaning forward", "An empty present pushes the mind toward the future for what it lacks."),
@@ -853,7 +853,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Making Today Count",
-                    blockquote = "to whom the present is unprofitable",
+                    blockquote = "Only someone who gets nothing from the present",
                     body = "An unprofitable present is one where nothing of value is done or received. Seneca's remedy is to pay your soul its due each day: act well, think clearly, give attention to what matters. A few lines later he urges Lucilius to begin at once to live, and to count each separate day as a separate life. A day lived that way is profitable whatever tomorrow holds.",
                     bullets = listOf(
                         InsightBullet("Pay the soul its due", "Give today something worthwhile: a good act, a clear thought, real attention."),
@@ -873,17 +873,17 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Terms With Less",
-                    blockquote = "He who has made a fair compact with poverty",
+                    blockquote = "Whoever has made peace with being poor",
                     body = "A compact is an agreement freely made, not a defeat. The person who has looked honestly at what they need, and settled on terms with simplicity, has done something no purchase can do. Seneca does not praise misery. He praises the calm of someone who knows that if things were taken away, they could still live well on what nature provides.",
                     bullets = listOf(
                         InsightBullet("Chosen, not forced", "There is a large difference between enduring scarcity reluctantly and choosing simplicity on purpose."),
-                        InsightBullet("Fair terms", "The word \"fair\" suggests a settlement that is honest and peaceful, not grudging.")
+                        InsightBullet("Making peace", "Making peace suggests a settlement that is honest and calm, not grudging.")
                     )
                 ),
                 InsightSection(
                     number = 2,
                     title = "Rich in Enough",
-                    blockquote = "He who has made a fair compact with poverty is rich.",
+                    blockquote = "Whoever has made peace with being poor is rich.",
                     body = "Rich here means free from the hunger for more. A person who needs little is hard to threaten, flatter, or buy. Just before this line, Seneca says nature's needs are easily met and ready to hand, and that it is the superfluous things which wear our togas threadbare. Real wealth, in his sense, is having enough and knowing it.",
                     bullets = listOf(
                         InsightBullet("Fewer wants, fewer masters", "Every want you do not need is one less thing others can use to pull you."),
@@ -912,7 +912,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Clutching the Good",
-                    blockquote = "It is tragic for the soul to be apprehensive of the future",
+                    blockquote = "It is miserable to dread the future",
                     body = "The apprehension Seneca describes is the anxious wish that pleasant things stay forever. He notes that such a soul is never at rest; while waiting on the future it loses the present blessings it could enjoy. He even says there is no difference between grief for something lost and fear of losing it. The fear brings the grief early.",
                     bullets = listOf(
                         InsightBullet("Missing the blessing", "Fear of losing a good thing can stop you from enjoying it while you have it."),
@@ -922,7 +922,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Suffering Before the Fact",
-                    blockquote = "wretched in anticipation of wretchedness",
+                    blockquote = "suffer in advance of suffering",
                     body = "This phrase captures a double misery: being unhappy now about an unhappiness that may never arrive. Seneca is careful not to recommend carelessness. In the same letter he says to foresee whatever can be foreseen by planning, and to avoid harm where possible. The difference is between preparing with a clear head and living inside a future that has not happened.",
                     bullets = listOf(
                         InsightBullet("Plan, then release", "Do the sensible preparing, then let the outcome rest where it belongs."),
@@ -942,7 +942,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Nobody Owns the Truth",
-                    blockquote = "Truth lies open for all; it has not yet been monopolized.",
+                    blockquote = "Truth is open to everyone. No one owns it",
                     body = "Seneca was a Stoic, yet in his early letters he often quotes Epicurus, the founder of a rival school. Here he explains why. No school holds truth as private property. A good idea is worth taking from anywhere, and a famous name does not make a saying true. This frees you to think for yourself while still learning gratefully from others.",
                     bullets = listOf(
                         InsightBullet("Guides, not masters", "Seneca respects earlier thinkers but refuses to treat them as final authorities."),
@@ -952,7 +952,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Room for Posterity",
-                    blockquote = "there is plenty of it left even for posterity to discover",
+                    blockquote = "there is plenty left for those who come after",
                     body = "This is a humble and hopeful thought. Seneca does not believe his age has finished the work of understanding. Those who come later will find what he missed, and that includes you. Truth is not a closed archive to memorize but an open field to keep exploring, and the explorer's job is to look carefully rather than repeat what others found.",
                     bullets = listOf(
                         InsightBullet("Unfinished work", "Understanding is never complete; each generation has its share to find."),
@@ -972,7 +972,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "More Than Reform",
-                    blockquote = "I feel, my dear Lucilius, that I am being not only reformed, but transformed.",
+                    blockquote = "I feel I am not just improving but changing.",
                     body = "Reform adjusts behavior; transformation changes the person doing the behaving. Seneca, writing late in life, says he feels the deeper kind happening. He shares it with Lucilius because he wants his friend to have it too. The letter goes on to say that true friendship grows when friends share what is good, and that he wants to pass this change along.",
                     bullets = listOf(
                         InsightBullet("Deeper than habits", "Transformation changes what you see and want, not only what you do."),
@@ -982,7 +982,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Still Under Construction",
-                    blockquote = "I do not yet, however, assure myself, or indulge the hope, that there are no elements left in me which need to be changed.",
+                    blockquote = "Still, I don't assume there is nothing left in me to change.",
                     body = "Right after the hopeful claim comes humility. Seneca does not pretend he is finished. He notes that his new ability to see his own faults is the real sign of progress, much as sick people are congratulated when they perceive that they are sick. Seeing more flaws, in this light, is not a step backward. It is clearer eyesight.",
                     bullets = listOf(
                         InsightBullet("Clearer eyesight", "Noticing more of your faults can mean you are seeing better, not doing worse."),
@@ -1002,7 +1002,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Thinking It Through Beforehand",
-                    blockquote = "If an evil has been pondered beforehand",
+                    blockquote = "Trouble you have thought about in advance",
                     body = "The Stoics practiced imagining setbacks ahead of time: a plan falling through, a harsh word, a loss. This is not gloom. It is a rehearsal, so the mind has already walked the ground once. Seneca notes that the wise person lightens troubles by long reflection, while others can only lighten them by long endurance after the fact.",
                     bullets = listOf(
                         InsightBullet("Rehearsal, not dread", "Considering a hard possibility calmly is different from worrying about it."),
@@ -1012,7 +1012,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "The Softer Blow",
-                    blockquote = "the blow is gentle when it comes",
+                    blockquote = "hits gently when it comes",
                     body = "Seneca observes that much of what makes trouble hard is its novelty. To the unprepared, each event comes in a new and sudden form. People endure hardships more bravely once they have grown used to them. Pondering in advance gives you some of that familiarity before the event, so when it comes, it lands on ground that is ready.",
                     bullets = listOf(
                         InsightBullet("Novelty hurts", "A large part of distress comes from surprise, which preparation removes."),
@@ -1041,7 +1041,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Expect the Laughter",
-                    blockquote = "If you desire philosophy, prepare yourself from the beginning to be ridiculed",
+                    blockquote = "If you want philosophy, be ready from the start to be laughed at",
                     body = "Changing how you live tends to unsettle people who knew the old you. Choosing calm over outrage, or moderation over excess, can look strange or even pretentious to others. Epictetus does not say this to discourage you. He says it so it does not catch you off guard. Knowing the teasing is likely makes it easier to bear when it comes.",
                     bullets = listOf(
                         InsightBullet("Change unsettles", "When you shift your habits, others may react to the change rather than to you."),
@@ -1051,7 +1051,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "No Superior Air",
-                    blockquote = "to expect that many will sneer at you",
+                    blockquote = "mocked by many",
                     body = "Epictetus adds an important condition: do not give them a reason. Do not take on a lofty, superior look. Philosophy is for changing yourself, not for looking down on others. Hold quietly to what seems best, as one appointed by God to this station. If you remain steady, he says, the same people who sneered will come to admire you.",
                     bullets = listOf(
                         InsightBullet("Practice quietly", "The goal is to live better, not to advertise it or lecture others."),
@@ -1071,7 +1071,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Where Satisfaction Lives",
-                    blockquote = "It is satisfaction to a man",
+                    blockquote = "There is satisfaction",
                     body = "We often look for satisfaction in rewards: the bonus, the praise, the finished vacation. Marcus locates it somewhere quieter. A craftsman feels it in work done well, and a person feels it in living as a person should. The good feeling comes from doing your proper work, not from what you receive afterward, which makes it available on ordinary days.",
                     bullets = listOf(
                         InsightBullet("The work itself", "Satisfaction, for Marcus, comes from acting well rather than from what follows."),
@@ -1081,7 +1081,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "A Human's Proper Work",
-                    blockquote = "to do the proper works of a man",
+                    blockquote = "in doing the work you were made for",
                     body = "Marcus spells out these works right after this line. Be benevolent to your own kind. Do not be driven by every movement of the senses. Form a just judgment of appearances that seem convincing. Take a survey of the nature of the universe and what happens in it. Kindness, self-command, clear judgment, wide perspective: a short job description for a human life.",
                     bullets = listOf(
                         InsightBullet("Four tasks", "Kindness, self-command, sound judgment, and a wide view of the world make up Marcus's list."),
@@ -1101,7 +1101,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Close the First Chapter",
-                    blockquote = "Consider yourself to be dead, and to have completed your life up to the present time",
+                    blockquote = "Think of yourself as already dead, your life complete.",
                     body = "The image is startling, but the aim is gentle. Imagine that the story so far is finished: its mistakes, regrets, and unfinished business belong to a closed account. You no longer have to defend or redo the past. This lets you put down a great deal of weight and begin again with a clear mind, as though the next page were blank.",
                     bullets = listOf(
                         InsightBullet("A closed account", "Treat the past as completed, so it no longer demands constant revisiting."),
@@ -1111,7 +1111,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "The Remainder as a Gift",
-                    blockquote = "live according to nature the remainder which is allowed you",
+                    blockquote = "Now live what is left of it well.",
                     body = "Whatever time follows is described as allowed: given, not owed. Marcus asks that it be lived according to nature, meaning with reason, justice, and care for others. There is a lightness in this. If every day ahead is an extra portion, you can spend it on what matters rather than on what you were merely in the habit of doing.",
                     bullets = listOf(
                         InsightBullet("Allowed, not owed", "Seeing the time ahead as granted makes it easier to treat with care."),
@@ -1126,13 +1126,13 @@ object InsightData {
 
         // q037 — Marcus Aurelius
         "q037" to QuoteInsight(
-            intro = "This is one of Marcus's shortest and most complete notes. It names three things: how you judge, how you act, and how you receive what happens. Get these right in the present, he says, and nothing more is needed. The word \"present\" appears three times.",
+            intro = "This is one of Marcus's shortest and most complete notes. It names three things: how you judge, how you act, and how you receive what happens. Get these right in the present, he says, and nothing more is needed. The word \"now\" appears three times.",
             sections = listOf(
                 InsightSection(
                     number = 1,
                     title = "Judge Well, Act for Others",
-                    blockquote = "Your present opinion founded on understanding, and your present conduct directed to social good",
-                    body = "The first two parts concern your mind and your hands. An opinion founded on understanding means seeing this situation clearly, not through haste or fear. Conduct directed to social good means acting in a way that helps the people around you. Neither requires a grand plan. Both are about what you are thinking and doing right now.",
+                    blockquote = "Clear thinking now, action for the common good now",
+                    body = "The first two parts concern your mind and your hands. Clear thinking means seeing this situation clearly, not through haste or fear. Action for the common good means acting in a way that helps the people around you. Neither requires a grand plan. Both are about what you are thinking and doing right now.",
                     bullets = listOf(
                         InsightBullet("Clear seeing", "Base today's judgment on what you actually understand, not on assumptions."),
                         InsightBullet("Hands for others", "Let what you do in this moment serve the common good, even in small ways.")
@@ -1141,7 +1141,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Content, and Enough",
-                    blockquote = "your present disposition of contentment with everything which happens: that is enough",
+                    blockquote = "contentment with whatever happens now. That is enough.",
                     body = "The third part is about how you receive events: with contentment rather than complaint. Then comes the striking conclusion: that is enough. Not enough for now, or enough until something better comes. Simply enough. Marcus releases himself from the endless sense that a good life needs more achievement, more time, or more certainty.",
                     bullets = listOf(
                         InsightBullet("Receiving well", "Contentment means meeting what happens without wishing it were otherwise."),
@@ -1161,7 +1161,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "A Reminder to Keep",
-                    blockquote = "Remember that all is opinion.",
+                    blockquote = "Remember: everything is opinion.",
                     body = "Marcus did not need to learn this; he needed to remember it. That is the point of many of his notes. Under pressure, we forget that our reactions depend on how we see things. The word \"remember\" turns the idea into a habit: something to call up in the middle of a hard moment, not just to agree with on a calm afternoon.",
                     bullets = listOf(
                         InsightBullet("Recall, not discovery", "Wisdom often fails not because we never learned it but because we forget it in time."),
@@ -1171,7 +1171,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Taking What Is True",
-                    blockquote = "all is opinion",
+                    blockquote = "everything is opinion",
                     body = "Marcus does not mean that nothing is real or that facts do not matter. He says the use of the saying is plain if you receive it as far as it is true. Events happen. But their meaning to you, whether disaster, setback, or nothing much, depends a great deal on your judgment. That part is yours to examine and adjust.",
                     bullets = listOf(
                         InsightBullet("Not denial", "Facts remain facts; what shifts is the meaning and weight you give them."),
@@ -1191,7 +1191,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Their Acts, Their Minds",
-                    blockquote = "It is not men's acts which disturb us, for those acts have their foundation in men's ruling principles",
+                    blockquote = "It is not what others do that disturbs us; that comes from their own minds.",
                     body = "The ruling principle is the Stoic term for a person's guiding mind, the part that judges and decides. Marcus points out that what others do grows out of their minds, their beliefs and habits, and those belong to them. You cannot reach in and fix them. Seeing this is not resignation. It simply places their actions where they belong: with them.",
                     bullets = listOf(
                         InsightBullet("Ruling principle", "The Stoic name for the mind's guiding part, the source of each person's choices."),
@@ -1201,7 +1201,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "The Part You Hold",
-                    blockquote = "it is our own opinions which disturb us",
+                    blockquote = "It is our own opinions that disturb us.",
                     body = "If their acts are theirs, the disturbance must come from something closer: your judgment that the act is a grievous wrong. Marcus advises dismissing this judgment, and says the anger will go with it. He asks himself how, and answers that no wrongful act of another brings shame on you. Your character remains in your own hands.",
                     bullets = listOf(
                         InsightBullet("No shame transferred", "Marcus reminds himself that another person's wrong does not disgrace the one it is done to."),
@@ -1225,12 +1225,12 @@ object InsightData {
 
         // q040 — Marcus Aurelius
         "q040" to QuoteInsight(
-            intro = "Marcus compares a mind free from passions to a citadel, the fortified high point of an ancient city where people withdrew when attacked. The ruling faculty, he says, is invincible when it gathers itself and refuses to do what it has not chosen. No refuge is safer.",
+            intro = "Marcus compares a mind free from passions to a fortress, like the citadel on the fortified high point of an ancient city where people withdrew when attacked. The ruling faculty, he says, is invincible when it gathers itself and refuses to do what it has not chosen. No refuge is safer.",
             sections = listOf(
                 InsightSection(
                     number = 1,
                     title = "High Ground of the Mind",
-                    blockquote = "The mind which is free from passions is a citadel",
+                    blockquote = "A mind free of passion is a fortress.",
                     body = "Passions, for the Stoics, were disturbances such as runaway fear, anger, or craving, reactions that overpower judgment. They did not mean every feeling. A mind clear of those disturbances can still feel warmth and care, but it is not stormed by every alarm. Like a citadel above the city, it holds the high ground while trouble moves below.",
                     bullets = listOf(
                         InsightBullet("What passions meant", "The Stoic word refers to overwhelming disturbances, not to every feeling or emotion."),
@@ -1240,10 +1240,10 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "A Refuge You Carry",
-                    blockquote = "man has nothing more secure to which he can fly for refuge and for the future be inexpugnable",
-                    body = "Inexpugnable is an old word for impossible to take by force. Marcus wrote some of these notes while on military campaign, so the image of a stronghold came naturally. This refuge goes wherever you go. He adds that whoever has not seen this is ignorant, and whoever has seen it and does not fly to it is unhappy. Knowing is not enough; you have to go there.",
+                    blockquote = "There is no safer refuge, and no one can take it.",
+                    body = "The old translation calls this refuge inexpugnable: impossible to take by force. Marcus wrote some of these notes while on military campaign, so the image of a stronghold came naturally. This refuge goes wherever you go. He adds that whoever has not seen this is ignorant, and whoever has seen it and does not fly to it is unhappy. Knowing is not enough; you have to go there.",
                     bullets = listOf(
-                        InsightBullet("Impossible to storm", "Inexpugnable means a place no attack can capture, which is how Marcus saw a calm mind."),
+                        InsightBullet("Impossible to storm", "Marcus saw a calm mind as a place no attack can capture."),
                         InsightBullet("Use the refuge", "Marcus says that knowing about this refuge without using it leaves a person unhappy.")
                     )
                 )
@@ -1260,7 +1260,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Three Counterfeits of Courage",
-                    blockquote = "Bravery is not thoughtless rashness, or love of danger, or the courting of fear-inspiring objects",
+                    blockquote = "Bravery is not recklessness or a love of danger.",
                     body = "Each counterfeit looks bold from the outside. Rashness acts before thinking. A love of danger seeks the thrill rather than the good. Courting frightening things turns fear into a performance. Seneca rejects all three because none of them rests on understanding. Right after this line he adds that bravery takes the greatest care of itself. Real courage is never careless.",
                     bullets = listOf(
                         InsightBullet("Loud is not brave", "Taking risks in order to be seen taking risks is a craving for attention dressed up as courage."),
@@ -1270,7 +1270,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Knowing What Can Harm You",
-                    blockquote = "it is the knowledge which enables us to distinguish between that which is evil and that which is not",
+                    blockquote = "It is knowing what is truly bad and what is not.",
                     body = "For the Stoics, the only true evil is a bad choice: cowardice, cruelty, dishonesty. Pain, loss, and embarrassment feel terrible, but they cannot make you a worse person. Once you really know this, fear loosens, because many of the things that frighten you are not truly bad. Courage then is less a surge of nerve and more a clear view of what is actually at stake.",
                     bullets = listOf(
                         InsightBullet("Sort the threats", "Ask whether a feared outcome would damage your character or only your comfort."),
@@ -1299,7 +1299,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Uncertain Time",
-                    blockquote = "Since it is possible that you may depart from life this very moment",
+                    blockquote = "You could leave life at any moment.",
                     body = "Marcus states this calmly, as a fact to be used rather than feared. No one has a guaranteed amount of time. Most of us know this but live as if we did not. The thought is not meant to darken the day. It sharpens it, the way knowing a visit is short can make a conversation more honest and attentive.",
                     bullets = listOf(
                         InsightBullet("A fact to use", "The uncertainty of time is a tool for clarity, not a reason for fear."),
@@ -1309,7 +1309,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Every Act Counts",
-                    blockquote = "regulate every act and thought accordingly",
+                    blockquote = "Let that shape everything you do and think.",
                     body = "The instruction covers both acts and thoughts. It asks you to let each one be something you would be at peace with if it were final. That rules out much petty resentment, careless speech, and postponed kindness. It also brings a quiet courage: a person who lives each moment this way has little left to fear about what comes next.",
                     bullets = listOf(
                         InsightBullet("Acts and thoughts", "Marcus includes the inner life too, so resentments and grudges are worth setting down."),
@@ -1329,7 +1329,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Every Day as the Last",
-                    blockquote = "The perfection of moral character consists in this, in passing every day as the last",
+                    blockquote = "Good character means living each day as your last",
                     body = "Passing a day as the last does not mean frantic activity or dramatic farewells. It means treating the day as complete and worth doing well: no postponing the important, no saving kindness for later, no squandering hours on what does not matter. A day lived this way is whole in itself, whatever comes after it.",
                     bullets = listOf(
                         InsightBullet("Not frantic", "Living as if it were the last day means care and focus, not a rush to cram things in."),
@@ -1339,8 +1339,8 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "The Even Keel",
-                    blockquote = "in being neither violently excited nor torpid nor playing the hypocrite",
-                    body = "Marcus names three ways to go wrong. Being violently excited means being swept up by agitation or overeagerness. Being torpid means sluggish and dull, going through the motions. Playing the hypocrite means acting a part that is not true to you. Between these lies a steady, awake, honest way of being, which is what he calls the perfection of character.",
+                    blockquote = "not frantic, not numb, not pretending",
+                    body = "Marcus names three ways to go wrong. Being frantic means being swept up by agitation or overeagerness. Being numb means sluggish and dull, going through the motions. Pretending means acting a part that is not true to you. Between these lies a steady, awake, honest way of being, which is what he calls the perfection of character.",
                     bullets = listOf(
                         InsightBullet("Neither storm nor stupor", "Avoid both frantic agitation and dull indifference; aim for awake steadiness."),
                         InsightBullet("No masks", "Being the same honest person throughout the day is part of living it well.")
@@ -1359,7 +1359,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Not a Rehearsed Routine",
-                    blockquote = "The art of life is more like the wrestler's art than the dancer's",
+                    blockquote = "Living is more like wrestling than dancing.",
                     body = "A dance can be learned to perfection because the music and the steps stay the same. Life rarely offers that. The phone call, the sharp word, the change of plans all arrive without a cue. Marcus is not dismissing grace or order. He is saying that the skill worth building is the one that still works when nothing goes as scripted.",
                     bullets = listOf(
                         InsightBullet("Scripts break", "Plans are useful, but the day will not always follow them, so your steadiness cannot depend on them."),
@@ -1369,7 +1369,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Feet Set Before the Shove",
-                    blockquote = "it should stand ready and firm to meet onsets which are sudden and unexpected",
+                    blockquote = "You must stand ready and firm for sudden blows.",
                     body = "An onset is an attack, a sudden rush at you. A wrestler does not wait until he is pushed to find his balance; his stance is already low and settled. Marcus wants the mind held the same way, grounded in what it values before the surprise comes, so that the surprise can move events around without moving the person inside them.",
                     bullets = listOf(
                         InsightBullet("Readiness is a stance", "It is built in quiet moments, then simply used when the moment turns rough."),
@@ -1399,7 +1399,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "A Face Painted to Frighten",
-                    blockquote = "What is death? A tragic mask.",
+                    blockquote = "What is death? A scary mask.",
                     body = "Greek tragic masks were made with exaggerated, anguished faces so the back rows could read them. To a child the mask seems alive. Epictetus suggests that what frightens us about mortality is often this painted face, the opinion we lay over the fact, rather than the fact itself. He is not asking you to be cheerful about loss. He is asking you to tell the face apart from the thing.",
                     bullets = listOf(
                         InsightBullet("Fear wears costume", "The dread you feel is often built from images and stories, not from what is actually in front of you."),
@@ -1409,7 +1409,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Turn It Over in Your Hands",
-                    blockquote = "Turn it and examine it. See, it does not bite.",
+                    blockquote = "Turn it around and look. See, it doesn't bite.",
                     body = "The cure he offers is plain: pick the thing up and look at the back of it. In the same passage he does this with pain too, calling it another mask. Examining a fear means asking what exactly is feared, what is within your power, and what is only a story about the future. Looked at steadily, most masks lose their teeth, and you are free to give your attention to living well today.",
                     bullets = listOf(
                         InsightBullet("Name it exactly", "Vague fears grow, while a fear stated in one clear sentence is usually smaller than it felt."),
@@ -1425,12 +1425,12 @@ object InsightData {
 
         // q045 — Epictetus
         "q045" to QuoteInsight(
-            intro = "Epictetus opens a talk on hardship with this line, and his translator adds the word difficulties to make the meaning clear. He goes on to picture God as a wrestling trainer who matches you with a rough young opponent, not to punish you, but so that you can become a champion.",
+            intro = "Epictetus opens a talk on hardship with this line, and his translator glosses its key word as difficulties. He goes on to picture God as a wrestling trainer who matches you with a rough young opponent, not to punish you, but so that you can become a champion.",
             sections = listOf(
                 InsightSection(
                     number = 1,
                     title = "The Trainer's Rough Partner",
-                    blockquote = "It is circumstances",
+                    blockquote = "Hard times",
                     body = "Epictetus says a difficulty is like a sparring partner chosen by a good coach. The coach picks someone strong because an easy opponent teaches nothing, and the victory, he adds, is not won without sweat. Seen this way, a hard season is not a sign that something has gone wrong with your life. It is the part of the training where the real work happens.",
                     bullets = listOf(
                         InsightBullet("Chosen opponents", "Treat a difficulty as a partner sent to train you, and ask what skill it is drilling."),
@@ -1440,7 +1440,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "What the Test Reveals",
-                    blockquote = "which show what men are",
+                    blockquote = "show who people are",
                     body = "The word is show, not make. Difficulty reveals what is already in you: your habits, your values, and how firmly you hold them. That can be humbling, and it is also useful, since you cannot strengthen what you have never seen. Epictetus also warns against being a timid scout, one who sees a shadow and runs home shouting that the enemy is near. Report what is really there.",
                     bullets = listOf(
                         InsightBullet("A fair report", "When trouble comes, describe it as it is, not as the frightened scout would describe it."),
@@ -1460,7 +1460,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "No Courage Without Exposure",
-                    blockquote = "No man is brave and earnest if he avoids danger",
+                    blockquote = "No one is brave and earnest who avoids danger",
                     body = "Bravery that is never tested is only a theory. The motto Seneca quotes begins by saying it is base to flinch under a burden and that you should wrestle with the duties you have taken on. Some tasks cannot be done without exposure: a hard conversation, a stand you must take, work that might fail in public. Avoiding every such moment may feel safe, but it leaves courage unused.",
                     bullets = listOf(
                         InsightBullet("Earnest means serious", "To be earnest is to commit fully, which always carries some risk of loss or embarrassment."),
@@ -1470,7 +1470,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Growing With the Load",
-                    blockquote = "if his spirit does not grow with the very difficulty of his task",
+                    blockquote = "whose spirit doesn't grow as the task gets harder",
                     body = "This is the more hopeful half. The difficulty is not only something to survive; it is what enlarges the spirit. A task that seemed too much at first can call out a steadiness you did not know you had. Seneca pictures the spirit answering resistance the way a body answers hard work. The harder part of the task is, oddly, the part that makes you equal to it.",
                     bullets = listOf(
                         InsightBullet("Rise to it", "When a task gets harder, let that be a signal to bring more of yourself, not less."),
@@ -1490,7 +1490,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Dust and Rain on the Road",
-                    blockquote = "Life, Lucilius, is really a battle.",
+                    blockquote = "Life is really a battle.",
                     body = "Seneca's point is not grim. He is correcting an expectation. Lucilius wished to live long and also to be spared all ills, and Seneca says those two wishes do not fit together. Trouble is not a sign that life has gone wrong; it is part of what a life is. Once you stop treating every hardship as an injustice, you have more energy left to meet it.",
                     bullets = listOf(
                         InsightBullet("Part of the journey", "Setbacks are the weather of a long life, not proof that you are on the wrong road."),
@@ -1500,7 +1500,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Front-Rank Living",
-                    blockquote = "Life, Lucilius, is really a battle.",
+                    blockquote = "Life is really a battle.",
                     body = "In the same letter Seneca says that those who climb rough heights and go on hard campaigns are heroes and front-rank fighters, while those who live in idle comfort are safe only because no one bothers with them. The battle here is not about enemies. It is about engagement: standing where the effort is instead of hiding from it. That is where a life becomes worth living.",
                     bullets = listOf(
                         InsightBullet("Not about enemies", "The battle is with circumstance and your own softness, not with other people."),
@@ -1520,7 +1520,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Untested Is Not Ready",
-                    blockquote = "No prizefighter can go with high spirits into the strife",
+                    blockquote = "No fighter goes into the ring with confidence",
                     body = "High spirits here means the calm confidence of someone who knows what to expect. A fighter who has never been hit is not confident, only untested, and the first hard blow might break him. Seneca says our powers can only earn our trust after many difficulties have come close to us. You cannot think your way into that trust. You get it by going through things.",
                     bullets = listOf(
                         InsightBullet("Hope versus knowledge", "Feeling sure of yourself before any trial is hope. Trials turn it into knowledge."),
@@ -1530,7 +1530,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Downed in Body, Not Spirit",
-                    blockquote = "if he has never been beaten black and blue",
+                    blockquote = "who has never been beaten black and blue",
                     body = "Seneca's fighter has seen his own blood, felt his teeth rattle, been tripped and thrown, and yet risen each time with more defiance than before. The bruises are not the goal; the rising is. Every setback you recover from becomes part of your strength. This turns old failures into something useful: proof that falling is survivable and that you know how to get up.",
                     bullets = listOf(
                         InsightBullet("Count the risings", "What matters is not how often you were knocked down but that you stood back up."),
@@ -1550,7 +1550,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Answering to No Accident",
-                    blockquote = "It means not being a slave to any circumstance, to any constraint, to any chance",
+                    blockquote = "Not being a slave to any circumstance or chance",
                     body = "Seneca names three masters: circumstance, constraint, and chance. Most of us serve them without noticing. A delayed train ruins a mood, a bad review sinks a week, and luck decides how we feel. Seneca's freedom does not mean controlling these things, which is impossible. It means refusing to let them dictate your character and your peace.",
                     bullets = listOf(
                         InsightBullet("Three masters", "Notice when circumstance, constraint, or chance is quietly deciding how you feel and act."),
@@ -1560,7 +1560,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Meeting Fortune as an Equal",
-                    blockquote = "it means compelling Fortune to enter the lists on equal terms",
+                    blockquote = "meeting Fortune as an equal",
                     body = "The lists were the fenced ground where contests were fought. Seneca imagines Fortune not as a tyrant you beg for mercy, but as an opponent you face on level ground. Earlier in the letter he says he refuses to submit to her yoke. The equal terms come from inside: if your good lies in your own choices, Fortune can strike at your possessions but cannot conquer you.",
                     bullets = listOf(
                         InsightBullet("Level ground", "Fortune only has the upper hand when you stake everything on what she controls."),
@@ -1580,7 +1580,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "The Sting You Cannot Stop",
-                    blockquote = "When the appearance pains you, for it is not in your power to prevent this",
+                    blockquote = "When a thought hurts, you can't stop it from arriving.",
                     body = "An appearance, for Epictetus, is the first impression a thing makes on the mind: this is terrible, this is unfair. He does not pretend you can block that first sting. Even a wise person feels it. This honesty is a relief. You are not failing at Stoicism when something hurts. You are simply at the start of the exercise, not the end of it.",
                     bullets = listOf(
                         InsightBullet("The first flinch", "The initial pang is natural and not your fault; it is the raw material, not the verdict."),
@@ -1590,7 +1590,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Before It Gathers Strength",
-                    blockquote = "contend against it by the aid of reason, conquer it: do not allow it to gain strength",
+                    blockquote = "you can reason with it and keep it from growing",
                     body = "What is in your power is what comes next. Left alone, a painful impression gathers images: what might happen, what you have lost, what others enjoy. Epictetus says that someone sent to Gyara, a small island used as a place of exile, should not keep picturing the pleasures of Rome, but should think how to live well on Gyara. Reason works best early, before the story grows.",
                     bullets = listOf(
                         InsightBullet("Catch it young", "Answer a painful thought in the first minute, before it has gathered a dozen images to support it."),
@@ -1610,7 +1610,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "The Question for Each Hurt",
-                    blockquote = "What then should a man say on the occasion of each painful thing?",
+                    blockquote = "What should you say when something painful happens?",
                     body = "Epictetus asks what words should be ready on your lips when pain arrives. He compares the student who abandons philosophy in a fever to a fighter who quits the pancratium, an ancient contest that combined boxing and wrestling, the moment he is struck. Having a sentence prepared matters. In hard moments you rarely invent wisdom; you reach for what you have already stored.",
                     bullets = listOf(
                         InsightBullet("Words in reserve", "Prepare a short phrase in calm times so that it is there when you are hurting."),
@@ -1620,7 +1620,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "This Is What I Trained For",
-                    blockquote = "It was for this that I exercised myself, for this I disciplined myself.",
+                    blockquote = "This is what I trained for.",
                     body = "Epictetus imagines God asking for proof that you have trained, eaten sensibly, and obeyed your coach. Now is the time for fever, he says, so bear it well; now is the time for thirst, bear it well. A doctor may forbid you to drink, but no one can stop you from bearing thirst well. The discomfort becomes the occasion your discipline was always aiming at.",
                     bullets = listOf(
                         InsightBullet("Hard days are match days", "Treat a painful stretch as the contest your daily practice has been preparing you for."),
@@ -1640,7 +1640,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Practice on Light Weights",
-                    blockquote = "We ought to exercise ourselves in small things",
+                    blockquote = "Practice on small things first",
                     body = "Epictetus lists his examples: a pain in the head, a pain in the ear, a slow helper. He does not forbid groaning aloud, he says, only groaning inwardly and crying out that everyone hates you. These small irritations are the training ground. They come often, the stakes are low, and each one is a chance to practice the calm you will need later.",
                     bullets = listOf(
                         InsightBullet("Daily repetitions", "Minor annoyances arrive every day, which makes them the best place to build a habit."),
@@ -1650,7 +1650,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Building Toward the Greater",
-                    blockquote = "beginning with them to proceed to the greater",
+                    blockquote = "then move on to greater ones",
                     body = "No one starts training with the heaviest weight. Epictetus suggests the same progression for character. In the same passage he tells how his iron lamp was stolen, and how he simply resolved to buy an earthen one. The person who can stay even-tempered over a lamp is slowly preparing for real loss. Large tests do not ask for a new skill, only the same one, practiced long enough to hold.",
                     bullets = listOf(
                         InsightBullet("Same muscle", "Patience with a slow line is the same patience you will want on a truly hard day."),
@@ -1670,7 +1670,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Not Singled Out",
-                    blockquote = "Nothing happens to any man",
+                    blockquote = "Nothing happens to anyone",
                     body = "The first words place your trouble among everyone else's. Whatever you are facing has been faced before by people no stronger than you. Marcus notices that some of them stay calm simply because they do not notice what happened, or because they want to look brave. If those weaker motives can hold a person steady, he reasons, a clear understanding surely can.",
                     bullets = listOf(
                         InsightBullet("Shared ground", "Your hardship is human, not a special sentence passed against you."),
@@ -1680,7 +1680,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Built to Carry It",
-                    blockquote = "which he is not formed by nature to bear",
+                    blockquote = "that they are not made to bear",
                     body = "This is not a promise that life will be easy. It is a claim about capacity. The Stoics believed nature gave human beings reason precisely so they could meet what happens. That does not mean you will bear it without pain, or alone. It means that within you there is a way to carry this with dignity, even if you have not found it yet.",
                     bullets = listOf(
                         InsightBullet("Capacity, not ease", "Being able to bear something does not mean it will be light, only that it need not undo who you are."),
@@ -1700,7 +1700,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "What the Mind Soaks In",
-                    blockquote = "Such as are your habitual thoughts, such also will be the character of your mind",
+                    blockquote = "Your habitual thoughts shape your character.",
                     body = "The key word is habitual. A single passing thought does little, but the thoughts you return to every day shape who you become. Resentment rehearsed each morning grows into a resentful character, and gratitude rehearsed grows into a grateful one. Marcus is telling himself that character is not fixed by birth or rank. It is built, slowly, out of what he lets his mind dwell on.",
                     bullets = listOf(
                         InsightBullet("Repetition shapes", "The thoughts you replay most often are quietly becoming your temperament."),
@@ -1710,7 +1710,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "The Dyer's Vat",
-                    blockquote = "for the soul is dyed by the thoughts",
+                    blockquote = "The mind is dyed by its thoughts.",
                     body = "Dye does not coat cloth; it sinks into the fibers. Marcus sees thoughts working the same way, which is both a warning and an invitation. He follows the line by choosing what to dye with: a good life is possible anywhere, even in a palace, which for an emperor was a real test. Choosing your recurring thoughts is like choosing the color of your days.",
                     bullets = listOf(
                         InsightBullet("Choose the dye", "Pick a few thoughts worth soaking in and return to them on purpose."),
@@ -1730,7 +1730,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "What This Hour Asks",
-                    blockquote = "Do what nature now requires.",
+                    blockquote = "Do what is needed now.",
                     body = "For Marcus, nature means both the order of the world and his own nature as a rational, social being. What it requires is usually close at hand: the letter to answer, the person to listen to, the honest decision to make. The word now matters. He is not drafting a plan for a better life. He is pointing at the next sound action and telling himself to begin it.",
                     bullets = listOf(
                         InsightBullet("Close at hand", "The duty of the moment is usually ordinary and nearby, not grand or far away."),
@@ -1740,7 +1740,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "No Audience Required",
-                    blockquote = "Set yourself in motion, if it is in your power, and do not look about you to see if any one will observe it.",
+                    blockquote = "Get moving if you can, and don't look around to see who's watching.",
                     body = "Two cautions sit inside this sentence. If it is in your power admits limits: do what you can, not what you cannot. Do not look about you warns against acting for an audience. Marcus, an emperor watched by everyone, knew how tempting it is to do good where it will be seen. He ends the note plainly: the work of philosophy is simple and modest.",
                     bullets = listOf(
                         InsightBullet("Within your power", "Start with what you can actually move today and let the rest wait."),
@@ -1760,7 +1760,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Let Blame Fall Behind",
-                    blockquote = "Be not diverted by the blame which follows from any people, nor by their words",
+                    blockquote = "Don't be swayed by people's blame or talk.",
                     body = "Diverted is a traveler's word: turned off the road. Marcus pictures blame and chatter following behind him like noise on a journey. He does not say critics are always wrong. He says their blame should not steer him. People judge by their own standards and moods, and those change. If you let every remark redirect you, you end up walking in circles.",
                     bullets = listOf(
                         InsightBullet("Noise behind you", "Criticism can be heard and weighed without being allowed to take the wheel."),
@@ -1770,7 +1770,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Never Beneath You",
-                    blockquote = "if a thing is good to be done or said, do not consider it unworthy of you",
+                    blockquote = "If something is good to do or say, it is worthy of you.",
                     body = "This half speaks to a quieter fear: that a good act will make you look foolish, too earnest, or too small. Marcus, an emperor, tells himself that nothing good is beneath his dignity. Apologizing, helping with humble work, saying the kind thing out loud: if it is good, it is worthy. Pride, more than danger, is often what keeps people from doing right.",
                     bullets = listOf(
                         InsightBullet("Pride as a barrier", "Ask whether you are skipping a good act only because it seems beneath you."),
@@ -1790,7 +1790,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "The Anxious Calendar",
-                    blockquote = "No man can have a peaceful life",
+                    blockquote = "No one can live in peace",
                     body = "Seneca's concern is peace of mind, the steady calm that lets a person enjoy the present. It is rarely lost to the trouble in front of us and far more often to worry about what might come. In the same sentence he mentions people who think living through many consulships is a great blessing. Rome named each year after its two consuls, its chief officials, so he simply means many years.",
                     bullets = listOf(
                         InsightBullet("Calm needs the present", "Peace grows from attention to today, not from guarding against every tomorrow."),
@@ -1800,7 +1800,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Holding Life Lightly",
-                    blockquote = "who thinks too much about lengthening it",
+                    blockquote = "who worries too much about living longer",
                     body = "The key words are too much. Seneca does not mock care for health or sensible caution. He warns against the clutching that turns all of life into anxious protection. He compares people who cling this way to someone carried down a rushing stream, grabbing at briars and sharp rocks. Held lightly, life becomes something to use well rather than something to hoard.",
                     bullets = listOf(
                         InsightBullet("Care without clutching", "Look after yourself sensibly, then put the worry down and get on with living."),
@@ -1820,7 +1820,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Courage Beyond the Battlefield",
-                    blockquote = "It is not only the sword and the battle-line that prove the soul alert and unconquered by fear",
+                    blockquote = "Bravery is not proved only on the battlefield.",
                     body = "Roman readers pictured bravery on the battlefield, the soldier holding his place in the line. Seneca widens the picture. A soul can be alert and unconquered by fear in places where no swords are drawn. The real contest is inward, and it can take place anywhere a person faces something hard: at a desk, in a waiting room, or through a sleepless night.",
                     bullets = listOf(
                         InsightBullet("Quiet arenas", "Courage is shown wherever fear is met calmly, not only where others are watching."),
@@ -1830,7 +1830,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Bravery Under Blankets",
-                    blockquote = "a man can display bravery even when wrapped in his bed-clothes",
+                    blockquote = "You can be brave even lying in bed.",
                     body = "Seneca tells his friend that he has something to do: wrestle bravely with disease. Being patient, not taking it out on others, still thinking and learning while the body is weak: these are real achievements. He even says Lucilius should be his own spectator and seek his own applause, since no crowd gathers at a sickbed. A bedroom can be a place of honor.",
                     bullets = listOf(
                         InsightBullet("Something to do", "Even when you cannot do much, how you bear your condition is meaningful work."),
@@ -1850,7 +1850,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Willing to Look Foolish",
-                    blockquote = "If you would improve, submit to be considered without sense and foolish with respect to externals.",
+                    blockquote = "If you want to improve, be willing to look foolish about outside things.",
                     body = "Externals are things outside your will: wealth, status, reputation, possessions. If you stop chasing them as hard as everyone else does, people will think you naive. Epictetus says to accept the label. He explains that it is not easy to keep your will in line with nature and also secure outward things; caring hard for one means neglecting the other.",
                     bullets = listOf(
                         InsightBullet("A price worth paying", "Being thought unambitious is a small cost for keeping your attention on character."),
@@ -1860,7 +1860,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Distrust the Applause",
-                    blockquote = "Wish to be considered to know nothing; and if you shall seem to some to be a person of importance, distrust yourself.",
+                    blockquote = "If others think you important, distrust yourself.",
                     body = "This guards against a quieter danger. When people start to admire you, it is easy to believe them and stop learning. Epictetus asks for the opposite posture: be content to be thought a beginner. A sense of your own importance closes the mind. A student who believes they know nothing keeps listening, keeps questioning, and keeps improving.",
                     bullets = listOf(
                         InsightBullet("Stay a beginner", "Act as if you still have much to learn, because you do."),
@@ -1880,7 +1880,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "A Room You Carry",
-                    blockquote = "Retire into yourself.",
+                    blockquote = "Retreat into yourself.",
                     body = "Marcus had little privacy. As emperor he was surrounded by advisers, petitioners, and soldiers. Yet he believed he could withdraw at any time, not to a country house but into his own judgment. Retiring into yourself means pausing the noise long enough to consult your own reason. It takes no travel, no special place, and only a few moments.",
                     bullets = listOf(
                         InsightBullet("Always available", "You can step inward between meetings, in a line at the store, or in the middle of an argument."),
@@ -1890,7 +1890,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Content With Doing Right",
-                    blockquote = "The rational principle which rules has this nature, that it is content with itself when it does what is just, and so secures tranquility.",
+                    blockquote = "The mind is content when it does what is right, and that brings calm.",
                     body = "The rational principle which rules is the Stoic name for the guiding part of the mind, the part that judges and decides. Marcus says it has a built-in contentment: when it acts justly, it is at rest. That is why the inward retreat works. You are not looking for comfort there. You are checking whether you have done right, and if you have, peace follows on its own.",
                     bullets = listOf(
                         InsightBullet("Justice brings rest", "Calm is a natural result of fair dealing, not something to chase directly."),
@@ -1910,7 +1910,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Knowing the Whole",
-                    blockquote = "He who does not know what the world is",
+                    blockquote = "If you don't know what the world is",
                     body = "The Stoics saw the world as a single, rational, connected order in which everything changes and everything belongs. To know what the world is, in this sense, is to see that change is normal, that you share existence with countless others, and that you are part of something larger than your own plans. Marcus thought this understanding was practical, not abstract.",
                     bullets = listOf(
                         InsightBullet("Part of a whole", "You cannot understand your role in isolation, only in relation to everything around you."),
@@ -1920,7 +1920,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Lost Without a Map",
-                    blockquote = "does not know where he is",
+                    blockquote = "you don't know where you are",
                     body = "A person without this understanding is disoriented, like a traveler without a map. Losses feel like betrayals, change feels like injustice, and other people feel like obstacles. Marcus continues that such a person cannot even say what he exists for, and he wonders why anyone would seek praise from people who know neither where they are nor who they are.",
                     bullets = listOf(
                         InsightBullet("Disorientation", "Many daily frustrations come from expecting the world to be something it is not."),
@@ -1940,7 +1940,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Craft in the Assigned Role",
-                    blockquote = "This is your duty, to act well the part that is given to you",
+                    blockquote = "Your job is to play well the part you are given.",
                     body = "An actor cannot rewrite the script, but there is still enormous room for skill. Two actors with the same lines can give very different performances. Epictetus applies this to life. Your health, your family, your era, your limits: these are given. How honestly, kindly, and bravely you live inside them is the performance, and that is fully yours.",
                     bullets = listOf(
                         InsightBullet("Room for skill", "Even a small or difficult role can be played with depth and dignity."),
@@ -1950,7 +1950,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Who Chooses the Part",
-                    blockquote = "but to select the part, belongs to another",
+                    blockquote = "Choosing the part is someone else's.",
                     body = "For Epictetus the other is God or nature, the author of the whole. Accepting this is not giving up. It means you stop wasting strength resenting the role and spend it on playing it. Resentment says I should have been cast differently. Acceptance says this is my part, so let me do it justice. Only the second can actually improve the play.",
                     bullets = listOf(
                         InsightBullet("Stop auditioning", "Wishing for another life keeps you from fully living the one you have."),
@@ -1970,7 +1970,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Order Before Nerve",
-                    blockquote = "Regulate your character, rouse your courage",
+                    blockquote = "Steady your character, find your courage",
                     body = "The order is telling. First regulate your character: put your habits and desires in order. Then rouse your courage. Courage that rests on a disordered character tends to be rash or brittle, while a person whose daily life is steady has firmer ground to stand on when fear arrives. Seneca speaks to Lucilius as someone already on the road, not as a beginner.",
                     bullets = listOf(
                         InsightBullet("Steady first", "Small daily order, in sleep, speech, and spending, gives courage somewhere to stand."),
@@ -1980,7 +1980,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Facing the Old Terrors",
-                    blockquote = "and stand firm in the face of things which have terrified you",
+                    blockquote = "stand firm against what once frightened you",
                     body = "Notice the tense: things which have terrified you. Seneca is speaking not of a new threat but of old fears, the ones that have already shaped your choices. Standing firm means turning toward them now that you are stronger. He adds that Lucilius should not count the number of those who inspire fear in him. A fear is often larger in memory than in fact.",
                     bullets = listOf(
                         InsightBullet("Old fears, new you", "You may now be strong enough for what once overwhelmed you."),
@@ -2000,8 +2000,8 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Walls Around a Weakness",
-                    blockquote = "What is bravery? It is the impregnable fortress for our mortal weakness",
-                    body = "Seneca does not pretend humans are strong by nature. We are mortal, breakable, and easily frightened. Bravery is what surrounds that weakness, the way walls surround a town. Impregnable means it cannot be taken by force. Fortune can damage your property, your health, or your plans, but if your courage holds, the citadel inside is not captured.",
+                    blockquote = "Bravery is a fortress for our weakness.",
+                    body = "Seneca does not pretend humans are strong by nature. We are mortal, breakable, and easily frightened. Bravery is what surrounds that weakness, the way walls surround a town. A fortress, in his image, cannot be taken by force. Fortune can damage your property, your health, or your plans, but if your courage holds, the citadel inside is not captured.",
                     bullets = listOf(
                         InsightBullet("Honest about weakness", "Courage begins by admitting fragility, not by denying it."),
                         InsightBullet("Walls, not armor", "Bravery is less a weapon for attack than a shelter that lets you stay calm.")
@@ -2010,7 +2010,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Holding Out Through the Siege",
-                    blockquote = "he can hold out free from anxiety during life's siege; for he is using his own strength and his own weapons",
+                    blockquote = "you can wait out life's siege without fear, using your own strength",
                     body = "A siege is long. Seneca pictures life as a series of pressures that do not end quickly. The key is in the last clause: his own strength, his own weapons. He then quotes the Stoic teacher Posidonius, who warned that Fortune does not furnish arms against herself. Money and influence are borrowed weapons. Character is the one no one can take back.",
                     bullets = listOf(
                         InsightBullet("Borrowed weapons", "Wealth and status can be withdrawn by the same Fortune that gave them."),
@@ -2030,7 +2030,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Maneuvers in Peacetime",
-                    blockquote = "If you would not have a man flinch when the crisis comes",
+                    blockquote = "If you don't want someone to flinch in a crisis",
                     body = "Seneca points to the soldier, who drills and throws up earthworks with no enemy in sight, wearing himself out on purpose so that he will be equal to real toil later. Flinching is a reflex born of surprise and unfamiliarity. The crisis itself may be unavoidable. What can be avoided is meeting it as a total stranger.",
                     bullets = listOf(
                         InsightBullet("Familiar ground", "What you have practiced, even a little, frightens you less when it arrives."),
@@ -2040,7 +2040,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Rehearsing Want on Purpose",
-                    blockquote = "train him before it comes",
+                    blockquote = "train them before it comes",
                     body = "Seneca's training is concrete: three or four days of hard bread, a coarse cloak, a real pallet to sleep on. He insists it be a true test, not the playacting of rich people who pretend to rough it. The aim is not to suffer, but to discover that what you feared is bearable. After that, the fear of losing comfort loses much of its grip.",
                     bullets = listOf(
                         InsightBullet("A real test", "Make the practice genuine enough to teach you something, not just a game."),
@@ -2060,7 +2060,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Food That Keeps a Mind Alive",
-                    blockquote = "Work is the sustenance",
+                    blockquote = "Work is food",
                     body = "Sustenance means nourishment, what keeps a living thing going. Seneca suggests that a mind without worthwhile effort grows weak, as a body does without food. He shouts encouragement to anyone climbing toward something good: rise, draw a fresh breath, and take that hill. The work feeds the mind not because labor is holy, but because striving for good things exercises everything good in us.",
                     bullets = listOf(
                         InsightBullet("Nourishment, not penance", "Worthy effort is something the mind needs, not merely something to endure."),
@@ -2070,7 +2070,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Noble Minds and Empty Toil",
-                    blockquote = "of noble minds",
+                    blockquote = "for noble minds",
                     body = "The phrase is not every mind. For Seneca, nobility is not a matter of birth but of aim: a mind set on virtue. Such a mind uses work as a means, not a goal. That is why he can say both that work is not a good and that it feeds the noble. Toil without purpose simply exhausts. Effort pointed at what is right strengthens the person doing it.",
                     bullets = listOf(
                         InsightBullet("Aim matters", "Ask what your effort serves. Purpose is what turns strain into nourishment."),
@@ -2090,7 +2090,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Even Quiet Desires Bind",
-                    blockquote = "Whatever the external thing may be",
+                    blockquote = "Whatever outside thing you value",
                     body = "The examples he gives are gentle ones: tranquility, leisure, travel, learning. Epictetus imagines someone unhappy because they have no time to read, as if reading were something no one could take away. It can be taken. A crow, a piper, or a fever can interrupt it. Even good things become chains when your peace depends on having them.",
                     bullets = listOf(
                         InsightBullet("Gentle chains", "Noble-sounding wants can enslave you as easily as greed can."),
@@ -2100,7 +2100,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "The Price Tag Is the Leash",
-                    blockquote = "the value which we set upon it places us in subjection to others",
+                    blockquote = "that value puts you in someone else's power",
                     body = "The thing does not enslave you; your valuation does. Whoever can give or withhold what you prize gains power over you. This is why Epictetus says that the person who longs to be a senator and the one who longs for quiet reading time can be equally unfree. The way out is not to stop enjoying things but to stop resting your happiness on them.",
                     bullets = listOf(
                         InsightBullet("Your valuation decides", "The grip any external thing has on you comes from the weight you give it."),
@@ -2120,7 +2120,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Pieces Without Worth",
-                    blockquote = "The counters are indifferent; the dice are indifferent. How do I know what the cast will be?",
+                    blockquote = "The dice don't matter, and I can't know how they'll fall.",
                     body = "Indifferent is a technical Stoic word. It does not mean unimportant. It means neither good nor bad in itself, like money, health, outcomes, and the numbers on the dice. Since you cannot know or control the cast, worrying about it is wasted effort. This removes a weight. You are not responsible for what lands, only for what you do next.",
                     bullets = listOf(
                         InsightBullet("Indifferent, not trivial", "Outcomes can matter to you while still lying outside what makes you good or bad."),
@@ -2130,7 +2130,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Playing the Roll Well",
-                    blockquote = "But to use carefully and dexterously the cast of the dice, this is my business.",
+                    blockquote = "Playing the roll carefully and well is my business.",
                     body = "Here is the care that keeps Stoic calm from turning into carelessness. Once the dice have landed, a skilled player thinks hard about the best move. Epictetus says that materials are indifferent but their use is not. You should act carefully because the use matters, and calmly because the material does not. The two attitudes belong together.",
                     bullets = listOf(
                         InsightBullet("Calm and careful", "Detachment from results and full attention to action are partners, not opposites."),
@@ -2159,7 +2159,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "A Different Ambition",
-                    blockquote = "You yourself will not wish to be a general or senator or consul, but a free man",
+                    blockquote = "You don't want a title. You want to be free",
                     body = "General, senator, and consul were the great prizes of Roman public life: command of an army, a seat in the governing council, and the highest elected office. Epictetus, who was born enslaved, had good reason to think hard about what freedom really is. He says the student of philosophy aims elsewhere. Titles are given and taken away by others. Freedom, rightly understood, is not.",
                     bullets = listOf(
                         InsightBullet("Prizes given by others", "Any honor that someone else can bestow, someone else can also remove."),
@@ -2169,7 +2169,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "One Road to Freedom",
-                    blockquote = "there is only one way to this, to despise the things which are not in our power",
+                    blockquote = "the only way is to stop caring about what is not in your control",
                     body = "Despise is a strong word, and the translator adds the gentler gloss care not for. Epictetus means: stop staking your happiness on things outside your will, such as reputation, office, and other people's decisions. Earlier in the same chapter he says you can be invincible if you enter no contest that you cannot win by your own power.",
                     bullets = listOf(
                         InsightBullet("Care not for", "Release the outcome of what is beyond you, while still doing your own part well."),
@@ -2198,7 +2198,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "When the State Shifted",
-                    blockquote = "No one ever saw Cato change, no matter how often the state changed",
+                    blockquote = "No one ever saw Cato change, however much the state changed.",
                     body = "In Cato's lifetime the Roman Republic was shaken again and again by powerful men such as Pompey, Caesar, and Crassus. Alliances formed and broke, and many people changed sides as the winds changed. Seneca's point is that Cato's character did not depend on who was in power. His principles were not a reaction to the times; they were his own.",
                     bullets = listOf(
                         InsightBullet("Not a weathervane", "A steady person keeps their values when the surrounding opinion turns."),
@@ -2208,7 +2208,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "One Man in Every Season",
-                    blockquote = "he kept himself the same in all circumstances",
+                    blockquote = "He stayed the same in every situation.",
                     body = "Seneca lists some of those circumstances: in high office, in electoral defeat, under accusation, governing a province, speaking in public, serving with the army. Success did not puff him up, and failure did not shrink him. Keeping yourself the same does not mean being rigid or never learning. It means your core, your honesty and your care for what is right, holds steady whatever happens.",
                     bullets = listOf(
                         InsightBullet("Same in loss and gain", "Let neither a win nor a setback change how you treat people."),
@@ -2228,7 +2228,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "A Stout Heart in Defeat",
-                    blockquote = "Cato will bear with an equally stout heart anything that thwarts him of his victory",
+                    blockquote = "Cato will take defeat in war",
                     body = "Cato stood with the Republic in Rome's civil war, and his side did not win. Seneca, writing about a century later, does not treat this as a failure of Cato's character. A stout heart is a brave, steady one. Seneca's point is that Cato's courage was the same size whether the stakes were small or enormous, because it rested on his own conduct, not on results.",
                     bullets = listOf(
                         InsightBullet("Victory is not virtue", "A good cause can lose, and its defenders can still have acted rightly."),
@@ -2238,7 +2238,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Losing an Election Calmly",
-                    blockquote = "as he bore that which thwarted him of his praetorship",
+                    blockquote = "as calmly as he took defeat in an election",
                     body = "A praetor was one of Rome's chief magistrates, ranking just below the consuls, and losing that election was a public blow for an ambitious senator. Seneca says Cato spent the day of his defeat in play. In another letter he says Cato played a game of ball. He was not careless about Rome. He simply refused to let a vote decide his worth.",
                     bullets = listOf(
                         InsightBullet("A game of ball", "Cato's calm after defeat showed that his worth did not rest on the outcome."),
@@ -2258,7 +2258,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Proof That It Can Be Done",
-                    blockquote = "You see that man can endure toil",
+                    blockquote = "People can endure hardship",
                     body = "Seneca uses Cato as evidence. When you think a hardship is beyond human strength, a real example answers the doubt: someone has carried this, or something heavier. That is why the Stoics valued examples so highly. A principle tells you endurance is possible, while a life shows you. Seneca goes on in the same vein: you see that thirst can be endured.",
                     bullets = listOf(
                         InsightBullet("Examples teach", "Keep in mind people who have endured hard things; they make your own load seem possible."),
@@ -2268,7 +2268,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Leading on Foot",
-                    blockquote = "Cato, on foot, led an army through African deserts.",
+                    blockquote = "Cato led an army on foot across the African desert.",
                     body = "Seneca adds that Cato marched over sun-baked hills with no supply train, wearing heavy armor, and was always the last to drink at the few springs they found. The detail that matters is on foot. A commander could have ridden. Cato chose to share the hardship of his soldiers. His endurance was not only toughness; it was a form of fairness and leadership.",
                     bullets = listOf(
                         InsightBullet("Share the load", "Leaders earn trust by taking on the same hardships they ask of others."),
@@ -2288,7 +2288,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "The Gifts Already Given",
-                    blockquote = "Have you not received faculties by which you will be able to bear all that happens?",
+                    blockquote = "Haven't you been given what you need to bear whatever happens?",
                     body = "Faculties are capacities: reason, judgment, patience. Epictetus's question is pointed. We complain as if we were helpless, but we already carry the tools. Visitors to Olympia bear sunburn and crowding because the spectacle seems worth it. Life, he suggests, is also a spectacle worth bearing, and we have been equipped for it.",
                     bullets = listOf(
                         InsightBullet("Already equipped", "Before asking for an easier life, take stock of the powers you already have."),
@@ -2298,7 +2298,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Answering Yes Each Time",
-                    blockquote = "Have you not received greatness of soul? Have you not received manliness? Have you not received endurance?",
+                    blockquote = "Greatness of spirit, courage, endurance?",
                     body = "Greatness of soul means a largeness of spirit that is not easily shaken. Manliness, in this old translation, means courage and steadiness, a quality open to anyone. Endurance is the ability to keep going. Epictetus asks each question so that you will answer yes each time. He then asks why he should trouble himself about anything that can happen, if he possesses greatness of soul.",
                     bullets = listOf(
                         InsightBullet("Answer the questions", "Say yes to each one, and notice how different your situation feels afterward."),
@@ -2318,7 +2318,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Only Hindered From Within",
-                    blockquote = "It is not possible that what is by nature free can be disturbed by anything else, or hindered by any other thing than by itself.",
+                    blockquote = "Nothing outside can disturb or block a mind that is free by nature.",
                     body = "What is by nature free, for Epictetus, is the will: your power to judge, choose, and assent. A tyrant can confine your body, take your goods, or threaten you. He cannot reach inside and decide what you value. Epictetus imagines a tyrant threatening to chain a man's leg, and the man replying calmly that if it seems best, the tyrant may chain it.",
                     bullets = listOf(
                         InsightBullet("The free part", "Your judgment and choices are the one region no outside force can enter."),
@@ -2328,7 +2328,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "The Opinion Behind the Distress",
-                    blockquote = "But it is a man's own opinions which disturb him.",
+                    blockquote = "Only your own opinions disturb you.",
                     body = "This is one of Epictetus's central teachings. Events happen; distress comes from how we interpret them. The man who values his leg above all begs for pity. The man who values his will above all stays calm. It is a hard teaching and also a hopeful one: if opinions disturb you, opinions can be examined and changed, and that work is yours to do.",
                     bullets = listOf(
                         InsightBullet("Event and opinion", "Separate what happened from what you are telling yourself it means."),
@@ -2348,7 +2348,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "The Mirror in Other People",
-                    blockquote = "I turn to myself, and ask if I also commit the same faults.",
+                    blockquote = "I turn to myself and ask if I make the same mistakes.",
                     body = "It is easy to watch others and keep a running list of their failings. Epictetus turns the habit inside out. When he sees vanity, impatience, or rudeness, he asks whether it lives in him too. This is not self-punishment. It is a way to learn from everyone you meet, and it quietly removes the pleasure of judging others.",
                     bullets = listOf(
                         InsightBullet("Watch without scorn", "Observe people to learn, not to collect evidence against them."),
@@ -2358,7 +2358,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "From Noticing to Changing",
-                    blockquote = "How then shall I cease to commit them?",
+                    blockquote = "How can I stop?",
                     body = "Recognition is only half the work. Epictetus moves at once to the practical question: how do I stop? Right after this line he adds that he once acted wrongly but no longer does, and gives thanks for it. Progress is possible. He also warns that reading philosophy only to explain it to others misses the point; it is meant to be used in action.",
                     bullets = listOf(
                         InsightBullet("Move to how", "Follow every honest self-observation with one concrete change you can try."),
@@ -2378,7 +2378,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Call It by Its Name",
-                    blockquote = "If you love an earthen vessel, say it is an earthen vessel which you love",
+                    blockquote = "If you love a clay pot, remember it is a clay pot.",
                     body = "An earthen vessel is a clay pot or jug. Epictetus does not tell you not to love it. He tells you to love it accurately: this is clay, and clay breaks. Naming a thing truly keeps your affection honest. It is the same pot whether you name it or not, but your mind relates to it differently once you have said plainly what it is.",
                     bullets = listOf(
                         InsightBullet("Love accurately", "Enjoy things while keeping in mind their real, breakable nature."),
@@ -2388,7 +2388,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "When the Jug Breaks",
-                    blockquote = "for when it has been broken you will not be disturbed",
+                    blockquote = "if it breaks, you won't be upset",
                     body = "The payoff comes later. If you have been saying all along that this is a clay jug, its breaking confirms what you knew instead of shattering your peace along with it. Disturbance is often the gap between what we thought a thing was and what it turned out to be. Close that gap in advance, and a loss can sting without overturning you.",
                     bullets = listOf(
                         InsightBullet("No false permanence", "Much of our shock comes from quietly assuming that fragile things will last."),
@@ -2408,7 +2408,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Mistakes Made in Pieces",
-                    blockquote = "The reason we make mistakes is because we all consider the parts of life",
+                    blockquote = "We make mistakes because we think about parts of life",
                     body = "Most errors look reasonable in the moment: a job taken only for the money, a remark made to win an argument, an evening lost to something trivial. Each choice made sense as a part. Seneca's diagnosis is that we judge each piece by itself, with no larger picture to check it against. Then the pieces fail to add up to a life we would have chosen.",
                     bullets = listOf(
                         InsightBullet("Reasonable in isolation", "A choice can seem fine by itself and still pull your life off course."),
@@ -2418,7 +2418,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Seeing the Whole Canvas",
-                    blockquote = "but never life as a whole",
+                    blockquote = "never life as a whole",
                     body = "Seneca follows with two images. The archer must know what he is aiming at. And when a man does not know what harbor he is making for, no wind is the right wind. To see life as a whole is to know your chief aim, the kind of person you want to be, and to measure each choice against it. Then the parts begin to serve something.",
                     bullets = listOf(
                         InsightBullet("Know the harbor", "Without a destination, every wind feels wrong and every choice feels random."),
@@ -2438,7 +2438,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "No Shelter in Tomorrow",
-                    blockquote = "The only harbor safe from the seething storms of this life is scorn of the future",
+                    blockquote = "The only safe harbor in life's storms is to stop fearing the future",
                     body = "Seneca's harbor is surprising. It is not wealth, a quiet country house, or a well-made plan. It is scorn of the future, which here means refusing to be ruled by what might happen. Much of our storm is worry about tomorrow. A mind that stops borrowing trouble from the future finds a calm that no change of scenery can provide.",
                     bullets = listOf(
                         InsightBullet("Stop borrowing trouble", "Much of the storm lives in tomorrow's imagined problems, not in today's real ones."),
@@ -2448,7 +2448,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Facing Fortune's Missiles",
-                    blockquote = "a firm stand, a readiness to receive Fortune's missiles full in the breast, neither skulking nor turning the back",
+                    blockquote = "stand firm, and take whatever Fortune throws without running",
                     body = "The image shifts to a soldier holding his ground. Missiles are thrown weapons, and Fortune throws them at everyone. Seneca's soldier does not hide behind others or run. He faces what comes. This is not recklessness; it is a refusal to waste life in dodging. Facing a difficulty head-on is often less painful than the long unease of avoiding it.",
                     bullets = listOf(
                         InsightBullet("Face it squarely", "Turning toward a problem often shrinks it, while running keeps it growing behind you."),
@@ -2468,7 +2468,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "The Reward Inside the Deed",
-                    blockquote = "Have I done something for the general interest? Well then, I have had my reward.",
+                    blockquote = "Have I done something for the common good? Then I have my reward.",
                     body = "The general interest means the common good, the welfare of the community that Marcus believed all rational beings share. He treats a good act as complete in itself. Expecting gratitude adds a second, uncertain payment to one already received. When you help and then wait for recognition, you turn a gift into a loan. Marcus refuses to do that.",
                     bullets = listOf(
                         InsightBullet("Complete in itself", "The good you did is finished and real, whether or not anyone notices."),
@@ -2478,7 +2478,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Keep It Close, Keep Going",
-                    blockquote = "Let this always be present to your mind, and never stop doing such good.",
+                    blockquote = "Keep this in mind, and never stop.",
                     body = "Marcus knew he would forget, which is why he writes always be present to your mind. Resentment creeps in easily when good deeds go unthanked, and resentment is a common reason people stop helping. Remembering that the reward has already arrived keeps generosity from souring. The second half follows naturally: if every good act pays at once, there is no reason to stop.",
                     bullets = listOf(
                         InsightBullet("Guard against souring", "When you feel unthanked, recall that the reward was already yours."),
@@ -2498,7 +2498,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "What Harms the Hive",
-                    blockquote = "That which is not good for the swarm",
+                    blockquote = "What is not good for the swarm",
                     body = "The swarm is the whole community: family, workplace, city, the human race. Marcus held that rational beings are made for one another. An action that weakens trust, fairness, or the common good is not good, however clever or profitable it looks. Seen this way, ethics is not a set of limits on self-interest but an accurate picture of where self-interest really lies.",
                     bullets = listOf(
                         InsightBullet("Shared life", "Your well-being is woven into the well-being of those around you."),
@@ -2508,7 +2508,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "No Private Profit",
-                    blockquote = "neither is it good for the bee",
+                    blockquote = "is not good for the bee",
                     body = "The second half denies a common illusion: that someone can quietly benefit by harming the group. A bee that robbed the hive would only be weakening the place it lives. For Marcus, the same is true of a lie, a shortcut, or a cruelty. Even if it seems to pay, it wears away the shared world you depend on and the character you carry.",
                     bullets = listOf(
                         InsightBullet("Slow erosion", "Small harms to the common good come back to you through the world you share."),
@@ -2528,7 +2528,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Remember Your Name",
-                    blockquote = "If you are a senator of any state, remember that you are a senator; if a youth, that you are a youth; if an old man, that you are an old man",
+                    blockquote = "Remember who you are: a senator, a young person, an old one.",
                     body = "A senator in Epictetus's world was a member of a city's ruling council, someone with public responsibility. A youth is still learning. An old man has experience to offer and dignity to keep. The repeated word \"remember\" suggests that we forget our roles easily, acting in ways that do not fit who we are to the people around us.",
                     bullets = listOf(
                         InsightBullet("Roles as reminders", "Each title you hold is a short summary of what others can rightly expect."),
@@ -2539,8 +2539,8 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "What Each Name Asks",
-                    blockquote = "for each of such names, if it comes to be examined, marks out the proper duties.",
-                    body = "The phrase \"if it comes to be examined\" is the key. A name does not hand you your duties automatically. You have to think about it. What does it actually mean to be a parent, a manager, a neighbor? Epictetus goes on to warn that a brother who blames his brother has forgotten his name. Examining the role gives you a map for what to do.",
+                    blockquote = "Each role, looked at closely, shows you your duties.",
+                    body = "The phrase \"looked at closely\" is the key. A name does not hand you your duties automatically. You have to think about it. What does it actually mean to be a parent, a manager, a neighbor? Epictetus goes on to warn that a brother who blames his brother has forgotten his name. Examining the role gives you a map for what to do.",
                     bullets = listOf(
                         InsightBullet("Duties need thought", "You find your obligations by reflecting on what a role really means."),
                         InsightBullet("A ready guide", "When unsure how to act, ask what your role here requires.")
@@ -2559,7 +2559,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "What Remains Worth Much",
-                    blockquote = "One thing here is worth a great deal, to pass your life in truth and justice",
+                    blockquote = "One thing is worth a great deal: to live with truth and justice",
                     body = "Marcus names Heraclitus, Pythagoras, Socrates, and Archimedes, among others, the great minds of his world. All of them are long gone, and their greatness did not change that. What is left to value, then? Not reputation, but the way a life is spent. Truth means honesty in word and thought. Justice means fair treatment of others. Both are open to anyone, every day.",
                     bullets = listOf(
                         InsightBullet("Not fame", "Reputation fades for everyone; character is what gives a life its worth now."),
@@ -2569,8 +2569,8 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Kindness Toward the Unkind",
-                    blockquote = "with a benevolent disposition even to liars and unjust men",
-                    body = "This is the harder part. It is one thing to be honest and fair yourself, and another to stay well-disposed toward those who are not. Marcus does not ask you to trust liars or approve of injustice. He asks you not to let their faults turn you hostile. A benevolent disposition means wishing them well and refusing to become like them.",
+                    blockquote = "kindness even toward liars and cheats",
+                    body = "This is the harder part. It is one thing to be honest and fair yourself, and another to stay well-disposed toward those who are not. Marcus does not ask you to trust liars or approve of injustice. He asks you not to let their faults turn you hostile. Kindness here means wishing them well and refusing to become like them.",
                     bullets = listOf(
                         InsightBullet("Not trust, goodwill", "You can protect yourself from a liar and still wish them no harm."),
                         InsightBullet("Refuse their example", "Meeting dishonesty with bitterness lets the dishonest shape who you are.")
@@ -2579,7 +2579,7 @@ object InsightData {
             ),
             modernApplication = "Think of someone who has been unfair or untruthful with you. Without excusing what they did, try wishing them a better path, even silently. Then deal with them honestly and fairly, as you would want to be dealt with.",
             closing = "Truth, justice, and goodwill are worth more than any lasting name.",
-            reflectionPrompt = "Who in your life tests your goodwill most? What would a benevolent disposition toward them actually look like?"
+            reflectionPrompt = "Who in your life tests your goodwill most? What would kindness toward them actually look like?"
         ),
 
         // q082 — Marcus Aurelius
@@ -2589,8 +2589,8 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Forecasting Difficult People",
-                    blockquote = "Begin the morning by saying to yourself, I shall meet with the busybody, the ungrateful, arrogant, deceitful, envious, unsocial.",
-                    body = "Marcus does not hope for a day free of difficult people. He expects them. A busybody meddles in other people's affairs, and unsocial means hostile to shared life. Naming them in advance removes the surprise, and surprise is often what turns irritation into anger. This is not cynicism. It is like carrying an umbrella, not because you hate rain, but because it comes.",
+                    blockquote = "Each morning, tell yourself: today I will meet busybodies and people who are ungrateful, arrogant, dishonest, jealous, and unfriendly.",
+                    body = "Marcus does not hope for a day free of difficult people. He expects them. A busybody meddles in other people's affairs, and unfriendly here means hostile to shared life. Naming them in advance removes the surprise, and surprise is often what turns irritation into anger. This is not cynicism. It is like carrying an umbrella, not because you hate rain, but because it comes.",
                     bullets = listOf(
                         InsightBullet("No surprise", "Expecting friction makes it easier to meet it with patience when it arrives."),
                         InsightBullet("Forecast, not cynicism", "Anticipating faults is preparation, not a low opinion of people.")
@@ -2599,7 +2599,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Ignorance, Not Malice",
-                    blockquote = "All these things happen to them by reason of their ignorance of what is good and evil.",
+                    blockquote = "They are this way because they don't know good from bad.",
                     body = "Here is the turn that makes the preparation kind. Marcus believes people act badly because they misunderstand what is truly good. They think status, pleasure, or winning will help them. That does not excuse the behavior, but it changes how he meets it. He goes on to say the wrongdoer is akin to him, and that we are made to work together, like hands or feet.",
                     bullets = listOf(
                         InsightBullet("Misunderstanding", "Bad behavior often comes from mistaken beliefs about what will bring happiness."),
@@ -2619,7 +2619,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Reason and Fellowship",
-                    blockquote = "My nature is rational and social",
+                    blockquote = "My nature is rational and social.",
                     body = "These two words carry much of Stoic ethics. Rational means able to think, judge, and choose. Social means made for life with others. Marcus treats them as a pair: reason, rightly used, leads toward cooperation and fairness. A life that is clever but cut off from others, or warm but thoughtless, misses half of what a human being is.",
                     bullets = listOf(
                         InsightBullet("Two halves", "Good thinking and good fellowship belong together in a full human life."),
@@ -2629,8 +2629,8 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Two Cities at Once",
-                    blockquote = "my city and country, so far as I am Antoninus, is Rome, but so far as I am a man, it is the world",
-                    body = "Antoninus was part of Marcus's official name as emperor, so here it stands for his public role. As emperor, his city was Rome, with its laws and duties. As a human being, his city was the whole world, shared with everyone who has reason. He does not cancel the first loyalty; he sets it inside the second. What is useful to these cities, he adds, is alone useful to him.",
+                    blockquote = "As emperor, my city is Rome. As a human being, it is the world.",
+                    body = "In the original he says \"as Antoninus,\" part of his official name as emperor, so it stands for his public role. As emperor, his city was Rome, with its laws and duties. As a human being, his city was the whole world, shared with everyone who has reason. He does not cancel the first loyalty; he sets it inside the second. What is useful to these cities, he adds, is alone useful to him.",
                     bullets = listOf(
                         InsightBullet("Local and universal", "Serve your own community, while remembering you also belong to humanity."),
                         InsightBullet("Role within a whole", "Your particular job matters most when it also serves the larger good.")
@@ -2658,7 +2658,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Built Like a Pair of Hands",
-                    blockquote = "We are made for co-operation, like feet, like hands, like eyelids, like the rows of the upper and lower teeth.",
+                    blockquote = "We are made to work together, like hands, feet, eyelids, and teeth.",
                     body = "Every image Marcus picks is a pair or a set. One foot cannot walk alone, one eyelid cannot blink alone, and the upper teeth are useless without the lower. He is saying that people are not separate machines that sometimes bump into each other. We are parts designed to work together, and our best functioning only appears when we do.",
                     bullets = listOf(
                         InsightBullet("Pairs, not singles", "Each image shows something that only works when its partner works with it."),
@@ -2669,7 +2669,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "When Teeth Grind",
-                    blockquote = "To act against one another, then, is contrary to nature.",
+                    blockquote = "Working against each other goes against nature.",
                     body = "If we are built to work together, then working against each other is a kind of malfunction. Marcus goes on to say that even being vexed with someone and turning away from them counts as acting against them. So the line reaches past open conflict to the small daily habit of resentment, the silent turning of the back.",
                     bullets = listOf(
                         InsightBullet("A malfunction", "Conflict is treated less as wickedness and more as a part failing at its job."),
@@ -2690,7 +2690,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "The Weight of the Undone",
-                    blockquote = "He often acts unjustly who does not do a certain thing",
+                    blockquote = "You often do wrong by failing to act",
                     body = "Marcus believed we are made for one another, so each of us owes something to the people around us. When you stay silent while someone is treated badly, or keep back help that was yours to give, you have failed in that duty. Nothing visible happened, yet a wrong was done. The word \"often\" matters too: Marcus thought this kind of failure was common.",
                     bullets = listOf(
                         InsightBullet("Duty includes action", "Justice is not only avoiding harm; it also asks you to do your part."),
@@ -2701,7 +2701,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Not Only the Doer",
-                    blockquote = "not only he who does a certain thing",
+                    blockquote = "not only by acting",
                     body = "This half keeps the ordinary meaning of injustice in place. Doing harm is still wrong. Marcus simply widens the circle so that standing by is not a safe place to hide. A person who never does anything cruel can still fall short of justice by never doing anything kind or brave when it was needed.",
                     bullets = listOf(
                         InsightBullet("Both count", "Harmful acts and needed acts left undone sit on the same scale."),
@@ -2730,7 +2730,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "The Arrow Turns Back",
-                    blockquote = "He who does wrong does wrong against himself.",
+                    blockquote = "Whoever does wrong, wrongs themselves.",
                     body = "For a Stoic, the only real harm is harm to your own mind and character. Someone who cheats you can take your money, but they cannot make you worse. When they cheat, though, they do make themselves worse. The person they truly damage is the one they see in the mirror, even if they walk away with the profit.",
                     bullets = listOf(
                         InsightBullet("Where harm lands", "Others can touch your possessions; only you can damage your character."),
@@ -2740,7 +2740,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "How a Self Gets Made",
-                    blockquote = "He who acts unjustly acts unjustly to himself, because he makes himself bad.",
+                    blockquote = "To act unjustly is to make yourself bad.",
                     body = "The reason Marcus gives is practical. Each choice is practice. Act unjustly once and the next time is easier, until it becomes who you are. So the harm is not a punishment sent from outside. It is the natural result of repeated choices, the way a path gets worn into grass by walking it again and again.",
                     bullets = listOf(
                         InsightBullet("Choices as practice", "Every act rehearses a habit, and habits become character."),
@@ -2761,7 +2761,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Reason Speaking to Reason",
-                    blockquote = "By your rational faculty stir up his rational faculty; show him his error, admonish him.",
+                    blockquote = "Use reason to reach their reason. Show them their mistake.",
                     body = "Marcus believed every person shares in reason. That means the person who annoys you is not a wall to be shouted at. They can understand. Your task is to engage that capacity: explain clearly, point to the mistake, offer a correction. This treats them as an equal who can think, not a problem to be managed.",
                     bullets = listOf(
                         InsightBullet("Shared equipment", "You and the other person have the same capacity to reason, so speak to it."),
@@ -2772,7 +2772,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Anger Has No Job",
-                    blockquote = "For if he listens, you will cure him, and there is no need of anger.",
+                    blockquote = "If they listen, you will help them, and there is no need for anger.",
                     body = "If they listen, the problem is solved and anger contributes nothing. If they do not, anger still contributes nothing. Marcus frames correction as a kind of cure, which casts you more as a healer than a judge. Anger often feels like it is doing work, but here it has no task to perform.",
                     bullets = listOf(
                         InsightBullet("A cure, not a contest", "The aim is to help the other person improve, not to win."),
@@ -2792,8 +2792,8 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "A Ledger With Hidden Costs",
-                    blockquote = "Never value anything as profitable to yourself which shall compel you to break your promise, to lose your self-respect",
-                    body = "The word \"profitable\" is chosen with care. Marcus is not saying ignore your interests. He is saying count properly. A promotion that requires you to break your word, or a deal that leaves you unable to respect yourself, has a cost that does not show up in money. When that cost is counted, the profit disappears.",
+                    blockquote = "Never count anything as good for you if it makes you break your word, lose your self-respect",
+                    body = "The phrase \"good for you\" is chosen with care. Marcus is not saying ignore your interests. He is saying count properly. A promotion that requires you to break your word, or a deal that leaves you unable to respect yourself, has a cost that does not show up in money. When that cost is counted, the profit disappears.",
                     bullets = listOf(
                         InsightBullet("Count everything", "A true accounting includes what a gain does to your character."),
                         InsightBullet("Promise first", "Keeping your word is listed first, as something no profit can outweigh."),
@@ -2803,7 +2803,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "What Bad Bargains Breed",
-                    blockquote = "to hate any man, to suspect, to curse, to act the hypocrite.",
+                    blockquote = "hate, suspect, curse, or pretend",
                     body = "The second part of the list names what a bad bargain does to your inner life. Some gains can only be kept by resenting rivals, watching your back, or wearing a mask. Marcus goes on to mention anything that needs walls and curtains, things that must be hidden. A life arranged that way is full of strain, whatever it earns.",
                     bullets = listOf(
                         InsightBullet("The strain of hiding", "Gains that must be concealed keep you guarded and tense."),
@@ -2824,8 +2824,8 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Their Fault, Your Calm",
-                    blockquote = "You ought not to be affected contrary to nature by the bad things of another.",
-                    body = "The \"bad things of another\" are their faults and mistakes. Epictetus says they belong to that person, not to you. When someone else's wrongdoing throws you into rage, you have let their error become your disturbance. That is what he means by being affected \"contrary to nature\": a reasoning mind is meant to stay steady and clear, not to be pushed around by what others choose.",
+                    blockquote = "Don't let someone else's faults upset you.",
+                    body = "\"Someone else's faults\" are their mistakes and wrongdoing. Epictetus says they belong to that person, not to you. When someone else's wrongdoing throws you into rage, you have let their error become your disturbance. That is why he calls this reaction contrary to nature: a reasoning mind is meant to stay steady and clear, not to be pushed around by what others choose.",
                     bullets = listOf(
                         InsightBullet("Whose problem", "The other person's error is theirs; your reaction is the part that is yours."),
                         InsightBullet("Steady by design", "For Epictetus, a calm and clear mind is our natural state, not a luxury.")
@@ -2834,7 +2834,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Pity in Place of Offense",
-                    blockquote = "Pity him rather; drop this readiness to be offended and to hate.",
+                    blockquote = "Pity them instead, and drop the urge to take offense and hate.",
                     body = "Epictetus notices that many of us are ready to be offended, almost waiting for it. He asks us to drop that readiness. In its place he offers pity, the recognition that the wrongdoer has lost something far more valuable than whatever they took. He adds a sharp observation: we often get angry because we prize the same things the thief prizes.",
                     bullets = listOf(
                         InsightBullet("A loaded trigger", "Being ready to take offense means you will find plenty of it."),
@@ -2855,7 +2855,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "No Fight Starts Here",
-                    blockquote = "The wise and good man neither himself fights with any person",
+                    blockquote = "A good and wise person doesn't fight with anyone",
                     body = "Epictetus explains why the good person does not fight. Socrates remembered that no one has power over another person's ruling principle, their inner judgment. Quarrels usually come from trying to force someone else to think or act as we want. When you stop demanding control of what is not yours, much of the reason to fight goes away.",
                     bullets = listOf(
                         InsightBullet("The root of quarrels", "Most fights come from wanting control over someone else's mind."),
@@ -2865,8 +2865,8 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Peacemaker When You Can",
-                    blockquote = "nor does he allow another, so far as he can prevent it.",
-                    body = "The second half adds an outward task. The good person also tries to stop quarrels between others. Epictetus notes that Socrates settled many disputes among his companions. The phrase \"so far as he can prevent it\" keeps this honest: you are not responsible for every argument in the world, only for doing what is within your reach.",
+                    blockquote = "stops others from fighting when they can",
+                    body = "The second half adds an outward task. The good person also tries to stop quarrels between others. Epictetus notes that Socrates settled many disputes among his companions. The phrase \"when they can\" keeps this honest: you are not responsible for every argument in the world, only for doing what is within your reach.",
                     bullets = listOf(
                         InsightBullet("Beyond yourself", "Keeping peace includes helping others step back from a fight."),
                         InsightBullet("Within reach", "You do what you can and accept that some quarrels are not yours to end."),
@@ -2881,12 +2881,12 @@ object InsightData {
 
         // q093 — Epictetus
         "q093" to QuoteInsight(
-            intro = "This short teaching from the Enchiridion, Epictetus's handbook of his core ideas, changes one word in how you speak about loss. Instead of \"lost,\" say \"restored,\" as in given back. Everything we hold was lent to us, and returning it is part of the arrangement.",
+            intro = "This short teaching from the Enchiridion, Epictetus's handbook of his core ideas, changes one word in how you speak about loss. Instead of \"lost,\" say \"given back.\" Everything we hold was lent to us, and returning it is part of the arrangement.",
             sections = listOf(
                 InsightSection(
                     number = 1,
                     title = "The Word Lost",
-                    blockquote = "Never say about anything, I have lost it",
+                    blockquote = "Never say, I have lost it.",
                     body = "The word \"lost\" quietly assumes the thing was yours to keep. Epictetus asks you to notice that assumption. Your possessions, your position, even the people you love came to you from outside, and you never controlled whether they would stay. Speaking of loss as theft from your property sets you up for bitterness each time something passes on.",
                     bullets = listOf(
                         InsightBullet("A hidden claim", "Saying \"lost\" assumes a permanent ownership you never had."),
@@ -2896,7 +2896,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Giving Back What Was Lent",
-                    blockquote = "but say I have restored it.",
+                    blockquote = "Say, I have given it back.",
                     body = "To restore is to give back. Epictetus extends this even to the people dearest to us, which is a demanding thought, offered gently. He adds an image: while you have something, care for it as travelers care for an inn. You look after the room well, you enjoy it, and you know it is not yours forever. That knowledge can make your care more tender, not less.",
                     bullets = listOf(
                         InsightBullet("The inn", "Treat what you have as a good guest treats a room: with care and without clinging."),
@@ -2917,7 +2917,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Checking the Coin",
-                    blockquote = "What is the stamp of his opinions? It is gentleness, a sociable disposition, a tolerant temper, a disposition to mutual affections.",
+                    blockquote = "What marks good beliefs in a person? Gentleness, friendliness, patience, and affection for others.",
                     body = "Trajan was remembered as a good emperor and Nero as a cruel one, so the coin image is pointed. A human being is not proved by having a human shape. Epictetus asks what values they actually carry. The marks of a genuine person are gentle, social, patient, and warm. These are the stamp to look for in others and, more importantly, in yourself.",
                     bullets = listOf(
                         InsightBullet("Not the outer form", "Looking like a person is not enough; character is the real mark."),
@@ -2928,7 +2928,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Welcome Aboard",
-                    blockquote = "Produce these qualities. I accept them: I consider this man a citizen, I accept him as a neighbor, a companion in my voyages.",
+                    blockquote = "Show me these, and I will welcome them as a neighbor and companion.",
                     body = "Once the right stamp is shown, Epictetus is generous. He accepts the person as a fellow citizen, a neighbor, a shipmate. Sea travel was long and risky, so a companion on a voyage was someone you needed to trust. The welcome does not depend on rank or wealth, only on character. He adds a warning: if the stamp is resentment and violence, the shape of a man is not enough.",
                     bullets = listOf(
                         InsightBullet("Open admission", "Good character is the only entry requirement Epictetus asks for."),
@@ -2948,7 +2948,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Caught in the Act",
-                    blockquote = "What then do you wish to be doing when you are found by death?",
+                    blockquote = "What do you want to be doing when death finds you?",
                     body = "Just before this, Epictetus lists what people happen to be doing at any moment: farming, trading, holding office, or suffering an upset stomach. Everyone will be found doing something. The question turns that fact into a compass. If you knew this hour would be the last, what would you want it to contain? That answer tells you what matters most.",
                     bullets = listOf(
                         InsightBullet("Everyone is mid-task", "No one stops before the end; we are always in the middle of something."),
@@ -2958,7 +2958,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Work Worth Being Found At",
-                    blockquote = "I, for my part, would wish to be found doing something which belongs to a man, beneficent, suitable to the general interest, noble.",
+                    blockquote = "I want to be found doing something good, useful to others, and noble.",
                     body = "Epictetus answers for himself: something helpful, something that serves others, something fitting for a human being. He goes on to admit that he may not always manage great deeds. Then he would be content to be found improving himself and giving each relationship its due. That fallback is within anyone's reach, on any ordinary day.",
                     bullets = listOf(
                         InsightBullet("Helpful work", "He wants to be found doing good for others, not merely busy."),
@@ -2979,7 +2979,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "The Narrow Question",
-                    blockquote = "No one can live happily who has regard to himself alone and transforms everything into a question of his own utility",
+                    blockquote = "No one can be happy who thinks only of themselves.",
                     body = "Seneca describes a habit: turning every situation into a calculation of personal advantage. A conversation becomes a chance to gain something, a friendship becomes a resource. He says this habit rules out happiness. When everything is measured by your own benefit, you cut yourself off from the shared life that actually nourishes a person.",
                     bullets = listOf(
                         InsightBullet("A shrinking world", "Measuring everything by self-interest makes your life smaller, not larger."),
@@ -2989,7 +2989,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "The Wider Circle",
-                    blockquote = "you must live for your neighbor, if you would live for yourself.",
+                    blockquote = "Live for others if you want to live for yourself.",
                     body = "The second half sounds like a paradox but is practical. People flourish through connection. Caring for others, sharing their burdens, and taking part in common life are what make a person's own life full. Seneca is not asking you to erase yourself. He is saying your own good is found by looking beyond yourself.",
                     bullets = listOf(
                         InsightBullet("Not self-erasure", "Living for others is presented as the path to your own good."),
@@ -3010,7 +3010,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Parts, Not Strangers",
-                    blockquote = "We are the parts",
+                    blockquote = "We are parts",
                     body = "To be a part is to belong to something larger. A hand does not compete with the foot, and an eye does not resent the ear. Seneca asks you to see other people the same way. They are not outsiders whose good is separate from yours. They are other parts of the same body, and what happens to them happens, in some measure, to the whole you belong to.",
                     bullets = listOf(
                         InsightBullet("Belonging", "Being a part means you are never fully alone or separate."),
@@ -3072,7 +3072,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "A Piece of Something",
-                    blockquote = "As you yourself are a component part of a social system",
+                    blockquote = "You are part of a society",
                     body = "Marcus begins with a fact about you: you belong to a social whole. You did not make yourself, feed yourself, or teach yourself to speak. Others did. The life you live is woven from theirs. Starting here, the question of how to act becomes a question of how to fit well into the whole you already belong to.",
                     bullets = listOf(
                         InsightBullet("A fact, not a goal", "Belonging to others is your starting condition, not something you choose."),
@@ -3082,7 +3082,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Acts That Fit the Whole",
-                    blockquote = "so let every act of yours be a component part of social life.",
+                    blockquote = "let everything you do be part of its life",
                     body = "If you are a part, your acts should be parts too. Marcus adds a vivid image: an act with no reference to the common good is like a man in a public assembly breaking away from the shared agreement, a small mutiny. Such acts also divide your own life, so that you are one person at work and another at home. Social acts make a life whole.",
                     bullets = listOf(
                         InsightBullet("The small mutiny", "Self-serving acts pull against the group you belong to."),
@@ -3103,7 +3103,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Kindness as the Method",
-                    blockquote = "If a man is mistaken, instruct him kindly and show him his error.",
+                    blockquote = "If someone is mistaken, kindly show them their error.",
                     body = "Notice the word \"mistaken.\" Marcus does not say \"wicked.\" He sees error as a lack of understanding, which means the remedy is teaching. And the teaching should be kind. Harsh correction makes people defensive and less able to hear. Showing someone their error gently gives the truth its best chance of landing.",
                     bullets = listOf(
                         InsightBullet("Error, not evil", "Treating wrongdoing as a mistake opens the door to teaching."),
@@ -3113,7 +3113,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Then Let It Go",
-                    blockquote = "But if you are not able, blame yourself, or blame not even yourself.",
+                    blockquote = "If you can't, blame yourself, or not even yourself.",
                     body = "If your teaching fails, Marcus first suggests looking at yourself: perhaps you could have explained better. Then he softens even that: maybe no one is to blame. Some people are not ready to hear, and some moments are wrong for it. The second clause keeps you from turning frustration into either anger at them or harshness toward yourself.",
                     bullets = listOf(
                         InsightBullet("Look inward first", "A failed lesson is a chance to improve how you teach."),
@@ -3134,8 +3134,8 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "On Purpose, Not by Default",
-                    blockquote = "First, do nothing inconsiderately, nor without a purpose.",
-                    body = "Marcus was an emperor with endless demands, which makes it easy to act on reflex. This first rule asks for a pause. Before acting, consider what you are doing and why. Acting \"inconsiderately\" means acting without thinking; acting \"without a purpose\" means drifting. Both waste the one thing you control: your choices.",
+                    blockquote = "First, do nothing without thought or purpose.",
+                    body = "Marcus was an emperor with endless demands, which makes it easy to act on reflex. This first rule asks for a pause. Before acting, consider what you are doing and why. Acting \"without thought\" means acting on reflex; acting without \"purpose\" means drifting. Both waste the one thing you control: your choices.",
                     bullets = listOf(
                         InsightBullet("Pause first", "A brief moment of thought turns a reflex into a choice."),
                         InsightBullet("Name the aim", "Knowing why you act keeps you from drifting through the day.")
@@ -3144,8 +3144,8 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Pointed at the Common Good",
-                    blockquote = "Second, make your acts refer to nothing else than to a social end.",
-                    body = "The second rule gives purpose a direction. A \"social end\" is the good of the community you belong to. Marcus is not asking for grand gestures. He means letting ordinary acts serve others: doing your work honestly, treating people fairly, contributing your part. When purpose points outward, even small tasks take on meaning.",
+                    blockquote = "Second, aim everything you do at the good of others.",
+                    body = "The second rule gives purpose a direction. \"The good of others\" means the good of the community you belong to. Marcus is not asking for grand gestures. He means letting ordinary acts serve others: doing your work honestly, treating people fairly, contributing your part. When purpose points outward, even small tasks take on meaning.",
                     bullets = listOf(
                         InsightBullet("Outward aim", "The best purpose is one that serves more than yourself."),
                         InsightBullet("Small tasks count", "Ordinary work done fairly and well is a social act."),
@@ -3165,8 +3165,8 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "A Human Gift",
-                    blockquote = "It is peculiar to man",
-                    body = "\"Peculiar\" here means special, belonging to humans in particular. Animals can return affection for affection. What reason adds is the ability to see past an injury to the person behind it. Marcus suggests this is not a rare saintly trait but part of what a human being is equipped to do, if they use their reason well.",
+                    blockquote = "It is our special gift",
+                    body = "\"Our special gift\" means something that belongs to humans in particular. Animals can return affection for affection. What reason adds is the ability to see past an injury to the person behind it. Marcus suggests this is not a rare saintly trait but part of what a human being is equipped to do, if they use their reason well.",
                     bullets = listOf(
                         InsightBullet("Distinctly human", "Loving past an injury is something reason makes possible for us."),
                         InsightBullet("Equipment we have", "Marcus treats this as a capacity to use, not a miracle to wait for.")
@@ -3195,9 +3195,9 @@ object InsightData {
             sections = listOf(
                 InsightSection(
                     number = 1,
-                    title = "The Holiest Good",
-                    blockquote = "Loyalty is the holiest good in the human heart",
-                    body = "\"Holiest\" is a strong word for a virtue that can seem ordinary. Seneca places loyalty, keeping faith with those who trust you, near the center of a good character. It is holy because so much depends on it. Friendship, family, and every partnership rest on people keeping their word. Without loyalty, nothing else between people can stand for long.",
+                    title = "The Most Sacred Good",
+                    blockquote = "Loyalty is the most sacred good in the human heart.",
+                    body = "\"Most sacred\" is strong language for a virtue that can seem ordinary. Seneca places loyalty, keeping faith with those who trust you, near the center of a good character. It is sacred because so much depends on it. Friendship, family, and every partnership rest on people keeping their word. Without loyalty, nothing else between people can stand for long.",
                     bullets = listOf(
                         InsightBullet("Keeping faith", "Loyalty means being someone others can rely on."),
                         InsightBullet("Foundation stone", "Every lasting bond rests on trust kept over time.")
@@ -3206,7 +3206,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Neither Pushed Nor Bought",
-                    blockquote = "it is forced into betrayal by no constraint, and it is bribed by no rewards.",
+                    blockquote = "No pressure can force it to betray, and no reward can buy it.",
                     body = "Seneca names the two ways loyalty is tested: pressure and temptation. Some people break under threat; others sell out for gain. True loyalty does neither. Seneca imagines it holding a secret more tightly the harder someone tries to pry it loose. He then asks whether learning alone can create such a spirit, and suggests it cannot. It must be chosen and practiced.",
                     bullets = listOf(
                         InsightBullet("Two tests", "Loyalty is tried both by threats and by offers."),
@@ -3227,7 +3227,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "The Lonely Treasure",
-                    blockquote = "No good thing is pleasant to possess",
+                    blockquote = "No good thing is enjoyable",
                     body = "Seneca is talking about what he has found in his reading and reflection, the ideas that help him. He says no insight, however excellent, pleases him if he must keep it to himself. A good thing held alone is strangely flat. Much of its delight comes from passing it on and seeing it help someone else.",
                     bullets = listOf(
                         InsightBullet("Flat alone", "Even real goods lose their savor when there is no one to share them."),
@@ -3258,7 +3258,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Counting the Wrong Thing",
-                    blockquote = "Men do not care how nobly they live, but only how long",
+                    blockquote = "People care how long they live, not how well.",
                     body = "Seneca writes this at the end of a letter about stepping back from busy public life. He observes that many people arrive at old age with nothing stored up, their days spent and scattered. They have been measuring life by its length. But length alone says nothing about worth. A long life spent carelessly is not a better life, only a longer one.",
                     bullets = listOf(
                         InsightBullet("Length is not worth", "More years do not by themselves make a life good."),
@@ -3269,7 +3269,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "What Is Within Reach",
-                    blockquote = "although it is within the reach of every man to live nobly, but within no man's power to live long.",
+                    blockquote = "Yet anyone can live well, and no one can make sure of living long.",
                     body = "This is the turn, and it is hopeful. No one controls how long they will live. But anyone, at any age and in any circumstance, can choose to live with honesty, courage, and care. Seneca moves your attention from the thing you cannot touch to the thing you can. Living nobly does not wait for a long future; it is available today.",
                     bullets = listOf(
                         InsightBullet("Not up to you", "The number of your years lies outside your control."),
@@ -3299,8 +3299,8 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Looking Down",
-                    blockquote = "Treat your inferiors",
-                    body = "\"Inferiors\" here means people with less power than you: in Seneca's world, slaves; in ours, perhaps employees, servers, or anyone who depends on your goodwill. Seneca reminds Lucilius that a slave is born of the same stock and breathes the same air. Power over someone does not make you a better person. It only gives you a chance to show what kind of person you are.",
+                    blockquote = "Treat those below you",
+                    body = "\"Those below you\" means people with less power than you: in Seneca's world, slaves; in ours, perhaps employees, servers, or anyone who depends on your goodwill. Seneca reminds Lucilius that a slave is born of the same stock and breathes the same air. Power over someone does not make you a better person. It only gives you a chance to show what kind of person you are.",
                     bullets = listOf(
                         InsightBullet("Same stock", "Seneca insists that people of every station share the same nature."),
                         InsightBullet("Power reveals", "How you treat those who cannot push back shows your character.")
@@ -3309,7 +3309,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Looking Up",
-                    blockquote = "as you would be treated by your betters.",
+                    blockquote = "as you would want to be treated by those above you.",
                     body = "The test is to imagine yourself on the other side. Seneca adds that as often as you think of how much power you hold over someone, remember that someone holds just as much over you. Fortune can turn quickly; he notes that people of high birth have been reduced to herding sheep. Treating others well is both just and wise.",
                     bullets = listOf(
                         InsightBullet("Swap places", "Picture how you would want to be treated in their position."),
@@ -3330,8 +3330,8 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Keeping to What Is Yours",
-                    blockquote = "What is the divine law? To keep a man's own, not to claim that which belongs to others",
-                    body = "For Epictetus, \"a man's own\" is his will: his judgments, choices, and character. Everything else, including bodies, places, and other people, belongs to the wider order of things. The divine law begins by telling you to keep hold of what is truly yours and not to grasp at what is not. Much unhappiness comes from reversing this.",
+                    blockquote = "What is the divine law? Keep what is yours, don't claim what is others'",
+                    body = "For Epictetus, \"what is yours\" is your will: your judgments, choices, and character. Everything else, including bodies, places, and other people, belongs to the wider order of things. The divine law begins by telling you to keep hold of what is truly yours and not to grasp at what is not. Much unhappiness comes from reversing this.",
                     bullets = listOf(
                         InsightBullet("Your own", "Your judgments and choices are what truly belong to you."),
                         InsightBullet("Not yours", "Places, possessions, and other people's choices lie outside your keeping."),
@@ -3341,7 +3341,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Use, and Do Not Crave",
-                    blockquote = "but to use what is given, and when it is not given, not to desire it.",
+                    blockquote = "use what you are given, and don't crave what you are not",
                     body = "The second part is about how to live with external things. When they are given, use them well. When they are not given, do not long for them. Epictetus continues that when a thing is taken away, you should give it up readily and be thankful for the time you had it. This turns life into a series of gifts to be enjoyed and returned.",
                     bullets = listOf(
                         InsightBullet("Use well", "What comes to you is meant to be used, not hoarded or feared."),
@@ -3362,8 +3362,8 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Standing in Your Place",
-                    blockquote = "When a man holds his proper station in life",
-                    body = "A \"proper station\" is not a social rank. Epictetus means the right relationship to things: desiring and avoiding in line with nature, choosing and assenting well. When you are in that place, you are already content. Your attention rests on your own conduct, the one area where your good actually lives. There is nothing missing that applause could add.",
+                    blockquote = "When you keep to your own place in life",
+                    body = "Your \"own place\" is not a social rank. Epictetus means the right relationship to things: desiring and avoiding in line with nature, choosing and assenting well. When you are in that place, you are already content. Your attention rests on your own conduct, the one area where your good actually lives. There is nothing missing that applause could add.",
                     bullets = listOf(
                         InsightBullet("Not a rank", "Your station is your proper relationship to your own choices."),
                         InsightBullet("Already enough", "Doing your own part well leaves nothing for admiration to supply.")
@@ -3372,7 +3372,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "No Need to Gape",
-                    blockquote = "he does not gape after things beyond it.",
+                    blockquote = "you don't gape at what lies beyond it.",
                     body = "To \"gape\" is to stare open-mouthed with longing. Epictetus pictures someone craving praise, fame, or status. He asks who exactly they want to be admired by, and points out that they often consider those same people foolish. Wanting their approval makes little sense. The person settled in their station has no reason to look around with longing.",
                     bullets = listOf(
                         InsightBullet("Open-mouthed want", "Gaping is the posture of someone who feels incomplete."),
@@ -3393,8 +3393,8 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "One Family Tree",
-                    blockquote = "Nature produced us related to one another",
-                    body = "Seneca says nature made us \"related,\" a family word. He means that every person, however distant or different, belongs to the same human family. He goes on to say nature planted affection in us and made us inclined toward friendship. Kindness, in this view, is not a rule laid on from outside. It is what our nature is already reaching toward.",
+                    blockquote = "Nature made us kin to one another",
+                    body = "Seneca says nature made us \"kin,\" a family word. He means that every person, however distant or different, belongs to the same human family. He goes on to say nature planted affection in us and made us inclined toward friendship. Kindness, in this view, is not a rule laid on from outside. It is what our nature is already reaching toward.",
                     bullets = listOf(
                         InsightBullet("Kinship", "Every person is a relative in the widest sense."),
                         InsightBullet("Built for friendship", "Seneca says nature made us inclined toward mutual affection.")
@@ -3403,7 +3403,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Same Source, Same End",
-                    blockquote = "since she created us from the same source and to the same end.",
+                    blockquote = "from the same source and for the same end.",
                     body = "This is the reason for the kinship: we all come from the same place and are heading to the same end. Seneca follows this with an image. Our relations are like a stone arch, which would fall if the stones did not support one another. Each person holds others up and is held up in turn. That is how the whole stands.",
                     bullets = listOf(
                         InsightBullet("Shared origin", "Everyone begins from the same source, whatever their station."),
@@ -3424,7 +3424,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Finding the Lost",
-                    blockquote = "A guide, when he has found a man out of the road, leads him into the right way",
+                    blockquote = "When a guide finds someone lost, they show them the right way.",
                     body = "A guide's job is to help people who are lost. When the guide finds someone off the road, the response is simple: show them the way. Epictetus applies this to conversation. When someone holds a mistaken view, your task is to lead them gently toward the truth, not to prove how far off they are.",
                     bullets = listOf(
                         InsightBullet("The guide's role", "Helping the lost is the whole point of knowing the way."),
@@ -3434,7 +3434,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "No Mockery, No Abandonment",
-                    blockquote = "he does not ridicule or abuse him and then leave him.",
+                    blockquote = "They don't mock them and walk off.",
                     body = "Epictetus names three failures: ridicule, abuse, and abandonment. Each one helps the guide feel superior while doing nothing for the lost traveler. He then turns the point around. If you cannot show someone the truth, do not mock them. Instead, recognize your own lack of skill. The failure of a conversation often says more about the teacher than the student.",
                     bullets = listOf(
                         InsightBullet("Three failures", "Mocking, insulting, and walking away all leave the person lost."),
@@ -3455,7 +3455,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Common Vice, Rare Virtue",
-                    blockquote = "All ages will produce men like Clodius, but not all ages men like Cato.",
+                    blockquote = "Every age has its Clodius, but not every age has a Cato.",
                     body = "Clodius stands for easy corruption, the kind every era produces. Cato the Younger was a Roman senator famous for his integrity, his plain living, and his opposition to Caesar. Seneca holds Cato up as a living example of something genuinely scarce. Every generation has its scoundrels; not every generation has someone who stays upright no matter what.",
                     bullets = listOf(
                         InsightBullet("Who Clodius was", "A Roman politician remembered for scandal and for escaping justice by corruption."),
@@ -3466,7 +3466,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "The Easy Slope Down",
-                    blockquote = "We degenerate easily, because we lack neither guides nor associates in our wickedness.",
+                    blockquote = "We slide easily into bad ways, because we never lack guides or company.",
                     body = "Seneca explains why vice is common. It never lacks company. There are always people ready to show us the way down and to join us on it. He adds that the road to vice is not only downhill but steep. Goodness, by contrast, often means walking a path with fewer companions, which is why examples like Cato matter so much.",
                     bullets = listOf(
                         InsightBullet("Never alone in vice", "Bad habits always find teachers and partners."),
@@ -3487,7 +3487,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "No Escape Hatch",
-                    blockquote = "The punishment of crime",
+                    blockquote = "The punishment of a crime",
                     body = "People often think of punishment as something that comes later: getting caught, being judged. Seneca says even a wrongdoer whom fortune protects can never truly go unpunished. Fortune may dress up the deed and shield it from discovery, but it cannot undo what the deed was. There is no clever way out, because the penalty does not wait to be imposed.",
                     bullets = listOf(
                         InsightBullet("Fortune cannot shield", "Luck may hide a wrong but cannot make it harmless."),
@@ -3497,7 +3497,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Built Into the Deed",
-                    blockquote = "lies in the crime itself.",
+                    blockquote = "is the crime itself.",
                     body = "Seneca says the first and worst penalty for doing wrong is having done it. The act makes the doer worse. Then a second set of penalties follows close behind: constant fear, unease, and distrust of one's own safety. Conscience, he says, keeps the wrongdoer trembling. The punishment is not an outside event but part of the deed's nature.",
                     bullets = listOf(
                         InsightBullet("First penalty", "Becoming someone who did wrong is the deepest cost."),
@@ -3518,8 +3518,8 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Unruffled in Debate",
-                    blockquote = "This was the first and chief peculiarity of Socrates, never to be irritated in argument, never to utter anything abusive, anything insulting",
-                    body = "\"First and chief\" means this was the most distinctive thing about him. Socrates could have been remembered for brilliance alone. Epictetus chooses his calm instead. He never lost his temper in argument and never resorted to insults. That restraint kept conversations open, because no one had to defend their pride against him.",
+                    blockquote = "he never got angry in an argument or said anything insulting",
+                    body = "\"First and greatest\" means this was the most distinctive thing about him. Socrates could have been remembered for brilliance alone. Epictetus chooses his calm instead. He never lost his temper in argument and never resorted to insults. That restraint kept conversations open, because no one had to defend their pride against him.",
                     bullets = listOf(
                         InsightBullet("Calm before clever", "Epictetus ranks Socrates's temper above his wit."),
                         InsightBullet("No insults", "Abuse ends real conversation and turns it into a contest of pride.")
@@ -3528,7 +3528,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Ending the Quarrel",
-                    blockquote = "but to bear with abusive persons and to put an end to the quarrel.",
+                    blockquote = "He bore with rude people and ended the quarrel.",
                     body = "Socrates did more than stay calm. He bore with people who were rude to him, and he actively ended quarrels. Epictetus says that reading Xenophon's Symposium, an account of a dinner party Socrates attended, shows how many disputes he settled. The goal of an argument, for Socrates, was understanding and peace, not victory.",
                     bullets = listOf(
                         InsightBullet("Bearing with rudeness", "He let insults pass without letting them steer him."),
@@ -3549,7 +3549,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Kindness That Flows Both Ways",
-                    blockquote = "Those kindnesses, they tell us, are to be both sought for and bestowed, which benefit the giver no less than the receiver",
+                    blockquote = "help the giver as much as the receiver",
                     body = "Some kindnesses cost the giver and help only the receiver. Others enrich both. Seneca's example is helping a friend grow in character. As you encourage him toward virtue, you practice virtue yourself. You learn by teaching, steady yourself by steadying him. These are kindnesses worth seeking out, both to give and to receive.",
                     bullets = listOf(
                         InsightBullet("Two beneficiaries", "The best help leaves both people better off."),
@@ -3560,7 +3560,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "The Best Kind of Gift",
-                    blockquote = "and they are unquestionably the best kind.",
+                    blockquote = "The best kindnesses",
                     body = "Why are these the best? Because they do not run out. A gift of money leaves the giver with less. A gift of encouragement, wisdom, or good example leaves the giver with more. Seneca adds that his friend's debt can be fully paid by goodwill alone, since character answers to no fortune. These are gifts no one can take away.",
                     bullets = listOf(
                         InsightBullet("They do not run out", "Gifts of character grow in the giving rather than shrinking."),
@@ -3580,7 +3580,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Already Paid",
-                    blockquote = "What more do you want when you have done a man a service? Are you not content that you have done something conformable to your nature, and do you seek to be paid for it?",
+                    blockquote = "You've done someone good. What more do you want? To be paid for it?",
                     body = "Marcus says the reward of a kind act is having done it. You acted in line with your nature, which is the deepest kind of success. Just before this, he notes that if you feel betrayed by an ungrateful person, part of the fault is yours for giving with strings attached. A service given freely is already complete when it is done.",
                     bullets = listOf(
                         InsightBullet("The act is the reward", "Acting well is its own payment, needing nothing more."),
@@ -3591,7 +3591,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Eyes Do Not Bill",
-                    blockquote = "Just as if the eye demanded a recompense for seeing, or the feet for walking.",
+                    blockquote = "That's like the eye wanting payment for seeing, or the feet for walking.",
                     body = "The image is gently funny. Imagine your eyes demanding a fee each time they see, or your feet charging you for walking. They simply do what they are made for, and in doing it, they get what is theirs. Marcus says humans are made for kindness in the same way. When we help, we are working as designed, and that is enough.",
                     bullets = listOf(
                         InsightBullet("Built for it", "Kindness is to a person what sight is to an eye."),
@@ -3611,7 +3611,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "The Wider Measure",
-                    blockquote = "That which does no harm to the state",
+                    blockquote = "What does not harm the city",
                     body = "Marcus measures harm by its effect on the whole, not by how it feels to him personally. A slight, an inconvenience, a bruised ego may sting, but do they damage the shared life you belong to? Often they do not. By placing your own interest inside the common good, Marcus gives you a calmer scale for weighing events.",
                     bullets = listOf(
                         InsightBullet("Whole before part", "Judge an event first by what it does to the community."),
@@ -3621,7 +3621,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "What Follows for You",
-                    blockquote = "does no harm to the citizen.",
+                    blockquote = "does not harm the citizen.",
                     body = "If the whole is unharmed, Marcus says, so are you. Your real good is bound up with the good of the community, so a thing that leaves the community intact leaves you intact too. He adds a second step: if the state is harmed, do not be angry with the person who caused it. Show him his error instead.",
                     bullets = listOf(
                         InsightBullet("Bound together", "Your good and the community's good rise and fall together."),
@@ -3642,7 +3642,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Unequal Scales",
-                    blockquote = "I do not set an equal value on benefits and injuries.",
+                    blockquote = "I don't weigh kindness and injury equally.",
                     body = "Many people keep an even ledger: one good deed against one bad deed. Seneca refuses that kind of bookkeeping. When the same person has helped you and later wronged you, he says the injury is cancelled by the earlier kindness. A person who has done you good deserves more than strict fairness when they fall short.",
                     bullets = listOf(
                         InsightBullet("No even ledger", "Seneca will not weigh a kindness and an injury as equals."),
@@ -3652,7 +3652,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "A Benefit Weighs More",
-                    blockquote = "I reckon a benefit at a higher rate than an injury.",
+                    blockquote = "A kindness counts for more.",
                     body = "Seneca prefers, as he says, to be the more indulgent judge, who tells us to forget the injury and remember the kindness. This is not naivety. It reflects a choice about what to keep in mind. Holding on to injuries poisons memory; holding on to benefits keeps relationships alive. He adds that only the wise know how much a benefit is truly worth.",
                     bullets = listOf(
                         InsightBullet("The indulgent judge", "Seneca chooses to remember kindness and let injury fade."),
@@ -3682,7 +3682,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Patience With the Unlike",
-                    blockquote = "He will bear with the man who is unlike himself, he will be kind to him, gentle, ready to pardon on account of his ignorance",
+                    blockquote = "The wise person bears with those unlike them, kindly and gently, ready to forgive",
                     body = "The person Epictetus describes does not demand that others think as he does. He bears with them, is kind and gentle, and readily pardons their mistakes. The reason is ignorance: they do not yet see clearly. Epictetus cites Plato's teaching that no one is deprived of truth willingly. If error is involuntary, pardon is the fitting response.",
                     bullets = listOf(
                         InsightBullet("Bearing with", "Tolerating difference is a form of strength, not weakness."),
@@ -3693,7 +3693,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Harsh to No One",
-                    blockquote = "on account of his being mistaken in things of the greatest importance; but he will be harsh to no man.",
+                    blockquote = "They are harsh to no one.",
                     body = "Even when someone is wrong about the most important things, about good and bad, how to live, Epictetus says to be harsh to no one. That is a high standard. The bigger the mistake, the stronger the pull to condemn. But a larger error is a greater misfortune for the one who holds it, which calls for more gentleness, not less.",
                     bullets = listOf(
                         InsightBullet("Big errors too", "Gentleness applies even to mistakes about what matters most."),
@@ -3714,7 +3714,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "A Rule That Harms No One",
-                    blockquote = "If you would wield a command that is profitable to yourself, and injurious to nobody",
+                    blockquote = "If you want to lead well, without harm to anyone",
                     body = "Most power has costs. It wins for one person at another's expense. Seneca describes a different kind of command, one that benefits you and harms no one. He goes on to describe conquerors who stormed great cities but were themselves conquered by greed and desire for power. Their command was neither good for them nor harmless to others.",
                     bullets = listOf(
                         InsightBullet("A rare kind of power", "Seneca describes command that helps you and hurts no one."),
@@ -3724,7 +3724,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Start With Your Own Faults",
-                    blockquote = "clear your own faults out of the way.",
+                    blockquote = "first clear away your own faults.",
                     body = "This kind of command is self-command. You clear away your own faults: greed, anger, vanity, fear. The more you master yourself, the freer you become, and no one is harmed in the process. Seneca's point is quietly radical. The most valuable rule you can hold is over your own character, and it is open to anyone.",
                     bullets = listOf(
                         InsightBullet("Self-command", "The best command is mastery of your own desires and habits."),
@@ -3745,8 +3745,8 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "A Public Peace",
-                    blockquote = "Why do you not come forth and proclaim that you are at peace with all men whatever they may do",
-                    body = "Epictetus asks why you hide your calm. If others cannot touch your will, then you can be at peace with them no matter how they behave. \"Whatever they may do\" is the key phrase. This peace does not depend on others being good. It rests on the fact that your judgments and choices are your own, and nothing they do can reach them.",
+                    blockquote = "Why not say openly that you are at peace with everyone, whatever they do",
+                    body = "Epictetus asks why you hide your calm. If others cannot touch your will, then you can be at peace with them no matter how they behave. \"Whatever they do\" is the key phrase. This peace does not depend on others being good. It rests on the fact that your judgments and choices are your own, and nothing they do can reach them.",
                     bullets = listOf(
                         InsightBullet("Unconditional peace", "Your peace need not wait for others to behave well."),
                         InsightBullet("Out of reach", "Others cannot touch your will, so your calm is safe."),
@@ -3756,7 +3756,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Laughing at the Besiegers",
-                    blockquote = "and laugh at those chiefly who think that they can harm you?",
+                    blockquote = "laugh at those who think they can hurt you?",
                     body = "Epictetus compares this to people in a well-supplied city mocking the besiegers outside: our wall is strong, we have food, your efforts are wasted. The soul's wall is its opinions. If your judgments are sound, those who try to harm you are laboring for nothing. The laugh is not cruel. It is the relaxed ease of someone who knows they are secure.",
                     bullets = listOf(
                         InsightBullet("The secure city", "Sound judgments make a mind as safe as a fortified town."),
@@ -3777,8 +3777,8 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Choose One Standard",
-                    blockquote = "You should lay hold, once for all, upon a single norm to live by",
-                    body = "\"Once for all\" means decide and be done. Seneca is tired of watching people shift their values to suit the moment. Just before this, he asks Lucilius to check whether his dress and his house match, whether he eats simply but builds lavishly. A single norm ends that kind of inconsistency. You know what you stand for, and you stand for it everywhere.",
+                    blockquote = "Choose one rule to live by, once and for all",
+                    body = "\"Once and for all\" means decide and be done. Seneca is tired of watching people shift their values to suit the moment. Just before this, he asks Lucilius to check whether his dress and his house match, whether he eats simply but builds lavishly. A single norm ends that kind of inconsistency. You know what you stand for, and you stand for it everywhere.",
                     bullets = listOf(
                         InsightBullet("Decide once", "Settling your standard saves endless renegotiation with yourself."),
                         InsightBullet("Check for mismatch", "Seneca suggests comparing your habits in different areas of life.")
@@ -3787,7 +3787,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "A Life of One Color",
-                    blockquote = "and should regulate your whole life according to this norm.",
+                    blockquote = "shape your whole life by it.",
                     body = "Seneca elsewhere in this letter says the inner life should be of one hue. The phrase \"whole life\" matters: not just public conduct, not just private habits, but all of it. Some people live simply at home and swagger in public, and he calls that a wavering mind. Applying one norm everywhere gives life a steady, unified character.",
                     bullets = listOf(
                         InsightBullet("One hue", "A consistent life looks the same in every light."),
@@ -3803,12 +3803,12 @@ object InsightData {
 
         // q122 — Marcus Aurelius
         "q122" to QuoteInsight(
-            intro = "This is one of Marcus's shortest notes, only a handful of words. It addresses two moments: when good fortune arrives, and when it leaves. The translator added the words \"wealth or prosperity\" in brackets to make clear what Marcus meant.",
+            intro = "This is one of Marcus's shortest notes, only a handful of words. It addresses two moments: when good fortune arrives, and when it leaves. The translator added the word \"wealth\" in brackets to make clear what Marcus meant.",
             sections = listOf(
                 InsightSection(
                     number = 1,
                     title = "Gracious Arrival",
-                    blockquote = "Receive wealth or prosperity without arrogance",
+                    blockquote = "Accept wealth without arrogance",
                     body = "When things go well, it is easy to feel you earned every bit of it, or to look down on those with less. Marcus warns against that. Elsewhere he praises his adoptive father, Antoninus, the emperor before him, for using good fortune without arrogance and without apology. Receiving success humbly means enjoying it while knowing it does not make you better than anyone.",
                     bullets = listOf(
                         InsightBullet("No swagger", "Prosperity is no proof of superior worth."),
@@ -3818,7 +3818,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Open Hands",
-                    blockquote = "and be ready to let it go.",
+                    blockquote = "be ready to let it go.",
                     body = "The second half is just as important. Fortune comes and goes. A person who clings to prosperity lives in fear of losing it. Marcus asks for readiness: hold good things loosely, so that when they leave, you are not crushed. This readiness actually makes enjoyment easier, because it removes the anxiety of possession.",
                     bullets = listOf(
                         InsightBullet("Loose grip", "Holding prosperity lightly protects you when it changes."),
@@ -3839,7 +3839,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Clay Treated as Silver",
-                    blockquote = "He is a great man who uses earthenware dishes as if they were silver",
+                    blockquote = "It's great to use clay dishes as if they were silver.",
                     body = "Using humble things with the respect you might give to fine ones shows contentment. The person who eats from clay dishes without shame or resentment is not diminished by them. Seneca has just said a philosopher's life should be simple but neat, with no rough clothing worn for show. Greatness here is being at ease with little.",
                     bullets = listOf(
                         InsightBullet("Content with little", "A great person is not lessened by simple things."),
@@ -3849,7 +3849,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Silver Treated as Clay",
-                    blockquote = "but he is equally great who uses silver as if it were earthenware.",
+                    blockquote = "It's just as great to use silver as if it were clay.",
                     body = "The other side is just as important. A person who owns fine things but is not attached to them is equally great. They use the silver without being impressed by it or ruled by it. Seneca adds that being unable to endure riches is the sign of an unstable mind. True freedom is the same calm whether you have much or little.",
                     bullets = listOf(
                         InsightBullet("Unimpressed by wealth", "Fine things can be used without being worshipped."),
@@ -3879,7 +3879,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "The Endless More",
-                    blockquote = "Would you rather have much, or enough? He who has much desires more, a proof that he has not yet acquired enough",
+                    blockquote = "Would you rather have much, or enough? Whoever has much wants more.",
                     body = "The question sounds simple, but the answer reveals something. A person with much keeps wanting more, which shows they still do not have enough. Wealth by itself does not satisfy desire; it often feeds it. Seneca's point is that \"much\" and \"enough\" are different targets. Chasing the first can keep you from ever reaching the second.",
                     bullets = listOf(
                         InsightBullet("Two targets", "Much is a quantity; enough is a state of mind."),
@@ -3889,7 +3889,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "A Place to Stop",
-                    blockquote = "but he who has enough has attained that which never fell to the rich man's lot: a stopping-point.",
+                    blockquote = "Whoever has enough has what the rich never reach: a stopping point.",
                     body = "A stopping-point is the place where desire rests. Seneca says the merely rich never reach it, no matter how much they acquire. The person with enough has something the wealthy lack: the freedom to stop striving. He goes on to note that such riches also bring leisure in peacetime and are safe in war, because no one envies them.",
                     bullets = listOf(
                         InsightBullet("Desire at rest", "Enough means wanting no more than you have."),
@@ -3919,8 +3919,8 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "A Rule to Hold Fast",
-                    blockquote = "Hold fast, then, to this sound and wholesome rule of life",
-                    body = "Seneca calls this rule \"sound and wholesome,\" plain words for a plain idea. He has just warned that the gifts of fortune are snares: we think we hold them, but they hold us. A clear rule about the body gives you somewhere firm to stand. \"Hold fast\" suggests it will be tested, and that you will need to keep coming back to it.",
+                    blockquote = "Hold fast to this healthy rule",
+                    body = "Seneca calls this rule \"healthy,\" a plain word for a plain idea. He has just warned that the gifts of fortune are snares: we think we hold them, but they hold us. A clear rule about the body gives you somewhere firm to stand. \"Hold fast\" suggests it will be tested, and that you will need to keep coming back to it.",
                     bullets = listOf(
                         InsightBullet("Firm ground", "A simple rule steadies you against fortune's lures."),
                         InsightBullet("Tested daily", "Holding fast means returning to the rule again and again.")
@@ -3929,7 +3929,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Just What Health Needs",
-                    blockquote = "that you indulge the body only so far as is needful for good health.",
+                    blockquote = "give the body only what it needs to stay well.",
                     body = "The measure is health, not pleasure or display. Seneca goes on to make it concrete: eat to relieve hunger, drink to quench thirst, dress to keep out the cold, and live in a house that shelters you. He adds that a person is sheltered as well by a thatch roof as by imported marble. Beyond what health needs, extra comfort adds little and can take much.",
                     bullets = listOf(
                         InsightBullet("Health as the measure", "Give the body what keeps it well, not what pampers it."),
@@ -3961,7 +3961,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "The Things Between",
-                    blockquote = "and with indifference toward the things which lie between virtue and vice.",
+                    blockquote = "don't care about things that are neither good nor bad.",
                     body = "For Stoics, the things between virtue and vice are \"indifferents\": wealth, health, fame, comfort, and their opposites. They are not bad, but they are not your true good either. Being indifferent to them does not mean careless. It means not letting them define your worth. Marcus wants to care deeply about virtue and stay calm about everything else.",
                     bullets = listOf(
                         InsightBullet("Indifferents", "Stoics call things neither good nor bad, like wealth or fame, indifferents."),
@@ -3982,7 +3982,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Guard What Is Yours",
-                    blockquote = "Preserve that which is your own good in everything",
+                    blockquote = "Protect your own good in everything.",
                     body = "For Epictetus, your own good is the condition of your will: honest, steady, free from fear. Nobody can hand it to you and nobody can take it, but you can give it away in a bad bargain. He pictures a rival who gains a public office while he keeps his decency, and he is content with his side of the trade. The word \"everything\" matters. No situation, large or small, puts this good off duty.",
                     bullets = listOf(
                         InsightBullet("Your side of the trade", "When someone gains something by bending, notice what you kept by not bending."),
@@ -3992,8 +3992,8 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Everything Else, Lightly Held",
-                    blockquote = "as to every other thing, as it is permitted",
-                    body = "Epictetus does not tell you to despise money, health, or position. You may have them and use them, as far as they are given and as far as you can handle them reasonably. The limit is the point where keeping them would require acting against reason. Then they stop being worth it. \"Content with this only\" is the quiet center: you need not demand more from outside than reason allows.",
+                    blockquote = "Take everything else as it's allowed",
+                    body = "Epictetus does not tell you to despise money, health, or position. You may have them and use them, as far as they are given and as far as you can handle them reasonably. The limit is the point where keeping them would require acting against reason. Then they stop being worth it. \"Be content with that\" is the quiet center: you need not demand more from outside than reason allows.",
                     bullets = listOf(
                         InsightBullet("Use, not grip", "Enjoy what comes your way while it is permitted, and let it go without a scene when it is not."),
                         InsightBullet("The reasonable line", "Ask whether holding on to a thing would require you to act in a way you could not defend.")
@@ -4012,7 +4012,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "The Wealth of Not Needing",
-                    blockquote = "I have no need of such things",
+                    blockquote = "I don't need those things.",
                     body = "Epictetus owned very little, and he did not apologize for it. His point is not that land and silver are evil, but that he has stopped depending on them. A person who does not need a thing cannot be made anxious by its absence. That freedom is a kind of wealth that never shows up in an inventory, and nobody can confiscate it.",
                     bullets = listOf(
                         InsightBullet("Need versus want", "Separate what you actually need from what you have simply grown used to having."),
@@ -4022,8 +4022,8 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "More Things, More Wants",
-                    blockquote = "if you possess many things you have need of others",
-                    body = "Possessions tend to call for more possessions. A big house wants furniture, staff, repairs, and a better street. Each thing brings new needs with it, so the person who owns much often feels shortest. Epictetus adds \"whether you choose or not\": this is how wanting works, not a matter of attitude. He then names what the visitor truly lacks: firmness, and a mind free from disturbance.",
+                    blockquote = "if you own many things, you need other people",
+                    body = "Possessions tend to call for more possessions. A big house wants furniture, staff, repairs, and a better street. Each thing brings new needs with it, so the person who owns much often feels shortest. Epictetus adds \"whether you like it or not\": this is how wanting works, not a matter of attitude. He then names what the visitor truly lacks: firmness, and a mind free from disturbance.",
                     bullets = listOf(
                         InsightBullet("The chain of wants", "Before buying, ask what further purchases or worries this one will bring along."),
                         InsightBullet("Real poverty", "Being short of steadiness is a deeper lack than being short of cash."),
@@ -4052,7 +4052,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "The Foot and the Shoe",
-                    blockquote = "The measure of possession is to every man the body, as the foot is of the shoe.",
+                    blockquote = "The body is the measure of what you should own, as the foot is of the shoe.",
                     body = "A shoe has an obvious right size: it fits the foot. Too small and it hurts; too large and it trips you. Epictetus suggests that possessions work the same way. The body needs warmth, food, rest, and a roof, and those needs are real and limited. Measured against them, much of what we own and want is decoration. The rule is kind, not harsh: it gives you something firm to stand on.",
                     bullets = listOf(
                         InsightBullet("A fixed measure", "Bodily needs change little, so they make a steady standard for what is enough."),
@@ -4062,7 +4062,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "The Slope Past Enough",
-                    blockquote = "if you pass beyond it, you must then of necessity be hurried as it were down a precipice",
+                    blockquote = "Go past it, and you slide as if down a cliff.",
                     body = "In the full passage Epictetus goes on: once the shoe goes beyond the foot, it is gilded, then dyed purple, then embroidered. Past the measure set by need, every step invites the next, because there is no longer any natural limit. The precipice is an image of momentum. The first step past enough feels small, but it removes the line that kept you steady.",
                     bullets = listOf(
                         InsightBullet("Gilded, then purple", "Notice when an upgrade is quickly followed by an upgrade of the upgrade."),
@@ -4082,7 +4082,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "No Lectures at Dinner",
-                    blockquote = "At a banquet do not say how a man ought to eat",
+                    blockquote = "At a banquet, don't tell people how to eat.",
                     body = "It is easy to turn a new idea into a sermon. Someone learns about moderation and starts noticing who takes a second helping. Epictetus sees this as a trap. Talking about the rule feels like progress, but it mostly feeds pride, and it makes the meal worse for everyone. Among people who have not asked for your philosophy, your commentary is only noise.",
                     bullets = listOf(
                         InsightBullet("Unasked advice", "If no one asked how they should eat, your view on it is probably not needed."),
@@ -4092,7 +4092,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Let the Plate Speak",
-                    blockquote = "eat as you ought to eat",
+                    blockquote = "eat as you should",
                     body = "The real test is your own conduct. Eat with restraint and good manners, take what is fitting, and leave the rest. Later in the same passage Epictetus notes that sheep do not show the shepherd how much grass they ate; they digest it and give wool and milk. Your principles should show up the same way, in what you do rather than in what you announce.",
                     bullets = listOf(
                         InsightBullet("Wool, not grass", "Show what you have learned through how you act, not through explanations."),
@@ -4112,8 +4112,8 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Not Dyed by Power",
-                    blockquote = "Take care that you are not made into a Caesar, that you are not dyed with this dye; for such things happen.",
-                    body = "Dye soaks into cloth until you cannot wash it out. Marcus knew that power works the same way, slowly coloring how a person speaks, wants, and expects to be treated. \"Such things happen\" is an honest admission: he did not assume he was immune. The warning is not about the title itself but about letting the role replace the person who holds it.",
+                    blockquote = "Take care not to be turned into a Caesar, dyed in purple; it happens.",
+                    body = "Dye soaks into cloth until you cannot wash it out. Marcus knew that power works the same way, slowly coloring how a person speaks, wants, and expects to be treated. \"It happens\" is an honest admission: he did not assume he was immune. The warning is not about the title itself but about letting the role replace the person who holds it.",
                     bullets = listOf(
                         InsightBullet("Slow coloring", "Changes in character from status usually arrive gradually, not all at once."),
                         InsightBullet("No immunity", "Assume that you, too, can be shaped by your position, and watch for it.")
@@ -4122,11 +4122,11 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Six Plain Words to Keep",
-                    blockquote = "Keep yourself then simple, good, pure, serious, free from affectation, a friend of justice.",
-                    body = "The remedy is a list of plain words. Simple means without show or complication. Serious means steady and attentive, not grim. Free from affectation means acting naturally instead of performing importance. A friend of justice cares more about what is fair than about what is flattering. Marcus could read this list in a few seconds, which made it useful on a crowded day.",
+                    blockquote = "Stay simple, good, pure, serious, unpretentious, and a friend of justice.",
+                    body = "The remedy is a list of plain words. Simple means without show or complication. Serious means steady and attentive, not grim. Unpretentious means acting naturally instead of performing importance. A friend of justice cares more about what is fair than about what is flattering. Marcus could read this list in a few seconds, which made it useful on a crowded day.",
                     bullets = listOf(
                         InsightBullet("Simple", "Prefer the plain way of doing things over the impressive one."),
-                        InsightBullet("Free from affectation", "Speak and act like yourself, not like someone playing a role."),
+                        InsightBullet("Unpretentious", "Speak and act like yourself, not like someone playing a role."),
                         InsightBullet("A friend of justice", "Let fairness, not rank, decide how you treat people.")
                     )
                 )
@@ -4143,8 +4143,8 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "One Voice for Everyone",
-                    blockquote = "Speak both in the senate and to every man, whoever he may be, appropriately",
-                    body = "Appropriately does not mean identically. You speak differently to a council than to a child. But the honesty and care underneath stay the same. Marcus is warning against a common split: polished, careful words for important people and careless ones for everyone else. \"Whoever he may be\" closes that gap. Each person deserves speech that fits the moment and treats them as someone who matters.",
+                    blockquote = "Speak to everyone, in the senate or anywhere, whoever they are",
+                    body = "Fittingly does not mean identically. You speak differently to a council than to a child. But the honesty and care underneath stay the same. Marcus is warning against a common split: polished, careful words for important people and careless ones for everyone else. \"Whoever they are\" closes that gap. Each person deserves speech that fits the moment and treats them as someone who matters.",
                     bullets = listOf(
                         InsightBullet("Fit the moment", "Adjust tone and detail to the listener, but never your honesty."),
                         InsightBullet("No ranking", "Notice if your care in speaking rises and falls with the other person's status.")
@@ -4153,8 +4153,8 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Plain Words Over Polish",
-                    blockquote = "not with any affectation: use plain discourse.",
-                    body = "Affectation is speech that performs: big words, studied phrases, a voice meant to impress. Marcus asks for plain discourse instead, words chosen to be understood. Plain speech is harder than it looks. It requires knowing what you actually mean and being willing to say it without decoration. It also respects the listener's time and intelligence.",
+                    blockquote = "without putting on airs",
+                    body = "Putting on airs is speech that performs: big words, studied phrases, a voice meant to impress. Marcus asks for plain speech instead, words chosen to be understood. Plain speech is harder than it looks. It requires knowing what you actually mean and being willing to say it without decoration. It also respects the listener's time and intelligence.",
                     bullets = listOf(
                         InsightBullet("Say what you mean", "If you cannot say it simply, you may not yet know what you think."),
                         InsightBullet("Drop the costume", "Notice jargon or flourish you use mainly to sound impressive."),
@@ -4174,7 +4174,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "An Honest Ledger",
-                    blockquote = "I do not regard a man as poor",
+                    blockquote = "I don't call someone poor",
                     body = "Seneca speaks here like someone balancing accounts. He confesses that he wastes some time, but he knows how much, and why. That honesty is the first step out of poverty. A person who keeps no account feels vaguely short all the time. A person who knows what was spent and what is left can stop fretting and start using what remains. For Seneca, being poor is more about the fit than the amount.",
                     bullets = listOf(
                         InsightBullet("Know the numbers", "Looking honestly at where your time goes is less painful than guessing."),
@@ -4184,7 +4184,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "When the Little Is Enough",
-                    blockquote = "if the little which remains is enough for him",
+                    blockquote = "if the little they have is enough for them",
                     body = "The line works for time and money alike. If what you have left is enough for what matters, you are not poor, whatever the total. Seneca adds a warning drawn from an old saying: it is too late to save when you reach the dregs of the cask, where what remains is little and poor. So begin now. Treat today's hours as the good wine near the top, not as something to stretch out later.",
                     bullets = listOf(
                         InsightBullet("Enough is decided", "Settle what the remaining time is for, and it will often prove sufficient."),
@@ -4204,7 +4204,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "A Day With Its Own Shape",
-                    blockquote = "Every day ought to be regulated as if it closed the series",
+                    blockquote = "Live each day as if it were the last",
                     body = "Regulated is a quiet, practical word. It means arranged, put in order, given a shape. Seneca is not asking you to cram every pleasure into the day or to fear the night. He is asking you to live it so that it makes sense on its own: work done, kindness shown, loose ends tied where they can be. A well-ordered day does not need tomorrow to justify it.",
                     bullets = listOf(
                         InsightBullet("Shape, not speed", "Order the day around what matters instead of rushing to fit more in."),
@@ -4214,7 +4214,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Rounded and Complete",
-                    blockquote = "as if it rounded out and completed our existence",
+                    blockquote = "the one that completes your life",
                     body = "Seneca suggests going to sleep content, able to say, I have lived. If another day comes, receive it gladly as a gift. This is not gloomy. It frees you from the feeling that real life is always about to start. Each day can be a complete thing, and that makes it easier to enjoy the next one without grasping at it.",
                     bullets = listOf(
                         InsightBullet("I have lived", "End the day by naming what was good in it, however small."),
@@ -4234,7 +4234,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Needs That Can Be Met",
-                    blockquote = "Natural desires are limited",
+                    blockquote = "Natural desires have limits.",
                     body = "Natural desires come with their own finish line. A hungry person eats and is full. A cold person finds a coat and is warm. These needs are real and deserve to be met, and once met they quiet down. That is good news: the things your body and life truly require are mostly within reach, and they do not keep raising the price.",
                     bullets = listOf(
                         InsightBullet("A finish line", "Real needs end when they are satisfied, which makes them easy to recognize."),
@@ -4244,7 +4244,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Wants Without a Ceiling",
-                    blockquote = "those which spring from false opinion can have no stopping-point",
+                    blockquote = "Desires born of false beliefs have no stopping point.",
                     body = "False opinion is the belief that something is necessary when it is only admired: the bigger car, the right address, the label others notice. These wants are measured against other people, and other people always have more. So no amount satisfies them. The trouble is not the thing itself but the mistaken belief that you need it to be well.",
                     bullets = listOf(
                         InsightBullet("Measured by others", "If a want would vanish once no one could see it, it likely springs from opinion."),
@@ -4273,7 +4273,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Time in Your Own Company",
-                    blockquote = "Withdraw into yourself, as far as you can.",
+                    blockquote = "Withdraw into yourself as far as you can.",
                     body = "This is not a call to hide from the world. Seneca means turning inward to think, read, and steady yourself, instead of soaking up the moods of a crowd. \"As far as you can\" is realistic. Most of us cannot leave our work or our families, but we can protect some quiet hours. Those hours are where your own judgment gets a chance to speak.",
                     bullets = listOf(
                         InsightBullet("Steady first", "Character still in progress is easily shaken; quiet time lets it settle."),
@@ -4283,7 +4283,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Company That Lifts You",
-                    blockquote = "Associate with those who will make a better man of you.",
+                    blockquote = "Spend time with people who will make you better.",
                     body = "We take on the habits of the people around us, often without noticing. Seneca suggests choosing that influence on purpose. Spend time with people whose patience, honesty, or discipline you would like to share. Right after this line he adds that you should also welcome those you can help, because people learn while they teach. Good company works in both directions.",
                     bullets = listOf(
                         InsightBullet("Choose your influences", "Notice who leaves you calmer and kinder, and see them more often."),
@@ -4303,7 +4303,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Plain Without Penance",
-                    blockquote = "Philosophy calls for plain living, but not for penance",
+                    blockquote = "Philosophy asks for simple living, not penance.",
                     body = "Penance is suffering taken on as a show of seriousness, and Seneca has no use for it. A plain life means not needing luxuries; it does not mean making yourself miserable. Hardship worn in public can become its own kind of vanity, a way of being noticed for how little you have. The aim is freedom from excess, not a new costume of poverty.",
                     bullets = listOf(
                         InsightBullet("Simple, not severe", "Living plainly means wanting little, not hurting yourself on purpose."),
@@ -4313,7 +4313,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Neat and Unassuming",
-                    blockquote = "we may perfectly well be plain and neat at the same time",
+                    blockquote = "You can be plain and neat at once.",
                     body = "Seneca wants an inner difference with outward ordinariness. Dress cleanly and modestly, keep a tidy home, eat simple food well prepared. None of this draws a crowd or pushes people away. In the same letter he says the first thing philosophy promises is fellow feeling with all people. A strange appearance would put a wall between you and the people you hope to live alongside.",
                     bullets = listOf(
                         InsightBullet("Clean and modest", "Plain things can still be cared for and pleasant to use."),
@@ -4334,7 +4334,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Name the Price",
-                    blockquote = "Consider at what price you sell your own will",
+                    blockquote = "Think about what price you sell your will for.",
                     body = "The will, for Epictetus, is your power to choose, judge, and consent. It is the most valuable thing you have and the one thing fully in your control. Yet people trade it away all the time: agreeing to what they think is wrong to avoid an awkward moment, or flattering to keep a seat at the table. Epictetus asks you to stop and name the price before you sign.",
                     bullets = listOf(
                         InsightBullet("Name the trade", "When you are about to go along with something, ask what you are getting for it."),
@@ -4344,7 +4344,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Never for a Trifle",
-                    blockquote = "if for no other reason, at least for this, that you sell it not for a small sum",
+                    blockquote = "At least don't sell it cheap.",
                     body = "There is a touch of humor here. Epictetus meets his listeners where they are. If you are not yet ready to treat your integrity as priceless, at least stop selling it for trifles. In the lines that follow he admits that few become a Socrates, the Athenian philosopher he admired most. But no one neglects their body just because they will never be a champion. Progress starts with refusing the cheap deals.",
                     bullets = listOf(
                         InsightBullet("Start somewhere", "You do not need to be a sage to refuse a bad bargain today."),
@@ -4364,7 +4364,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Take Your Portion",
-                    blockquote = "Stretch out your hand and take a portion with decency.",
+                    blockquote = "When a dish comes to you, take a polite portion.",
                     body = "When good things come within reach, Epictetus does not ask you to refuse them. Take them, with decency: a fair share, without grabbing or heaping your plate. Friendship, work, comfort, and honor are all dishes on the table. Enjoy what comes to you, and be the kind of guest who leaves enough for others.",
                     bullets = listOf(
                         InsightBullet("Accept the good", "There is no virtue in refusing what is fairly offered to you."),
@@ -4374,7 +4374,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Let the Dish Pass",
-                    blockquote = "Suppose that it passes by you. Do not detain it.",
+                    blockquote = "When it passes you by, don't hold it back.",
                     body = "The harder part is watching a dish pass you by. The promotion goes to someone else; the invitation never comes. Epictetus says do not grab at it, and in the full passage, do not send your desire ahead to dishes not yet near you. Waiting your turn calmly keeps you free. Craning after every plate only makes the meal anxious.",
                     bullets = listOf(
                         InsightBullet("No grabbing", "When something passes you by, let it go without reaching after it."),
@@ -4395,7 +4395,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Need Versus Must",
-                    blockquote = "Buy not what you need, but what you must have.",
+                    blockquote = "Buy what you must have, not what you merely want.",
                     body = "The line sounds odd at first, since need and must seem the same. Here \"need\" means the loose way we use the word: I need a new jacket, I need that gadget. \"Must have\" is stricter: what you cannot do without. By pulling the two apart, the saying shows how many of our needs are really preferences in disguise.",
                     bullets = listOf(
                         InsightBullet("Loose need", "Notice how often you say \"I need\" about things you simply like."),
@@ -4405,7 +4405,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Dear at Any Price",
-                    blockquote = "That which you do not need, is dear even at a farthing.",
+                    blockquote = "What you don't need is expensive even at a penny.",
                     body = "A farthing was the smallest coin, a quarter of a penny. Even at that price, the saying goes, an unneeded thing is expensive. The real cost is not only the money. It is the space, the care, the clutter, and the habit of buying without thinking. A bargain on something you do not need is not a bargain at all.",
                     bullets = listOf(
                         InsightBullet("The hidden bill", "Unneeded things cost storage, upkeep, and attention long after the sale."),
@@ -4425,7 +4425,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Strength Already Given",
-                    blockquote = "We mortals have been endowed with sufficient strength by nature",
+                    blockquote = "Nature has given us enough strength, if only we use it.",
                     body = "Seneca is not flattering anyone. He is simply saying the capacity is already there. You do not need a special gift to resist anger or excess. But strength must be used, gathered, and pointed in one direction. Many of us scatter our efforts, half resisting and half indulging, so our own powers work against each other. The first step is to stop hindering yourself.",
                     bullets = listOf(
                         InsightBullet("Already equipped", "Assume you have enough strength for today's task, and act on that."),
@@ -4435,7 +4435,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Reason and Excuse",
-                    blockquote = "The reason is unwillingness, the excuse, inability.",
+                    blockquote = "The real reason is unwillingness; the excuse is inability.",
                     body = "This is the sharpest line in the letter, and Seneca means it kindly. Just before it, he says we are in love with our vices and would rather make excuses for them than shake them off. \"I can't\" is often a softer way of saying \"I don't want to yet.\" Naming the difference is not an accusation. It returns the choice to you, which is where Seneca believes it belongs.",
                     bullets = listOf(
                         InsightBullet("Translate the phrase", "When you hear yourself say \"I can't,\" test whether \"I won't\" is more accurate."),
@@ -4464,7 +4464,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Silence by Default",
-                    blockquote = "Let silence be the general rule",
+                    blockquote = "Be silent most of the time",
                     body = "Epictetus does not ban speech. He makes silence the starting point, the place you return to when nothing needs saying. Much talk is filler: repeating news, comparing people, keeping the air busy. Quiet gives you room to listen and to notice what is really going on. It also spares you many of the small regrets that follow careless words.",
                     bullets = listOf(
                         InsightBullet("Start from quiet", "Let speaking be a choice you make, not a reflex you follow."),
@@ -4474,7 +4474,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Few and Needed Words",
-                    blockquote = "let only what is necessary be said, and in few words",
+                    blockquote = "say only what is needed, in few words",
                     body = "When you do speak, Epictetus offers two filters. Is it necessary? Can it be said briefly? In the same chapter he names what to avoid most: idle chatter about games and meals, and above all praising, blaming, or comparing people. Brief, needed words carry more weight because they are not buried in noise.",
                     bullets = listOf(
                         InsightBullet("Two filters", "Ask whether it needs saying, and whether it can be said shorter."),
@@ -4494,7 +4494,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "A Rehearsal of Little",
-                    blockquote = "Set aside a certain number of days, during which you shall be content with the scantiest and cheapest fare, with coarse and rough dress",
+                    blockquote = "Set aside a few days to live on the plainest food and roughest clothes",
                     body = "Seneca means a real practice, not an imagined one. Choose a few days, eat simply, dress plainly, and live with less than usual. He compares it to soldiers drilling in peacetime, with no enemy in sight, so that they are ready when trouble comes. The exercise is voluntary and brief. That is what makes it calming: you meet the thing you fear on your own terms.",
                     bullets = listOf(
                         InsightBullet("Drill in peacetime", "Rehearse simplicity while life is easy, so it is familiar if life gets hard."),
@@ -4504,7 +4504,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "The Fear Up Close",
-                    blockquote = "Is this the condition that I feared?",
+                    blockquote = "Is this what I was afraid of?",
                     body = "Much of our worry about losing comfort comes from never having looked at it closely. From a distance, a simpler life seems frightening. Up close, plain bread and a worn coat are ordinary and bearable. Seneca's question lets the fear shrink to its true size. Once you have seen that you can be content with little, you can enjoy what you have without dreading its loss.",
                     bullets = listOf(
                         InsightBullet("Shrink the fear", "Meeting a feared condition often shows it is smaller than imagined."),
@@ -4524,8 +4524,8 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "The Body in Its Place",
-                    blockquote = "Limit the flesh as much as possible",
-                    body = "Seneca is not against health. In the same letter he recommends short, simple exercises like running and jumping. His concern is proportion. When looking after the body becomes the main project, with heavy meals, long hours of training, and constant attention, it crowds out everything else. Limiting the flesh means giving it what keeps it well and then stopping.",
+                    blockquote = "Give the body as little as you can",
+                    body = "Seneca is not against health. In the same letter he recommends short, simple exercises like running and jumping. His concern is proportion. When looking after the body becomes the main project, with heavy meals, long hours of training, and constant attention, it crowds out everything else. Giving the body as little as you can means giving it what keeps it well and then stopping.",
                     bullets = listOf(
                         InsightBullet("Short and simple", "Keep exercise brief and useful rather than all-consuming."),
                         InsightBullet("Enough, then stop", "Care for the body until it is well, not until it is the center of life.")
@@ -4534,7 +4534,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Room for the Spirit",
-                    blockquote = "allow free play to the spirit",
+                    blockquote = "the mind as much freedom as you can",
                     body = "Free play suggests movement and room, not grim effort. Seneca wants the mind to have time to read, think, and reflect, the way a runner wants open ground. He notes that the mind should be exercised day and night, and that this kind of exercise is not stopped by bad weather or even old age. The time you gain by not overdoing the physical can go to what makes you wiser and calmer.",
                     bullets = listOf(
                         InsightBullet("Always available", "The mind can be trained anywhere, with a book, a walk, or a quiet moment."),
@@ -4554,7 +4554,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Habits Grow by Use",
-                    blockquote = "If you would make anything a habit, do it",
+                    blockquote = "If you want something to become a habit, do it.",
                     body = "Epictetus gives plain examples: a good reader reads, a good writer writes. Skip reading for thirty days and you will notice the loss. Lie in bed for ten and your legs grow weak. The same is true of character. Patience grows by being patient, honesty by being honest. There is no shortcut around repetition, but there is no mystery either: you become what you keep doing.",
                     bullets = listOf(
                         InsightBullet("Repetition builds", "Small daily practice does more than rare, intense effort."),
@@ -4564,7 +4564,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Replace, Don't Just Resist",
-                    blockquote = "accustom yourself to do something else in place of it",
+                    blockquote = "do something else instead",
                     body = "Stopping a habit is only half the work. Epictetus says that each time you give in to anger, you strengthen the habit, like throwing fuel on a fire. Simply resisting leaves an empty space that the old habit rushes back to fill. So choose a replacement. When the urge comes, do something else on purpose, until the new response is the familiar one.",
                     bullets = listOf(
                         InsightBullet("Fuel or water", "Each repetition either feeds a habit or starves it; none is neutral."),
@@ -4585,7 +4585,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Attention Has a Price",
-                    blockquote = "the attention given to everything has its proper value and proportion",
+                    blockquote = "Give each thing the attention it deserves, no more.",
                     body = "Attention is limited, and Marcus treats it like a budget. Some things deserve a great deal: your duties, the people you love, your own conduct. Others deserve a glance: a rumor, a slight, a small inconvenience. Trouble starts when the proportion slips and a minor matter takes the hours a major one needed. Seeing attention as something with value helps you spend it on purpose.",
                     bullets = listOf(
                         InsightBullet("A budget", "Treat your attention as limited, because it is."),
@@ -4595,7 +4595,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Small Things, Small Share",
-                    blockquote = "you will not be dissatisfied, if you apply yourself to smaller matters no further than is fit",
+                    blockquote = "small matters won't leave you dissatisfied",
                     body = "Marcus links proportion to contentment. When you pour too much energy into a minor matter, you end up frustrated, partly because the result never repays the effort. Giving small things only what is fit leaves you free for what matters and spares you the letdown of overinvesting. It is a practical way to keep your days from being eaten by trifles.",
                     bullets = listOf(
                         InsightBullet("Avoid overinvesting", "Too much effort on a trifle leads to irritation when it fails to satisfy."),
@@ -4615,7 +4615,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "An Imagined Witness",
-                    blockquote = "Set as a guard over yourself the authority of some man",
+                    blockquote = "Set someone you respect to watch over you",
                     body = "Just before this line, Seneca quotes Epicurus: do everything as if someone were watching you. Solitude, he admits, tempts us toward things we would never do in company. So choose a person whose good opinion you value and keep them in mind as a witness. Seneca adds that once you respect yourself enough, you can send this guard away. Until then, borrow someone's steadiness.",
                     bullets = listOf(
                         InsightBullet("Borrowed conscience", "Picture a respected person beside you when you are tempted to cut corners."),
@@ -4625,7 +4625,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "A Presence That Steadies",
-                    blockquote = "any man in whose presence even abandoned wretches would check their bad impulses",
+                    blockquote = "someone in whose presence even the worst would behave",
                     body = "The guard need not be famous. Seneca's test is simple: someone whose presence alone makes people behave better. Most of us know such a person, a grandparent, a teacher, or a friend whose quiet integrity changes the room. Keeping them in mind is not about fear of judgment. It reminds you of who you want to be when no one else is looking.",
                     bullets = listOf(
                         InsightBullet("The room-changer", "Think of someone whose calm decency makes others more careful."),
@@ -4656,7 +4656,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Enough From Your Own",
-                    blockquote = "No matter how small it is, it will be enough if we can only make up the deficit from our own resources.",
+                    blockquote = "However little you have, it's enough if you can cover the gap from your own resources.",
                     body = "The size of your means matters less than whether they cover your wants. If you can close the gap from within, by needing a little less, even a small amount is enough. Seneca adds right after this that it makes no difference whether you crave nothing or possess something. Either way, the prize is the same: freedom from worry.",
                     bullets = listOf(
                         InsightBullet("Close the gap", "When money is short, look first at shrinking the want, not only at growing the income."),
@@ -4676,7 +4676,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Not Swept Along",
-                    blockquote = "guard yourself against being carried away by it",
+                    blockquote = "don't be carried away",
                     body = "An impression is the first picture that arrives in your mind: the taste of a second dessert, the thrill of an impulse purchase. Epictetus does not say pleasure is bad. He says the danger is being carried away, acting before you have looked. The image is of a current. If you stand still for a moment, the current loses its pull.",
                     bullets = listOf(
                         InsightBullet("First picture", "Recognize the initial appeal as an impression, not yet a decision."),
@@ -4686,7 +4686,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Let the Pleasure Wait",
-                    blockquote = "let the thing wait for you, and allow yourself a certain delay on your own part",
+                    blockquote = "Make it wait, and give yourself a pause.",
                     body = "Notice who waits for whom. Usually we wait on our pleasures and rush to them. Epictetus reverses this: let the pleasure wait for you. In the delay, he suggests picturing both times, the enjoyment and the hour after, and how glad you would be to have chosen well. Sometimes you will still choose the pleasure. But now it is your choice, not the current's.",
                     bullets = listOf(
                         InsightBullet("Reverse the waiting", "Make the pleasure wait for your decision instead of you waiting on it."),
@@ -4707,7 +4707,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "The Daily Question",
-                    blockquote = "On every occasion a man should ask himself, Is this one of the unnecessary things?",
+                    blockquote = "Always ask: is this necessary?",
                     body = "Marcus does not hand himself a list of things to cut. He gives himself a question to ask everywhere. Much of what we do is never questioned; it simply happens because it happened yesterday. Asking \"Is this necessary?\" brings habits into the light. Many remain, and that is fine. Some, once looked at, quietly disappear, and their absence leaves a calmer day.",
                     bullets = listOf(
                         InsightBullet("On every occasion", "Make the question a habit, not a once-a-year cleanup."),
@@ -4717,7 +4717,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Pruning at the Root",
-                    blockquote = "a man should take away not only unnecessary acts, but also unnecessary thoughts",
+                    blockquote = "Cut needless thoughts as well as needless acts",
                     body = "Acts grow from thoughts. Replaying an argument leads to the sharp message; imagining what others think leads to the needless favor. Marcus sees that trimming actions alone is endless work, because the thoughts keep producing new ones. Clear the unnecessary thought, and the superfluous act never starts. It is pruning at the root rather than clipping leaves.",
                     bullets = listOf(
                         InsightBullet("Thought before act", "Trace an unwanted action back to the thought that set it moving."),
@@ -4739,7 +4739,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Not Every Voice Counts",
-                    blockquote = "A man should hold on to the opinion not of all",
+                    blockquote = "Value the opinion not of everyone",
                     body = "Trying to please everyone is exhausting and impossible, because people want contradictory things. Marcus releases himself from that task. He does not say to ignore everyone, but to stop treating every comment, glance, or rumor as a verdict. In the full passage he notes that praise from people who are not even satisfied with themselves is worth very little.",
                     bullets = listOf(
                         InsightBullet("Release the crowd", "You cannot satisfy everyone, so stop measuring yourself by everyone."),
@@ -4749,8 +4749,8 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Judges Worth Hearing",
-                    blockquote = "but of those only who confessedly live according to nature",
-                    body = "\"Confessedly\" means openly, evidently: people whose lives plainly show good sense, fairness, and self-control. Their judgment is worth hearing because it comes from a steady place. These might be a few friends, a mentor, or a relative whose conduct you admire. Their honest criticism is a gift, and their praise means something precisely because they give it carefully.",
+                    blockquote = "but only of those who clearly live as nature intends",
+                    body = "\"Clearly\" means openly, evidently: people whose lives plainly show good sense, fairness, and self-control. Their judgment is worth hearing because it comes from a steady place. These might be a few friends, a mentor, or a relative whose conduct you admire. Their honest criticism is a gift, and their praise means something precisely because they give it carefully.",
                     bullets = listOf(
                         InsightBullet("A short list", "Name two or three people whose judgment you genuinely trust."),
                         InsightBullet("Evident lives", "Choose judges by how they live, not by how loudly they speak."),
@@ -4780,7 +4780,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Serious, Not Somber",
-                    blockquote = "is a stern matter",
+                    blockquote = "is a serious thing",
                     body = "Stern does not mean grim. Seneca means weighty, deep, and steady. He compares it to rich mines whose veins lie deep rather than on the surface. A person who can face hardship, hold back from excess, and keep their values has a quiet gladness that laughter cannot match. It is less like a burst of fun and more like solid ground underfoot.",
                     bullets = listOf(
                         InsightBullet("Deep veins", "Lasting joy is found by digging into what matters, not by skimming pleasures."),
@@ -4800,7 +4800,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Only the Will Decides",
-                    blockquote = "except the will nothing is good nor bad",
+                    blockquote = "nothing is good or bad except your own choices",
                     body = "This is the core Stoic claim. Health, money, and reputation matter, but they are not good or bad in themselves; what you do with them is. Your will, meaning your choices and judgments, is where good and evil actually live. In sickness, this means a fever cannot make you bad, though how you bear it can make you better. It turns attention from what is happening to how you meet it.",
                     bullets = listOf(
                         InsightBullet("Events are neutral", "A diagnosis or a loss is a circumstance; your response carries the moral weight."),
@@ -4810,7 +4810,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Following, Not Leading",
-                    blockquote = "we ought not to lead events, but to follow them",
+                    blockquote = "we should follow events, not try to lead them",
                     body = "We often try to drive events, insisting things go our way and arguing with what has already happened. Epictetus suggests a lighter posture: let events lead, and follow them with good judgment. He gives an example at once: my brother should not have treated me this way, but that is his business; mine is to treat him as I ought. Following is not passivity. It puts your effort where it works.",
                     bullets = listOf(
                         InsightBullet("Lighter posture", "Stop arguing with what has already happened and ask what it calls for."),
@@ -4839,7 +4839,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Not a Birth Gift",
-                    blockquote = "Nature does not bestow virtue",
+                    blockquote = "Nature doesn't give us virtue.",
                     body = "Nature gives us capacities: reason, feeling, the ability to learn. It does not give us a finished character. Seneca says the early humans were innocent because they did not know about luxury, not because they had mastered desire. That kind of goodness is fragile. It holds only until temptation arrives. Real virtue has met the temptation and chosen otherwise.",
                     bullets = listOf(
                         InsightBullet("Capacity, not character", "You are born able to become good, not already good."),
@@ -4849,7 +4849,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "A Craft to Learn",
-                    blockquote = "it is an art to become good",
+                    blockquote = "Becoming good is an art.",
                     body = "Art here means a craft, like carpentry or medicine, learned through teaching and practice. That is hopeful. If goodness were a gift, those born without it would be stuck. Because it is an art, anyone can begin, make mistakes, and improve. Like any craft, it takes attention, repetition, and patience with yourself as a beginner.",
                     bullets = listOf(
                         InsightBullet("Anyone can start", "No one is barred from learning goodness, whatever their beginning."),
@@ -4870,7 +4870,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Choosing to Set It Down",
-                    blockquote = "I should prefer you to abandon grief",
+                    blockquote = "I would rather you leave grief behind",
                     body = "Seneca is gentle here. He is not saying grief is wrong; in the same letter he allows that tears will come and are natural. His hope is that Lucilius will in time decide to let grief go, out of understanding: the friend's life was a gift, and remembering him can become a pleasant memory rather than a wound. Letting go becomes an act of love, not of forgetting.",
                     bullets = listOf(
                         InsightBullet("Tears allowed", "Grief is natural, and Seneca does not ask you to hide it."),
@@ -4880,7 +4880,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Not Waiting for Weariness",
-                    blockquote = "rather than have grief abandon you",
+                    blockquote = "than wait for grief to leave you",
                     body = "Time ends grief eventually, Seneca observes, but simply growing tired of sorrow is a poor way for it to end. He would rather you take part in your own healing. This does not mean rushing. It means noticing when grief has become a habit rather than a tribute, and gently turning to the life and the people still in front of you.",
                     bullets = listOf(
                         InsightBullet("Take part", "Healing can be something you do, not only something that happens to you."),
@@ -4901,8 +4901,8 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "A Voice Against the Tide",
-                    blockquote = "Cato's voice strove to check a civil war. Cato parted the swords of maddened chieftains.",
-                    body = "Rome was sliding toward civil war between powerful men with armies. Cato had no army of his own, only his voice and his reputation for honesty, and he used both to try to hold the factions apart. \"Parted the swords\" is vivid language: one man, unarmed, stepping between leaders gripped by rage. Seneca's letter admires the courage even as it questions the politics.",
+                    blockquote = "Cato's voice tried to stop a civil war. He stepped between the swords of furious leaders",
+                    body = "Rome was sliding toward civil war between powerful men with armies. Cato had no army of his own, only his voice and his reputation for honesty, and he used both to try to hold the factions apart. \"Stepped between the swords\" is vivid language: one man, unarmed, stepping between leaders gripped by rage. Seneca's letter admires the courage even as it questions the politics.",
                     bullets = listOf(
                         InsightBullet("Unarmed courage", "Cato's only weapons were his words and his good name."),
                         InsightBullet("Stepping between", "Sometimes courage means standing in the gap between people who are angry.")
@@ -4911,8 +4911,8 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Defying Both Sides",
-                    blockquote = "When some fell foul of Pompey and others fell foul of Caesar, Cato defied both parties at once.",
-                    body = "Most people choose a side and defend it. Cato refused to belong to either strongman. \"Fell foul of\" means quarreled with or opposed. While others lined up behind one leader against the other, Cato opposed both, because neither stood for what he valued. That kind of independence is lonely and rare. It is what made him an example Seneca kept returning to.",
+                    blockquote = "defied both Pompey and Caesar at once",
+                    body = "Most people choose a side and defend it. Cato refused to belong to either strongman. While others lined up behind one leader against the other, Cato opposed both, because neither stood for what he valued. That kind of independence is lonely and rare. It is what made him an example Seneca kept returning to.",
                     bullets = listOf(
                         InsightBullet("No easy camp", "Integrity sometimes means refusing both of the sides on offer."),
                         InsightBullet("Lonely but clear", "Standing alone is hard, but it keeps your judgment your own.")
@@ -4931,7 +4931,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Nothing to Ask of Luck",
-                    blockquote = "Fortune, I have nothing to do with you. I am not at your service.",
+                    blockquote = "Fortune, I have nothing to do with you. I don't serve you.",
                     body = "For the Romans, Fortune was the goddess of chance who handed out success and failure. Seneca pictures a person who refuses to bargain with her. Others pray, campaign, and flatter in hope of her favor. This person simply steps out of the contest. Being \"not at her service\" means your sense of worth no longer depends on what luck delivers.",
                     bullets = listOf(
                         InsightBullet("Out of the contest", "When you stop needing a prize, the anxiety around it eases."),
@@ -4941,7 +4941,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Cato Spurned, Vatinius Made",
-                    blockquote = "I know that men like Cato are spurned by you, and men like Vatinius made by you. I ask no favors.",
+                    blockquote = "You reject men like Cato and raise up men like Vatinius. I ask no favors.",
                     body = "Seneca points to a plain fact of Roman life: the honest Cato could lose an election and the corrupt Vatinius could win it. Fortune does not reward virtue. Seeing this clearly is freeing. If good people are often passed over, then being passed over says nothing about your worth. You can stop asking for favors and simply keep doing what is right.",
                     bullets = listOf(
                         InsightBullet("Results are not verdicts", "Losing out says little about character when luck plays favorites."),
@@ -4962,7 +4962,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Trust Without Reserve",
-                    blockquote = "When friendship is settled, you must trust",
+                    blockquote = "Once a friendship is formed, trust.",
                     body = "Seneca holds friendship to a high standard. Once you have truly accepted someone as a friend, half trust is not enough. Speak to them as freely as you would to yourself. Holding back, testing, and watching for betrayal treats a friend as a suspect. Seneca adds that some people, fearing to be deceived, have taught others to deceive. Regard a friend as loyal, he says, and you will make him loyal.",
                     bullets = listOf(
                         InsightBullet("Full trust", "With a true friend, speak as openly as you would in your own thoughts."),
@@ -4972,7 +4972,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Judge Before You Join",
-                    blockquote = "before friendship is formed, you must pass judgment",
+                    blockquote = "Before it is formed, judge.",
                     body = "The care belongs at the start. Before you call someone a friend, take time to watch how they act, what they value, and how they treat others. Seneca says to ponder for a long time whether to admit someone to friendship, and once you decide, to welcome them with all your heart. The mistake is reversing the order: making a friend first and judging afterward.",
                     bullets = listOf(
                         InsightBullet("Slow to choose", "Give new acquaintances time before you name them friends."),
@@ -4993,7 +4993,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Stop Looking for Payment",
-                    blockquote = "You need not look about for the reward of a just deed",
+                    blockquote = "Don't look for a reward for a just deed.",
                     body = "When we do something fair or kind, we often glance around: did anyone see, and will it be returned? Seneca says to stop looking. Justice that waits for a reward is closer to a trade. Just before this line he suggests telling yourself, \"I must be just without reward.\" That frees you from keeping score, and from disappointment when no thanks arrive.",
                     bullets = listOf(
                         InsightBullet("No scorekeeping", "Do the fair thing without tracking what you are owed for it."),
@@ -5003,7 +5003,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "The Deed as Its Return",
-                    blockquote = "a just deed in itself offers a still greater return",
+                    blockquote = "A just deed is its own greater reward.",
                     body = "The return is the kind of person you become by acting justly. Each fair choice strengthens your character and lets you live without inner conflict. Seneca adds that it makes no difference how many people know of your uprightness. Those who want their virtue advertised are striving for renown, not virtue. The reward is quiet, but it is entirely yours.",
                     bullets = listOf(
                         InsightBullet("Inner return", "Acting justly leaves you at peace with yourself, which no prize can buy."),
@@ -5023,7 +5023,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Lay Things Bare",
-                    blockquote = "Where there are things which appear most worthy of our approbation, we ought to lay them bare and look at their worthlessness",
+                    blockquote = "When something seems most impressive, strip it bare.",
                     body = "Approbation means approval or admiration. Marcus targets the things that seem most impressive, because those pull hardest. Laying them bare is a deliberate act of plain description. He applied it even to the purple robe, a mark of his own rank as emperor. The point is not to sneer at everything, but to see clearly what you are really wanting.",
                     bullets = listOf(
                         InsightBullet("Describe it plainly", "Name an admired thing by what it is made of, not by its reputation."),
@@ -5033,7 +5033,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Strip the Fancy Words",
-                    blockquote = "strip them of all the words by which they are exalted",
+                    blockquote = "without the words that praise it",
                     body = "Much of a thing's appeal lives in the words around it: exclusive, luxury, prestigious, award-winning. Marcus notices that we are often moved more by the description than by the thing. Remove the praise and look again. Sometimes something good remains, and you can enjoy it honestly. Often very little is left, and its hold on you weakens.",
                     bullets = listOf(
                         InsightBullet("Words that lift", "Notice adjectives doing the work of making something seem precious."),
@@ -5053,7 +5053,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Weak at First",
-                    blockquote = "Every emotion at the start is weak.",
+                    blockquote = "Every emotion is weak at first",
                     body = "Anger begins as irritation, envy as a passing comparison, craving as a small thought. In those early moments, the emotion is easy to notice and easy to redirect. Seneca observes that every vice has some plea at first and seems modest and easily persuaded. The opening is short, but it is real. Learning to recognize the first flicker is the main skill he recommends.",
                     bullets = listOf(
                         InsightBullet("The first flicker", "Notice the small early version of a strong feeling."),
@@ -5063,7 +5063,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Easier Before Than After",
-                    blockquote = "it is more easy to forestall it than to forgo it",
+                    blockquote = "It is easier to stop it early than to shake it later.",
                     body = "To forestall is to stop something before it gets going; to forgo is to give it up once you have it. Seneca says the first is much easier. Once an emotion has grown, it argues for itself, gathers memories, and colors everything. He adds that if you let it begin, you cannot be sure of its ending. So the best time to act is at the threshold, before the guest has moved in.",
                     bullets = listOf(
                         InsightBullet("Before, not after", "Act on a feeling while it is small rather than after it takes hold."),
@@ -5092,7 +5092,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "The Greatest Contest",
-                    blockquote = "We must not shrink when we are engaged in the greatest combat",
+                    blockquote = "Don't shrink from the greatest contest.",
                     body = "The Greeks prized wrestling and the pancration, a rough mix of boxing and wrestling. Epictetus says the real contest is bigger: it is for a good life and peace of mind, so flinching makes little sense. He also offers comfort. Unlike the Olympic Games, this contest does not make you wait four years. If you drop out, you can return as soon as you have recovered yourself.",
                     bullets = listOf(
                         InsightBullet("Higher stakes", "The effort to live well matters more than any game or prize."),
@@ -5102,7 +5102,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Expect to Be Hit",
-                    blockquote = "we must even take blows",
+                    blockquote = "Be ready even to take blows.",
                     body = "Every athlete knows that contests involve being knocked down. Epictetus treats setbacks the same way: a broken resolution, a lapse in temper, a hard week. They are part of the contest, not proof that you should quit. Taking blows means accepting that you will sometimes fail and staying in anyway. The danger he warns of is not falling, but growing comfortable with giving up.",
                     bullets = listOf(
                         InsightBullet("Blows are normal", "A lapse is part of training, not a reason to stop."),
@@ -5122,7 +5122,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "Fidelity and Modesty",
-                    blockquote = "Where else is friendship than where there is fidelity, and modesty",
+                    blockquote = "Where is friendship, if not where there is loyalty, modesty",
                     body = "Fidelity means being faithful and keeping your word. Modesty here means a sense of decency and restraint, the inner check that keeps you from taking advantage of others. Epictetus says people who place their good in money or status will turn on each other when those things are at stake. Only those who place their good in their own character can rely on each other.",
                     bullets = listOf(
                         InsightBullet("Faithful", "A friend is someone whose word holds when keeping it costs something."),
@@ -5132,7 +5132,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "Sharing Only the Honest",
-                    blockquote = "where there is a communion of honest things and of nothing else",
+                    blockquote = "a sharing of what is good, and nothing else",
                     body = "Communion means sharing. Epictetus says real friends share honest things, and nothing else. Friendships built on shared gossip, shared grudges, or shared schemes may feel close, but they rest on weak ground. When the gossip ends or the scheme goes wrong, the bond dissolves. What two people build around honesty and good aims tends to last.",
                     bullets = listOf(
                         InsightBullet("What you share", "Notice whether a friendship runs mainly on complaints or on good aims."),
@@ -5153,7 +5153,7 @@ object InsightData {
                 InsightSection(
                     number = 1,
                     title = "No Corner Owns You",
-                    blockquote = "I am not born for any one corner of the universe",
+                    blockquote = "I was not born for one corner of the world.",
                     body = "Seneca says the person you are matters more than the place you go. If your peace depends on a particular house, town, or view, you become a servant of that place. Leave it and you suffer; stay and you may grow restless. Seneca wants a mind that is not bound to any one spot, so that it can settle wherever life puts it.",
                     bullets = listOf(
                         InsightBullet("Bring yourself", "A new place helps little if the same worries ride along."),
@@ -5163,7 +5163,7 @@ object InsightData {
                 InsightSection(
                     number = 2,
                     title = "The World as Home",
-                    blockquote = "this whole world is my country",
+                    blockquote = "The whole world is my country.",
                     body = "This is the Stoic idea of being a citizen of the world. If the whole world is your country, you are never truly in exile, and no place is entirely foreign. Seneca notes that what you seek, to live well, can be found everywhere. Even the crowded forum can be lived in quietly if you must. The idea widens your loyalty too: every person you meet is in some sense a fellow citizen.",
                     bullets = listOf(
                         InsightBullet("Never in exile", "Wherever you are, you can live by the same values."),
